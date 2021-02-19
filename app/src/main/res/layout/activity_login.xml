@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="loginViewModel"
+            type="com.htf.diva.auth.viewModel.LoginViewModel" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".auth.ui.LoginActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/llLang"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingStart="@dimen/margin_10dp"
+            android:paddingTop="@dimen/margin_5dp"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:layout_marginTop="@dimen/dimen_50"
+            android:paddingEnd="@dimen/margin_10dp"
+            android:onClick="onSwitchLang"
+            android:paddingBottom="@dimen/dimen_5"
+            android:background="@drawable/bg_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_language"
+                android:layout_width="@dimen/dimen_30"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="@dimen/margin_30dp"
+                android:padding="@dimen/dimen_5"
+                android:src="@drawable/ic_language"
+                app:tint="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/tvLang"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_language"
+                android:layout_marginStart="@dimen/dimen_5"
+                android:fontFamily="@font/avenir_light"
+                android:gravity="center"
+                android:text="@string/english"
+                android:textAllCaps="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/font_13sp"
+                android:textStyle="bold" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/dimen_50"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:layout_marginEnd="@dimen/dimen_20"
+            android:layout_below="@id/llLang">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enter_your_mobile_no"
+                android:textColor="@color/colorHeadingText"
+                android:textSize="@dimen/font_18sp"
+                android:layout_gravity="start"
+                android:textAlignment="viewStart"
+                android:fontFamily="@font/avenir_black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/you_will_receive_4_digit_code_to_verify_next"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/font_14sp"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_gravity="start"
+                android:textAlignment="viewStart"
+                android:fontFamily="@font/avenir_light"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layoutDirection="ltr"
+                android:layout_marginTop="@dimen/dimen_15">
+
+                <TextView
+                    android:id="@+id/tvDialCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="966"
+                    android:textColor="@color/colorHeadingText"
+                    android:fontFamily="@font/avenir_black"
+                    android:textSize="@dimen/font_14sp"
+                    android:layout_gravity="start"
+                    android:textAlignment="viewStart"/>
+
+                <EditText
+                    android:id="@+id/etMobileNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_15"
+                    android:textSize="@dimen/font_14sp"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    android:text="@={loginViewModel.mMobile}"
+                    android:fontFamily="@font/avenir_roman"
+                    android:hint="12-345-6789"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:background="@android:color/transparent"/>
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tvLoginError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/avenir_roman"
+                android:gravity="end"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/colorWhite"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_35"
+                android:background="@drawable/btn_bg"
+                android:backgroundTint="@color/colorHintText"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:onClick="@{()->loginViewModel.onLoginClick()}"
+                android:fontFamily="@font/avenir_roman"
+                android:paddingStart="@dimen/margin_4dp"
+                android:paddingTop="@dimen/margin_12dp"
+                android:paddingEnd="@dimen/margin_4dp"
+                android:paddingBottom="@dimen/margin_12dp"
+                android:text="@string/next"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp"
+                android:textAllCaps="false">
+
+            </TextView>
+
+
+
+        </LinearLayout>
+
+</RelativeLayout>
+</layout>

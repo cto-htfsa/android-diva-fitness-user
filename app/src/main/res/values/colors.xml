@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#371257</color>
+    <color name="colorPrimaryDark">#171D2A</color>
+    <color name="colorAccent">#602990</color>
+
+    <!--components colors-->
+    <color name="colorHeadingText">#171D2A</color>
+    <color name="colorText">#666666</color>
+    <color name="colorHintText">#DEDEE2</color>
+    <color name="colorAgeBg">#F8F5FA</color>
+    <color name="colorTextRed">#EA1B4B</color>
+    <color name="colorSuccess">#4BB543</color>
+    <color name="colorWhite">#FFFFFF</color>
+
+    <!--Home Screen colors-->
+    <color name="colorBranchBg1">#F9E8F3</color>
+    <color name="colorBranchBg2">#EBF9FB</color>
+    <color name="colorBranchBg3">#FEF5ED</color>
+    <color name="colorBranchBg4">#EFEAEE</color>
+    <color name="colorLocationBg1">#FCF3F9</color>
+    <color name="colorLocationBg2">#F5FCFD</color>
+    <color name="colorLocationBg3">#FEFAF6</color>
+    <color name="colorLocationBg4">#F7F4F6</color>
+    <color name="colorBranchText1">#AD3A95</color>
+    <color name="colorBranchText2">#46C4DB</color>
+    <color name="colorBranchText3">#F99D47</color>
+    <color name="colorBranchText4">#5E2A53</color>
+    <color name="colorViewAllBg">#EFEAF4</color>
+    <color name="colorRatingBg">#FAB73B</color>
+    <color name="colorDiscountBg">#FFFBF5</color>
+    <color name="colorDiscountStrokeBg">#FCDA9B</color>
+    <color name="colorScheduleCircularProgressBg">#F6CF45</color>
+    <color name="colorProteinProgressBg">#F69645</color>
+    <color name="colorCarbsProgressBg">#19C5C8</color>
+    <color name="colorFatProgressBg">#E8654B</color>
+    <color name="colorTodayDietPlanText">#F69645</color>
+    <color name="colorTodayWorkOutText">#5D3A7C</color>
+    <color name="colorMembershipExpiredBg">#E2445C</color>
+    <color name="colorBookingTrainerDetailBg">#FEF5ED</color>
+    <color name="colorBookingSuccess">#13B161</color>
+    <color name="colorLogOutBg">#4B2967</color>
+    <color name="colorDownloadInvoiceText">#C80821</color>
+    <color name="colorPaymentStatusBg">#D4EFD0</color>
+    <color name="colorPaymentStatusText">#278515</color>
+    <color name="colorPaymentHistoryRowBg">#F8F5FA</color>
+
+
+
+
+</resources>

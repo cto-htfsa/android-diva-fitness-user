@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Diva</string>
+    <string name="noConnection">No Internet Connection available.</string>
+    <string name="turnOnInternet">Turn On your Internet !!</string>
+    <string name="mobileData">Mobile data</string>
+    <string name="wifi">WIFI</string>
+    <string name="server_error">Sorry Server is facing some technical issues. please try after some time.</string>
+    <string name="arabic">العربية</string>
+    <string name="english">English</string>
+    <string name="keep_smiling_and_stay_healthy"><![CDATA[Keep Smiling & Stay Healthy]]></string>
+    <string name="enter_your_mobile_no">Enter your \nmobile number</string>
+    <string name="you_will_receive_4_digit_code_to_verify_next">You\'ll receive a 4 digit code to verify next.</string>
+    <string name="next">Next</string>
+    <string name="mobile_no_required">Please Enter Your mobile number to continue.</string>
+    <string name="invalid_mobile">Invalid Mobile number</string>
+    <string name="enter_code_sent_to_your_number">Enter code sent \nto your number</string>
+    <string name="we_sent_it_to_the_number">We sent it to the number [x]</string>
+    <string name="dint_receive_the_otp">Didn\'t receive the otp?</string>
+    <string name="resend_otp">Resend Otp</string>
+    <string name="enter_your_name">Enter your name</string>
+</resources>

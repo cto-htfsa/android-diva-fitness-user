@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".auth.ui.AboutYouActivity">
+
+    <data>
+        <variable
+            name="aboutViewModel"
+            type="com.htf.diva.auth.viewModel.AboutViewModel" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/llTop"
+            layout="@layout/toolbar"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/dimen_15"
+            android:layout_marginEnd="@dimen/dimen_15"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/dimen_40">
+
+
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:textSize="@dimen/font_14sp"
+                android:inputType="textPersonName"
+                android:imeOptions="actionDone"
+                android:text=""
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:fontFamily="@font/avenir_roman"
+                android:hint="@string/enter_your_name"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@android:color/transparent"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>
