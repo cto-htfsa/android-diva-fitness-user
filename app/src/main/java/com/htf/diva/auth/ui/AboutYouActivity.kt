@@ -22,6 +22,7 @@ class AboutYouActivity : BaseDarkActivity<ActivityAboutYouBinding,AboutViewModel
     override var layout = R.layout.activity_about_you
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.aboutViewModel=viewModel
         //setContentView(R.layout.activity_about_you)
     }
 }

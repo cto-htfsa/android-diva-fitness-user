@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".auth.ui.AboutYouActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="aboutViewModel"
             type="com.htf.diva.auth.viewModel.AboutViewModel" />
@@ -18,37 +16,120 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <include
             android:id="@+id/llTop"
-            layout="@layout/toolbar"/>
+            layout="@layout/toolbar" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="@dimen/dimen_15"
-            android:layout_marginEnd="@dimen/dimen_15"
             android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/dimen_40">
+            android:layout_marginStart="@dimen/dimen_15"
+            android:layout_marginTop="@dimen/dimen_40"
+            android:layout_marginEnd="@dimen/dimen_15"
+            android:orientation="vertical">
 
 
             <EditText
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_15"
-                android:textSize="@dimen/font_14sp"
-                android:inputType="textPersonName"
-                android:imeOptions="actionDone"
-                android:text=""
                 android:layout_gravity="center"
-                android:gravity="center"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:background="@android:color/transparent"
                 android:fontFamily="@font/avenir_roman"
+                android:gravity="center"
                 android:hint="@string/enter_your_name"
+                android:imeOptions="actionDone"
+                android:inputType="textPersonName"
+                android:text=""
                 android:textColor="@color/colorPrimaryDark"
-                android:background="@android:color/transparent"/>
+                android:textSize="@dimen/font_14sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_30"
+                android:padding="@dimen/dimen_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/avenir_black"
+                    android:text="@string/age"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/font_14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/select_age_bg"
+                    android:elevation="@dimen/dimen_5"
+                    android:fontFamily="@font/avenir_black"
+                    android:paddingStart="@dimen/dimen_20"
+                    android:paddingTop="@dimen/dimen_7"
+                    android:paddingEnd="@dimen/dimen_20"
+                    android:paddingBottom="@dimen/dimen_7"
+                    android:text="@string/age"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/font_12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_10">
+
+                <TextView
+                    android:id="@+id/tvMinAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/avenir_light"
+                    android:text="10 years"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/font_10sp" />
+
+                <com.jem.rubberpicker.RubberSeekBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/tvMinAge"
+                    app:dampingRatio="0.3"
+                    app:defaultThumbInsideColor="@color/colorPrimary"
+                    app:defaultThumbRadius="@dimen/margin_16dp"
+                    app:elasticBehavior="cubic"
+                    app:highlightDefaultThumbOnTouchColor="#CD5D67"
+                    app:highlightTrackColor="#BA1F33"
+                    app:highlightTrackWidth="@dimen/dimen_7"
+                    app:maxValue="80"
+                    app:minValue="20"
+                    app:normalTrackColor="#AAAAAA"
+                    app:normalTrackWidth="4dp"
+                    app:stiffness="300"
+                    app:stretchRange="24dp" />
+
+
+                <TextView
+                    android:id="@+id/tvMaxAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/avenir_light"
+                    android:text="10 years"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/font_10sp" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 

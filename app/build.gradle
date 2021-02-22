@@ -68,8 +68,12 @@ dependencies {
     implementation 'com.github.siyamed:android-shape-imageview:0.9.3@aar'
     implementation 'net.bohush.geometricprogressview:geometricprogressview:1.1.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.0.3'
+    //implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.0.3'
+    implementation 'com.github.aabhasr1:OtpView:v1.1.2'
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
+
+    //seekbar
+    implementation 'com.github.Chrisvin:RubberPicker:v1.5'
 
     //glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
