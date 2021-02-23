@@ -91,5 +91,8 @@ dependencies {
     //AutofitTextView
     implementation 'me.grantland:autofittextview:0.2.+'
 
+    //bottom namvigation
+    implementation 'com.github.simformsolutions:SSCustomBottomNavigation:1.0'
+
 
 }

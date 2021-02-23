@@ -52,5 +52,4 @@ abstract class BaseFragment<V : BaseViewModel>(private val viewModelClass: Class
 
 
 
-
 }

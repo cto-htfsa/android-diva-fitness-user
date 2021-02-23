@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Diva">
-        <activity android:name=".auth.ui.AboutYouActivity"></activity>
+        <activity android:name=".dashboard.ui.HomeActivity"></activity>
+        <activity android:name=".auth.ui.AboutYouActivity" />
         <activity android:name=".auth.ui.OtpActivity" />
         <activity android:name=".auth.ui.LoginActivity" />
         <activity android:name=".auth.ui.SplashActivity">
