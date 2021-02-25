@@ -3,7 +3,7 @@ package com.htf.diva.netUtils
 object Constants {
 
     object Urls{
-        var BASE_URL = "https://eyenak.in/"
+        var BASE_URL = "https://development.htf.sa/diva/"
         var DEBUG_BASE_URL =/* "http://157.175.84.232/"*/BASE_URL
         val USER_IMAGE_URL="https://d3tvor57efdhti.cloudfront.net/assets/uploads/images/"
         val COUNTRY_IMAGE_URL = "$BASE_URL/uploads/country_flags/"

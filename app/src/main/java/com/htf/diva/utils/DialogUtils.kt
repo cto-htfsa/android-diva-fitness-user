@@ -27,6 +27,7 @@ import com.htf.diva.BuildConfig
 import com.htf.diva.R
 import com.htf.diva.base.MyApplication
 import kotlinx.android.synthetic.main.dialog_no_internet.view.*
+import kotlinx.android.synthetic.main.dialog_progress.*
 import kotlinx.android.synthetic.main.layout_snackbar.view.*
 import kotlinx.android.synthetic.main.toast_view.view.*
 
@@ -44,7 +45,7 @@ object DialogUtils {
         val dialogView = activity.layoutInflater.inflate(R.layout.dialog_progress, null)
         overlayDialog.setContentView(dialogView)
         overlayDialog.setCanceledOnTouchOutside(false)
-        //Glide.with(activity).asGif().load(R.drawable.loader_hr).into(overlayDialog.ivLoader)
+        Glide.with(activity).asGif().load(R.drawable.hr_loader_2).into(overlayDialog.iv_loader)
         if (!activity.isFinishing) {
             overlayDialog.show()
         }

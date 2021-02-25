@@ -4,8 +4,11 @@ package com.htf.diva.base
 import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.htf.diva.netUtils.APIClient
+import com.htf.diva.netUtils.Constants
 import com.htf.diva.netUtils.Constants.Auth_Intent_Actions.BROADCAST_ACTION_BLACKLISTED
 import com.htf.diva.utils.AppPreferences
+import com.htf.diva.utils.AppSession
 import org.json.JSONObject
 import retrofit2.Response
 import java.io.IOException
@@ -14,19 +17,20 @@ import java.io.IOException
 open class BaseRepository {
 
     suspend fun <T : Any> safeApiCall(call: suspend () -> Response<BaseResponse<T>>): T? {
-        val userData= AppPreferences.getInstance(MyApplication.getAppContext()).getUserDetails()
-       /* if (userData!=null){
+        val userData=AppPreferences.getInstance(MyApplication.getAppContext()).getUserDetails()
+        if (userData!=null){
             val currTime=System.currentTimeMillis()
             val expireTime=userData.userTokenExpireTime!!
             if (currTime>=expireTime){ //triggered when user login but token expired
                 var output: T? = null
-                val c=APIClient.authApiClient.userRefreshTokenAsync().await()
+                val c= APIClient.authApiClient.userRefreshTokenAsync().await()
                 if (c.isSuccessful){
                     val res=c.body()?.data
                     userData.expiresIn=res?.expiresIn
-                    userData.token=res?.token
-                    AppPreferences.getInstance(MyApplication.getAppContext()).saveInPreference(Constants.Auth.KEY_TOKEN,userData.token!!)
-                    AppSession.userToken = userData.token!!
+                    userData.accessToken=res?.accessToken
+                    AppPreferences.getInstance(MyApplication.getAppContext()).saveInPreference(
+                        Constants.Auth.KEY_TOKEN,userData.accessToken!!)
+                    AppSession.userToken = userData.accessToken!!
                     val currentTime = System.currentTimeMillis()
                     val expTime=currentTime+((userData.expiresIn?.toInt()!!-10)*1000)
                     userData.userTokenExpireTime=expTime
@@ -69,14 +73,13 @@ open class BaseRepository {
                     result.exception as T
             }
             return output
-        }*/
-        return null
+        }
     }
 
 
     suspend fun <T : Any> safeRefreshApiCall(call: suspend () -> Response<BaseResponse<T>>): T? {
         val userData=AppPreferences.getInstance(MyApplication.getAppContext()).getUserDetails()
-        /*if (userData!=null){
+        if (userData!=null){
             val currTime=System.currentTimeMillis()
             val expireTime=userData.userTokenExpireTime!!
             if (currTime>=expireTime){ //triggered when user login but token expired
@@ -119,8 +122,7 @@ open class BaseRepository {
                     result.exception as T
             }
             return output
-        }*/
-        return safeApiCall(call)
+        }
     }
 
 
@@ -139,7 +141,7 @@ open class BaseRepository {
         return resultLiveData
     }
 
-     suspend fun <T : Any> executeApi(call: suspend () -> Response<T>): Output<T> {
+    suspend fun <T : Any> executeApi(call: suspend () -> Response<T>): Output<T> {
         val response = call.invoke()
         return if (response.isSuccessful)
             Output.Success(response.body()!!)
@@ -176,8 +178,8 @@ open class BaseRepository {
     }
 
     private suspend fun <T : Any> sampleRefreshApiCall(
-            call: suspend () -> Response<T>,
-            error: String? = null
+        call: suspend () -> Response<T>,
+        error: String? = null
     ): Output<T> {
         val response=call.invoke()
         return if (response?.isSuccessful!!)
@@ -244,6 +246,8 @@ open class BaseRepository {
 
         return message
     }
+
+
 
 
 

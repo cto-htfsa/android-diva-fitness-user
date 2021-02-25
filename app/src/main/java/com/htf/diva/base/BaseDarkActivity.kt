@@ -34,8 +34,7 @@ abstract class BaseDarkActivity<T : ViewDataBinding, V : BaseViewModel>(private 
     open val layout: Int = -1
     open val initializeViewModel: V.() -> Unit = {}
     var progressDialog: Dialog? = null
-    private val mReceiver: AppBroadCastReceiver = AppBroadCastReceiver()
-    val currUser= AppPreferences.getInstance(MyApplication.getAppContext()).getUserDetails()
+    val currUser=AppPreferences.getInstance(MyApplication.getAppContext()).getUserDetails()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -162,25 +161,8 @@ abstract class BaseDarkActivity<T : ViewDataBinding, V : BaseViewModel>(private 
     override fun onResume() {
         super.onResume()
         try {
-            registerBroadCastReceiver()
         } catch (e: Exception) {
             e.printStackTrace()
-        }
-    }
-
-    private fun registerBroadCastReceiver() {
-        val filter = IntentFilter()
-        filter.addAction(BROADCAST_ACTION)
-        filter.addAction("user_black_listed")
-        registerReceiver(mReceiver, filter)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        try {
-            unregisterReceiver(mReceiver)
-        } catch (ex: Exception) {
-            ex.printStackTrace()
         }
     }
 

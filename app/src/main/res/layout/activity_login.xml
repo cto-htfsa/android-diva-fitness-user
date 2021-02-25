@@ -104,7 +104,7 @@
                     android:id="@+id/tvDialCode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="966"
+                    android:text="+966"
                     android:textColor="@color/colorHeadingText"
                     android:fontFamily="@font/avenir_black"
                     android:textSize="@dimen/font_14sp"
@@ -139,7 +139,6 @@
 
 
             <Button
-                android:id="@+id/btnNext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_35"

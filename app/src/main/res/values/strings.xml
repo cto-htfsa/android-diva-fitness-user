@@ -32,4 +32,11 @@
     <string name="membership">Membership</string>
     <string name="workout">Workout</string>
     <string name="diet">Diet</string>
+    <string name="enable_your_location">Enable Your Location</string>
+    <string name="ok">Ok</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="youAreNotUpdatedMessage">A new version is available .Please update to version <b><u><i>[x]</i></u></b>.</string>
+    <string name="youAreNotUpdatedTitle">Update Available</string>
+    <string name="update">Update</string>
 </resources>

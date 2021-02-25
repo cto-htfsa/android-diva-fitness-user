@@ -7,6 +7,7 @@ import com.htf.diva.netUtils.Constants.Auth.KEY_TOKEN
 import com.htf.diva.utils.AppPreferences
 import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.AppUtils
+import com.htf.diva.auth.ApiRepo.AuthApiInterface
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -31,8 +32,6 @@ object APIClient {
                 val originalRequest = chain.request()
                 val builder = originalRequest.newBuilder()
                     .header("X-Requested-With", "XMLHttpRequest")
-                    .header("Content-Type", "application/x-www-form-urlencoded")
-                    .header("locale", AppSession.locale)
 
                 val userToken = AppPreferences.getInstance(MyApplication.getInstance()).getFromPreference(KEY_TOKEN)
                 if (userToken.isNotEmpty()) {
@@ -59,5 +58,6 @@ object APIClient {
             .build()
     }
 
+    val authApiClient: AuthApiInterface = getClient().create(AuthApiInterface::class.java)
 
 }

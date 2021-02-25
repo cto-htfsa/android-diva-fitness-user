@@ -7,17 +7,21 @@ import android.os.Bundle
 import android.view.View
 import com.htf.diva.R
 import com.htf.diva.auth.viewModel.LoginViewModel
+import com.htf.diva.auth.viewModel.SplashViewModel
 import com.htf.diva.base.BaseDarkActivity
+import com.htf.diva.base.MyApplication
+import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.databinding.ActivityLoginBinding
+import com.htf.diva.models.UserData
 import com.htf.diva.netUtils.Constants
-import com.htf.diva.utils.AppPreferences
-import com.htf.diva.utils.AppSession
-import com.htf.diva.utils.DialogUtils
-import com.htf.diva.utils.observerViewModel
+import com.htf.diva.netUtils.Constants.Auth.KEY_TOKEN
+import com.htf.diva.utils.*
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseDarkActivity<ActivityLoginBinding,LoginViewModel>(LoginViewModel::class.java) {
     private var currActivity:Activity=this
+    private val mSplashViewModel by lazy { getViewModel<SplashViewModel>() }
+
 
     companion object{
         fun open(currActivity: Activity){
@@ -35,17 +39,34 @@ class LoginActivity : BaseDarkActivity<ActivityLoginBinding,LoginViewModel>(Logi
 
     }
 
+
     private fun viewModelInitialize() {
         observerViewModel(viewModel.errorValidateRes,this::onHandleValidationErrorResponse)
+        observerViewModel(viewModel.isApiCalling,this::onHandleShowProgress)
+        observerViewModel(viewModel.mLoginData,this::onHandleLoginSuccessResponse)
+        observerViewModel(viewModel.errorResult,this::onHandleApiErrorResponse)
+        observerViewModel(mSplashViewModel.errorResult,this::onHandleApiErrorResponse)
+        observerViewModel(mSplashViewModel.isApiCalling,this::onHandleShowProgress)
+    }
 
-
+    private fun onHandleShowProgress(isNotShow:Boolean) {
+        if (isNotShow) progressDialog?.show() else progressDialog?.dismiss()
+    }
+    private fun onHandleApiErrorResponse(error: String){
+        showToast(error,true)
     }
 
     private fun onHandleValidationErrorResponse(error:String) {
-        //DialogUtils.showSnackBar(currActivity, tvLoginError, error)
-        OtpActivity.open(currActivity)
-
+        DialogUtils.showSnackBar(currActivity, tvLoginError, error)
     }
+
+    private fun onHandleLoginSuccessResponse(userData: UserData?){
+        userData?.let {
+            OtpActivity.open(currActivity)
+            finish()
+        }
+    }
+
 
     fun onSwitchLang(view:View){
         switchLang()

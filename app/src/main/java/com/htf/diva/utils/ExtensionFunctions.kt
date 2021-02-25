@@ -25,13 +25,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.htf.diva.R
+import com.htf.diva.models.AppSetting
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.layout_snackbar.view.*
 import kotlinx.android.synthetic.main.toast_view.view.*
 
+
 import java.io.File
 import java.io.Serializable
-fun <L : LiveData<T>, T : Any> LifecycleOwner.observerViewModel(liveData: L, body: (T) -> Unit) =
+fun <L : LiveData<T>, T : Any> LifecycleOwner. observerViewModel(liveData: L, body: (T) -> Unit) =
     liveData.observe(
         this,
         Observer(body)
@@ -150,9 +152,9 @@ fun Activity?.showToast(message: String, isError: Boolean) {
         if (msg.trim()!=""){
             val toast = Toast(this)
             val params = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    Gravity.CENTER.toFloat()
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                Gravity.CENTER.toFloat()
             )
 
             val view= LayoutInflater.from(this).inflate(R.layout.toast_view,null,false)
@@ -171,39 +173,57 @@ fun Activity?.showToast(message: String, isError: Boolean) {
     }
 }
 
+fun Activity?.buildAlertMessageNoGps(){
+    val builder = AlertDialog.Builder(this)
+    val dialogLangView = this?.layoutInflater?.inflate(R.layout.dialog_no_gps, null)
+    builder.setView(dialogLangView)
+    builder.setCancelable(true)
+    val dialog= builder.show()
 
+/*    dialogLangView?.tvOkay.setOnClickListener {
+        this?.startActivity(Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+        dialog.dismiss()
+    }*/
 
-
-/*fun Activity?.showForceUpdateDialog(appSetting:AppSetting) {
-    val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(
-            ContextThemeWrapper(this!!, theme)
+    dialog.window?.setLayout(
+        WindowManager.LayoutParams.MATCH_PARENT,
+        WindowManager.LayoutParams.MATCH_PARENT
     )
-    alertDialogBuilder.setTitle(this!!.getString(R.string.youAreNotUpdatedTitle))
+    //dialog.window?.setGravity(Gravity.CENTER)
+    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    dialog.show()
+}
+
+
+
+fun Activity?.showForceUpdateDialog(appSetting: AppSetting) {
+    val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(
+        ContextThemeWrapper(this!!, theme)
+    )
+    alertDialogBuilder.setTitle(this.getString(R.string.youAreNotUpdatedTitle))
     var str=getString(R.string.youAreNotUpdatedMessage)
-    val versionCode="${appSetting.value}"
+    val versionCode="${appSetting.appVersion}"
     str=str.replace("[x]",versionCode)
     alertDialogBuilder.setMessage(str)
 
     alertDialogBuilder.setCancelable(false)
     alertDialogBuilder.setPositiveButton(
-            R.string.update, DialogInterface.OnClickListener { dialog, id ->
-        try {
-            startActivity(
+        R.string.update, DialogInterface.OnClickListener { dialog, id ->
+            try {
+                startActivity(
                     Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("http://play.google.com/store/apps/details?id=" + this.packageName)
+                        Intent.ACTION_VIEW,
+                        Uri.parse("http://play.google.com/store/apps/details?id=" + this.packageName)
                     )
-            )
-            finish()
-        } catch (e: ActivityNotFoundException) {
+                )
+                finish()
+            } catch (e: ActivityNotFoundException) {
 
-        }
-        dialog.cancel()
-    })
+            }
+            dialog.cancel()
+        })
     alertDialogBuilder.show()
 
-}*/
-
-
+}
 
 
