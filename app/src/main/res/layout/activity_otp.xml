@@ -132,6 +132,7 @@
                     android:layout_marginStart="5dp"
                     android:fontFamily="@font/avenir_light"
                     android:text="@string/resend_otp"
+                    android:onClick="@{()->otpViewModel.onResendOtpButtonClick()}"
                     android:textColor="@color/colorPrimary"
                     android:layout_gravity="center"
                     android:textSize="12sp"

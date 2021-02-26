@@ -9,19 +9,21 @@ import com.htf.diva.utils.DialogUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okio.IOException
 import java.lang.Exception
 
 class OtpViewModel:BaseViewModel() {
 
     val errorResult = MutableLiveData<String>()
-    val isApiCalling= MutableLiveData<Boolean>()
-    val mResendOtpData= MutableLiveData<Any>()
-    val mHashToken= MutableLiveData<String>()
+    val isApiCalling=MutableLiveData<Boolean>()
+    val mVerifyOtpData=MutableLiveData<UserData>()
+    val mResendOtpData=MutableLiveData<Any>()
+    val mHashToken=MutableLiveData<String>()
+    val mUserId=MutableLiveData<String>()
     val mFcmId = MutableLiveData<String>("")
-    val mOtp = MutableLiveData<String>("")
 
-   /* fun verifyOtp(hashToken:String,otp:String){
+
+
+    fun verifyOtp(hashToken: String, otp: String, userId: String?){
         if (!DialogUtils.isInternetOn()){
             isInternetOn.postValue(false)
             return
@@ -29,15 +31,22 @@ class OtpViewModel:BaseViewModel() {
         isApiCalling.postValue(true)
         scope.launch {
             val result=try {
-                AuthApiRepo.userVerifyOtpAsync(AppSession.deviceId,AppSession.deviceType,AppSession.locale,
-                    BuildConfig.VERSION_NAME,"","","",mFcmId.toString())
-            }catch (e: Exception){
+                AuthApiRepo.userVerifyOtpAsync(AppSession.deviceId, AppSession.deviceType,AppSession.locale,
+                    BuildConfig.VERSION_NAME,userId!! ,hashToken,otp,  mFcmId.value.toString())
+            }catch (e:Exception){
                 isApiCalling.postValue(false)
                 errorResult.postValue(e.localizedMessage)
             }
+            withContext(Dispatchers.Main){
+                isApiCalling.postValue(false)
+                if (result is UserData)
+                    mVerifyOtpData.postValue(result)
+                else
+                    errorResult.postValue(result.toString())
+            }
         }
-    }*/
-/*
+    }
+
     fun onResendOtpButtonClick(){
         if (!DialogUtils.isInternetOn()){
             isInternetOn.postValue(false)
@@ -46,18 +55,20 @@ class OtpViewModel:BaseViewModel() {
         isApiCalling.postValue(true)
         scope.launch {
             val result=try {
-                AuthApiRepo.userResendOtpAsync(mHashToken.value.toString())
-            }catch (e: Exception){
+                AuthApiRepo.userResendOtpAsync(AppSession.deviceId,AppSession.deviceType,AppSession.locale,
+                    BuildConfig.VERSION_NAME,mUserId.value.toString(),mHashToken.value.toString())
+            }catch (e:Exception){
                 isApiCalling.postValue(false)
                 errorResult.postValue(e.localizedMessage)
             }
-            withContext(Dispatchers.Main) {
+            withContext(Dispatchers.Main){
                 isApiCalling.postValue(false)
                 if (result is UserData)
-                    mLoginData.postValue(result)
+                    mResendOtpData.postValue(result)
                 else
                     errorResult.postValue(result.toString())
             }
         }
-    }*/
+    }
+
 }

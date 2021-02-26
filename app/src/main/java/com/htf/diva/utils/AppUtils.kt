@@ -41,7 +41,7 @@ object AppUtils  {
 
     fun countDownTimer(): LiveData<String> {
         val liveData = MutableLiveData<String>()
-        object : CountDownTimer(1 * 60000, 1000) { // adjust the milli seconds here
+        object : CountDownTimer(1 * 30000, 1000) { // adjust the milli seconds here
 
             @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {

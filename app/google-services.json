@@ -1,0 +1,127 @@
+{
+  "project_info": {
+    "project_number": "307500747415",
+    "firebase_url": "https://eyenak-7c588.firebaseio.com",
+    "project_id": "eyenak-7c588",
+    "storage_bucket": "eyenak-7c588.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307500747415:android:0aee38b59d09423693f7d2",
+        "android_client_info": {
+          "package_name": "com.htf.eyenak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307500747415-9bjjlt15mjlk3qq1qt29e5382apun5b6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.htf.eyenak",
+            "certificate_hash": "a3c9dfe277471c1db4344d84e4463b88db6c470d"
+          }
+        },
+        {
+          "client_id": "307500747415-j3ifreonq05r2fie0s1i8na8rghucf7r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi2MxGwD9TeHRxUmMXSrgVP_Xdqx7ysKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307500747415-j3ifreonq05r2fie0s1i8na8rghucf7r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "307500747415-6f2aeubu7e4trh31iod9d327q2dq2qpb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.htf.eyenak"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307500747415:android:d5876000b4eb1c1a93f7d2",
+        "android_client_info": {
+          "package_name": "com.htf.eyenakClient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307500747415-j3ifreonq05r2fie0s1i8na8rghucf7r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi2MxGwD9TeHRxUmMXSrgVP_Xdqx7ysKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307500747415-j3ifreonq05r2fie0s1i8na8rghucf7r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "307500747415-6f2aeubu7e4trh31iod9d327q2dq2qpb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.htf.eyenak"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307500747415:android:fc1cd0e4035beb9393f7d2",
+        "android_client_info": {
+          "package_name": "com.htf.eyenakhr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307500747415-j3ifreonq05r2fie0s1i8na8rghucf7r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi2MxGwD9TeHRxUmMXSrgVP_Xdqx7ysKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307500747415-j3ifreonq05r2fie0s1i8na8rghucf7r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "307500747415-6f2aeubu7e4trh31iod9d327q2dq2qpb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.htf.eyenak"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

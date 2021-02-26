@@ -47,6 +47,19 @@ interface AuthApiInterface {
         @Field("fcm_id")fcm_id:String
         ):Deferred<Response<BaseResponse<UserData>>>
 
+     @FormUrlEncoded
+    @POST("api/v1/resend/otp")
+    fun userResendOtpAsync(
+        @Field("device_id")device_id:String,
+        @Field("device_type")device_type:String,
+        @Field("locale") locale:String,
+        @Field("current_version")current_version:String,
+        @Field("id")id:String,
+        @Field("hash_token")hash_token:String
+        ):Deferred<Response<BaseResponse<UserData>>>
+
+
+
 
 }
 

@@ -2,19 +2,15 @@ package com.htf.diva.auth.ui
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.htf.diva.R
 import com.htf.diva.auth.viewModel.LoginViewModel
 import com.htf.diva.auth.viewModel.SplashViewModel
 import com.htf.diva.base.BaseDarkActivity
-import com.htf.diva.base.MyApplication
-import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.databinding.ActivityLoginBinding
 import com.htf.diva.models.UserData
 import com.htf.diva.netUtils.Constants
-import com.htf.diva.netUtils.Constants.Auth.KEY_TOKEN
 import com.htf.diva.utils.*
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -62,7 +58,7 @@ class LoginActivity : BaseDarkActivity<ActivityLoginBinding,LoginViewModel>(Logi
 
     private fun onHandleLoginSuccessResponse(userData: UserData?){
         userData?.let {
-            OtpActivity.open(currActivity)
+            OtpActivity.open(currActivity,userData.id,userData.token,fcmId = null)
             finish()
         }
     }

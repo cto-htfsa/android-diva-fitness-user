@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 class UserData:Serializable {
+
     @SerializedName("access_token")
     @Expose
     var accessToken: String? = null

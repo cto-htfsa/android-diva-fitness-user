@@ -61,12 +61,10 @@ abstract class BaseDarkActivity<T : ViewDataBinding, V : BaseViewModel>(private 
             DialogUtils.showNoInternetDialog(this,null,12345)
     }
 
-
     private fun <V : BaseViewModel> obtainViewModel() =
         ViewModelProvider(this).get(viewModelClass).apply {
             lifecycle.addObserver(this@BaseDarkActivity)
         }
-
 
     private fun <C : ViewDataBinding> bind(layout: Int) {
         binding = DataBindingUtil.setContentView<T>(this, layout).apply {

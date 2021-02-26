@@ -134,7 +134,7 @@ fun Activity?.showSnackBar(view: View, string: String){
 
     val snackbar: Snackbar = Snackbar.make(view, "", Snackbar.LENGTH_LONG)
     val layout: Snackbar.SnackbarLayout = snackbar.getView() as Snackbar.SnackbarLayout
-    val textView: TextView = layout.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+    val textView: TextView = layout.findViewById(R.id.snackbar_text) as TextView
     textView.setVisibility(View.INVISIBLE)
     val snackView: View = this?.layoutInflater?.inflate(R.layout.layout_snackbar, null)!!
     snackView.tvMsg.text=string
