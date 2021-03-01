@@ -1,38 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="homeFragmentViewModel"
+            type="com.htf.diva.dashboard.viewModel.HomeViewModel" />
+        <import type="android.view.View" />
+    </data>
 
 
-
-
-<data>
-
-    <variable
-        name="homeFragmentViewModel"
-        type="com.htf.diva.dashboard.viewModel.HomeViewModel" />
-
-    <import type="android.view.View" />
-</data>
-
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".dashboard.fragments.HomeFragment">
-
-    <LinearLayout
-        android:id="@+id/container"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        tools:context=".dashboard.fragments.HomeFragment">
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-    </LinearLayout>
 
-
-</FrameLayout>
+    </FrameLayout>
 </layout>

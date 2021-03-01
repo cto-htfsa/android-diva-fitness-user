@@ -33,7 +33,6 @@
 
 
             <EditText
-                android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -42,12 +41,24 @@
                 android:fontFamily="@font/avenir_black"
                 android:gravity="center"
                 android:hint="@string/enter_your_name"
+                android:text="@={aboutViewModel.mName}"
                 android:textColorHint="@color/colorHintText"
                 android:imeOptions="actionDone"
                 android:inputType="textPersonName"
-                android:text=""
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/font_16sp" />
+
+            <TextView
+                android:id="@+id/tvAboutUsError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/avenir_roman"
+                android:gravity="end"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/colorWhite"
+                android:visibility="gone" />
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -65,24 +76,43 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/font_14sp" />
 
-                <TextView
-                    android:id="@+id/tvAge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
+
+                <LinearLayout
                     android:background="@drawable/select_age_bg"
-                    android:elevation="@dimen/dimen_5"
-                    android:layout_margin="@dimen/dimen_5"
-                    android:fontFamily="@font/avenir_roman"
-                    android:textStyle="normal"
-                    android:paddingStart="@dimen/dimen_20"
-                    android:paddingTop="@dimen/dimen_7"
-                    android:paddingEnd="@dimen/dimen_20"
-                    android:paddingBottom="@dimen/dimen_7"
-                    android:text="23 years"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/font_11sp" />
+                    android:layout_width="wrap_content"
+                    android:paddingStart="@dimen/dimen_15"
+                    android:paddingTop="@dimen/dimen_5"
+                    android:paddingEnd="@dimen/dimen_15"
+                    android:paddingBottom="@dimen/dimen_5"
+                    android:layout_alignParentEnd="true"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvAge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="@dimen/dimen_5"
+                        android:layout_margin="@dimen/dimen_5"
+                        android:layout_gravity="center"
+                        android:text="@={aboutViewModel.mAge}"
+                        android:fontFamily="@font/avenir_black"
+                        android:textStyle="normal"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/font_11sp" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_black"
+                        android:textStyle="normal"
+                        android:layout_gravity="center"
+                        android:text="@string/years"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/font_11sp" />
+
+
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -98,24 +128,26 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/avenir_light"
-                    android:text="10 years"
+                    android:text="@string/min_age"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/font_10sp" />
 
                 <com.jem.rubberpicker.RubberSeekBar
+                    android:id="@+id/ageSeekBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/tvMinAge"
                     android:layout_toStartOf="@id/tvMaxAge"
                     app:dampingRatio="0.3"
+                    android:padding="@dimen/margin_4dp"
                     app:defaultThumbInsideColor="@color/white"
                     app:defaultThumbRadius="@dimen/margin_10dp"
                     app:elasticBehavior="cubic"
                     android:layout_marginStart="@dimen/dimen_10"
                     app:highlightTrackColor="@color/colorPrimary"
                     app:highlightTrackWidth="@dimen/dimen_2"
-                    app:maxValue="80"
-                    app:minValue="20"
+                    app:maxValue="65"
+                    app:minValue="18"
                     app:normalTrackColor="@color/colorHintText"
                     app:normalTrackWidth="@dimen/dimen_2"
                     app:stiffness="300"
@@ -129,7 +161,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/avenir_light"
-                    android:text="10 years"
+                    android:text="@string/max_age"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/font_10sp" />
 
@@ -151,24 +183,41 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/font_14sp" />
 
-                <TextView
-                    android:id="@+id/tvHeight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
+                <LinearLayout
                     android:background="@drawable/select_age_bg"
-                    android:elevation="@dimen/dimen_5"
-                    android:fontFamily="@font/avenir_roman"
-                    android:textStyle="normal"
-                    android:layout_margin="@dimen/dimen_5"
-                    android:paddingStart="@dimen/dimen_20"
-                    android:paddingTop="@dimen/dimen_7"
-                    android:paddingEnd="@dimen/dimen_20"
-                    android:paddingBottom="@dimen/dimen_7"
-                    android:text="120 cm"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/font_11sp" />
+                    android:layout_width="wrap_content"
+                    android:paddingStart="@dimen/dimen_15"
+                    android:paddingTop="@dimen/dimen_5"
+                    android:paddingEnd="@dimen/dimen_15"
+                    android:paddingBottom="@dimen/dimen_5"
+                    android:layout_alignParentEnd="true"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvHeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_black"
+                        android:textStyle="normal"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/dimen_5"
+                        android:text="@={aboutViewModel.mHeight}"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/font_11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_black"
+                        android:textStyle="normal"
+                        android:layout_gravity="center"
+                        android:text="@string/cm"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/font_11sp" />
+
+                </LinearLayout>
+
+
 
             </RelativeLayout>
 
@@ -184,11 +233,12 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/avenir_light"
-                    android:text="10 years"
+                    android:text="@string/min_height"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/font_10sp" />
 
                 <com.jem.rubberpicker.RubberSeekBar
+                    android:id="@+id/heightSeekBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/tvMinHeight"
@@ -200,8 +250,9 @@
                     android:layout_marginStart="@dimen/dimen_10"
                     app:highlightTrackColor="@color/colorPrimary"
                     app:highlightTrackWidth="@dimen/dimen_2"
-                    app:maxValue="80"
-                    app:minValue="20"
+                    app:maxValue="150"
+                    app:minValue="50"
+                    android:padding="@dimen/margin_4dp"
                     app:normalTrackColor="@color/colorHintText"
                     app:normalTrackWidth="@dimen/dimen_2"
                     app:stiffness="300"
@@ -215,7 +266,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/avenir_light"
-                    android:text="10 years"
+                    android:text="@string/max_height"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/font_10sp" />
 
@@ -237,24 +288,41 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/font_14sp" />
 
-                <TextView
-                    android:id="@+id/tvWeight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
+                <LinearLayout
                     android:background="@drawable/select_age_bg"
-                    android:elevation="@dimen/dimen_5"
-                    android:fontFamily="@font/avenir_roman"
-                    android:textStyle="normal"
-                    android:paddingStart="@dimen/dimen_20"
-                    android:paddingTop="@dimen/dimen_7"
-                    android:paddingEnd="@dimen/dimen_20"
-                    android:paddingBottom="@dimen/dimen_7"
-                    android:layout_margin="@dimen/dimen_5"
-                    android:text="20 kg"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/font_11sp" />
+                    android:layout_width="wrap_content"
+                    android:paddingStart="@dimen/dimen_15"
+                    android:paddingTop="@dimen/dimen_5"
+                    android:paddingEnd="@dimen/dimen_15"
+                    android:paddingBottom="@dimen/dimen_5"
+                    android:layout_alignParentEnd="true"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="@dimen/dimen_5"
+                        android:fontFamily="@font/avenir_black"
+                        android:textStyle="normal"
+                        android:layout_gravity="center"
+                        android:text="@={aboutViewModel.mWeight}"
+                        android:layout_margin="@dimen/dimen_5"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/font_11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_black"
+                        android:textStyle="normal"
+                        android:layout_gravity="center"
+                        android:text="@string/kg"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/font_11sp" />
+
+
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -270,11 +338,12 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/avenir_light"
-                    android:text="10 years"
+                    android:text="@string/min_weight"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/font_10sp" />
 
                 <com.jem.rubberpicker.RubberSeekBar
+                    android:id="@+id/weightSeekBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/tvMinWeigth"
@@ -286,8 +355,9 @@
                     android:layout_marginStart="@dimen/dimen_10"
                     app:highlightTrackColor="@color/colorPrimary"
                     app:highlightTrackWidth="@dimen/dimen_2"
-                    app:maxValue="80"
-                    app:minValue="20"
+                    app:maxValue="200"
+                    app:minValue="30"
+                    android:padding="@dimen/margin_4dp"
                     app:normalTrackColor="@color/colorHintText"
                     app:normalTrackWidth="@dimen/dimen_2"
                     app:stiffness="300"
@@ -301,7 +371,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/avenir_light"
-                    android:text="10 years"
+                    android:text="@string/max_weight"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/font_10sp" />
 
@@ -311,7 +381,6 @@
 
 
         <Button
-            android:id="@+id/btnContinue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_35"
@@ -323,6 +392,7 @@
             android:fontFamily="@font/avenir_roman"
             android:paddingStart="@dimen/margin_4dp"
             android:paddingTop="@dimen/margin_12dp"
+            android:onClick="@{()->aboutViewModel.onContinueClick()}"
             android:paddingEnd="@dimen/margin_4dp"
             android:paddingBottom="@dimen/margin_12dp"
             android:layout_marginStart="@dimen/dimen_50"

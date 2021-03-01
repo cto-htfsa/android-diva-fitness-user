@@ -12,11 +12,11 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.htf.diva.R
 import com.htf.diva.auth.viewModel.OtpViewModel
 import com.htf.diva.base.BaseDarkActivity
+import com.htf.diva.base.MyApplication
 import com.htf.diva.databinding.ActivityOtpBinding
 import com.htf.diva.models.UserData
-import com.htf.diva.utils.AppUtils
-import com.htf.diva.utils.observerViewModel
-import com.htf.diva.utils.showToast
+import com.htf.diva.netUtils.Constants.Auth.KEY_TOKEN
+import com.htf.diva.utils.*
 import kotlinx.android.synthetic.main.activity_otp.*
 
 
@@ -73,6 +73,17 @@ class OtpActivity : BaseDarkActivity<ActivityOtpBinding,OtpViewModel>(OtpViewMod
     }
     private fun onHandleVerifyOtpSuccessResponse(resendOtp: UserData?){
         resendOtp?.let {
+           /* AppPreferences.getInstance(MyApplication.getAppContext()).saveInPreference(KEY_TOKEN,resendOtp.accessToken!!)
+            AppPreferences.getInstance(MyApplication.getAppContext()).saveUserDetails(resendOtp)
+*/
+            AppPreferences.getInstance(MyApplication.getAppContext()).saveInPreference(KEY_TOKEN,resendOtp.accessToken!!)
+            AppSession.userToken = resendOtp.accessToken!!
+            val currTime = System.currentTimeMillis()
+            val expTime=currTime+((resendOtp.expiresIn!!-10)*1000)
+            resendOtp.userTokenExpireTime=expTime
+            resendOtp.userTokenRefreshTime=currTime
+            AppPreferences.getInstance(MyApplication.getAppContext()).saveUserDetails(resendOtp)
+
             AboutYouActivity.open(currActivity)
             finish()
         }

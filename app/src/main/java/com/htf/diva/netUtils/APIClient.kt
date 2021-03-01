@@ -8,6 +8,7 @@ import com.htf.diva.utils.AppPreferences
 import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.AppUtils
 import com.htf.diva.auth.ApiRepo.AuthApiInterface
+import com.htf.eyenakhr.dashboard.ApiRepo.DashBoardApiInterface
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -59,5 +60,5 @@ object APIClient {
     }
 
     val authApiClient: AuthApiInterface = getClient().create(AuthApiInterface::class.java)
-
+    val dashboardApiClient: DashBoardApiInterface = getClient().create(DashBoardApiInterface::class.java)
 }

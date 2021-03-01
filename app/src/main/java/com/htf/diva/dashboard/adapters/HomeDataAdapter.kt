@@ -1,3 +1,4 @@
+/*
 package com.htf.diva.dashboard.adapters
 
 import android.app.Activity
@@ -47,8 +48,7 @@ class HomeDataAdapter (
             1 -> (currFragment as HomeFragment).populatePersonalTrainers(holder,dashboard.trainers)
             2 -> (currFragment as HomeFragment).populateCenter(holder,dashboard.branchCentre)
 
-
         }
 
     }
-}
+}*/

@@ -18,7 +18,6 @@ class LoginActivity : BaseDarkActivity<ActivityLoginBinding,LoginViewModel>(Logi
     private var currActivity:Activity=this
     private val mSplashViewModel by lazy { getViewModel<SplashViewModel>() }
 
-
     companion object{
         fun open(currActivity: Activity){
             val intent= Intent(currActivity,LoginActivity::class.java)
@@ -32,9 +31,7 @@ class LoginActivity : BaseDarkActivity<ActivityLoginBinding,LoginViewModel>(Logi
         binding.loginViewModel=viewModel
         if (AppSession.locale=="en")  tvLang.text=getString(R.string.arabic) else tvLang.text=getString(R.string.english)
         viewModelInitialize()
-
     }
-
 
     private fun viewModelInitialize() {
         observerViewModel(viewModel.errorValidateRes,this::onHandleValidationErrorResponse)
@@ -48,6 +45,7 @@ class LoginActivity : BaseDarkActivity<ActivityLoginBinding,LoginViewModel>(Logi
     private fun onHandleShowProgress(isNotShow:Boolean) {
         if (isNotShow) progressDialog?.show() else progressDialog?.dismiss()
     }
+
     private fun onHandleApiErrorResponse(error: String){
         showToast(error,true)
     }

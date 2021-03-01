@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
         <variable
             name="homeViewModel"
             type="com.htf.diva.dashboard.viewModel.HomeViewModel" />
@@ -10,117 +10,115 @@
         <import type="android.view.View" />
 
     </data>
-
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
-    android:background="@color/white"
-    android:orientation="vertical"
-    android:paddingTop="24dp">
-
-    <LinearLayout
-        android:id="@+id/llTop"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dimen_24">
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/llTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="5dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="5dp">
+            android:orientation="vertical"
+            android:layout_alignParentTop="true">
 
-            <ImageView
-                android:id="@+id/ivMenu"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:padding="10dp"
-                android:layout_alignParentStart="true"
-                android:src="@drawable/menu" />
-
-            <LinearLayout
-                android:id="@+id/llEnd"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:orientation="horizontal"
-                android:visibility="visible">
+                android:paddingStart="@dimen/dimen_5"
+                android:paddingTop="@dimen/dimen_10"
+                android:paddingEnd="@dimen/dimen_5">
 
                 <ImageView
-                    android:id="@+id/ivNotification"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="10dp"
-                    android:src="@drawable/notification" />
+                    android:id="@+id/ivMenu"
+                    android:layout_width="@dimen/dimen_50"
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/dimen_10"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/menu" />
 
-                <ImageView
-                    android:id="@+id/ivUser"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="10dp"
-                    android:src="@drawable/female" />
-            </LinearLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/dimen_10"
-            android:paddingEnd="@dimen/dimen_10"
-            android:paddingBottom="@dimen/dimen_5">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-               android:orientation="vertical"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true">
-
-                <TextView
-                    android:id="@+id/tvHeyMsg"
+                <LinearLayout
+                    android:id="@+id/llEnd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="hey,Rehab"
-                    android:textSize="@dimen/font_14sp"
-                    android:layout_gravity="start"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:fontFamily="@font/avenir_black"/>
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
 
-                <TextView
-                    android:id="@+id/tvWelcomeMsg"
+                    <ImageView
+                        android:id="@+id/ivNotification"
+                        android:layout_width="@dimen/dimen_50"
+                        android:layout_height="@dimen/dimen_50"
+                        android:padding="@dimen/dimen_10"
+                        android:src="@drawable/notification" />
+
+                    <ImageView
+                        android:id="@+id/ivUser"
+                        android:layout_width="@dimen/dimen_50"
+                        android:layout_height="@dimen/dimen_50"
+                        android:padding="@dimen/dimen_10"
+                        android:src="@drawable/female" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dimen_10"
+                android:paddingEnd="@dimen/dimen_10"
+                android:paddingBottom="@dimen/dimen_5">
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="hey,Rehab"
-                    android:textSize="@dimen/font_12sp"
-                    android:layout_gravity="start"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:fontFamily="@font/avenir_light"/>
+                    android:orientation="vertical"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true">
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvHeyMsg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="hey,Rehab"
+                        android:textSize="@dimen/font_14sp"
+                        android:layout_gravity="start"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:fontFamily="@font/avenir_black"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:padding="@dimen/dimen_10"
-                android:layout_marginBottom="@dimen/dimen_10"
-                android:background="@drawable/discount_rect_bg"
-                android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvWelcomeMsg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="hey,Rehab"
+                        android:textSize="@dimen/font_12sp"
+                        android:layout_gravity="start"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:fontFamily="@font/avenir_light"/>
 
-                <ImageView
-                    android:layout_width="@dimen/dimen_15"
-                    android:layout_height="@dimen/dimen_15"
-                    android:src="@drawable/offer"
-                    android:layout_gravity="center_vertical"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/dimen_10"
+                    android:layout_marginBottom="@dimen/dimen_10"
+                    android:background="@drawable/discount_rect_bg"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_15"
+                        android:layout_height="@dimen/dimen_15"
+                        android:src="@drawable/offer"
+                        android:layout_gravity="center_vertical"/>
 
 
                     <TextView
@@ -136,19 +134,26 @@
                         android:textColor="@color/colorMembershipExpiredBg"
                         android:fontFamily="@font/avenir_light"/>
 
-            </LinearLayout>
+                </LinearLayout>
 
-        </RelativeLayout>
+            </RelativeLayout>
 
 
-    </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/llTop"
+            android:layout_above="@id/llBottom"/>
 
         <FrameLayout
+            android:id="@+id/llBottom"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorHintText"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_gravity="bottom">
+            android:layout_alignParentBottom="true">
 
             <LinearLayout
                 android:id="@+id/lnrLayout"
@@ -161,7 +166,7 @@
                     android:id="@+id/tv_selected"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/dimen_15"
                     android:gravity="center"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
@@ -173,161 +178,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                app:ss_backgroundBottomColor="#ffffff"
-                app:ss_circleColor="#ff6f00"
+                app:ss_backgroundBottomColor="@color/white"
                 app:ss_waveHeight="7"
-                app:ss_countBackgroundColor="#ff6f00"
-                app:ss_countTextColor="#ffffff"
-                app:ss_countTypeface="fonts/graphik_semibold.ttf"
+                app:ss_rippleColor="@color/colorWhite"
                 app:ss_defaultIconColor="@color/colorText"
-                app:ss_iconTextColor="@color/colorText"
-                app:ss_iconTextTypeface="fonts/graphik_semibold.ttf"
-                app:ss_rippleColor="#2f424242"
-                app:ss_iconTextSize="12sp"
-                app:ss_selectedIconColor="#ff6f00"
-                app:ss_selectedIconTextColor="#ff6f00"
-                app:ss_shadowColor="#1f212121" />
+                app:ss_iconTextColor="@color/colorPrimary"
+                app:ss_iconTextSize="@dimen/font_10sp"
+                app:ss_selectedIconColor="@color/colorPrimary"
+                app:ss_selectedIconTextColor="@color/colorPrimary"/>
 
         </FrameLayout>
 
 
-        <!-- <LinearLayout
-             android:id="@+id/llBottom"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-             android:gravity="bottom"
-             android:orientation="horizontal"
-             android:elevation="4dp"
-             android:padding="7dp"
-             android:weightSum="4">
-
-
-             <LinearLayout
-                 android:id="@+id/llHome"
-                 android:layout_width="0dp"
-                 android:layout_height="wrap_content"
-                 android:layout_weight="1"
-                 android:gravity="center"
-                 android:orientation="vertical"
-                 android:padding="3dp">
-
-                 <ImageView
-                     android:id="@+id/ivHome"
-                     android:layout_width="33dp"
-                     android:layout_height="33dp"
-                     android:padding="6dp"
-                     android:layout_gravity="center"
-                     android:src="@drawable/ic_home_deselect"/>
-
-                 <TextView
-                     android:id="@+id/tvHome"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:maxLines="1"
-                     android:textSize="12sp"
-                     android:gravity="center"
-                     android:fontFamily="@font/avenir_light"
-                     android:text="@string/home"
-                     android:textColor="@color/colorPrimaryDark"/>
-
-
-             </LinearLayout>
-
-             <LinearLayout
-                 android:id="@+id/llMembership"
-                 android:layout_width="0dp"
-                 android:layout_height="wrap_content"
-                 android:layout_weight="1"
-                 android:gravity="center"
-                 android:orientation="vertical"
-                 android:padding="3dp">
-
-
-                 <ImageView
-                     android:id="@+id/ivMembership"
-                     android:layout_width="33dp"
-                     android:layout_height="33dp"
-                     android:padding="4dp"
-                     android:src="@drawable/membership"/>
-
-                 <TextView
-                     android:id="@+id/tvMembership"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:maxLines="1"
-                     android:textSize="10sp"
-                     android:text="@string/membership"
-                     android:fontFamily="@font/avenir_light"
-                     android:textColor="@color/colorPrimaryDark"/>
-
-
-             </LinearLayout>
-
-
-             <LinearLayout
-                 android:id="@+id/llWorkout"
-                 android:layout_width="0dp"
-                 android:layout_height="wrap_content"
-                 android:layout_weight="1"
-                 android:gravity="center"
-                 android:orientation="vertical"
-                 android:padding="3dp">
-
-
-                 <ImageView
-                     android:id="@+id/ivWorkout"
-                     android:layout_width="33dp"
-                     android:layout_height="33dp"
-                     android:padding="4dp"
-                     android:src="@drawable/workout"/>
-
-                 <TextView
-                     android:id="@+id/tvWorkout"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:maxLines="1"
-                     android:textSize="10sp"
-                     android:text="@string/workout"
-                     android:fontFamily="@font/avenir_light"
-                     android:textColor="@color/colorPrimaryDark"/>
-
-
-             </LinearLayout>
-
-             <LinearLayout
-                 android:id="@+id/llDiet"
-                 android:layout_width="0dp"
-                 android:layout_height="wrap_content"
-                 android:layout_weight="1"
-                 android:gravity="center"
-                 android:orientation="vertical"
-                 android:padding="3dp">
-
-
-                 <ImageView
-                     android:id="@+id/ivDiet"
-                     android:layout_width="33dp"
-                     android:layout_height="33dp"
-                     android:padding="4dp"
-                     android:src="@drawable/diet_unselect"/>
-
-                 <TextView
-                     android:id="@+id/tvDiet"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:maxLines="1"
-                     android:textSize="10sp"
-                     android:text="@string/diet"
-                     android:fontFamily="@font/avenir_light"
-                     android:textColor="@color/colorPrimaryDark"/>
-
-
-             </LinearLayout>
-
-
-
-         </LinearLayout>-->
-
-</LinearLayout>
+    </RelativeLayout>
 </layout>

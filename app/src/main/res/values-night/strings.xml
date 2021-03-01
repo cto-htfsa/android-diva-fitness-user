@@ -20,4 +20,15 @@
     <string name="membership">Membership</string>
     <string name="workout">Workout</string>
     <string name="diet">Diet</string>
+
+    <string name="min_age">18 years</string>
+    <string name="max_age">65 years</string>
+
+    <string name="min_height">50cm</string>
+    <string name="max_height">150cm</string>
+
+    <string name="min_weight">30kg</string>
+    <string name="max_weight">200kg</string>
+
+
 </resources>

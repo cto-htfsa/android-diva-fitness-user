@@ -18,7 +18,7 @@ abstract class BaseFragment<V : BaseViewModel>(private val viewModelClass: Class
 
     open val initializeViewModel: V.() -> Unit = {}
 
-    val currUser= AppPreferences.getInstance(MyApplication.getAppContext()).getUserDetails()
+    val currUser=AppPreferences.getInstance(MyApplication.getAppContext()).getUserDetails()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = obtainViewModel<V>()
@@ -33,14 +33,14 @@ abstract class BaseFragment<V : BaseViewModel>(private val viewModelClass: Class
 
     private fun onHandleInternetOnResult(isInternetOn:Boolean){
         if (!isInternetOn)
-            DialogUtils.showNoInternetDialog(requireActivity(),null,12345)
+            DialogUtils.showNoInternetDialog(requireActivity(),this,12345)
 
     }
 
     private fun <V : BaseViewModel> obtainViewModel() =
-            ViewModelProvider(this).get(viewModelClass).apply {
-                lifecycle.addObserver(this@BaseFragment)
-            }
+        ViewModelProvider(this).get(viewModelClass).apply {
+            lifecycle.addObserver(this@BaseFragment)
+        }
 
     protected inline fun <reified T : ViewModel> FragmentActivity.getViewModel(noinline creator: (() -> T)? = null): T {
         return if (creator == null)
@@ -48,8 +48,5 @@ abstract class BaseFragment<V : BaseViewModel>(private val viewModelClass: Class
         else
             ViewModelProvider(this, BaseViewModelFactory(creator)).get(T::class.java)
     }
-
-
-
 
 }

@@ -10,9 +10,11 @@ import com.htf.diva.BuildConfig
 import com.htf.diva.auth.viewModel.SplashViewModel
 import com.htf.diva.R
 import com.htf.diva.base.BaseActivity
+import com.htf.diva.base.MyApplication
 import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.databinding.ActivitySplashBinding
 import com.htf.diva.models.AppSetting
+import com.htf.diva.utils.AppPreferences
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showForceUpdateDialog
 import com.htf.diva.utils.showToast
@@ -26,6 +28,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding,SplashViewModel>(Splas
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         binding.splashViewModel=viewModel
+        val currUser= AppPreferences.getInstance(MyApplication.getAppContext()).getUserDetails()
         if (currUser!=null){
             Handler(Looper.getMainLooper()).postDelayed({
                 HomeActivity.open(currActivity)

@@ -39,4 +39,19 @@
     <string name="youAreNotUpdatedMessage">A new version is available .Please update to version <b><u><i>[x]</i></u></b>.</string>
     <string name="youAreNotUpdatedTitle">Update Available</string>
     <string name="update">Update</string>
+
+    <string name="min_age">18 years</string>
+    <string name="max_age">65 years</string>
+
+    <string name="min_height">50cm</string>
+    <string name="max_height">150cm</string>
+
+    <string name="min_weight">30kg</string>
+    <string name="max_weight">200kg</string>
+
+    <string name="years">years</string>
+    <string name="cm">cm</string>
+    <string name="kg">kg</string>
+    <string name="invalid_name">Invalid Name</string>
+
 </resources>

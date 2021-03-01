@@ -37,16 +37,20 @@ object AuthApiRepo: BaseRepository() {
     suspend fun userResendOtpAsync(deviceId: String, deviceType: String, locale: String,
                                    versionName: String,userId:String,hashToken:String): Any? {
         return safeApiCall(
-            call ={ retrofitAuthClient.userResendOtpAsync(
-                    deviceId,
-                    deviceType,
-                    locale,
-                    versionName,
-                    userId,
-                    hashToken).await()}
+            call ={ retrofitAuthClient.userResendOtpAsync(deviceId, deviceType, locale, versionName, userId, hashToken).await()}
         )
     }
 
+
+
+    suspend fun userAboutUsAsync(locale: String,deviceId: String, deviceType: String,versionName: String ,
+                               name:String,age:String,height :String,weight:String): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.userAboutUsAsync(
+                locale,deviceId,deviceType,versionName,name,age,height,weight).await()
+            }
+        )
+    }
 
 
 }
