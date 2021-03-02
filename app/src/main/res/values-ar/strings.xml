@@ -52,6 +52,35 @@
     <string name="years">years</string>
     <string name="cm">cm</string>
     <string name="kg">kg</string>
-    <string name="invalid_name">Invalid Name</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="our_fitness_center">Our Fitness Center</string>
+    <string name="buy_membership">Buy Membership</string>
+    <string name="my_schedules">My Schedules</string>
+    <string name="cals_left">Cals Left</string>
+    <string name="consumed">Consumed</string>
+    <string name="proteins">Proteins</string>
+    <string name="carbs">Carbs</string>
+    <string name="fats">Fats</string>
+    <string name="calories">Calories</string>
+    <string name="today_diet_plan">Today\'s Diet Plan</string>
+    <string name="today_workout">Today\'s Workout</string>
+    <string name="your_membership_has_been_expired">Your Membership has been expired.</string>
+    <string name="renew_plan">Renew Plan</string>
+    <string name="my_profile">My Profile</string>
+    <string name="change_diet_plan">Change Diet Plan</string>
+    <string name="change_workout_plan">Change Workout Plan</string>
+    <string name="payment_history">Payment History</string>
+    <string name="share_app">Share App</string>
+    <string name="rate_app">Rate app</string>
+    <string name="customer_support">Customer Support</string>
+    <string name="about_app">About App</string>
+    <string name="logout">Logout</string>
+    <string name="sar_amount">SAR [X]/session</string>
+    <string name="skip">skip</string>
+    <string name="edit_profile">Edit Profile</string>
+
 
 </resources>

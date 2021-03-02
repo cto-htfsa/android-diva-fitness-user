@@ -26,9 +26,58 @@ class BindingAdapter {
         @JvmStatic
         @BindingAdapter("imageUrl")
         fun setImageUrl(view: ImageView, poserPath: String?) {
-            val url = Constants.Urls.USER_IMAGE_URL + poserPath
-            view.picassoImg(url, R.drawable.profile)
+            val url = Constants.Urls.BANNER_IMAGE_URL + poserPath
+            view.picassoImg(url, R.drawable.diva_place_holder)
         }
+
+        @JvmStatic
+        @BindingAdapter("trainerImage")
+        fun setUserImageUrl(view: ImageView, poserPath: String?) {
+            val url = Constants.Urls.TRAINER_IMAGE_URL + poserPath
+            view.picassoImg(url, R.drawable.user)
+        }
+
+        @JvmStatic
+        @BindingAdapter("fitnessCenterImage")
+        fun setFitnessImageUrl(view: ImageView, poserPath: String?) {
+            val url = Constants.Urls.FITNESS_CENTER_IMAGE_URL + poserPath
+            view.picassoImg(url, R.drawable.diva_place_holder)
+        }
+
+        @JvmStatic
+        @BindingAdapter("userName")
+        fun setUserName(view: TextView, userName: String?){
+            when (userName) {
+                "0.0" -> {
+                    view.visibility=View.GONE
+                }
+                "0" -> {
+                    view.visibility=View.GONE
+                }
+                else -> {
+                    view.text=userName
+                }
+            }
+        }
+
+
+        @JvmStatic
+        @BindingAdapter("sessionPrice")
+        fun setSessionPrice(view: TextView, sessionPrice: String?){
+                    view.text=sessionPrice
+        }
+
+        @JvmStatic
+        @BindingAdapter("amount")
+        fun setAmount(view: TextView, amount: String?) {
+            amount?.let {
+                val am=MathUtils.convertDoubleToString(it.toDouble())
+                val str=MyApplication.getAppContext().getString(R.string.sar_amount).replace("[X]",am)
+                view.text=str
+            }
+        }
+
+
 
         @JvmStatic
         @BindingAdapter("start_date", "end_date")

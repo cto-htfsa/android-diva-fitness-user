@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="homeFragmentViewModel"
@@ -7,19 +8,534 @@
         <import type="android.view.View" />
     </data>
 
-
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.core.widget.NestedScrollView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".dashboard.fragments.HomeFragment">
+        android:scrollbars="none"
+        android:fillViewport="true"
+        android:id="@+id/nested"
+        android:layout_height="wrap_content">
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vpBanner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_150" />
+
+        <com.zhpan.indicator.IndicatorView
+                android:id="@+id/indicator_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+          <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_marginStart="5dp"
+                android:orientation="vertical">
+
+            <LinearLayout
+                    android:id="@+id/llMembershipExpired"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dimen_10"
+                    android:background="@drawable/rating_bg"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_marginEnd="@dimen/dimen_10"
+                    android:visibility="visible"
+                    android:backgroundTint="@color/colorMembershipExpiredBg">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_30"
+                        android:layout_height="@dimen/dimen_30"
+                        android:src="@drawable/expired"
+                        android:layout_gravity="top"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginStart="@dimen/dimen_10">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/your_membership_has_been_expired"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/avenir_light"
+                            android:textSize="@dimen/font_13sp"
+                            android:layout_gravity="start"
+                            android:textAlignment="viewStart"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="on 20 november 2020"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/avenir_light"
+                            android:textSize="@dimen/font_11sp"
+                            android:layout_gravity="start"
+                            android:textAlignment="viewStart"/>
 
 
-    </FrameLayout>
+                        <TextView
+                            android:id="@+id/tvRenewPlan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rating_bg"
+                            android:backgroundTint="@color/white"
+                            android:text="@string/renew_plan"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:padding="@dimen/dimen_7"
+                            android:textSize="@dimen/font_10sp"
+                            android:textColor="@color/colorMembershipExpiredBg"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+              <LinearLayout
+                  android:id="@+id/llMySchedules"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:layout_marginTop="@dimen/dimen_10"
+                  android:layout_marginStart="@dimen/dimen_10"
+                  android:layout_marginEnd="@dimen/dimen_10"
+                  android:visibility="visible">
+
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="start"
+                      android:textAlignment="viewStart"
+                      android:text="@string/my_schedules"
+                      android:fontFamily="@font/avenir_black"
+                      android:textColor="@color/colorPrimaryDark"
+                      android:textSize="@dimen/font_12sp" />
+
+                  <LinearLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      android:background="@drawable/rating_bg"
+                      android:backgroundTint="@color/colorPrimary"
+                      android:padding="@dimen/dimen_10"
+                      android:layout_marginTop="@dimen/dimen_7">
+
+                      <LinearLayout
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+
+                          <com.dinuscxj.progressbar.CircleProgressBar
+                              android:id="@+id/line_progress"
+                              android:layout_width="@dimen/dimen_50"
+                              android:layout_height="@dimen/dimen_50"
+                              android:layout_gravity="center"
+                              app:progress_background_color="@color/colorTodayWorkOutText"
+                              app:progress_blur_style="outer"
+                              app:progress_end_color="@color/colorScheduleCircularProgressBg"
+                              app:progress_shader="radial"
+                              app:progress_start_color="@color/colorScheduleCircularProgressBg"
+                              app:progress_stroke_cap="round"
+                              app:progress_stroke_width="@dimen/dimen_7"
+                              app:progress_style="solid_line"
+                              app:progress_text_color="@color/colorScheduleCircularProgressBg" />
+
+                          <LinearLayout
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:orientation="horizontal"
+                              android:weightSum="3"
+                              android:layout_gravity="center_vertical"
+                              android:layout_marginStart="@dimen/dimen_10">
+
+                              <LinearLayout
+                                  android:layout_width="0dp"
+                                  android:layout_height="wrap_content"
+                                  android:orientation="vertical"
+                                  android:layout_weight="1"
+                                  android:gravity="center">
+
+                                  <me.grantland.widget.AutofitTextView
+                                      android:id="@+id/tvCalsLeft"
+                                      android:layout_width="wrap_content"
+                                      android:layout_height="wrap_content"
+                                      android:text="56656"
+                                      android:maxLines="1"
+                                      android:textColor="@color/white"
+                                      android:textSize="@dimen/font_11sp"
+                                      android:fontFamily="@font/avenir_black"/>
+
+                                  <me.grantland.widget.AutofitTextView
+                                      android:layout_width="wrap_content"
+                                      android:layout_height="wrap_content"
+                                      android:text="@string/cals_left"
+                                      android:textColor="@color/white"
+                                      android:maxLines="1"
+                                      android:textSize="@dimen/font_9sp"
+                                      android:fontFamily="@font/avenir_light"/>
+
+                              </LinearLayout>
+
+                              <LinearLayout
+                                  android:layout_width="0dp"
+                                  android:layout_height="wrap_content"
+                                  android:orientation="vertical"
+                                  android:layout_weight="1"
+                                  android:gravity="center">
+
+                              <me.grantland.widget.AutofitTextView
+                                      android:id="@+id/tvConsumed"
+                                      android:layout_width="wrap_content"
+                                      android:layout_height="wrap_content"
+                                      android:text="56656"
+                                      android:maxLines="1"
+                                      android:textColor="@color/white"
+                                      android:textSize="@dimen/font_11sp"
+                                      android:fontFamily="@font/avenir_black"/>
+
+                                  <me.grantland.widget.AutofitTextView
+                                      android:layout_width="wrap_content"
+                                      android:layout_height="wrap_content"
+                                      android:text="@string/consumed"
+                                      android:textColor="@color/white"
+                                      android:maxLines="1"
+                                      android:textSize="@dimen/font_9sp"
+                                      android:fontFamily="@font/avenir_light"/>
+
+                              </LinearLayout>
+
+                              <LinearLayout
+                                  android:layout_width="0dp"
+                                  android:layout_height="wrap_content"
+                                  android:orientation="vertical"
+                                  android:layout_weight="1"
+                                  android:gravity="center">
+
+                                  <me.grantland.widget.AutofitTextView
+                                      android:id="@+id/tvBurned"
+                                      android:layout_width="wrap_content"
+                                      android:layout_height="wrap_content"
+                                      android:text="56656"
+                                      android:maxLines="1"
+                                      android:textColor="@color/white"
+                                      android:textSize="@dimen/font_11sp"
+                                      android:fontFamily="@font/avenir_black"/>
+
+                                  <me.grantland.widget.AutofitTextView
+                                      android:layout_width="wrap_content"
+                                      android:layout_height="wrap_content"
+                                      android:text="@string/consumed"
+                                      android:textColor="@color/white"
+                                      android:maxLines="1"
+                                      android:textSize="@dimen/font_9sp"
+                                      android:fontFamily="@font/avenir_light"/>
+
+                              </LinearLayout>
+
+                          </LinearLayout>
+
+
+                      </LinearLayout>
+
+                      <LinearLayout
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:weightSum="4"
+                          android:layout_marginTop="@dimen/dimen_7">
+
+                          <LinearLayout
+                              android:layout_width="0dp"
+                              android:layout_height="wrap_content"
+                              android:orientation="vertical"
+                              android:layout_weight="1"
+                              android:gravity="center">
+
+                              <me.grantland.widget.AutofitTextView
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:text="@string/proteins"
+                                  android:maxLines="1"
+                                  android:textColor="@color/white"
+                                  android:textSize="@dimen/font_9sp"
+                                  android:fontFamily="@font/avenir_light"/>
+
+                              <me.grantland.widget.AutofitTextView
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:text="60kg"
+                                  android:textColor="@color/white"
+                                  android:maxLines="1"
+                                  android:textSize="@dimen/font_9sp"
+                                  android:fontFamily="@font/avenir_black"/>
+
+                          </LinearLayout>
+
+                          <LinearLayout
+                              android:layout_width="0dp"
+                              android:layout_height="wrap_content"
+                              android:orientation="vertical"
+                              android:layout_weight="1"
+                              android:gravity="center">
+
+                              <me.grantland.widget.AutofitTextView
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:text="@string/carbs"
+                                  android:maxLines="1"
+                                  android:textColor="@color/white"
+                                  android:textSize="@dimen/font_9sp"
+                                  android:fontFamily="@font/avenir_light"/>
+
+                              <me.grantland.widget.AutofitTextView
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:text="60kg"
+                                  android:textColor="@color/white"
+                                  android:maxLines="1"
+                                  android:textSize="@dimen/font_9sp"
+                                  android:fontFamily="@font/avenir_black"/>
+
+                          </LinearLayout>
+
+                          <LinearLayout
+                              android:layout_width="0dp"
+                              android:layout_height="wrap_content"
+                              android:orientation="vertical"
+                              android:layout_weight="1"
+                              android:gravity="center">
+
+                              <me.grantland.widget.AutofitTextView
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:text="@string/fats"
+                                  android:maxLines="1"
+                                  android:textColor="@color/white"
+                                  android:textSize="@dimen/font_9sp"
+                                  android:fontFamily="@font/avenir_light"/>
+
+                              <me.grantland.widget.AutofitTextView
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:text="60kg"
+                                  android:textColor="@color/white"
+                                  android:maxLines="1"
+                                  android:textSize="@dimen/font_9sp"
+                                  android:fontFamily="@font/avenir_black"/>
+
+                          </LinearLayout>
+
+                          <LinearLayout
+                              android:layout_width="0dp"
+                              android:layout_height="wrap_content"
+                              android:orientation="vertical"
+                              android:layout_weight="1"
+                              android:gravity="center">
+
+                              <me.grantland.widget.AutofitTextView
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:text="@string/calories"
+                                  android:maxLines="1"
+                                  android:textColor="@color/white"
+                                  android:textSize="@dimen/font_9sp"
+                                  android:fontFamily="@font/avenir_light"/>
+
+                              <me.grantland.widget.AutofitTextView
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:text="60kg"
+                                  android:textColor="@color/white"
+                                  android:maxLines="1"
+                                  android:textSize="@dimen/font_9sp"
+                                  android:fontFamily="@font/avenir_black"/>
+
+                          </LinearLayout>
+
+                      </LinearLayout>
+
+                  </LinearLayout>
+
+                  <LinearLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:gravity="center"
+                      android:layout_marginTop="@dimen/dimen_10">
+
+                      <TextView
+                          android:id="@+id/tvTodayDietPlan"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="@string/today_diet_plan"
+                          android:background="@drawable/rating_bg"
+                          android:padding="@dimen/dimen_15"
+                          android:textSize="@dimen/font_10sp"
+                          android:fontFamily="@font/avenir_light"
+                          android:backgroundTint="@color/colorBranchBg3"
+                          android:textColor="@color/colorTodayDietPlanText"/>
+
+                      <TextView
+                          android:id="@+id/tvTodayWorkOut"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="@string/today_workout"
+                          android:background="@drawable/rating_bg"
+                          android:padding="@dimen/dimen_15"
+                          android:textSize="@dimen/font_10sp"
+                          android:fontFamily="@font/avenir_light"
+                          android:layout_marginStart="@dimen/dimen_10"
+                          android:backgroundTint="@color/colorViewAllBg"
+                          android:textColor="@color/colorPrimary">
+
+                      </TextView>
+
+                  </LinearLayout>
+
+              </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llTopPersonalTrainers"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <RelativeLayout
+                        android:id="@+id/rlTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dimen_10"
+                        android:layout_marginTop="@dimen/margin_10dp"
+                        android:layout_marginStart="@dimen/dimen_10">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:text="@string/top_personal_trainers"
+                            android:fontFamily="@font/avenir_black"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:id="@+id/btnViewAll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/avenir_light"
+                            android:text="@string/view_all"
+                            android:padding="@dimen/dimen_10"
+                            android:textColor="@color/colorPrimary"
+                            android:background="@drawable/btn_bg"
+                            android:backgroundTint="@color/colorViewAllBg"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:textSize="@dimen/font_10sp" />
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvPersonalTrainers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:orientation="horizontal" />
+
+
+                    <LinearLayout
+                        android:id="@+id/llBuyMembership"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_bg"
+                        android:backgroundTint="@color/colorViewAllBg"
+                        android:layout_marginTop="@dimen/margin_16dp"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:layout_marginEnd="@dimen/dimen_10"
+                        android:padding="@dimen/dimen_10"
+                        android:gravity="center"
+                        android:visibility="visible">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_20"
+                            android:layout_height="@dimen/dimen_20"
+                            android:src="@drawable/membership"
+                            app:tint="@color/colorPrimary"
+                            android:layout_gravity="center_vertical"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/buy_membership"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="@dimen/dimen_10"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/font_13sp"
+                            android:fontFamily="@font/avenir_black"/>
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/dimen_7">
+
+                        <RelativeLayout
+                            android:id="@+id/rlTitleOurCenter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dimen_10"
+                            android:padding="@dimen/dimen_10">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:text="@string/our_fitness_center"
+                                android:fontFamily="@font/avenir_black"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="@dimen/font_12sp" />
+
+
+                        </RelativeLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvFitnessCenter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
 </layout>

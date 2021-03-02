@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".auth.ui.MyProfileActivity">
+
+
+    <data>
+
+        <variable
+            name="profileViewModel"
+            type="com.htf.diva.auth.viewModel.ProfileViewModel" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <include
+            android:id="@+id/llTop"
+            layout="@layout/toolbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dimen_10"
+            android:layout_below="@id/llTop">
+            <RelativeLayout
+                android:layout_width="@dimen/dimen_130"
+                android:layout_height="@dimen/dimen_130"
+                android:layout_gravity="center">
+
+                <com.github.siyamed.shapeimageview.CircularImageView
+                    android:layout_width="@dimen/dimen_100"
+                    android:layout_height="@dimen/dimen_100"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/user"/>
+
+                <ImageView
+                    android:id="@+id/ivCamera"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/dimen_40"
+                    android:src="@drawable/camera"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/dimen_20"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rehab"
+                android:textSize="@dimen/font_15sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:fontFamily="@font/avenir_black"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/tvUserMobile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+966 55444444"
+                android:textSize="@dimen/font_14sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:fontFamily="@font/avenir_light"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textAlignment="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_marginStart="@dimen/dimen_20"
+                android:layout_marginEnd="@dimen/dimen_20">
+
+                <LinearLayout
+                    android:id="@+id/llAge"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/select_age_bg"
+                    android:padding="@dimen/dimen_10"
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/dimen_5"
+                    android:elevation="@dimen/dimen_2">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:src="@drawable/age"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/age"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/font_10sp"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:paddingTop="@dimen/dimen_5"
+                        android:fontFamily="@font/avenir_light"/>
+
+
+                    <TextView
+                        android:id="@+id/tvAge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="23 years"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/font_12sp"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/avenir_black"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llHeight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/select_age_bg"
+                    android:padding="@dimen/dimen_10"
+                    android:layout_weight="1"
+                    android:elevation="@dimen/dimen_2"
+                    android:layout_margin="@dimen/dimen_5"
+                    android:layout_marginStart="@dimen/dimen_15">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:src="@drawable/height"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/height"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/font_10sp"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:paddingTop="@dimen/dimen_5"
+                        android:fontFamily="@font/avenir_light"/>
+
+
+                    <TextView
+                        android:id="@+id/tvHeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="180cm"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/font_12sp"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/avenir_black"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llWeight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/select_age_bg"
+                    android:padding="@dimen/dimen_10"
+                    android:layout_weight="1"
+                    android:elevation="@dimen/dimen_2"
+                    android:layout_margin="@dimen/dimen_5"
+                    android:layout_marginStart="@dimen/dimen_15">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:src="@drawable/weight"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/weight"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/font_10sp"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:paddingTop="@dimen/dimen_5"
+                        android:fontFamily="@font/avenir_light"/>
+
+
+                    <TextView
+                        android:id="@+id/tvWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="80kg"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/font_12sp"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/avenir_black"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btnEditProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_35"
+            android:background="@drawable/btn_bg"
+            android:backgroundTint="@color/skip_solid"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/dimen_50"
+            android:layout_marginEnd="@dimen/dimen_50"
+            android:fontFamily="@font/avenir_light"
+            android:paddingStart="@dimen/margin_4dp"
+            android:paddingTop="@dimen/margin_12dp"
+            android:paddingEnd="@dimen/margin_4dp"
+            android:paddingBottom="@dimen/margin_12dp"
+            android:text="@string/edit_profile"
+            android:textColor="@color/colorText"
+            android:textSize="14sp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dimen_20"
+            android:textAllCaps="false">
+
+        </Button>
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+</layout>

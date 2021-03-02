@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.adapters.ViewGroupBindingAdapter.setListener
 import androidx.fragment.app.Fragment
 import com.htf.diva.R
+import com.htf.diva.auth.ui.MyProfileActivity
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.base.MyApplication
 import com.htf.diva.dashboard.fragments.DietFragment
@@ -24,6 +25,7 @@ import com.htf.diva.models.Dashboard
 import com.htf.diva.utils.AppPreferences
 import com.simform.custombottomnavigation.SSCustomBottomNavigation
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.drawer_menu.view.*
 
 class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeViewModel::class.java),
     View.OnClickListener {
@@ -49,13 +51,16 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
         setListener()
 
       //  binding.bottomNavigation.show(ID_HOME,true)
+     //   bottomNavigation.show(ID_HOME)
 
     }
 
     private fun setListener() {
         ivMenu.setOnClickListener(this)
+        ivUser.setOnClickListener(this)
 
     }
+
 
     private fun setBottomBar() {
         binding.bottomNavigation.apply {
@@ -91,16 +96,12 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
 
             setOnShowListener {
                 val name = when (it.id) {
-                    ID_HOME -> {
-                        getString(R.string.home)
-                        changeFragment("",HomeFragment())
-                    }
+                    ID_HOME -> changeFragment("",HomeFragment())
                     ID_MEMBERSHIP -> getString(R.string.membership)
                     ID_WORKOUT -> getString(R.string.workout)
                     ID_DIET -> getString(R.string.diet)
 
                     else -> ""
-
 
                 }
 
@@ -112,17 +113,12 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
                     else -> ContextCompat.getColor(currActivity, R.color.colorText)
                 }
             }
-            setOnClickMenuListener {
-                val name = when (it.id) {
-                    ID_HOME -> changeFragment("",HomeFragment())
-                    ID_MEMBERSHIP ->  changeFragment("",MembershipFragment())
+         /*   setOnClickMenuListener {
+                 *//*   ID_MEMBERSHIP ->  changeFragment("",MembershipFragment())
                     ID_WORKOUT ->  changeFragment("",WorkoutFragment())
-                    ID_DIET ->  changeFragment("",DietFragment())
-                    else ->  ""
-                }
-            }
-
-
+                    ID_DIET ->  changeFragment("",DietFragment())*//*
+                    //else ->  ""
+                }*/
         }
 
     }
@@ -138,14 +134,17 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
     override fun onClick(p0: View?) {
         when(p0!!.id){
             R.id.ivMenu->{
-
+               openDrawer()
             }
-        }
+            R.id.ivUser->{
+                MyProfileActivity.open(currActivity)
+            }
 
+        }
     }
 
 
-  /*  private fun openDrawer() {
+    private fun openDrawer() {
         val currUser= AppPreferences.getInstance(MyApplication.getAppContext()).getUserDetails()
         val builder = AlertDialog.Builder(currActivity, R.style.AppTheme_Transparent)
         val dialogView = currActivity.layoutInflater.inflate(R.layout.drawer_menu, null)
@@ -153,6 +152,9 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
         builder.setCancelable(true)
         val dialog = builder.show()
 
+        dialogView.btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
 
         val window = dialog.window
         window!!.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
@@ -162,7 +164,6 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
 
     }
 
-*/
 }
 
 

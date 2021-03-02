@@ -6,32 +6,42 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
+import com.htf.diva.databinding.RowCenterBinding
+import com.htf.diva.databinding.RowPersonalTrainersBinding
+import com.htf.diva.models.AppDashBoard
 import com.htf.diva.models.Branch
+import com.htf.eyenakhr.callBack.IListItemClickListener
 
 class CenterAdapter (
     private var currActivity: Activity,
-    private var arrCenter:ArrayList<Branch>
-):RecyclerView.Adapter<CenterAdapter.MyViewholder>(){
+    private var arrFitnessCenter:ArrayList<AppDashBoard.FitnessCenter>,
+    private var iListItemClickListener: IListItemClickListener<Any>
+   ): RecyclerView.Adapter<CenterAdapter.MyViewHolder>(){
 
-    inner class MyViewholder(itemView:View):RecyclerView.ViewHolder(itemView){
+    var rowFitnessCenterBinding: RowCenterBinding?=null
+
+    inner class MyViewHolder(itemView: RowCenterBinding): RecyclerView.ViewHolder(itemView.root){
         init {
-
+            rowFitnessCenterBinding=itemView
+            itemView.root.setOnClickListener {
+                iListItemClickListener.onItemClickListener(arrFitnessCenter[adapterPosition])
+            }
         }
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewholder {
-        val itemView=LayoutInflater.from(parent.context).inflate(R.layout.row_center,parent,false)
-        return MyViewholder(itemView)
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CenterAdapter.MyViewHolder {
+        val itemView= LayoutInflater.from(parent.context).inflate(R.layout.row_center
+            ,parent,false)
+        val bindingUtil= RowCenterBinding.bind(itemView);
+        return MyViewHolder(bindingUtil)
     }
 
     override fun getItemCount(): Int {
-        return arrCenter.size
-
+        return arrFitnessCenter.size
     }
 
-    override fun onBindViewHolder(holder: MyViewholder, position: Int) {
-        val model=arrCenter[position]
-
+    override fun onBindViewHolder(holder: CenterAdapter.MyViewHolder, position: Int) {
+        val model=arrFitnessCenter[position]
+        rowFitnessCenterBinding!!.fitnessCenter =model
     }
+
 }

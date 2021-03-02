@@ -19,6 +19,8 @@
     android:layout_height="match_parent"
     tools:context=".auth.ui.LoginActivity">
 
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/llLang"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,6 +65,54 @@
                 android:textStyle="bold" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/llSkip"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/dimen_50"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginEnd="@dimen/dimen_20"
+            android:layout_alignParentEnd="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/skip_bg"
+            android:paddingStart="10dp"
+            android:onClick="skipLogin"
+            android:paddingEnd="10dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp">
+
+
+        <ImageView
+                android:id="@+id/ivSkip"
+                android:layout_width="38dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:padding="7dp"
+                android:src="@drawable/ic_skip"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvSkip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/skip"
+                android:layout_gravity="center_vertical"
+                android:textAllCaps="true"
+                android:textSize="14sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivSkip"
+                android:fontFamily="@font/avenir_light"
+                android:textColor="@color/colorPrimaryDark"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -143,7 +193,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_35"
                 android:background="@drawable/btn_bg"
-                android:backgroundTint="@color/colorHintText"
+                android:backgroundTint="@color/skip_solid"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:onClick="@{()->loginViewModel.onLoginClick()}"
@@ -156,10 +206,7 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14sp"
                 android:textAllCaps="false">
-
             </Button>
-
-
 
         </LinearLayout>
 

@@ -8,6 +8,7 @@ import com.htf.diva.R
 import com.htf.diva.auth.viewModel.LoginViewModel
 import com.htf.diva.auth.viewModel.SplashViewModel
 import com.htf.diva.base.BaseDarkActivity
+import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.databinding.ActivityLoginBinding
 import com.htf.diva.models.UserData
 import com.htf.diva.netUtils.Constants
@@ -61,9 +62,12 @@ class LoginActivity : BaseDarkActivity<ActivityLoginBinding,LoginViewModel>(Logi
         }
     }
 
-
     fun onSwitchLang(view:View){
         switchLang()
+    }
+
+    fun skipLogin(view: View){
+        HomeActivity.open(currActivity)
     }
 
     private fun switchLang() {
@@ -80,5 +84,6 @@ class LoginActivity : BaseDarkActivity<ActivityLoginBinding,LoginViewModel>(Logi
             open(currActivity)
         }
     }
+
 
 }

@@ -6,30 +6,46 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
+import com.htf.diva.databinding.RowBannerBinding
+import com.htf.diva.databinding.RowPersonalTrainersBinding
+import com.htf.diva.models.AppDashBoard
+import com.htf.diva.models.Banner
 import com.htf.diva.models.Trainers
+import com.htf.eyenakhr.callBack.IListItemClickListener
 
 class TrainerAdapter (
     private var currActivity: Activity,
-    private var arrTrainer:ArrayList<Trainers>
-):RecyclerView.Adapter<TrainerAdapter.MyViewHolder>(){
-    inner class MyViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
+    private var arrTopTrainer:ArrayList<AppDashBoard.TopTrainer>,
+    private var iListItemClickListener: IListItemClickListener<Any>
+  ): RecyclerView.Adapter<TrainerAdapter.MyViewHolder>(){
+
+    var rowPersonalTrainerBinding: RowPersonalTrainersBinding?=null
+
+    inner class MyViewHolder(itemView: RowPersonalTrainersBinding): RecyclerView.ViewHolder(itemView.root){
         init {
 
+            rowPersonalTrainerBinding=itemView
+            itemView.root.setOnClickListener {
+                iListItemClickListener.onItemClickListener(arrTopTrainer[adapterPosition])
+            }
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrainerAdapter.MyViewHolder {
-        val itemView=LayoutInflater.from(parent.context).inflate(R.layout.row_personal_trainers,parent,false)
-        return MyViewHolder(itemView)
+        val itemView= LayoutInflater.from(parent.context).inflate(R.layout.row_personal_trainers
+            ,parent,false)
+        val bindingUtil= RowPersonalTrainersBinding.bind(itemView);
+        return MyViewHolder(bindingUtil)
+
+
     }
 
     override fun getItemCount(): Int {
-        return arrTrainer.size
-
+        return arrTopTrainer.size
     }
 
     override fun onBindViewHolder(holder: TrainerAdapter.MyViewHolder, position: Int) {
-        val model=arrTrainer[position]
-
+        val model=arrTopTrainer[position]
+        rowPersonalTrainerBinding!!.topTrainer =model
     }
 
 }

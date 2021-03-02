@@ -13,11 +13,11 @@ class AppDashBoard :Serializable {
 
     @SerializedName("banners")
     @Expose
-    var banners: List<Banner>? = null
+    var banners: ArrayList<Banner>? = null
 
     @SerializedName("topTrainers")
     @Expose
-    var topTrainers: List<TopTrainer>? = null
+    var topTrainers: ArrayList<TopTrainer>? = null
 
     @SerializedName("isDayRest")
     @Expose
@@ -33,7 +33,7 @@ class AppDashBoard :Serializable {
 
     @SerializedName("fitnessCenters")
     @Expose
-    var fitnessCenters: List<FitnessCenter>? = null
+    var fitnessCenters: ArrayList<FitnessCenter>? = null
 
     @SerializedName("version")
     @Expose
