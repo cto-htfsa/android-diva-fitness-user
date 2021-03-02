@@ -13,12 +13,15 @@ import com.htf.eyenakhr.dashboard.ApiRepo.DashboardApiRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 class HomeViewModel:BaseViewModel() {
 
     val isApiCalling= MutableLiveData<Boolean>()
     val errorResult= MutableLiveData<String>()
     val mDashBoardData=MutableLiveData<AppDashBoard>()
+    val mLogoutResponse=MutableLiveData<Any>()
+
 
     fun appDashBoard(locale: String?, deviceId: String?, deviceType: String?, versionName: String?){
         if (!DialogUtils.isInternetOn()){
@@ -35,7 +38,6 @@ class HomeViewModel:BaseViewModel() {
                 errorResult.postValue(e.localizedMessage)
                 isApiCalling.postValue(false)
                 e.printStackTrace()
-
             }
             withContext(Dispatchers.Main) {
                 isApiCalling.postValue(false)
@@ -48,5 +50,29 @@ class HomeViewModel:BaseViewModel() {
         }
     }
 
+
+    fun logoutUser(){
+        if (!DialogUtils.isInternetOn()){
+            isInternetOn.postValue(false)
+            return
+        }
+        isApiCalling.postValue(true)
+        scope.launch {
+            val result=try {
+                DashboardApiRepo.userLogoutAsync(AppSession.locale, AppSession.deviceId, AppSession.deviceType, BuildConfig.VERSION_NAME)
+            }catch (e:Exception){
+                errorResult.postValue(e.localizedMessage)
+                isApiCalling.postValue(false)
+            }
+
+            withContext(Dispatchers.Main){
+                isApiCalling.postValue(false)
+                if (result is IOException)
+                    errorResult.postValue(result.toString())
+                else
+                    mLogoutResponse.postValue(result.toString())
+            }
+        }
+    }
 
 }

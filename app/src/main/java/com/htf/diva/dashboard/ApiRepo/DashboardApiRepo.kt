@@ -10,11 +10,16 @@ object DashboardApiRepo : BaseRepository() {
 
     private val retrofitAuthClient= APIClient.dashboardApiClient
 
-
     suspend fun appDashBoard(locale: String?,deviceId: String?, deviceType: String?,versionName: String?): Any? {
         return safeApiCall(
                 call ={ retrofitAuthClient.appDashboardAsync(
                     locale,deviceId,deviceType,versionName).await()}
+        )
+    }
+
+    suspend fun userLogoutAsync( locale: String,deviceId: String, deviceType: String, versionName: String): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.userLogoutAsync(locale,deviceId,deviceType,versionName).await()}
         )
     }
 

@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.adapters.ViewGroupBindingAdapter.setListener
 import androidx.fragment.app.Fragment
 import com.htf.diva.R
+import com.htf.diva.auth.ui.LoginActivity
 import com.htf.diva.auth.ui.MyProfileActivity
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.base.MyApplication
@@ -22,7 +23,11 @@ import com.htf.diva.dashboard.fragments.WorkoutFragment
 import com.htf.diva.dashboard.viewModel.HomeViewModel
 import com.htf.diva.databinding.ActivityHomeBinding
 import com.htf.diva.models.Dashboard
+import com.htf.diva.netUtils.Constants.Auth.KEY_TOKEN
 import com.htf.diva.utils.AppPreferences
+import com.htf.diva.utils.AppSession
+import com.htf.diva.utils.observerViewModel
+import com.htf.diva.utils.showToast
 import com.simform.custombottomnavigation.SSCustomBottomNavigation
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.drawer_menu.view.*
@@ -50,6 +55,8 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
         setBottomBar()
         setListener()
 
+        viewModelInitialize()
+
       //  binding.bottomNavigation.show(ID_HOME,true)
      //   bottomNavigation.show(ID_HOME)
 
@@ -58,9 +65,31 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
     private fun setListener() {
         ivMenu.setOnClickListener(this)
         ivUser.setOnClickListener(this)
-
     }
 
+
+    private fun viewModelInitialize() {
+        observerViewModel(viewModel.isApiCalling, this::onHandleShowProgress)
+        observerViewModel(viewModel.mLogoutResponse, this::onHandleLogoutResponse)
+        observerViewModel(viewModel.errorResult, this::onHandleApiErrorResponse)
+    }
+
+
+    private fun onHandleLogoutResponse(res: Any?){
+        AppSession.userToken=""
+        AppPreferences.getInstance(MyApplication.getAppContext()).clearFromPref(KEY_TOKEN)
+        AppPreferences.getInstance(MyApplication.getAppContext()).clearUserDetails()
+        LoginActivity.open(currActivity)
+        finish()
+    }
+
+    private fun onHandleShowProgress(isNotShow: Boolean) {
+        if (isNotShow) progressDialog?.show() else progressDialog?.dismiss()
+    }
+
+    private fun onHandleApiErrorResponse(error: String){
+        showToast(error, true)
+    }
 
     private fun setBottomBar() {
         binding.bottomNavigation.apply {
@@ -153,6 +182,10 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
         val dialog = builder.show()
 
         dialogView.btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialogView.btnLogout.setOnClickListener {
+            viewModel.logoutUser()
             dialog.dismiss()
         }
 

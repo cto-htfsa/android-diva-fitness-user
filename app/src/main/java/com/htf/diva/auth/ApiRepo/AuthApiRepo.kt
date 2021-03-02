@@ -3,7 +3,6 @@
 import com.htf.diva.BuildConfig
 import com.htf.diva.base.BaseRepository
 import com.htf.diva.netUtils.APIClient
-import com.htf.diva.utils.AppSession
 
 
 object AuthApiRepo: BaseRepository() {
@@ -51,6 +50,8 @@ object AuthApiRepo: BaseRepository() {
             }
         )
     }
+
+
 
 
 }

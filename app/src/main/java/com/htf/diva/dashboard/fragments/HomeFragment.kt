@@ -40,8 +40,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
     private lateinit var mAdapter: BannerAdapter
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         currActivity = requireActivity()
@@ -59,7 +58,6 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
         observerViewModel(viewModel.errorResult,this::onHandleApiErrorResponse)
         observerViewModel(viewModel.mDashBoardData,this::onHandleAppDashBoardSuccessResponse)
     }
-
     private fun onHandleShowProgress(isNotShow:Boolean) {
         if (isNotShow) progressDialog?.show() else progressDialog?.dismiss()
     }
