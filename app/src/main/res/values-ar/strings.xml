@@ -85,5 +85,8 @@
     <string name="gallery">Gallery</string>
     <string name="camera">Camera</string>
     <string name="notification">Notification</string>
+    <string name="you_have_unread_notifications"><![CDATA["  <string name=\"you_have_unread_notifications\">You have {number} unread notifications.</string>"]]></string>
+    <string name="clear_all">Clear All</string>
+    <string name="no_notification_found">No Notification Found</string>
 
 </resources>

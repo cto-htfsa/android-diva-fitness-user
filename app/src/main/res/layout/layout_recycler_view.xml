@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorBackground">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/load_more">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/ivNoImage"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp" />
+
+        <TextView
+            android:id="@+id/tvMsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text=""
+            android:textSize="@dimen/font_16sp"
+            android:fontFamily="@font/avenir_light"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/tvNomsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text=""
+            android:textSize="20sp"
+            android:fontFamily="@font/avenir_black"
+            android:textColor="@color/colorPrimaryDark" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/load_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/transparent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:padding="5dp"
+        >
+
+        <net.bohush.geometricprogressview.GeometricProgressView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            app:gp_color="@color/colorPrimaryDark"
+            app:gp_type="triangle"
+            app:gp_number_of_angles="15"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
+
+</RelativeLayout>

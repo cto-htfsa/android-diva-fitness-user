@@ -30,6 +30,31 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/font_18sp"
             android:layout_centerInParent="true"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/tvClearAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/clear_all"
+                android:padding="@dimen/dimen_7"
+                android:visibility="gone"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/font_12sp"
+                android:textColor="@color/colorAccent"
+                android:fontFamily="@font/avenir_light"
+                />
+
+        </LinearLayout>
+
     </RelativeLayout>
+
+
+
 
 </RelativeLayout>

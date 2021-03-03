@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 
-class NotificationModel:Serializable {
+class Notifications:Serializable {
 
     @SerializedName("id")
     @Expose
