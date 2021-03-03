@@ -7,7 +7,6 @@
 
 
     <data>
-
         <variable
             name="profileViewModel"
             type="com.htf.diva.auth.viewModel.ProfileViewModel" />
@@ -38,6 +37,7 @@
                 android:layout_gravity="center">
 
                 <com.github.siyamed.shapeimageview.CircularImageView
+                    android:id="@+id/ivUser"
                     android:layout_width="@dimen/dimen_100"
                     android:layout_height="@dimen/dimen_100"
                     android:layout_centerInParent="true"
@@ -58,7 +58,6 @@
                 android:id="@+id/tvUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rehab"
                 android:textSize="@dimen/font_15sp"
                 android:textColor="@color/colorPrimaryDark"
                 android:fontFamily="@font/avenir_black"
@@ -70,7 +69,7 @@
                 android:id="@+id/tvUserMobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+966 55444444"
+                android:text=""
                 android:textSize="@dimen/font_14sp"
                 android:textColor="@color/colorPrimaryDark"
                 android:fontFamily="@font/avenir_light"
@@ -120,7 +119,7 @@
                         android:id="@+id/tvAge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="23 years"
+                        android:text=""
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/font_12sp"
                         android:gravity="center"
@@ -163,7 +162,7 @@
                         android:id="@+id/tvHeight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="180cm"
+                        android:text=""
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/font_12sp"
                         android:gravity="center"
@@ -206,7 +205,7 @@
                         android:id="@+id/tvWeight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="80kg"
+                        android:text=""
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/font_12sp"
                         android:gravity="center"

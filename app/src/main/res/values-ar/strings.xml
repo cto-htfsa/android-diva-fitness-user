@@ -81,6 +81,9 @@
     <string name="sar_amount">SAR [X]/session</string>
     <string name="skip">skip</string>
     <string name="edit_profile">Edit Profile</string>
-
+    <string name="pick_image_from">Pick Image From</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="notification">Notification</string>
 
 </resources>

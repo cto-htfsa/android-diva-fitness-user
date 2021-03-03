@@ -13,6 +13,7 @@ import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.databinding.ActivityAboutYouBinding
 import com.htf.diva.models.AboutModel
 import com.htf.diva.models.UserData
+import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.DialogUtils
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
@@ -39,6 +40,11 @@ class AboutYouActivity : BaseDarkActivity<ActivityAboutYouBinding,AboutViewModel
         tvTitle.text=getString(R.string.about_you)
         viewModelInitialize()
 
+          if (AppSession.locale=="ar"){
+              ageSeekBar.rotation = 180F
+              heightSeekBar.rotation=180F
+              weightSeekBar.rotation=180F
+          }
 
         /*  this seekBar for User Age*/
         val currentValue = ageSeekBar.getCurrentValue()
@@ -62,7 +68,7 @@ class AboutYouActivity : BaseDarkActivity<ActivityAboutYouBinding,AboutViewModel
         /*
         *this seekBar for User Height*/
         val currentHeightValue = heightSeekBar.getCurrentValue()
-        heightSeekBar.setCurrentValue(currentHeightValue + 10)
+        heightSeekBar.setCurrentValue(currentHeightValue)
         heightSeekBar.setOnRubberSeekBarChangeListener(object : RubberSeekBar.OnRubberSeekBarChangeListener {
             @SuppressLint("SetTextI18n")
             override fun onProgressChanged(seekBar: RubberSeekBar, value: Int, fromUser: Boolean) {
@@ -82,7 +88,7 @@ class AboutYouActivity : BaseDarkActivity<ActivityAboutYouBinding,AboutViewModel
 
         /* this seekBar for User Weight*/
         val currentWeightValue = weightSeekBar.getCurrentValue()
-        weightSeekBar.setCurrentValue(currentWeightValue + 10)
+        weightSeekBar.setCurrentValue(currentWeightValue)
 
         weightSeekBar.setOnRubberSeekBarChangeListener(object : RubberSeekBar.OnRubberSeekBarChangeListener {
             @SuppressLint("SetTextI18n")

@@ -79,4 +79,11 @@ object AppUtils  {
         return locationA.distanceTo(locationB).toDouble()
     }
 
+    fun setText(textView: TextView, text: String?, defaultText: String) {
+        if (text != null && !text.isEmpty() && !text.equals("null", ignoreCase = true)) {
+            textView.text = text
+        } else {
+            textView.text = defaultText
+        }
+    }
 }

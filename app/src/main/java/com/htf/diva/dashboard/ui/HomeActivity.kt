@@ -2,18 +2,24 @@ package com.htf.diva.dashboard.ui
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.view.WindowManager
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.adapters.ViewGroupBindingAdapter.setListener
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.htf.diva.R
 import com.htf.diva.auth.ui.LoginActivity
 import com.htf.diva.auth.ui.MyProfileActivity
+import com.htf.diva.auth.ui.PaymentHistoryActivity
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.base.MyApplication
 import com.htf.diva.dashboard.fragments.DietFragment
@@ -23,6 +29,7 @@ import com.htf.diva.dashboard.fragments.WorkoutFragment
 import com.htf.diva.dashboard.viewModel.HomeViewModel
 import com.htf.diva.databinding.ActivityHomeBinding
 import com.htf.diva.models.Dashboard
+import com.htf.diva.netUtils.Constants
 import com.htf.diva.netUtils.Constants.Auth.KEY_TOKEN
 import com.htf.diva.utils.AppPreferences
 import com.htf.diva.utils.AppSession
@@ -30,6 +37,8 @@ import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import com.simform.custombottomnavigation.SSCustomBottomNavigation
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_home.ivUser
+import kotlinx.android.synthetic.main.activity_my_profile.*
 import kotlinx.android.synthetic.main.drawer_menu.view.*
 
 class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeViewModel::class.java),
@@ -60,11 +69,16 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
       //  binding.bottomNavigation.show(ID_HOME,true)
      //   bottomNavigation.show(ID_HOME)
 
+        if (currUser!=null){
+            Glide.with(currActivity).load(Constants.Urls.USER_IMAGE_URL + currUser.user!!.profileImage).centerCrop()
+                .placeholder(R.drawable.user).into(ivUser)
+        }
     }
 
     private fun setListener() {
         ivMenu.setOnClickListener(this)
         ivUser.setOnClickListener(this)
+        ivNotification.setOnClickListener(this)
     }
 
 
@@ -166,34 +180,67 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
                openDrawer()
             }
             R.id.ivUser->{
-                MyProfileActivity.open(currActivity)
+                when {
+                    currUser!=null -> {
+                        MyProfileActivity.open(currActivity)
+                    }
+                    else -> {
+                        LoginActivity.open(currActivity)
+                    }
+                }
             }
 
+            R.id.ivNotification->{
+                NotificationActivity.open(currActivity)
+           }
         }
     }
 
 
     private fun openDrawer() {
+        var builder: Dialog?=null
+
+        builder = if (AppSession.locale=="ar"){
+            Dialog(currActivity, R.style.DrawerDialogArabic)
+        }else{
+            Dialog(currActivity, R.style.DrawerDialog)
+        }
+
         val currUser= AppPreferences.getInstance(MyApplication.getAppContext()).getUserDetails()
-        val builder = AlertDialog.Builder(currActivity, R.style.AppTheme_Transparent)
+
         val dialogView = currActivity.layoutInflater.inflate(R.layout.drawer_menu, null)
-        builder.setView(dialogView)
+        builder.setContentView(dialogView)
         builder.setCancelable(true)
         val dialog = builder.show()
 
         dialogView.btnCancel.setOnClickListener {
-            dialog.dismiss()
+            builder.dismiss()
         }
+
+        if (currUser!=null){
+            dialogView.tvUserName.text= currUser.user!!.name
+            Glide.with(currActivity).load(Constants.Urls.USER_IMAGE_URL + currUser.user!!.profileImage).centerCrop()
+                .placeholder(R.drawable.user).into(dialogView.ivUser)
+        }
+
+        dialogView.llPaymentHistory.setOnClickListener {
+            PaymentHistoryActivity.open(currActivity)
+            builder.dismiss()
+        }
+
         dialogView.btnLogout.setOnClickListener {
             viewModel.logoutUser()
-            dialog.dismiss()
+            builder.dismiss()
         }
 
-        val window = dialog.window
-        window!!.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
-        window.setGravity(Gravity.FILL)
-        window.setBackgroundDrawable(ContextCompat.getDrawable(currActivity, R.color.colorPrimaryDark))
 
+        builder.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.MATCH_PARENT
+        )
+        builder.window!!.setGravity(Gravity.FILL)
+        builder.window!!.setBackgroundDrawable(ContextCompat.getDrawable(currActivity, R.color.colorPrimaryDark))
+        builder.show()
 
     }
 

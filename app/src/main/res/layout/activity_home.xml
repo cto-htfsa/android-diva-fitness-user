@@ -57,12 +57,15 @@
                         android:padding="@dimen/dimen_12"
                         android:src="@drawable/notification" />
 
-                    <ImageView
+                    <com.github.siyamed.shapeimageview.RoundedImageView
                         android:id="@+id/ivUser"
-                        android:layout_width="@dimen/dimen_50"
-                        android:layout_height="@dimen/dimen_50"
-                        android:padding="@dimen/dimen_10"
-                        android:src="@drawable/female" />
+                        app:siRadius="@dimen/dimen_20"
+                        android:layout_marginEnd="@dimen/margin_8dp"
+                        android:layout_marginTop="@dimen/dimen_12"
+                        android:layout_width="@dimen/dimen_30"
+                        android:layout_height="@dimen/dimen_30"
+                        android:src="@drawable/user" />
+
                 </LinearLayout>
             </RelativeLayout>
 

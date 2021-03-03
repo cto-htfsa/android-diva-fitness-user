@@ -29,4 +29,50 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
+    <style name="DialogOtp" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowAnimationStyle">@style/DialogOtpAnimation</item>
+    </style>
+
+    <style name="DialogOtpAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
+    </style>
+    <style name="DrawerDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowAnimationStyle">@style/DrawerDialogAnimation</item>
+    </style>
+
+    <style name="DrawerDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_left1</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_left1</item>
+    </style>
+
+
+    <style name="DrawerDialogArabic" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowAnimationStyle">@style/DrawerDialogArabicAnimation</item>
+    </style>
+
+    <style name="DrawerDialogArabicAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_right1</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_right1</item>
+    </style>
+
+
 </resources>

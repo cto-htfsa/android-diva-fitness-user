@@ -6,10 +6,12 @@ import com.htf.diva.models.AppDashBoard
 import com.htf.diva.models.AppSetting
 import com.htf.diva.models.UserData
 import kotlinx.coroutines.Deferred
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 
 interface AuthApiInterface {
+
 
     @FormUrlEncoded
     @POST("api/v1/app/settings")
@@ -73,6 +75,31 @@ interface AuthApiInterface {
         @Field("height")height:String,
         @Field("weight")weight:String
     ):Deferred<Response<BaseResponse<AboutModel>>>
+
+
+
+    @FormUrlEncoded
+    @POST("api/v1/update/profile")
+    fun updateProfileDetail(
+        @Field("locale") locale:String,
+        @Field("device_id")device_id:String,
+        @Field("device_type")device_type:String,
+        @Field("current_version")current_version:String,
+        @Field("name")name:String,
+        @Field("age")age:String,
+        @Field("height")height:String,
+        @Field("weight")weight:String):Deferred<Response<BaseResponse<AboutModel>>>
+
+
+    @Multipart
+    @POST("api/v1/update/profile/image")
+    fun employeeProfileImageUpdateAsync(
+        @Part("locale") locale:String,
+        @Part("device_id")device_id:String,
+        @Part("device_type")device_type:String,
+        @Part("current_version")current_version:String,
+        @Part part: MultipartBody.Part?): Deferred<Response<BaseResponse<AboutModel>>>
+
 
 
 }

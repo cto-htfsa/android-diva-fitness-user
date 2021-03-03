@@ -13,7 +13,7 @@ class AboutModel :Serializable {
 
     @SerializedName("profile_image")
     @Expose
-    var profileImage: Any? = null
+    var profileImage: String? = null
 
     @SerializedName("name")
     @Expose

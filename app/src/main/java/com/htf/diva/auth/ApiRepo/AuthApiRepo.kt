@@ -3,6 +3,8 @@
 import com.htf.diva.BuildConfig
 import com.htf.diva.base.BaseRepository
 import com.htf.diva.netUtils.APIClient
+import com.htf.eyenakhr.dashboard.ApiRepo.DashboardApiRepo
+import okhttp3.MultipartBody
 
 
 object AuthApiRepo: BaseRepository() {
@@ -52,6 +54,24 @@ object AuthApiRepo: BaseRepository() {
     }
 
 
+    suspend fun updateProfileUsAsync(locale: String,deviceId: String, deviceType: String,versionName: String ,
+                               name:String,age:String,height :String,weight:String): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.updateProfileDetail(
+                locale,deviceId,deviceType,versionName,name,age,height,weight).await()
+            }
+        )
+    }
+
+
+
+
+    suspend fun userProfileImageUpdateAsync(locale: String,deviceId: String, deviceType: String,versionName: String ,part: MultipartBody.Part): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.employeeProfileImageUpdateAsync(locale,deviceId,deviceType,versionName,part
+            ).await()}
+        )
+    }
 
 
 }

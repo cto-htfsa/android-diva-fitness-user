@@ -23,6 +23,19 @@ object DashboardApiRepo : BaseRepository() {
         )
     }
 
+    suspend fun userProfileAsync( locale: String,deviceId: String, deviceType: String, versionName: String): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.userProfileDetail(locale,deviceId,deviceType,versionName).await()}
+        )
+    }
+
+
+    suspend fun notificationAsync( locale: String,deviceId: String, deviceType: String, versionName: String): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.notification(locale,deviceId,deviceType,versionName,"oldest").await()}
+        )
+    }
+
 }
 
 

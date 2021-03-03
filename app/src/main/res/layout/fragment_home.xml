@@ -49,7 +49,7 @@
                     android:background="@drawable/rating_bg"
                     android:layout_marginStart="@dimen/dimen_10"
                     android:layout_marginEnd="@dimen/dimen_10"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:backgroundTint="@color/colorMembershipExpiredBg">
 
                     <ImageView

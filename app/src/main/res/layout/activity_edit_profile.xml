@@ -4,11 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="aboutViewModel"
-            type="com.htf.diva.auth.viewModel.AboutViewModel" />
-
+            name="editProfileViewModel"
+            type="com.htf.diva.auth.viewModel.EditProfileViewModel" />
         <import type="android.view.View" />
 
     </data>
@@ -33,6 +31,7 @@
 
 
             <EditText
+                android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -41,24 +40,12 @@
                 android:fontFamily="@font/avenir_black"
                 android:gravity="center"
                 android:hint="@string/enter_your_name"
-                android:text="@={aboutViewModel.mName}"
+                android:text="@={editProfileViewModel.mName}"
                 android:textColorHint="@color/colorHintText"
                 android:imeOptions="actionDone"
                 android:inputType="textPersonName"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/font_16sp" />
-
-            <TextView
-                android:id="@+id/tvAboutUsError"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/avenir_roman"
-                android:gravity="end"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:textColor="@color/colorWhite"
-                android:visibility="gone" />
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -76,7 +63,6 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/font_14sp" />
 
-
                 <LinearLayout
                     android:background="@drawable/select_age_bg"
                     android:layout_width="wrap_content"
@@ -88,13 +74,13 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/tvAge"
+                        android:id="@+id/tvEditAge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:elevation="@dimen/dimen_5"
                         android:layout_margin="@dimen/dimen_5"
+                        android:text="@={editProfileViewModel.mAge}"
                         android:layout_gravity="center"
-                        android:text="@={aboutViewModel.mAge}"
                         android:fontFamily="@font/avenir_black"
                         android:textStyle="normal"
                         android:textColor="@color/colorPrimaryDark"
@@ -114,10 +100,10 @@
 
                 </LinearLayout>
 
+
             </RelativeLayout>
 
             <RelativeLayout
-                android:layoutDirection="rtl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dimen_10">
@@ -134,13 +120,12 @@
                     android:textSize="@dimen/font_10sp" />
 
                 <com.jem.rubberpicker.RubberSeekBar
-                    android:id="@+id/ageSeekBar"
+                    android:id="@+id/editageSeekBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/tvMinAge"
                     android:layout_toStartOf="@id/tvMaxAge"
                     app:dampingRatio="0.3"
-                    android:padding="@dimen/margin_4dp"
                     app:defaultThumbInsideColor="@color/white"
                     app:defaultThumbRadius="@dimen/margin_10dp"
                     app:elasticBehavior="cubic"
@@ -161,9 +146,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/margin_8dp"
                     android:fontFamily="@font/avenir_light"
                     android:text="@string/max_age"
+                    android:layout_marginStart="@dimen/margin_8dp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/font_10sp" />
 
@@ -196,14 +181,14 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/tvHeight"
+                        android:id="@+id/tvEditHeight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/avenir_black"
                         android:textStyle="normal"
+                        android:text="@={editProfileViewModel.mHeight}"
                         android:layout_gravity="center"
                         android:layout_margin="@dimen/dimen_5"
-                        android:text="@={aboutViewModel.mHeight}"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/font_11sp" />
 
@@ -218,8 +203,6 @@
                         android:textSize="@dimen/font_11sp" />
 
                 </LinearLayout>
-
-
 
             </RelativeLayout>
 
@@ -240,7 +223,7 @@
                     android:textSize="@dimen/font_10sp" />
 
                 <com.jem.rubberpicker.RubberSeekBar
-                    android:id="@+id/heightSeekBar"
+                    android:id="@+id/editheightSeekBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/tvMinHeight"
@@ -254,7 +237,6 @@
                     app:highlightTrackWidth="@dimen/dimen_2"
                     app:maxValue="150"
                     app:minValue="50"
-                    android:padding="@dimen/margin_4dp"
                     app:normalTrackColor="@color/colorHintText"
                     app:normalTrackWidth="@dimen/dimen_2"
                     app:stiffness="300"
@@ -302,14 +284,14 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/tvWeight"
+                        android:id="@+id/tvEditWeight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:elevation="@dimen/dimen_5"
+                        android:text="@={editProfileViewModel.mWeight}"
                         android:fontFamily="@font/avenir_black"
                         android:textStyle="normal"
                         android:layout_gravity="center"
-                        android:text="@={aboutViewModel.mWeight}"
                         android:layout_margin="@dimen/dimen_5"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/font_11sp" />
@@ -346,7 +328,7 @@
                     android:textSize="@dimen/font_10sp" />
 
                 <com.jem.rubberpicker.RubberSeekBar
-                    android:id="@+id/weightSeekBar"
+                    android:id="@+id/editweightSeekBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/tvMinWeigth"
@@ -360,7 +342,6 @@
                     app:highlightTrackWidth="@dimen/dimen_2"
                     app:maxValue="200"
                     app:minValue="30"
-                    android:padding="@dimen/margin_4dp"
                     app:normalTrackColor="@color/colorHintText"
                     app:normalTrackWidth="@dimen/dimen_2"
                     app:stiffness="300"
@@ -385,6 +366,7 @@
 
 
         <Button
+            android:id="@+id/btnContinue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_35"
@@ -396,12 +378,12 @@
             android:fontFamily="@font/avenir_roman"
             android:paddingStart="@dimen/margin_4dp"
             android:paddingTop="@dimen/margin_12dp"
-            android:onClick="@{()->aboutViewModel.onContinueClick()}"
             android:paddingEnd="@dimen/margin_4dp"
+            android:text="@string/continue_"
             android:paddingBottom="@dimen/margin_12dp"
             android:layout_marginStart="@dimen/dimen_50"
             android:layout_marginEnd="@dimen/dimen_50"
-            android:text="@string/continue_"
+            android:onClick="@{()->editProfileViewModel.onContinueClick()}"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textAllCaps="false">

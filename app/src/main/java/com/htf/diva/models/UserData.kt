@@ -51,11 +51,11 @@ class  User :Serializable{
 
     @SerializedName("profile_image")
     @Expose
-    var profileImage: Any? = null
+    var profileImage: String? = null
 
     @SerializedName("name")
     @Expose
-    var name: Any? = null
+    var name: String? = null
 
     @SerializedName("email")
     @Expose
@@ -76,4 +76,7 @@ class  User :Serializable{
     @SerializedName("created_at")
     @Expose
     var createdAt: String? = null
+
+
+
 }
