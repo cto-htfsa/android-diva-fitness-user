@@ -142,7 +142,7 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
                     ID_HOME -> changeFragment("",HomeFragment())
                     ID_MEMBERSHIP -> getString(R.string.membership)
                     ID_WORKOUT -> getString(R.string.workout)
-                    ID_DIET -> getString(R.string.diet)
+                    ID_DIET -> changeFragment("",DietFragment())
 
                     else -> ""
 
@@ -230,6 +230,11 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
 
         dialogView.btnLogout.setOnClickListener {
             viewModel.logoutUser()
+            builder.dismiss()
+        }
+
+        dialogView.llProfileInfo.setOnClickListener {
+            MyProfileActivity.open(currActivity)
             builder.dismiss()
         }
 

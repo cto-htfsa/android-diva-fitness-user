@@ -9,14 +9,12 @@ import com.htf.diva.R
 import com.htf.diva.auth.viewModel.AboutViewModel
 import com.htf.diva.auth.viewModel.SplashViewModel
 import com.htf.diva.base.BaseDarkActivity
+import com.htf.diva.base.MyApplication
 import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.databinding.ActivityAboutYouBinding
 import com.htf.diva.models.AboutModel
 import com.htf.diva.models.UserData
-import com.htf.diva.utils.AppSession
-import com.htf.diva.utils.DialogUtils
-import com.htf.diva.utils.observerViewModel
-import com.htf.diva.utils.showToast
+import com.htf.diva.utils.*
 import com.jem.rubberpicker.RubberSeekBar
 import kotlinx.android.synthetic.main.activity_about_you.*
 import kotlinx.android.synthetic.main.activity_login.*
@@ -131,6 +129,11 @@ class AboutYouActivity : BaseDarkActivity<ActivityAboutYouBinding,AboutViewModel
 
     private fun onHandleLoginSuccessResponse(userAboutUs: AboutModel?){
         userAboutUs?.let {
+            val currUser= AppPreferences.getInstance(MyApplication.getAppContext()).getUserDetails()
+            currUser!!.user!!.name=userAboutUs.name
+            currUser.user!!.mobile=userAboutUs.mobile
+            currUser.user!!.dialCode=userAboutUs.dialCode
+            AppPreferences.getInstance(MyApplication.getAppContext()).saveUserDetails(currUser)
             HomeActivity.open(currActivity)
             finish()
         }

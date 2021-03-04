@@ -1,14 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".dashboard.fragments.DietFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="dietFragmentViewModel"
+            type="com.htf.diva.dashboard.viewModel.DitPlanViewModel" />
+        <import type="android.view.View" />
+    </data>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+     <RelativeLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
+         android:background="@color/white"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".dashboard.fragments.DietFragment">
 
-</FrameLayout>
+     <LinearLayout
+            android:id="@+id/llTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+     <RelativeLayout
+                android:id="@+id/rltToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dimen_5"
+                android:paddingEnd="@dimen/dimen_5">
+
+
+                <LinearLayout
+                    android:id="@+id/llEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:layout_alignParentStart="true"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="@dimen/font_18sp"
+                        android:textColor="@color/black"
+                        android:padding="@dimen/dimen_12"
+                        android:fontFamily="@font/avenir_black"
+                        android:text="@string/my_diet_plan" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal"
+                    android:layout_alignParentEnd="true"
+                    android:visibility="visible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/font_14sp"
+                        android:textColor="@color/black"
+                        android:padding="@dimen/dimen_15"
+                        android:fontFamily="@font/avenir_black"
+                        android:text="" />
+
+
+                    <ImageView
+                        android:id="@+id/ivMenu"
+                        android:layout_width="@dimen/dimen_50"
+                        android:layout_height="@dimen/dimen_50"
+                        android:padding="@dimen/dimen_10"
+                        android:src="@drawable/ic_drop_down" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+     <androidx.constraintlayout.widget.ConstraintLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@android:color/white"
+             tools:context=".MainActivity">
+
+             <com.michalsvec.singlerowcalendar.calendar.SingleRowCalendar
+                 android:id="@+id/main_single_row_calendar"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="16dp"
+                 android:layout_marginTop="16dp"
+                 android:layout_marginEnd="16dp"
+                 app:deselection="false"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:longPress="false"
+                 app:multiSelection="false"
+                 tools:ignore="MissingConstraints" />
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+         <ImageView
+             android:id="@+id/imgNoWorkout"
+             android:layout_centerInParent="true"
+             android:layout_gravity="center"
+             android:layout_marginTop="@dimen/margin_8dp"
+             android:src="@drawable/no_diet_plan"
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/dimen_150">
+         </ImageView>
+
+         <TextView
+             android:id="@+id/tv_no_workout"
+             android:layout_below="@+id/imgNoWorkout"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="start"
+             android:textAlignment="viewStart"
+             android:layout_centerInParent="true"
+             android:text="@string/no_diet_plan_created"
+             android:fontFamily="@font/avenir_black"
+             android:textColor="@color/colorPrimaryDark"
+             android:textSize="@dimen/font_12sp" />
+
+         <Button
+             android:id="@+id/btn_create_workout"
+             android:layout_width="match_parent"
+             android:layout_height="40dp"
+             android:layout_marginTop="@dimen/margin_16dp"
+             android:background="@drawable/btn_bg"
+             android:layout_gravity="center"
+             android:layout_below="@+id/tv_no_workout"
+             android:layout_marginBottom="@dimen/dimen_20"
+             android:fontFamily="@font/avenir_roman"
+             android:paddingStart="@dimen/margin_4dp"
+             android:paddingTop="@dimen/margin_12dp"
+             android:paddingEnd="@dimen/margin_4dp"
+             android:paddingBottom="@dimen/margin_12dp"
+             android:layout_marginStart="@dimen/dimen_110"
+             android:layout_marginEnd="@dimen/dimen_110"
+             android:text="@string/create_plan"
+             android:textColor="@color/white"
+             android:textSize="14sp"
+             android:textAllCaps="false"/>
+
+
+    </RelativeLayout>
+
+</layout>

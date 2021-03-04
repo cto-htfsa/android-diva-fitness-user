@@ -88,5 +88,8 @@
     <string name="you_have_unread_notifications"><![CDATA["  <string name=\"you_have_unread_notifications\">You have {number} unread notifications.</string>"]]></string>
     <string name="clear_all">Clear All</string>
     <string name="no_notification_found">No Notification Found</string>
+    <string name="my_diet_plan">My Diet Plan</string>
+    <string name="no_diet_plan_created">No Diet Plan Created</string>
+    <string name="create_plan">Create Plan</string>
 
 </resources>

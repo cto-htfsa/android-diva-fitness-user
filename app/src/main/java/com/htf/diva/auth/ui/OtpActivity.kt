@@ -73,16 +73,16 @@ class OtpActivity : BaseDarkActivity<ActivityOtpBinding,OtpViewModel>(OtpViewMod
     }
     private fun onHandleVerifyOtpSuccessResponse(resendOtp: UserData?){
         resendOtp?.let {
-           /* AppPreferences.getInstance(MyApplication.getAppContext()).saveInPreference(KEY_TOKEN,resendOtp.accessToken!!)
-            AppPreferences.getInstance(MyApplication.getAppContext()).saveUserDetails(resendOtp)
-*/
             AppPreferences.getInstance(MyApplication.getAppContext()).saveInPreference(KEY_TOKEN,resendOtp.accessToken!!)
             AppSession.userToken = resendOtp.accessToken!!
             val currTime = System.currentTimeMillis()
             val expTime=currTime+((resendOtp.expiresIn!!-10)*1000)
             resendOtp.userTokenExpireTime=expTime
             resendOtp.userTokenRefreshTime=currTime
-            AppPreferences.getInstance(MyApplication.getAppContext()).saveUserDetails(resendOtp)
+            resendOtp.user!!.name=resendOtp.user!!.name
+            resendOtp.user!!.mobile=resendOtp.user!!.mobile
+            resendOtp.user!!.dialCode=resendOtp.user!!.dialCode
+             AppPreferences.getInstance(MyApplication.getAppContext()).saveUserDetails(resendOtp)
 
             AboutYouActivity.open(currActivity)
             finish()
