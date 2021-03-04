@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="dietWeekDayViewModel"
+            type="com.htf.diva.dashboard.viewModel.DitPlanViewModel" />
+        <import type="android.view.View" />
+    </data>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/llTop"
+            layout="@layout/toolbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".auth.ui.NotificationActivity">
+
+            <RelativeLayout
+                android:id="@+id/llUnreadNotifications"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:background="@color/colorWhite"
+                android:elevation="@dimen/dimen_3">
+
+                <TextView
+                    android:id="@+id/tvHaveUnreadNotifications"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/font_10sp"
+                    android:padding="@dimen/dimen_7"
+                    android:layout_marginStart="@dimen/dimen_7"
+                    android:fontFamily="@font/avenir_black"
+                    android:textColor="@color/colorAccent"
+                    android:text="@string/you_have_unread_notifications"/>
+
+                <ImageView
+                    android:id="@+id/ivDots"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/dimen_40"
+                    android:padding="@dimen/dimen_10"
+                    android:src="@drawable/ic__dots"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+            <include
+                layout="@layout/layout_recycler_view"/>
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</layout>

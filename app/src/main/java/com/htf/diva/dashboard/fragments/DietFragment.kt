@@ -11,7 +11,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.htf.diva.BuildConfig
 import com.htf.diva.R
+import com.htf.diva.auth.ui.EditProfileActivity
 import com.htf.diva.base.BaseFragment
+import com.htf.diva.dashboard.ui.DietWeekDaysActivity
 import com.htf.diva.dashboard.viewModel.DitPlanViewModel
 import com.htf.diva.dashboard.viewModel.HomeViewModel
 import com.htf.diva.databinding.FragmentDietBinding
@@ -22,13 +24,15 @@ import com.michalsvec.singlerowcalendar.calendar.CalendarViewManager
 import com.michalsvec.singlerowcalendar.calendar.SingleRowCalendarAdapter
 import com.michalsvec.singlerowcalendar.selection.CalendarSelectionManager
 import com.michalsvec.singlerowcalendar.utils.DateUtils
+import kotlinx.android.synthetic.main.activity_my_profile.*
 import kotlinx.android.synthetic.main.fragment_diet.*
 import kotlinx.android.synthetic.main.calendar_item.view.*
 import kotlinx.android.synthetic.main.fragment_diet.view.*
 import java.util.*
 
 
-class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java) {
+class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java) ,
+    View.OnClickListener {
     private lateinit var currActivity: Activity
     lateinit var binding: FragmentDietBinding
     private val calendar = Calendar.getInstance()
@@ -40,6 +44,7 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
         // Inflate the layout for this fragment
         currActivity = requireActivity()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_diet, container, false)
+        setListener()
 
         // set current date to calendar and current month to currentMonth variable
         calendar.time = Date()
@@ -87,7 +92,8 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
 
         // using calendar changes observer we can track changes in calendar
         val myCalendarChangesObserver = object :
-            CalendarChangesObserver {
+
+        CalendarChangesObserver {
             // you can override more methods, in this example we need only this one
             override fun whenSelectionChanged(isSelected: Boolean, position: Int, date: Date) {
                 tvDate.text = "${DateUtils.getMonthName(date)},${DateUtils.getYear(date)} "
@@ -123,6 +129,7 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
             setDates(getFutureDatesOfCurrentMonth())
             init()
         }
+
 
         return binding.root
 
@@ -167,6 +174,19 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
         }
         calendar.add(Calendar.DATE, -1)
         return list
+    }
+
+
+    private fun setListener() {
+        binding.root.btn_create_workout.setOnClickListener(this)
+    }
+
+    override fun onClick(p0: View?) {
+        when (p0!!.id) {
+            R.id.btn_create_workout -> {
+                DietWeekDaysActivity.open(currActivity)
+            }
+        }
     }
 
 }

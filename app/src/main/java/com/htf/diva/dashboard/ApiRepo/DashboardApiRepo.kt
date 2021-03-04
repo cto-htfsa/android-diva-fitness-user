@@ -35,6 +35,12 @@ object DashboardApiRepo : BaseRepository() {
             call ={ retrofitAuthClient.notification(locale,deviceId,deviceType,versionName,"oldest").await()}
         )
     }
+    suspend fun dietWeekdaysAsync(locale: String,deviceId: String, deviceType: String, versionName: String): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.dietWeekdays(locale,deviceId,deviceType,versionName).await()}
+        )
+    }
+
 
 }
 

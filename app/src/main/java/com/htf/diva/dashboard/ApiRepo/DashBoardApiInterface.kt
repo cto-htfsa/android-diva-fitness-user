@@ -1,10 +1,7 @@
 package com.htf.eyenakhr.dashboard.ApiRepo
 
 import com.htf.diva.base.BaseResponse
-import com.htf.diva.models.AboutModel
-import com.htf.diva.models.AppDashBoard
-import com.htf.diva.models.Notifications
-import com.htf.diva.models.UserData
+import com.htf.diva.models.*
 import kotlinx.coroutines.Deferred
 
 import retrofit2.Response
@@ -50,6 +47,15 @@ interface DashBoardApiInterface {
         @Field("device_type")device_type:String,
         @Field("current_version")current_version:String,
         @Field("order_by")order_by:String):Deferred<Response<BaseResponse<ArrayList<Notifications>>>>
+
+     @FormUrlEncoded
+     @POST("api/v1/diet/weekdays")
+     fun dietWeekdays(
+        @Field("locale") locale:String,
+        @Field("device_id")device_id:String,
+        @Field("device_type")device_type:String,
+        @Field("current_version")current_version:String):Deferred<Response<BaseResponse<ArrayList<DietWeekdayModel>>>>
+
 
 
 
