@@ -28,6 +28,7 @@
                 android:id="@+id/ivTrainerImage"
                 android:layout_width="@dimen/dimen_50"
                 android:layout_height="@dimen/dimen_50"
+                app:siBorderColor="@color/white"
                 android:src="@drawable/user"
                 trainerImage="@{topTrainer.image}"
                 app:siRadius="@dimen/dimen_10" />

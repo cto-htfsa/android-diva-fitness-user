@@ -28,6 +28,8 @@ import com.htf.eyenakhr.callBack.IListItemClickListener
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.fragment_home.vpBanner
 
 class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
     IListItemClickListener<Any> {
@@ -49,6 +51,10 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
         println("onCreate:->SHUBHAM")
         viewModel.appDashBoard(AppSession.locale, AppSession.deviceId, AppSession.deviceType, BuildConfig.VERSION_NAME)
         viewModelInitialize()
+        if (currUser!!.user!!.name!=null){
+            val nameStr=getString(R.string.hey_name)
+            binding.root.tvHeyMsg.text=nameStr.replace("[x]", currUser.user!!.name!!)
+        }
         return binding.root
 
     }
@@ -77,17 +83,20 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
     /*  Set Banner for offer in this section*/
     private fun setUpBanner(banners: ArrayList<Banner>) {
         mAdapter = BannerAdapter(currActivity, banners,this)
-        vpBanner.adapter = mAdapter
+        binding.root.vpBanner.adapter = mAdapter
         indicator_view.apply {
             setSliderColor(ContextCompat.getColor(currActivity,R.color.colorViewAllBg), ContextCompat.getColor(currActivity,R.color.colorPrimary))
             setSliderWidth(resources.getDimension(R.dimen.dimen_20))
             setSliderHeight(resources.getDimension(R.dimen.dimen_3))
             setSlideMode(IndicatorSlideMode.WORM)
             setIndicatorStyle(IndicatorStyle.ROUND_RECT)
-            setPageSize(vpBanner!!.adapter!!.itemCount)
+            setPageSize(binding.root.vpBanner!!.adapter!!.itemCount)
             notifyDataChanged()
+
+
+
         }
-        vpBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.root.vpBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
                 indicator_view.onPageScrolled(position, positionOffset, positionOffsetPixels)

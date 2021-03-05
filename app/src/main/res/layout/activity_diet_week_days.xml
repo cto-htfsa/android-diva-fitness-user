@@ -9,7 +9,6 @@
         <import type="android.view.View" />
     </data>
 
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -25,7 +24,7 @@
             android:orientation="vertical"
             tools:context=".auth.ui.NotificationActivity">
 
-            <RelativeLayout
+        <RelativeLayout
                 android:id="@+id/llUnreadNotifications"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,8 +58,6 @@
 
             <include
                 layout="@layout/layout_recycler_view"/>
-
-
 
         </LinearLayout>
 

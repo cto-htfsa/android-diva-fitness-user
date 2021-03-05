@@ -26,14 +26,16 @@ class OtpActivity : BaseDarkActivity<ActivityOtpBinding,OtpViewModel>(OtpViewMod
     private var mHashToken:String?=null
     private var userId:String?=null
     private var fcmId:String?=null
+    private var mobileNumber:String?=null
 
 
     companion object{
-        fun open(currActivity: Activity, userId: String?,token: String?,fcmId:String?){
+        fun open(currActivity: Activity, userId: String?,token: String?,fcmId:String?,mobileNumber:String?){
             val intent= Intent(currActivity,OtpActivity::class.java)
             intent.putExtra("userId",userId)
             intent.putExtra("token",token)
             intent.putExtra("fcmId",fcmId)
+            intent.putExtra("mobileNumber",mobileNumber)
             currActivity.startActivity(intent)
         }
     }
@@ -82,8 +84,7 @@ class OtpActivity : BaseDarkActivity<ActivityOtpBinding,OtpViewModel>(OtpViewMod
             resendOtp.user!!.name=resendOtp.user!!.name
             resendOtp.user!!.mobile=resendOtp.user!!.mobile
             resendOtp.user!!.dialCode=resendOtp.user!!.dialCode
-             AppPreferences.getInstance(MyApplication.getAppContext()).saveUserDetails(resendOtp)
-
+            AppPreferences.getInstance(MyApplication.getAppContext()).saveUserDetails(resendOtp)
             AboutYouActivity.open(currActivity)
             finish()
         }
@@ -97,8 +98,12 @@ class OtpActivity : BaseDarkActivity<ActivityOtpBinding,OtpViewModel>(OtpViewMod
         mHashToken=intent.getStringExtra("token")
         userId=intent.getStringExtra("userId")
         fcmId=intent.getStringExtra("fcmId")
+        mobileNumber=intent.getStringExtra("mobileNumber")
         viewModel.mHashToken.value=mHashToken
         viewModel.mUserId.value=userId
+        val otpStr=getString(R.string.we_sent_it_to_the_number)
+        tvOtpMobile.text=otpStr.replace("[x]","+966"+mobileNumber!!)
+
     }
 
     private fun startCountdownTimer(){

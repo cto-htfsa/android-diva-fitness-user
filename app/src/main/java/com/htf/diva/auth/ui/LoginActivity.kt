@@ -17,8 +17,6 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseDarkActivity<ActivityLoginBinding,LoginViewModel>(LoginViewModel::class.java) {
     private var currActivity:Activity=this
-    private val mSplashViewModel by lazy { getViewModel<SplashViewModel>() }
-
     companion object{
         fun open(currActivity: Activity){
             val intent= Intent(currActivity,LoginActivity::class.java)
@@ -39,8 +37,7 @@ class LoginActivity : BaseDarkActivity<ActivityLoginBinding,LoginViewModel>(Logi
         observerViewModel(viewModel.isApiCalling,this::onHandleShowProgress)
         observerViewModel(viewModel.mLoginData,this::onHandleLoginSuccessResponse)
         observerViewModel(viewModel.errorResult,this::onHandleApiErrorResponse)
-        observerViewModel(mSplashViewModel.errorResult,this::onHandleApiErrorResponse)
-        observerViewModel(mSplashViewModel.isApiCalling,this::onHandleShowProgress)
+
     }
 
     private fun onHandleShowProgress(isNotShow:Boolean) {
@@ -57,8 +54,9 @@ class LoginActivity : BaseDarkActivity<ActivityLoginBinding,LoginViewModel>(Logi
 
     private fun onHandleLoginSuccessResponse(userData: UserData?){
         userData?.let {
-            OtpActivity.open(currActivity,userData.id,userData.token,fcmId = null)
-            finish()
+            OtpActivity.open(currActivity,userData.id,userData.token,fcmId = null,
+                mobileNumber = viewModel.mMobile.value.toString())
+                finish()
         }
     }
 

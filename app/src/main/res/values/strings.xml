@@ -89,4 +89,12 @@
     <string name="my_diet_plan">My Diet Plan</string>
     <string name="no_diet_plan_created">No Diet Plan Created</string>
     <string name="create_plan">Create Plan</string>
+    <string name="add">Add</string>
+    <string name="create_diet_plan">Create Diet Plan</string>
+    <string name="view">View</string>
+    <string name="hey_name">Hey, [x]</string>
+    <string name="welcome_to_diva_fitness">Welcome to Diva Fitness</string>
+    <string name="no_diet_available">No Diet Plan Available</string>
+
+
 </resources>

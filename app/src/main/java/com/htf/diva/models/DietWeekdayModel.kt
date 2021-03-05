@@ -17,7 +17,7 @@ class DietWeekdayModel :Serializable {
 
     @SerializedName("mealTypes")
     @Expose
-    var mealTypes: List<MealDietType>? = null
+    var mealTypes: ArrayList<MealDietType>? = null
 
 
 }
