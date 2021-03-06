@@ -57,6 +57,15 @@ interface DashBoardApiInterface {
         @Field("current_version")current_version:String):Deferred<Response<BaseResponse<ArrayList<DietWeekdayModel>>>>
 
 
+     @FormUrlEncoded
+     @POST("api/v1/my/diet")
+     fun myDietPlan(
+        @Field("locale") locale:String,
+        @Field("device_id")device_id:String,
+        @Field("device_type")device_type:String,
+        @Field("current_version")current_version:String,
+        @Field("date")date:String ):Deferred<Response<BaseResponse<MyDietModel>>>
+
 
 
 }

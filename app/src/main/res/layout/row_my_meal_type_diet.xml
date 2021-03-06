@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="myDietModel"
+            type="com.htf.diva.models.MealType" />
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:layout_marginBottom="@dimen/margin_4dp"
+        android:padding="@dimen/dimen_7"
+        android:elevation="@dimen/dimen_1"
+        android:orientation="vertical"
+        android:background="@drawable/meal_type_rect_bg">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.github.siyamed.shapeimageview.RoundedImageView
+                android:id="@+id/ivTrainerImage"
+                android:layout_width="@dimen/dimen_50"
+                app:siBorderColor="@color/white"
+                android:layout_height="@dimen/dimen_50"
+                android:src="@drawable/user"
+                mealTypeImage="@{myDietModel.image}"
+                app:siRadius="@dimen/dimen_10" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/dimen_5"
+                android:padding="@dimen/dimen_5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    userName="@{myDietModel.name}"
+                    android:textSize="@dimen/font_13sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:fontFamily="@font/avenir_black" />
+
+                <TextView
+                    android:layout_marginTop="@dimen/margin_4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/font_12sp"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/avenir_black" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</layout>
+

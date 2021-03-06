@@ -49,5 +49,11 @@
     <color name="colorBackground">#EFF0F1</color>
 
 
+    <color name="gray1">#E5E5E5</color>
+    <color name="gray2">#DFDFDF</color>
+    <color name="gray3">#B5B5B5</color>
+    <color name="gray4">#666666</color>
+    <color name="gray5">#8C8C8C</color>
+
 
 </resources>

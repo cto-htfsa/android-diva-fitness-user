@@ -38,7 +38,7 @@ class MealDietType:Serializable{
 
     @SerializedName("dietPlans")
     @Expose
-    var dietPlans: List<DietPlan>? = null
+    var dietPlans: ArrayList<DietPlan>? = null
 
 
 }

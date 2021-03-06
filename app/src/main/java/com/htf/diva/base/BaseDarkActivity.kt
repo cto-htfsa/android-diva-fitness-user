@@ -176,8 +176,4 @@ abstract class BaseDarkActivity<T : ViewDataBinding, V : BaseViewModel>(private 
     fun onBackBtnClick(view:View){
         finish()
     }
-
-
-
-
 }

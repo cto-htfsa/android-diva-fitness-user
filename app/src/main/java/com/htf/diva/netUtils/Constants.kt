@@ -9,6 +9,7 @@ object Constants {
         const val USER_IMAGE_URL="https://development.htf.sa/diva/uploads/users/"
         const val TRAINER_IMAGE_URL="https://development.htf.sa/diva/uploads/trainers/"
         const val MEALTYPE_IMAGE_URL="https://development.htf.sa/diva/uploads/meal_types/"
+        const val MEAL_IMAGE_URL="https://development.htf.sa/diva/uploads/meals/"
 
         const val FITNESS_CENTER_IMAGE_URL="https://development.htf.sa/diva/uploads/fitness_centers/"
 

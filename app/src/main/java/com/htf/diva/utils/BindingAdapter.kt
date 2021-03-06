@@ -44,6 +44,14 @@ class BindingAdapter {
             view.picassoImg(url, R.drawable.user)
         }
 
+
+        @JvmStatic
+        @BindingAdapter("dietPlan")
+        fun setDietPlanImageUrl(view: ImageView, poserPath: String?) {
+            val url = Constants.Urls.MEAL_IMAGE_URL + poserPath
+            view.picassoImg(url, R.drawable.user)
+        }
+
         @JvmStatic
         @BindingAdapter("fitnessCenterImage")
         fun setFitnessImageUrl(view: ImageView, poserPath: String?) {

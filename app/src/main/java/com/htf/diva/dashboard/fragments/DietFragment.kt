@@ -1,43 +1,44 @@
 package com.htf.diva.dashboard.fragments
 
 import android.app.Activity
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.htf.diva.BuildConfig
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.htf.diva.R
-import com.htf.diva.auth.ui.EditProfileActivity
 import com.htf.diva.base.BaseFragment
+import com.htf.diva.dashboard.adapters.MyMealTypeDietAdapter
 import com.htf.diva.dashboard.ui.DietWeekDaysActivity
 import com.htf.diva.dashboard.viewModel.DitPlanViewModel
-import com.htf.diva.dashboard.viewModel.HomeViewModel
 import com.htf.diva.databinding.FragmentDietBinding
-import com.htf.diva.databinding.FragmentHomeBinding
-import com.htf.diva.utils.AppSession
+import com.htf.diva.models.MyDietModel
+import com.htf.diva.utils.observerViewModel
+import com.htf.diva.utils.showToast
+import com.htf.eyenakhr.callBack.IListItemClickListener
 import com.michalsvec.singlerowcalendar.calendar.CalendarChangesObserver
 import com.michalsvec.singlerowcalendar.calendar.CalendarViewManager
 import com.michalsvec.singlerowcalendar.calendar.SingleRowCalendarAdapter
 import com.michalsvec.singlerowcalendar.selection.CalendarSelectionManager
 import com.michalsvec.singlerowcalendar.utils.DateUtils
-import kotlinx.android.synthetic.main.activity_my_profile.*
 import kotlinx.android.synthetic.main.fragment_diet.*
 import kotlinx.android.synthetic.main.calendar_item.view.*
 import kotlinx.android.synthetic.main.fragment_diet.view.*
+import kotlinx.android.synthetic.main.layout_recycler_view.view.*
+import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
 
 
 class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java) ,
-    View.OnClickListener {
+    View.OnClickListener,IListItemClickListener<Any> {
     private lateinit var currActivity: Activity
     lateinit var binding: FragmentDietBinding
     private val calendar = Calendar.getInstance()
     private var currentMonth = 0
-   private var currentDate=0
+    private var currentDate=0
+    private lateinit var myDietAdapter: MyMealTypeDietAdapter
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -45,13 +46,14 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
         currActivity = requireActivity()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_diet, container, false)
         setListener()
+        binding.myDietPlan = viewModel
+        viewModel.myDietList()
+        viewModelInitialize()
 
         // set current date to calendar and current month to currentMonth variable
         calendar.time = Date()
         currentMonth = calendar[Calendar.MONTH]
         currentDate=calendar[Calendar.DATE]
-
-
 
         // calendar view manager is responsible for our displaying logic
         val myCalendarViewManager = object : CalendarViewManager {
@@ -188,5 +190,42 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
             }
         }
     }
+
+
+    private fun viewModelInitialize() {
+        observerViewModel(viewModel.isApiCalling,this::onHandleShowProgress)
+        observerViewModel(viewModel.errorResult,this::onHandleApiErrorResponse)
+        observerViewModel(viewModel.mMyDietData, this::onHandleAppDashBoardSuccessResponse)
+    }
+
+    private fun onHandleShowProgress(isNotShow:Boolean) {
+        if (isNotShow) progressDialog?.show() else progressDialog?.dismiss()
+    }
+
+    private fun onHandleApiErrorResponse(error: String){
+        currActivity.showToast(error,true)
+    }
+
+    private fun onHandleAppDashBoardSuccessResponse(myDiet: MyDietModel?) {
+        myDiet?.let {
+            if(myDiet.mealTypes!!.size>0){
+                lnrMySchedule.visibility=View.VISIBLE
+                dietRecycler.visibility=View.VISIBLE
+                lnrNoDietPlanAvailable.visibility=View.GONE
+                val mLayout= LinearLayoutManager(currActivity)
+                dietRecycler.layoutManager=mLayout
+                myDietAdapter= MyMealTypeDietAdapter(currActivity,myDiet.mealTypes!!,this)
+                dietRecycler.adapter=myDietAdapter
+            }else{
+                lnrMySchedule.visibility=View.GONE
+                lnrNoDietPlanAvailable.visibility=View.VISIBLE
+                tvClearAll.visibility=View.GONE
+                binding.root.ll_empty.visibility = View.VISIBLE
+                binding.root.ivNoImage.setImageResource(R.drawable.no_diet_plan)
+                binding.root.tvMsg.text=currActivity.getString(R.string.no_diet_available)
+            }
+        }
+    }
+
 
 }
