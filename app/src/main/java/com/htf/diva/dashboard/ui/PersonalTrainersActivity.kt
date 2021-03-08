@@ -4,19 +4,38 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity
+import com.htf.diva.dashboard.adapters.AllTrainersAdapter
 import com.htf.diva.dashboard.adapters.NotificationAdapter
+import com.htf.diva.dashboard.adapters.TrainerAdapter
 import com.htf.diva.dashboard.viewModel.NotificationViewModel
 import com.htf.diva.dashboard.viewModel.PersonalTrainerViewModel
 import com.htf.diva.databinding.ActivityNotificationBinding
 import com.htf.diva.databinding.ActivityPersonalTrainersBinding
+import com.htf.diva.models.AppDashBoard
+import com.htf.diva.models.Listing
+import com.htf.diva.utils.LoadMoreScrollListener
+import com.htf.diva.utils.observerViewModel
+import com.htf.diva.utils.showToast
+import com.htf.eyenakhr.callBack.IListItemClickListener
+import kotlinx.android.synthetic.main.layout_recycler_view.*
+import kotlinx.android.synthetic.main.layout_recycler_view.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 class PersonalTrainersActivity : BaseDarkActivity<ActivityPersonalTrainersBinding, PersonalTrainerViewModel>(
-    PersonalTrainerViewModel::class.java), View.OnClickListener {
+    PersonalTrainerViewModel::class.java), View.OnClickListener, SwipeRefreshLayout.OnRefreshListener,
+    IListItemClickListener<Any> {
     private var currActivity: Activity = this
-
+    private var page=1
+    private var isProgressBar=true
+    private var totalCount=0
+    private var isLoading = false
+    private var arrTrainer=ArrayList<AppDashBoard.TopTrainer>()
+    private lateinit var personalTrainerAllAdapter: AllTrainersAdapter
 
     companion object{
         fun open(currActivity: Activity){
@@ -31,9 +50,82 @@ class PersonalTrainersActivity : BaseDarkActivity<ActivityPersonalTrainersBindin
         super.onCreate(savedInstanceState)
         tvTitle.text=getString(R.string.personal_trainers)
         binding.personalTrainerViewModel = viewModel
+        viewModel.onGetTrainerListing(page = page,isProgressBar = isProgressBar)
+        viewModelInitialize()
+        setListener()
+        initRecycler()
 
     }
 
+    private fun viewModelInitialize() {
+        observerViewModel(viewModel.isApiCalling,this::onHandleShowProgress)
+        observerViewModel(viewModel.errorResult,this::onHandleApiErrorResponse)
+        observerViewModel(viewModel.mNotificationData,this::onHandleNotificationResponse)
+    }
+
+    private fun onHandleShowProgress(isNotShow:Boolean) {
+        if (isNotShow) progressDialog?.show() else progressDialog?.dismiss()
+    }
+
+    private fun onHandleApiErrorResponse(error: String){
+        showToast(error,true)
+    }
+
+
+    private fun onHandleNotificationResponse(data: Listing<AppDashBoard.TopTrainer>?){
+        data?.let {
+            if (page == 1) {
+                binding.root.refresh.isRefreshing = false
+            } else {
+                binding.root.load_more.visibility = View.GONE
+            }
+            isLoading=false
+            totalCount=it.total!!
+            if (!it.data.isNullOrEmpty()){
+                tvClearAll.visibility=View.VISIBLE
+                if (page==1)
+                    arrTrainer.clear()
+                arrTrainer.addAll(it.data!!)
+                personalTrainerAllAdapter.notifyDataSetChanged()
+                binding.root.ll_empty.visibility=View.GONE
+            }
+            else {
+                tvClearAll.visibility=View.GONE
+                binding.root.ll_empty.visibility = View.VISIBLE
+                binding.root.ivNoImage.setImageResource(R.drawable.diva_place_holder)
+                binding.root.tvMsg.text=currActivity.getString(R.string.no_trainer_avl)
+            }
+        }
+    }
+
+
+    private fun initRecycler() {
+        val mLayout= LinearLayoutManager(currActivity)
+        recycler.layoutManager=mLayout
+        personalTrainerAllAdapter= AllTrainersAdapter(currActivity,arrTrainer,this)
+        recycler.adapter=personalTrainerAllAdapter
+
+        recycler.addOnScrollListener(object : LoadMoreScrollListener(mLayout) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                if (!isLoading && arrTrainer.size < totalCount) {
+                    this@PersonalTrainersActivity.page++
+                    isProgressBar = false
+                    viewModel.onGetTrainerListing(page = this@PersonalTrainersActivity.page,isProgressBar = isProgressBar)
+                }
+            }
+
+        })
+    }
+
+    private fun setListener() {
+        refresh.setOnRefreshListener(this)
+    }
+
+    override fun onRefresh() {
+        page=1
+        isProgressBar=true
+        viewModel.onGetTrainerListing(page,isProgressBar)
+    }
 
     override fun onClick(p0: View?) {
         TODO("Not yet implemented")

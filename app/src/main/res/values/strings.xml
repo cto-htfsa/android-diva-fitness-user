@@ -99,6 +99,7 @@
     <string name="edit_diet_plan">Edit Diet Plan</string>
     <string name="personal_trainers">Personal Trainers</string>
     <string name="search_by_name">Search by name</string>
+    <string name="no_trainer_avl">No Trainer available</string>
 
 
 </resources>

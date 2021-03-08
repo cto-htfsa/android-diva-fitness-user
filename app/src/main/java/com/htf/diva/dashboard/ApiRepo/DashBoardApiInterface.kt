@@ -12,60 +12,73 @@ interface DashBoardApiInterface {
     @FormUrlEncoded
     @POST("api/v1/dashboard")
     fun appDashboardAsync(
-        @Field("locale") locale:String?,
-        @Field("device_id")device_id:String?,
-        @Field("device_type")device_type:String?,
-        @Field("current_version")current_version:String?
-     ):Deferred<Response<BaseResponse<AppDashBoard>>>
+        @Field("locale") locale: String?,
+        @Field("device_id") device_id: String?,
+        @Field("device_type") device_type: String?,
+        @Field("current_version") current_version: String?
+    ): Deferred<Response<BaseResponse<AppDashBoard>>>
 
 
     @FormUrlEncoded
     @POST("api/v1/logout")
     fun userLogoutAsync(
-        @Field("locale") locale:String,
-        @Field("device_id")device_id:String,
-        @Field("device_type")device_type:String,
-        @Field("current_version")current_version:String
-    ):Deferred<Response<BaseResponse<UserData>>>
+        @Field("locale") locale: String,
+        @Field("device_id") device_id: String,
+        @Field("device_type") device_type: String,
+        @Field("current_version") current_version: String
+    ): Deferred<Response<BaseResponse<UserData>>>
 
 
-  @FormUrlEncoded
+    @FormUrlEncoded
     @POST("api/v1/get/profile")
     fun userProfileDetail(
-        @Field("locale") locale:String,
-        @Field("device_id")device_id:String,
-        @Field("device_type")device_type:String,
-        @Field("current_version")current_version:String
-    ):Deferred<Response<BaseResponse<AboutModel>>>
+        @Field("locale") locale: String,
+        @Field("device_id") device_id: String,
+        @Field("device_type") device_type: String,
+        @Field("current_version") current_version: String
+    ): Deferred<Response<BaseResponse<AboutModel>>>
 
 
     @FormUrlEncoded
     @POST("api/v1/notifications")
     fun notification(
-        @Field("locale") locale:String,
-        @Field("device_id")device_id:String,
-        @Field("device_type")device_type:String,
-        @Field("current_version")current_version:String,
-        @Field("order_by")order_by:String):Deferred<Response<BaseResponse<ArrayList<Notifications>>>>
+        @Field("locale") locale: String,
+        @Field("device_id") device_id: String,
+        @Field("device_type") device_type: String,
+        @Field("current_version") current_version: String,
+        @Field("order_by") order_by: String
+    ): Deferred<Response<BaseResponse<ArrayList<Notifications>>>>
 
-     @FormUrlEncoded
-     @POST("api/v1/diet/weekdays")
-     fun dietWeekdays(
-        @Field("locale") locale:String,
-        @Field("device_id")device_id:String,
-        @Field("device_type")device_type:String,
-        @Field("current_version")current_version:String):Deferred<Response<BaseResponse<ArrayList<DietWeekdayModel>>>>
+    @FormUrlEncoded
+    @POST("api/v1/diet/weekdays")
+    fun dietWeekdays(
+        @Field("locale") locale: String,
+        @Field("device_id") device_id: String,
+        @Field("device_type") device_type: String,
+        @Field("current_version") current_version: String
+    ): Deferred<Response<BaseResponse<ArrayList<DietWeekdayModel>>>>
 
 
-     @FormUrlEncoded
-     @POST("api/v1/my/diet")
-     fun myDietPlan(
-        @Field("locale") locale:String,
-        @Field("device_id")device_id:String,
-        @Field("device_type")device_type:String,
-        @Field("current_version")current_version:String,
-        @Field("date")date:String ):Deferred<Response<BaseResponse<MyDietModel>>>
+    @FormUrlEncoded
+    @POST("api/v1/my/diet")
+    fun myDietPlan(
+        @Field("locale") locale: String,
+        @Field("device_id") device_id: String,
+        @Field("device_type") device_type: String,
+        @Field("current_version") current_version: String,
+        @Field("date") date: String
+    ): Deferred<Response<BaseResponse<MyDietModel>>>
 
+
+    @FormUrlEncoded
+    @POST("api/v1/trainers")
+    fun personalTrainer(@Field("locale") locale: String,
+        @Field("device_id") device_id: String,
+        @Field("device_type") device_type: String,
+        @Field("current_version") current_version: String,
+        @Field("fitness_center_id") fitness_center_id: String,
+        @Field("query") query: String,
+        @Field("page") page: Int): Deferred<Response<BaseResponse<Listing<AppDashBoard.TopTrainer>>>>
 
 
 }

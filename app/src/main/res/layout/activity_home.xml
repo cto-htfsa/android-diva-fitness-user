@@ -99,12 +99,19 @@
                 app:ss_selectedIconColor="@color/colorPrimary"
                 app:ss_selectedIconTextColor="@color/colorPrimary"/>
 -->
+            <View
+                android:background="@color/gray3"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"/>
 
             <me.ibrahimsn.lib.SmoothBottomBar
                 android:id="@+id/bottomNavigation"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                app:backgroundColor="@color/colorPrimary"
+                app:iconTint="@color/black"
+                android:elevation="1dp"
+                app:iconTintActive="@color/colorText"
+                app:textColor="@color/black"
                 app:menu="@menu/menu_bottom_navigation"/>
 
         </LinearLayout>

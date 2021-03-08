@@ -48,6 +48,14 @@ object DashboardApiRepo : BaseRepository() {
         )
     }
 
+    suspend fun personalTrainers(locale: String,deviceId: String,
+                                 deviceType: String, versionName: String,fitnessId:String , query:String,page:Int): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.personalTrainer(locale,deviceId,deviceType,versionName,"","",page).await()}
+        )
+    }
+
+
 }
 
 
