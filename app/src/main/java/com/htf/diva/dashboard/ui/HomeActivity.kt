@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
+import android.widget.AdapterView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.adapters.ViewGroupBindingAdapter.setListener
@@ -35,11 +36,11 @@ import com.htf.diva.utils.AppPreferences
 import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
-import com.simform.custombottomnavigation.SSCustomBottomNavigation
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.ivUser
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import kotlinx.android.synthetic.main.drawer_menu.view.*
+import me.ibrahimsn.lib.OnItemReselectedListener
 
 class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeViewModel::class.java),
     View.OnClickListener {
@@ -61,7 +62,7 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.homeViewModel = viewModel
-        setBottomBar()
+//        setBottomBar()
         setListener()
 
         viewModelInitialize()
@@ -73,6 +74,33 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
             Glide.with(currActivity).load(Constants.Urls.USER_IMAGE_URL + currUser.user!!.profileImage).centerCrop()
                 .placeholder(R.drawable.user).into(ivUser)
         }
+
+        changeFragment("",HomeFragment())
+
+
+        bottomNavigation.onItemSelected = {
+          println("selectedIndex->$it")
+            when(it){
+                0->{
+                    changeFragment("",HomeFragment())
+                }
+                1->{
+                    changeFragment("",MembershipFragment())
+                }
+                2->{
+                    changeFragment("",WorkoutFragment())
+                }
+                3->{
+                    changeFragment("",DietFragment())
+                }
+            }
+        }
+
+        bottomNavigation.onItemReselected = {
+
+        }
+
+
     }
 
     private fun setListener() {
@@ -105,7 +133,7 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
         showToast(error, true)
     }
 
-    private fun setBottomBar() {
+/*    private fun setBottomBar() {
         binding.bottomNavigation.apply {
             add(
                 SSCustomBottomNavigation.Model(
@@ -156,15 +184,15 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
                     else -> ContextCompat.getColor(currActivity, R.color.colorText)
                 }
             }
-         /*   setOnClickMenuListener {
-                 *//*   ID_MEMBERSHIP ->  changeFragment("",MembershipFragment())
+         *//*   setOnClickMenuListener {
+                 *//**//*   ID_MEMBERSHIP ->  changeFragment("",MembershipFragment())
                     ID_WORKOUT ->  changeFragment("",WorkoutFragment())
-                    ID_DIET ->  changeFragment("",DietFragment())*//*
+                    ID_DIET ->  changeFragment("",DietFragment())*//**//*
                     //else ->  ""
-                }*/
+                }*//*
         }
 
-    }
+    }*/
 
     private fun changeFragment(s:String,fragment: Fragment){
         val fragmentManager=supportFragmentManager

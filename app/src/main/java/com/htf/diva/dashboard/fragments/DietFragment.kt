@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.calendar_item.view.*
 import kotlinx.android.synthetic.main.fragment_diet.view.*
 import kotlinx.android.synthetic.main.layout_recycler_view.view.*
 import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.toolbar.view.*
 import java.util.*
 
 
@@ -216,13 +217,17 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
                 dietRecycler.layoutManager=mLayout
                 myDietAdapter= MyMealTypeDietAdapter(currActivity,myDiet.mealTypes!!,this)
                 dietRecycler.adapter=myDietAdapter
+                binding.root.lnrEdit.visibility=View.VISIBLE
+
+             /*   binding.root.lnrMySchedule.visibility=View.GONE
+                binding.root.lnrNoDietPlanAvailable.visibility=View.VISIBLE
+                binding.root.lnrEdit.visibility=View.GONE*/
+
             }else{
-                lnrMySchedule.visibility=View.GONE
-                lnrNoDietPlanAvailable.visibility=View.VISIBLE
-                tvClearAll.visibility=View.GONE
-                binding.root.ll_empty.visibility = View.VISIBLE
-                binding.root.ivNoImage.setImageResource(R.drawable.no_diet_plan)
-                binding.root.tvMsg.text=currActivity.getString(R.string.no_diet_available)
+                binding.root.lnrMySchedule.visibility=View.GONE
+                binding.root.lnrNoDietPlanAvailable.visibility=View.VISIBLE
+                binding.root.lnrEdit.visibility=View.GONE
+
             }
         }
     }

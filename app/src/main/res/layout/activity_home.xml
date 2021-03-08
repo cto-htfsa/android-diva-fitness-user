@@ -77,32 +77,15 @@
             android:layout_below="@id/llTop"
             android:layout_above="@id/llBottom"/>
 
-        <FrameLayout
+        <LinearLayout
             android:id="@+id/llBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_alignParentBottom="true">
 
-            <LinearLayout
-                android:id="@+id/lnrLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_selected"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_15"
-                    android:gravity="center"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
-            <com.simform.custombottomnavigation.SSCustomBottomNavigation
+          <!--  <com.simform.custombottomnavigation.SSCustomBottomNavigation
                 android:id="@+id/bottomNavigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -115,8 +98,16 @@
                 app:ss_iconTextSize="@dimen/font_10sp"
                 app:ss_selectedIconColor="@color/colorPrimary"
                 app:ss_selectedIconTextColor="@color/colorPrimary"/>
+-->
 
-        </FrameLayout>
+            <me.ibrahimsn.lib.SmoothBottomBar
+                android:id="@+id/bottomNavigation"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                app:backgroundColor="@color/colorPrimary"
+                app:menu="@menu/menu_bottom_navigation"/>
+
+        </LinearLayout>
 
 
     </RelativeLayout>

@@ -99,5 +99,7 @@
     <string name="no_diet_available">No Diet Plan Available</string>
     <string name="save">Save</string>
     <string name="edit_diet_plan">Edit Diet Plan</string>
+    <string name="personal_trainers">Personal Trainers</string>
+    <string name="search_by_name">Search by name</string>
 
 </resources>

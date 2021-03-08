@@ -50,7 +50,7 @@
         <activity android:name=".dashboard.ui.DietWeekDaysActivity"/>
         <activity android:name=".dashboard.ui.MealTypesActivity"/>
         <activity android:name=".dashboard.ui.DietPlanActivity"/>
-
+        <activity android:name=".dashboard.ui.PersonalTrainersActivity"/>
 
     </application>
 

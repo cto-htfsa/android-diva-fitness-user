@@ -17,6 +17,8 @@ import com.htf.diva.base.BaseFragment
 import com.htf.diva.dashboard.adapters.BannerAdapter
 import com.htf.diva.dashboard.adapters.CenterAdapter
 import com.htf.diva.dashboard.adapters.TrainerAdapter
+import com.htf.diva.dashboard.ui.DietWeekDaysActivity
+import com.htf.diva.dashboard.ui.PersonalTrainersActivity
 import com.htf.diva.dashboard.viewModel.HomeViewModel
 import com.htf.diva.databinding.FragmentHomeBinding
 import com.htf.diva.models.AppDashBoard
@@ -27,12 +29,13 @@ import com.htf.diva.utils.showToast
 import com.htf.eyenakhr.callBack.IListItemClickListener
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
+import kotlinx.android.synthetic.main.fragment_diet.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.fragment_home.vpBanner
 
 class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
-    IListItemClickListener<Any> {
+    IListItemClickListener<Any>,View.OnClickListener {
     private lateinit var currActivity: Activity
     lateinit var binding: FragmentHomeBinding
     private lateinit var personalTrainerAdapter: TrainerAdapter
@@ -48,7 +51,9 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
         currActivity = requireActivity()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.homeFragmentViewModel = viewModel
+
         println("onCreate:->SHUBHAM")
+        setListener()
         viewModel.appDashBoard(AppSession.locale, AppSession.deviceId, AppSession.deviceType, BuildConfig.VERSION_NAME)
         viewModelInitialize()
         if (currUser!!.user!!.name!=null){
@@ -58,6 +63,19 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
         return binding.root
 
     }
+
+    private fun setListener() {
+        binding.root.btnViewAll.setOnClickListener(this)
+    }
+
+    override fun onClick(p0: View?) {
+        when (p0!!.id) {
+            R.id.btnViewAll -> {
+                PersonalTrainersActivity.open(currActivity)
+            }
+        }
+    }
+
 
     private fun viewModelInitialize() {
         observerViewModel(viewModel.isApiCalling,this::onHandleShowProgress)
@@ -92,10 +110,8 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
             setIndicatorStyle(IndicatorStyle.ROUND_RECT)
             setPageSize(binding.root.vpBanner!!.adapter!!.itemCount)
             notifyDataChanged()
-
-
-
         }
+
         binding.root.vpBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)

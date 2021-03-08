@@ -93,7 +93,8 @@ dependencies {
     implementation 'me.grantland:autofittextview:0.2.+'
 
     //bottom namvigation
-    implementation 'com.github.simformsolutions:SSCustomBottomNavigation:1.0'
+    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.6'
+
 
     //Firebase
     implementation platform('com.google.firebase:firebase-bom:26.3.0')
