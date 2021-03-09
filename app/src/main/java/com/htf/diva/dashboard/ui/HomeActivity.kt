@@ -261,6 +261,16 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
             builder.dismiss()
         }
 
+        dialogView.llCustomerSupport.setOnClickListener {
+            CustomerSupportActivity.open(currActivity)
+            builder.dismiss()
+        }
+
+        dialogView.llAbout.setOnClickListener {
+            AboutUsActivity.open(currActivity)
+            builder.dismiss()
+        }
+
         dialogView.llProfileInfo.setOnClickListener {
             MyProfileActivity.open(currActivity)
             builder.dismiss()

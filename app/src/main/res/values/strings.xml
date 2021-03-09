@@ -104,6 +104,7 @@
     <string name="select_center">Select Center</string>
     <string name="apply_filter">Apply</string>
     <string name="clear_filter">Clear Filter</string>
+    <string name="type_message">Type message</string>
 
 
 </resources>

@@ -52,6 +52,8 @@
         <activity android:name=".dashboard.ui.DietPlanActivity"/>
         <activity android:name=".dashboard.ui.PersonalTrainersActivity"/>
         <activity android:name=".dashboard.ui.FilterActivity"/>
+        <activity android:name=".dashboard.ui.CustomerSupportActivity"/>
+        <activity android:name=".dashboard.ui.AboutUsActivity"/>
 
     </application>
 
