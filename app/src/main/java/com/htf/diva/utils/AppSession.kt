@@ -3,6 +3,7 @@ package com.htf.diva.utils
 
 import android.provider.Settings
 import com.htf.diva.base.MyApplication
+import com.htf.diva.models.AppDashBoard
 
 import java.net.Socket
 
@@ -25,5 +26,7 @@ object AppSession {
     var orderID=""
     var tokenExpireTime:Int=0
     var isPendingRequestOpen=false
+    var appDashBoard:AppDashBoard?=null
+
 
 }

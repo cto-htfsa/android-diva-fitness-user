@@ -51,6 +51,7 @@
         <activity android:name=".dashboard.ui.MealTypesActivity"/>
         <activity android:name=".dashboard.ui.DietPlanActivity"/>
         <activity android:name=".dashboard.ui.PersonalTrainersActivity"/>
+        <activity android:name=".dashboard.ui.FilterActivity"/>
 
     </application>
 

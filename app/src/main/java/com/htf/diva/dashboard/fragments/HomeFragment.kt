@@ -95,6 +95,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
                 setUpBanner(appDashBoard.banners!!)
                 setTopPersonalTrainer(appDashBoard.topTrainers)
                 setOutFitnessCenter(appDashBoard.fitnessCenters)
+                AppSession.appDashBoard=appDashBoard
         }
     }
 

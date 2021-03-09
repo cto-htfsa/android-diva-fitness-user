@@ -18,7 +18,7 @@ class PersonalTrainerViewModel :BaseViewModel() {
     val errorResult = MutableLiveData<String>()
     val mNotificationData= MutableLiveData<Listing<AppDashBoard.TopTrainer>>()
 
-    fun onGetTrainerListing(page:Int,isProgressBar:Boolean) {
+    fun onGetTrainerListing(page:Int,isProgressBar:Boolean,fitnessId:String,query:String) {
         if (!DialogUtils.isInternetOn()){
             isInternetOn.postValue(false)
             return
@@ -28,7 +28,7 @@ class PersonalTrainerViewModel :BaseViewModel() {
             val result = try {
                 DashboardApiRepo.personalTrainers(
                     AppSession.locale, AppSession.deviceId,
-                    AppSession.deviceType, BuildConfig.VERSION_NAME,"","",page)
+                    AppSession.deviceType, BuildConfig.VERSION_NAME,fitnessId,query,page)
             } catch (e: Exception) {
                 errorResult.postValue(e.localizedMessage)
                 isApiCalling.postValue(false)

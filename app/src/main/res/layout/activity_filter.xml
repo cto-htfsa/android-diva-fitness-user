@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="filterViewModel"
+            type="com.htf.diva.dashboard.viewModel.FilterViewModel" />
+        <import type="android.view.View" />
+
+    </data>
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/llTop"
+                layout="@layout/toolbar" />
+
+
+            <TextView
+                android:id="@+id/tvBranchName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:maxLines="2"
+                android:text="@string/select_center"
+                android:background="@color/white"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:layout_marginBottom="@dimen/margin_8dp"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:textSize="@dimen/font_14sp"
+                android:fontFamily="@font/avenir_black"
+                android:textColor="@color/black"/>
+
+
+            <include
+                layout="@layout/layout_recycler_view"/>
+
+
+
+        </LinearLayout>
+
+
+       <LinearLayout
+           android:layout_alignParentBottom="true"
+           android:orientation="vertical"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <View
+               android:background="@color/gray1"
+               android:layout_marginBottom="@dimen/margin_4dp"
+               android:layout_width="match_parent"
+               android:layout_height="0.1dp"/>
+
+
+           <LinearLayout
+               android:id="@+id/bottom"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_marginBottom="10dp"
+               android:padding="10dp">
+
+
+
+               <TextView
+                   android:id="@+id/btnClearFilter"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginStart="15dp"
+                   android:layout_marginEnd="8dp"
+                   android:layout_weight="1"
+                   android:background="@drawable/rect_clear_filter"
+                   android:fontFamily="@font/avenir_black"
+                   android:gravity="center"
+                   android:paddingTop="14dp"
+                   android:textAllCaps="false"
+                   android:paddingBottom="14dp"
+                   android:text="@string/clear_filter"
+                   android:textColor="@color/colorPrimary"
+                   android:textSize="13sp" />
+
+               <TextView
+                   android:id="@+id/btnApplyNow"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginStart="8dp"
+                   android:layout_marginEnd="15dp"
+                   android:layout_weight="1"
+                   android:background="@drawable/bg_rect_stroke_accent"
+                   android:backgroundTint="@color/colorAccent"
+                   android:fontFamily="@font/avenir_black"
+                   android:gravity="center"
+                   android:textAllCaps="false"
+                   android:paddingTop="14dp"
+                   android:paddingBottom="14dp"
+                   android:text="@string/apply_filter"
+                   android:textColor="@color/white"
+                   android:textSize="13sp" />
+
+           </LinearLayout>
+
+       </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+</layout>
+

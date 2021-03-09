@@ -12,9 +12,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_5"
-        android:layout_marginEnd="@dimen/dimen_5"
-        android:layout_marginTop="@dimen/dimen_5"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginBottom="@dimen/margin_8dp"
         android:padding="@dimen/dimen_7"
         android:orientation="vertical"
         android:background="@drawable/personal_trainer_stroke_bg">

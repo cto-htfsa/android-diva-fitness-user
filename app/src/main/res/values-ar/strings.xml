@@ -102,5 +102,9 @@
     <string name="personal_trainers">Personal Trainers</string>
     <string name="search_by_name">Search by name</string>
     <string name="no_trainer_avl">No Trainer available</string>
+    <string name="filter">Filter</string>
+    <string name="select_center">Select Center</string>
+    <string name="apply_filter">Apply</string>
+    <string name="clear_filter">Clear Filter</string>
 
 </resources>

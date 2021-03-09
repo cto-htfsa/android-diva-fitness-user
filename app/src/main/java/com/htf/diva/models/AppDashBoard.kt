@@ -127,6 +127,11 @@ class AppDashBoard :Serializable {
         @SerializedName("location")
         @Expose
         var location: String? = null
+
+        @SerializedName("text_color")
+        @Expose
+        var text_color: String? = null
+
     }
 
     class Workouts:Serializable{

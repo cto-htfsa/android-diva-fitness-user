@@ -11,28 +11,33 @@
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:id="@+id/lnrCenter"
-        android:layout_height="@dimen/dimen_130"
+        android:layout_height="@dimen/dimen_80"
         android:gravity="center"
-        android:orientation="vertical"
-        android:padding="@dimen/dimen_7"
-        android:layout_margin="@dimen/dimen_5"
-        android:background="@drawable/rating_bg"
-        android:backgroundTint="@color/colorBranchBg1">
+        android:id="@+id/lnr_selected_item"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginBottom="@dimen/margin_8dp"
+        android:layout_marginEnd="@dimen/margin_8dp"
+        android:layout_marginStart="@dimen/margin_8dp"
+        android:background="@drawable/rect_gym_center_selected"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="78dp"
+            android:id="@+id/filterCenter"
+            android:layout_marginStart="@dimen/dimen_1"
+            android:layout_marginEnd="@dimen/dimen_1"
+            android:backgroundTint="@color/colorBranchBg1"
+            android:background="@drawable/rating_bg"
             android:orientation="horizontal"
-            android:padding="@dimen/dimen_7"
-            android:gravity="center">
+            android:gravity="start">
 
             <ImageView
-                android:layout_width="@dimen/dimen_70"
-                android:layout_height="@dimen/dimen_70"
+                android:layout_width="@dimen/dimen_60"
+                android:layout_height="@dimen/dimen_60"
                 fitnessCenterImage="@{fitnessCenter.image}"
                 android:src="@drawable/center_image_1"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center"/>
 
             <TextView
                 android:id="@+id/tvBranchName"
@@ -48,6 +53,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/branch_location_bg"
