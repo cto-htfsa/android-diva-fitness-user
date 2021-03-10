@@ -19,6 +19,7 @@ import com.htf.diva.dashboard.adapters.CenterAdapter
 import com.htf.diva.dashboard.adapters.TrainerAdapter
 import com.htf.diva.dashboard.ui.DietWeekDaysActivity
 import com.htf.diva.dashboard.ui.PersonalTrainersActivity
+import com.htf.diva.dashboard.ui.TrainerDetailActivity
 import com.htf.diva.dashboard.viewModel.HomeViewModel
 import com.htf.diva.databinding.FragmentHomeBinding
 import com.htf.diva.models.AppDashBoard
@@ -150,7 +151,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
 
 
     override fun onItemClickListener(data: Any) {
-
+        TrainerDetailActivity.open(currActivity)
     }
 
 }
