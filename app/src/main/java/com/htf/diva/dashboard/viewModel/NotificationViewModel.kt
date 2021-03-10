@@ -16,10 +16,6 @@ class NotificationViewModel : BaseViewModel() {
     val isApiCalling= MutableLiveData<Boolean>()
     val errorResult= MutableLiveData<String>()
     val mNotificationResponse=MutableLiveData<ArrayList<Notifications>>()
-
-
-
-
     fun notificationList() {
         if (!DialogUtils.isInternetOn()) {
             isInternetOn.postValue(false)

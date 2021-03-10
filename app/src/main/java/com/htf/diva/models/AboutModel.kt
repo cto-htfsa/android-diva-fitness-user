@@ -48,4 +48,9 @@ class AboutModel :Serializable {
     var createdAt: String? = null
 
 
+    @SerializedName("about_us")
+    @Expose
+    var about_us: String? = null
+
+
 }

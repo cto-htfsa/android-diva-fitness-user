@@ -69,6 +69,7 @@
 
 
         <TextView
+            android:id="@+id/tvAboutUs"
             android:layout_below="@+id/ivSplashLogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

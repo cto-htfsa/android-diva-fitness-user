@@ -23,8 +23,7 @@ interface AuthApiInterface {
 
 
     @GET("api/v1/refresh/token")
-    fun userRefreshTokenAsync(
-    ):Deferred<Response<BaseResponse<UserData>>>
+    fun userRefreshTokenAsync():Deferred<Response<BaseResponse<UserData>>>
 
 
     @FormUrlEncoded
@@ -99,7 +98,6 @@ interface AuthApiInterface {
         @Part("device_type")device_type:String,
         @Part("current_version")current_version:String,
         @Part part: MultipartBody.Part?): Deferred<Response<BaseResponse<AboutModel>>>
-
 
 
 }

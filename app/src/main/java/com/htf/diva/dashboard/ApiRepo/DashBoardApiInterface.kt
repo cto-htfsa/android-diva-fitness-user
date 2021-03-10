@@ -1,4 +1,4 @@
-package com.htf.eyenakhr.dashboard.ApiRepo
+package com.htf.diva.dashboard.ApiRepo
 
 import com.htf.diva.base.BaseResponse
 import com.htf.diva.models.*
@@ -15,9 +15,7 @@ interface DashBoardApiInterface {
         @Field("locale") locale: String?,
         @Field("device_id") device_id: String?,
         @Field("device_type") device_type: String?,
-        @Field("current_version") current_version: String?
-    ): Deferred<Response<BaseResponse<AppDashBoard>>>
-
+        @Field("current_version") current_version: String?): Deferred<Response<BaseResponse<AppDashBoard>>>
 
     @FormUrlEncoded
     @POST("api/v1/logout")
@@ -79,6 +77,29 @@ interface DashBoardApiInterface {
         @Field("fitness_center_id") fitness_center_id: String,
         @Field("query") query: String,
         @Field("page") page: Int): Deferred<Response<BaseResponse<Listing<AppDashBoard.TopTrainer>>>>
+
+
+
+        @FormUrlEncoded
+        @POST("api/v1/submit/feedback")
+        fun customerSupportAsync(
+            @Field("locale") locale: String,
+            @Field("device_id") device_id: String,
+            @Field("device_type") device_type: String,
+            @Field("current_version") current_version: String,
+            @Field("name")name:String,
+            @Field("dial_code")dial_code:String,
+            @Field("mobile")mobile:String,
+            @Field("message")message:String): Deferred<Response<BaseResponse<UserData>>>
+
+
+    @FormUrlEncoded
+    @POST("api/v1/about-us")
+    fun appAboutUsAsync(
+        @Field("locale") locale: String?,
+        @Field("device_id") device_id: String?,
+        @Field("device_type") device_type: String?,
+        @Field("current_version") current_version: String?): Deferred<Response<BaseResponse<AboutModel>>>
 
 
 }

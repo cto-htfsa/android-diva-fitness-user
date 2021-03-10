@@ -56,6 +56,23 @@ object DashboardApiRepo : BaseRepository() {
     }
 
 
+    suspend fun userCustomerSupportAsync(locale: String,deviceId: String, deviceType: String,
+                                          versionName: String,name:String, dial_code:String,mobile:String,message:String): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.customerSupportAsync(locale,deviceId,deviceType,versionName,name,
+                dial_code,mobile,message).await()})
+    }
+
+
+    suspend fun appAboutUs(locale: String?,deviceId: String?, deviceType: String?,versionName: String?): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.appAboutUsAsync(
+                locale,deviceId,deviceType,versionName).await()}
+        )
+    }
+
+
+
 }
 
 

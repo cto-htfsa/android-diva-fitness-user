@@ -72,11 +72,23 @@
             android:fontFamily="@font/avenir_light"
             android:gravity="center_horizontal"
             android:hint="@string/type_message"
+            android:text="@={customerSupportViewModel.mMessage}"
             android:textColorHint="@color/gray1"
             android:imeOptions="actionDone"
             android:inputType="textPersonName"
             android:textColor="@color/white"
             android:textSize="@dimen/font_16sp" />
+
+        <TextView
+            android:id="@+id/tvCustomerSupportError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenir_roman"
+            android:gravity="end"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/colorWhite"
+            android:visibility="gone" />
 
 
         <Button
@@ -91,6 +103,7 @@
             android:paddingStart="@dimen/margin_4dp"
             android:paddingTop="@dimen/margin_12dp"
             android:paddingEnd="@dimen/margin_4dp"
+            android:onClick="@{()->customerSupportViewModel.onCustomerSupportClick()}"
             android:paddingBottom="@dimen/margin_12dp"
             android:layout_marginStart="@dimen/dimen_50"
             android:layout_marginEnd="@dimen/dimen_50"
