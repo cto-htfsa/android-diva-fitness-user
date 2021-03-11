@@ -89,6 +89,12 @@ class BindingAdapter {
                     view.text=sessionPrice
         }
 
+
+        @JvmStatic
+        @BindingAdapter("forSessionMonth")
+        fun setSessionMonth(view: TextView, forSessionMonth: String?){
+                    view.text=MyApplication.getAppContext().getString(R.string.sar)+" "+forSessionMonth }
+
         @JvmStatic
         @BindingAdapter("amount")
         fun setAmount(view: TextView, amount: String?) {

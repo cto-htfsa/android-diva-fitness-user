@@ -77,6 +77,7 @@
     <string name="about_app">About App</string>
     <string name="logout">Logout</string>
     <string name="sar_amount">SAR [X]/session</string>
+    <string name="sar">SAR </string>
     <string name="skip">skip</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="pick_image_from">Pick Image From</string>

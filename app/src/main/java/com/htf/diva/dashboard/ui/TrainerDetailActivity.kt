@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.RadioGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.htf.diva.BuildConfig
@@ -25,7 +24,8 @@ import kotlinx.android.synthetic.main.activity_trainer_details.*
 
 
 class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, PersonalTrainerViewModel>(
-    PersonalTrainerViewModel::class.java), IListItemClickListener<Any>, View.OnClickListener{
+    PersonalTrainerViewModel::class.java
+), IListItemClickListener<Any>, View.OnClickListener{
     private var packages=ArrayList<Packages>()
     private var currActivity: Activity = this
     private lateinit var specialingInAdapter: SpecialisingInAdapter
@@ -55,16 +55,14 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
         rbGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.rbPackage -> {
-                    rbPackage.isChecked=true
-                    rvPackages.visibility=View.VISIBLE
-                    nlrPer_session.visibility=View.GONE
+                    rbPackage.isChecked = true
+                    rvPackages.visibility = View.VISIBLE
+                    nlrPer_session.visibility = View.GONE
                 }
                 R.id.rbPerSession -> {
-                    rvPackages.visibility=View.GONE
-                    nlrPer_session.visibility=View.VISIBLE
-
+                    rvPackages.visibility = View.GONE
+                    nlrPer_session.visibility = View.VISIBLE
                 }
-
             }
         }
 
@@ -72,14 +70,59 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
         rgGroupSelect_for.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.rbOnlyMe -> {
-                    rbOnlyMe.isChecked=true
-                    lnrWith_my_frnd.visibility=View.GONE
+                    rbOnlyMe.isChecked = true
+                    lnrWith_my_frnd.visibility = View.GONE
                 }
                 R.id.rbWithMyFriends -> {
-                    rbWithMyFriends.isChecked=true
-                    lnrWith_my_frnd.visibility=View.VISIBLE
+                    rbWithMyFriends.isChecked = true
+                    lnrWith_my_frnd.visibility = View.VISIBLE
                 }
 
+            }
+        }
+
+
+        /* this section for book  per session  click*/
+        bookPerSession()
+
+        /* here for with my friends packages section*/
+        withMyFriendsSection()
+
+
+    }
+
+    private fun bookPerSession(){
+        ivSessionAdd_person.setOnClickListener {
+            var count: Int = java.lang.String.valueOf(tvNumberOfItems.text).toInt()
+            count++
+            tvNumberOfItems.text = "" + count
+        }
+
+        ivSessionSubtract.setOnClickListener {
+            var count: Int = java.lang.String.valueOf(tvNumberOfItems.text).toInt()
+            if (count == 1) {
+                tvNumberOfItems.text = "1"
+            } else {
+                count -= 1
+                tvNumberOfItems.text = "" + count
+            }
+        }
+    }
+
+    private fun withMyFriendsSection(){
+        ivNoOfPeopleAdd.setOnClickListener {
+            var count: Int = java.lang.String.valueOf(tvNoOfPeople.text).toInt()
+            count++
+            tvNoOfPeople.text = "" + count
+        }
+
+        ivNoOfPeopleMinus.setOnClickListener {
+            var count: Int = java.lang.String.valueOf(tvNoOfPeople.text).toInt()
+            if (count == 1) {
+                tvNoOfPeople.text = "1"
+            } else {
+                count -= 1
+                tvNoOfPeople.text = "" + count
             }
         }
 
@@ -101,6 +144,7 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
             this::onHandleTrainerDetailsSuccessResponse
         )
     }
+
     private fun onHandleShowProgress(isNotShow: Boolean) {
         if (isNotShow) progressDialog?.show() else progressDialog?.dismiss()
     }
@@ -114,17 +158,20 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
             setTrainerDetail(trainerDetailsModel.trainer!!)
             setSpecialisingList(trainerDetailsModel.specializations!!)
             setTenureList(trainerDetailsModel.tenures!!)
-             packages=trainerDetailsModel.packages!!
+            packages=trainerDetailsModel.packages!!
             lnrWith_my_frnd.visibility=View.GONE
             rbOnlyMe.isChecked=true
         }
     }
 
     fun selectedTenure(selectedTenureItem: Tenure, position: Int) {
-        val selectedTenureItem=selectedTenureItem
-        packages.filter { it.tenureId==selectedTenureItem.id }
+        val selectedTenure=selectedTenureItem
+        val selectedPackage = packages.filter { it.tenureId== selectedTenure.id }
+        setPackageList(selectedPackage)
+    }
 
-        setPackageList(packages)
+    fun selectedPackage(selectedPackage: Packages, position: Int) {
+
     }
 
 
@@ -133,6 +180,7 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
          tvLocation.text=trainerDetails.location
          tvRating.text=trainerDetails.rating
          tvReview.text=trainerDetails.totalReviews.toString()
+         tvAboutUs.text=trainerDetails.aboutUs
          Glide.with(currActivity).load(Constants.Urls.TRAINER_IMAGE_URL + trainerDetails.image).
          override(250, 250).placeholder(R.drawable.trainer_placeholder).into(ivTrainerImage)
      }
@@ -155,11 +203,11 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
     }
 
     /* set package recyclerview here*/
-    private fun setPackageList(packageList: ArrayList<Packages>?) {
+    private fun setPackageList(packageList: List<Packages>) {
         rbPackage.isChecked=true
         val mLayout = LinearLayoutManager(currActivity, LinearLayoutManager.HORIZONTAL, false)
         rvPackages.layoutManager = mLayout
-         packageAdapter = PackagesAdapter(currActivity, packageList!!, this)
+         packageAdapter = PackagesAdapter(currActivity, packageList, this)
         rvPackages.adapter = packageAdapter
     }
 

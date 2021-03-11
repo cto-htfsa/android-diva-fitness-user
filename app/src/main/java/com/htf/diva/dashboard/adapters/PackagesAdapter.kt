@@ -3,24 +3,37 @@ package com.htf.diva.dashboard.adapters
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
+import com.htf.diva.dashboard.ui.TrainerDetailActivity
 import com.htf.diva.databinding.RowPackgesBinding
 import com.htf.diva.models.Packages
 import com.htf.eyenakhr.callBack.IListItemClickListener
+import kotlinx.android.synthetic.main.row_packges.view.*
+import kotlinx.android.synthetic.main.row_tenure.view.*
+import kotlinx.android.synthetic.main.row_tenure.view.rltTenure
 
 class PackagesAdapter (
     private var currActivity: Activity,
-    private var arrPackges: ArrayList<Packages>,
-    private var iListItemClickListener: IListItemClickListener<Any>
-): RecyclerView.Adapter<PackagesAdapter.MyViewHolder>(){
+    private var arrPackges: List<Packages>,
+    private var iListItemClickListener: IListItemClickListener<Any>):
+    RecyclerView.Adapter<PackagesAdapter.MyViewHolder>(){
     var rowFitnessCenterBinding: RowPackgesBinding?=null
-
+    var rowIndex = 0
     inner class MyViewHolder(itemView: RowPackgesBinding): RecyclerView.ViewHolder(itemView.root){
         init {
             rowFitnessCenterBinding=itemView
             itemView.root.setOnClickListener {
+                val model = arrPackges[adapterPosition]
                 iListItemClickListener.onItemClickListener(arrPackges[adapterPosition])
+                rowIndex=adapterPosition
+                notifyDataSetChanged()
+                when (currActivity) {
+                    is TrainerDetailActivity -> {
+                        (currActivity as TrainerDetailActivity).selectedPackage(model,adapterPosition)
+                    }
+                }
             }
         }
     }
@@ -38,7 +51,21 @@ class PackagesAdapter (
     override fun onBindViewHolder(holder: PackagesAdapter.MyViewHolder, position: Int) {
         val model=arrPackges[position]
         rowFitnessCenterBinding!!.packagesModel =model
-        //    holder.itemView.lnrCenter.backgroundTintList = ColorStateList.valueOf(Color.parseColor(model.text_color))
+        when (rowIndex) {
+            position -> {
+                holder.itemView.rltPackage.setBackgroundResource(R.drawable.package_bg)
+                holder.itemView.tvSelected.setTextColor(ContextCompat.getColor(currActivity, R.color.colorPrimary))
+                holder.itemView.ivSelected.setBackgroundResource(R.drawable.cancel)
+                if(currActivity is TrainerDetailActivity){
+                    (currActivity as TrainerDetailActivity).selectedPackage(model, position)
+                }
+            }
+            else -> {
+                holder.itemView.rltPackage.setBackgroundResource(R.drawable.package_bg_unselected)
+                holder.itemView.tvSelected.setTextColor(ContextCompat.getColor(currActivity, R.color.gray3))
+                holder.itemView.ivSelected.setBackgroundResource(R.drawable.tick)
+            }
+        }
     }
 
 }

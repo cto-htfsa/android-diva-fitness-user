@@ -10,9 +10,10 @@
     </data>
 
     <RelativeLayout
+        android:id="@+id/rltPackage"
         android:layout_width="@dimen/dimen_150"
         android:layout_height="wrap_content"
-        android:background="@drawable/package_bg"
+        android:background="@drawable/package_bg_unselected"
         android:padding="@dimen/dimen_10"
         android:elevation="@dimen/dimen_3"
         android:layout_margin="@dimen/dimen_7">
@@ -34,7 +35,7 @@
                 android:textColor="@color/colorHintText"
                 android:layout_gravity="end"
                 android:textAlignment="viewEnd"
-                android:fontFamily="@font/avenir_light"/>
+                android:fontFamily="@font/avenir_black"/>
 
 
             <ImageView
@@ -55,10 +56,9 @@
             android:layout_below="@id/llSelected">
 
             <TextView
-                android:id="@+id/tvPackagePrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SAR 400"
+                amount="@{packagesModel.price}"
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 android:textSize="@dimen/font_12sp"
@@ -66,23 +66,21 @@
                 android:fontFamily="@font/avenir_black" />
 
             <TextView
-                android:id="@+id/tvNoOfSession"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SAR 400"
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 android:textSize="@dimen/font_10sp"
+                userName="@{packagesModel.name}"
                 android:textColor="@color/colorText"
                 android:paddingTop="@dimen/dimen_5"
                 android:fontFamily="@font/avenir_light" />
 
 
             <TextView
-                android:id="@+id/tvNoOfMonth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SAR 400"
+                forSessionMonth="@{packagesModel.tenureName}"
                 android:paddingTop="@dimen/dimen_5"
                 android:layout_gravity="center"
                 android:textAlignment="center"
