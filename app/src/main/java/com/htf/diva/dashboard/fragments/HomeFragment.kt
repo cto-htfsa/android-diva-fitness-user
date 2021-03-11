@@ -17,7 +17,6 @@ import com.htf.diva.base.BaseFragment
 import com.htf.diva.dashboard.adapters.BannerAdapter
 import com.htf.diva.dashboard.adapters.CenterAdapter
 import com.htf.diva.dashboard.adapters.TrainerAdapter
-import com.htf.diva.dashboard.ui.DietWeekDaysActivity
 import com.htf.diva.dashboard.ui.PersonalTrainersActivity
 import com.htf.diva.dashboard.ui.TrainerDetailActivity
 import com.htf.diva.dashboard.viewModel.HomeViewModel
@@ -30,10 +29,8 @@ import com.htf.diva.utils.showToast
 import com.htf.eyenakhr.callBack.IListItemClickListener
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
-import kotlinx.android.synthetic.main.fragment_diet.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlinx.android.synthetic.main.fragment_home.vpBanner
 
 class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
     IListItemClickListener<Any>,View.OnClickListener {
@@ -150,8 +147,9 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
 
 
 
-    override fun onItemClickListener(data: Any) {
-        TrainerDetailActivity.open(currActivity)
+    override fun onItemClickListener(topTrainer: Any) {
+        if (topTrainer is AppDashBoard.TopTrainer)
+        TrainerDetailActivity.open(currActivity,topTrainer)
     }
 
 }

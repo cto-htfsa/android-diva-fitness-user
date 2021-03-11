@@ -102,5 +102,15 @@ interface DashBoardApiInterface {
         @Field("current_version") current_version: String?): Deferred<Response<BaseResponse<AboutModel>>>
 
 
+    @FormUrlEncoded
+    @POST("api/v1/trainer/detail")
+    fun trainerDetailsAsync(
+        @Field("locale") locale: String?,
+        @Field("device_id") device_id: String?,
+        @Field("device_type") device_type: String?,
+        @Field("current_version") current_version: String?,
+        @Field("trainer_id") trainer_id: String?): Deferred<Response<BaseResponse<TrainerDetailsModel>>>
+
+
 }
 

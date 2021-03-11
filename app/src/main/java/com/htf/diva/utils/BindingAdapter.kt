@@ -60,6 +60,13 @@ class BindingAdapter {
         }
 
         @JvmStatic
+        @BindingAdapter("specialisingImage")
+        fun setSpecialisingImageUrl(view: ImageView, poserPath: String?) {
+            val url = Constants.Urls.SPECIALISING_IN_IMAGE_URL + poserPath
+            view.picassoImg(url, R.drawable.diva_place_holder)
+        }
+
+        @JvmStatic
         @BindingAdapter("userName")
         fun setUserName(view: TextView, userName: String?){
             when (userName) {

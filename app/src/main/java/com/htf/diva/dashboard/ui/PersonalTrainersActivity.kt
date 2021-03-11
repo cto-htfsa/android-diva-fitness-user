@@ -208,7 +208,11 @@ class PersonalTrainersActivity : BaseDarkActivity<ActivityPersonalTrainersBindin
             }
         }
 
+    }
 
+    override fun onItemClickListener(topTrainer: Any) {
+        if (topTrainer is AppDashBoard.TopTrainer)
+            TrainerDetailActivity.open(currActivity,topTrainer)
     }
 
 

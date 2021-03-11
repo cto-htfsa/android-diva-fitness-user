@@ -73,6 +73,12 @@ object DashboardApiRepo : BaseRepository() {
 
 
 
+  suspend fun trainerDetails(locale: String?,deviceId: String?, deviceType: String?,versionName: String?,trainerId :String?): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.trainerDetailsAsync(locale,deviceId,deviceType,versionName,trainerId).await()}
+        )
+    }
+
 }
 
 

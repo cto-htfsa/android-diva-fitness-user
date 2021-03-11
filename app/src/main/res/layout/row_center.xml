@@ -4,7 +4,6 @@
         <variable
             name="fitnessCenter"
             type="com.htf.diva.models.AppDashBoard.FitnessCenter" />
-
         <import type="android.view.View"/>
     </data>
 

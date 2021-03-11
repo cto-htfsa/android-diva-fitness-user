@@ -54,6 +54,7 @@
     <color name="gray3">#B5B5B5</color>
     <color name="gray4">#666666</color>
     <color name="gray5">#8C8C8C</color>
+    <color name="trainerDetails">#FEF5ED</color>
 
 
 </resources>
