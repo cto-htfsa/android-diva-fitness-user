@@ -17,9 +17,11 @@ import com.htf.diva.databinding.ActivityTrainerDetailsBinding
 import com.htf.diva.models.*
 import com.htf.diva.netUtils.Constants
 import com.htf.diva.utils.AppSession
+import com.htf.diva.utils.DateUtils
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import com.htf.eyenakhr.callBack.IListItemClickListener
+import kotlinx.android.synthetic.main.activity_slot_book.*
 import kotlinx.android.synthetic.main.activity_trainer_details.*
 
 
@@ -27,10 +29,13 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
     PersonalTrainerViewModel::class.java
 ), IListItemClickListener<Any>, View.OnClickListener{
     private var packages=ArrayList<Packages>()
+    private var bookingSlots=ArrayList<Slot>()
     private var currActivity: Activity = this
     private lateinit var specialingInAdapter: SpecialisingInAdapter
     private lateinit var tenureAdapter: TenureAdapter
     private lateinit var packageAdapter: PackagesAdapter
+    private var currentDate:String?=null
+
 
 
     companion object{
@@ -52,35 +57,9 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
 
 
          /* Select Packages logic*/
-        rbGroup.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.rbPackage -> {
-                    rbPackage.isChecked = true
-                    rvPackages.visibility = View.VISIBLE
-                    nlrPer_session.visibility = View.GONE
-                }
-                R.id.rbPerSession -> {
-                    rvPackages.visibility = View.GONE
-                    nlrPer_session.visibility = View.VISIBLE
-                }
-            }
-        }
+        selectPackages()
 
-
-        rgGroupSelect_for.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.rbOnlyMe -> {
-                    rbOnlyMe.isChecked = true
-                    lnrWith_my_frnd.visibility = View.GONE
-                }
-                R.id.rbWithMyFriends -> {
-                    rbWithMyFriends.isChecked = true
-                    lnrWith_my_frnd.visibility = View.VISIBLE
-                }
-
-            }
-        }
-
+        selectGroup()
 
         /* this section for book  per session  click*/
         bookPerSession()
@@ -88,52 +67,19 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
         /* here for with my friends packages section*/
         withMyFriendsSection()
 
-
     }
 
-    private fun bookPerSession(){
-        ivSessionAdd_person.setOnClickListener {
-            var count: Int = java.lang.String.valueOf(tvNumberOfItems.text).toInt()
-            count++
-            tvNumberOfItems.text = "" + count
-        }
 
-        ivSessionSubtract.setOnClickListener {
-            var count: Int = java.lang.String.valueOf(tvNumberOfItems.text).toInt()
-            if (count == 1) {
-                tvNumberOfItems.text = "1"
-            } else {
-                count -= 1
-                tvNumberOfItems.text = "" + count
-            }
-        }
-    }
-
-    private fun withMyFriendsSection(){
-        ivNoOfPeopleAdd.setOnClickListener {
-            var count: Int = java.lang.String.valueOf(tvNoOfPeople.text).toInt()
-            count++
-            tvNoOfPeople.text = "" + count
-        }
-
-        ivNoOfPeopleMinus.setOnClickListener {
-            var count: Int = java.lang.String.valueOf(tvNoOfPeople.text).toInt()
-            if (count == 1) {
-                tvNoOfPeople.text = "1"
-            } else {
-                count -= 1
-                tvNoOfPeople.text = "" + count
-            }
-        }
-
-    }
 
     private fun getExtra() {
         val topTrainer = intent.getSerializableExtra("topTrainer") as AppDashBoard.TopTrainer?
-            viewModel.trainerDetails(
-                AppSession.locale, AppSession.deviceId,
-                AppSession.deviceType, BuildConfig.VERSION_NAME, topTrainer!!.id.toString()
-            )
+            viewModel.trainerDetails(AppSession.locale, AppSession.deviceId,
+                AppSession.deviceType, BuildConfig.VERSION_NAME, topTrainer!!.id.toString())
+
+            currentDate=DateUtils.getCurrentDateForDashBoard()
+            tvJoiningDate.text= currentDate
+
+
     }
 
     private fun viewModelInitialize() {
@@ -159,6 +105,7 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
             setSpecialisingList(trainerDetailsModel.specializations!!)
             setTenureList(trainerDetailsModel.tenures!!)
             packages=trainerDetailsModel.packages!!
+            bookingSlots=trainerDetailsModel.slots!!
             lnrWith_my_frnd.visibility=View.GONE
             rbOnlyMe.isChecked=true
         }
@@ -212,15 +159,90 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
     }
 
 
-
-
-
     private fun setListener() {
-
+        btnSelectSlots.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
-        TODO("Not yet implemented")
+        when (p0!!.id) {
+            R.id.btnSelectSlots -> {
+                SelectSlotsActivity.open(currActivity,bookingSlots)
+            }
+        }
     }
+
+
+        private fun selectPackages(){
+            rbGroup.setOnCheckedChangeListener { _, checkedId ->
+                when (checkedId) {
+                    R.id.rbPackage -> {
+                        rbPackage.isChecked = true
+                        rvPackages.visibility = View.VISIBLE
+                        nlrPer_session.visibility = View.GONE
+                    }
+                    R.id.rbPerSession -> {
+                        rvPackages.visibility = View.GONE
+                        nlrPer_session.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
+
+        private fun selectGroup(){
+            rgGroupSelect_for.setOnCheckedChangeListener { _, checkedId ->
+                when (checkedId) {
+                    R.id.rbOnlyMe -> {
+                        rbOnlyMe.isChecked = true
+                        lnrWith_my_frnd.visibility = View.GONE
+                    }
+                    R.id.rbWithMyFriends -> {
+                        rbWithMyFriends.isChecked = true
+                        lnrWith_my_frnd.visibility = View.VISIBLE
+                    }
+
+                }
+            }
+        }
+
+        private fun bookPerSession(){
+            ivSessionAdd_person.setOnClickListener {
+                var count: Int =tvNumberOfItems.text.toString().toInt()
+                count++
+                tvNumberOfItems.text = "" + count
+
+            }
+
+            ivSessionSubtract.setOnClickListener {
+                var count: Int = tvNumberOfItems.text.toString().toInt()
+                if (count == 1) {
+                    tvNumberOfItems.text = "1"
+                } else {
+                    count -= 1
+                    tvNumberOfItems.text = "" + count
+                }
+            }
+        }
+
+        private fun withMyFriendsSection(){
+            ivNoOfPeopleAdd.setOnClickListener {
+                var count: Int = tvNoOfPeople.text.toString().toInt()
+                count++
+                tvNoOfPeople.text = "" + count
+            }
+
+            ivNoOfPeopleMinus.setOnClickListener {
+                var count: Int = tvNoOfPeople.text.toString().toInt()
+                if (count == 2) {
+                    tvNoOfPeople.text = "2"
+                } else {
+                    count -= 1
+                    tvNoOfPeople.text = "" + count
+                }
+            }
+
+        }
+
+
+
 
 }

@@ -38,8 +38,7 @@ class PackagesAdapter (
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PackagesAdapter.MyViewHolder {
-        val itemView= LayoutInflater.from(parent.context).inflate(
-            R.layout.row_packges, parent, false)
+        val itemView= LayoutInflater.from(parent.context).inflate(R.layout.row_packges, parent, false)
         val bindingUtil= RowPackgesBinding.bind(itemView)
         return MyViewHolder(bindingUtil)
     }

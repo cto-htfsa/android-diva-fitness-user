@@ -32,7 +32,7 @@ object DateUtils {
     val dayMonthFormat=SimpleDateFormat("dd MMM", Locale.US)
     val serverMonthFormat=SimpleDateFormat("yyyy-MM",Locale.US)
     val targetMonthFormat=SimpleDateFormat("MMM,yyyy",Locale.US)
-
+    val weekdaysFormat = SimpleDateFormat("EEEE", Locale.US)
 
     init {
         serverChatUTCDateTimeFormat.timeZone = TimeZone.getTimeZone("UTC")
@@ -57,6 +57,7 @@ object DateUtils {
         serverMonthFormat.timeZone= TimeZone.getDefault()
         targetMonthFormat.timeZone= TimeZone.getDefault()
         targetDateTimeFormat.timeZone= TimeZone.getDefault()
+        weekdaysFormat.timeZone= TimeZone.getDefault()
 
     }
 
@@ -147,7 +148,7 @@ object DateUtils {
     }
 
     fun getCurrentDateForDashBoard():String{
-        val sdf = SimpleDateFormat("EEEE,dd MMM", Locale.US)
+        val sdf = SimpleDateFormat("dd MMM,yyyy", Locale.US)
         val d = Date()
         val dayOfTheWeek: String = sdf.format(d)
         println("WeekDay->$dayOfTheWeek")
@@ -162,9 +163,9 @@ object DateUtils {
         return dayOfTheWeek
     }
 
-    fun getWeekDay(date: String):String{
-        val d= serverDateFormat.parse(date)
-        val sdf = SimpleDateFormat("EEEE", Locale.US)
+    fun getWeekDay():String{
+        val sdf = SimpleDateFormat("MM-dd-yyyy", Locale.US)
+        val d = Date()
         val dayOfTheWeek: String = sdf.format(d)
         println("WeekDay->$dayOfTheWeek")
         return dayOfTheWeek
@@ -195,7 +196,7 @@ object DateUtils {
     }
 
     fun getYearFromDate(date:String):Int{
-        val d= serverDateFormat.parse(date)
+        val d= targetDateFormat.parse(date)
         val dateFormat: DateFormat = SimpleDateFormat("yyyy", Locale.US)
         println("Year:${dateFormat.format(d)}")
         return dateFormat.format(d).toInt()

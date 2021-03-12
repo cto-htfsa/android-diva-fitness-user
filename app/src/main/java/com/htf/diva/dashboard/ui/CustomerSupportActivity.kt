@@ -7,6 +7,7 @@ import android.view.View
 import com.htf.diva.BuildConfig
 import com.htf.diva.R
 import com.htf.diva.auth.ui.OtpActivity
+import com.htf.diva.base.BaseActivity
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.dashboard.viewModel.CustomerSupportViewModel
 import com.htf.diva.dashboard.viewModel.FilterViewModel
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_login.tvLoginError
 import kotlinx.android.synthetic.main.layout_recycler_view.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class CustomerSupportActivity : BaseDarkActivity<ActivityCustomerSupportBinding, CustomerSupportViewModel>(
+class CustomerSupportActivity : BaseActivity<ActivityCustomerSupportBinding, CustomerSupportViewModel>(
     CustomerSupportViewModel::class.java), View.OnClickListener{
     private var currActivity: Activity = this
 

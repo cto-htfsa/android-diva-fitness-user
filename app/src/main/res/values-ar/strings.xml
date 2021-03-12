@@ -121,6 +121,7 @@
     <string name="month">Month</string>
     <string name="selected">Selected</string>
     <string name="no_of_session">No. of session</string>
+    <string name="confirm">Confirm</string>
 
 
 </resources>

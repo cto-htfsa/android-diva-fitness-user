@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.htf.diva.BuildConfig
 import com.htf.diva.R
+import com.htf.diva.base.BaseActivity
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.dashboard.viewModel.CustomerSupportViewModel
 import com.htf.diva.databinding.ActivityAboutUsBinding
@@ -18,7 +19,7 @@ import com.htf.diva.utils.showToast
 import kotlinx.android.synthetic.main.activity_about_us.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class AboutUsActivity : BaseDarkActivity<ActivityAboutUsBinding, CustomerSupportViewModel>(
+class AboutUsActivity : BaseActivity<ActivityAboutUsBinding, CustomerSupportViewModel>(
     CustomerSupportViewModel::class.java), View.OnClickListener{
 
     private var currActivity: Activity = this

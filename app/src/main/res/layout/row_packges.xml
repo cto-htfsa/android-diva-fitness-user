@@ -42,7 +42,6 @@
                 android:id="@+id/ivSelected"
                 android:layout_width="@dimen/dimen_10"
                 android:layout_height="@dimen/dimen_10"
-                android:src="@drawable/tick"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/dimen_7"/>
         </LinearLayout>

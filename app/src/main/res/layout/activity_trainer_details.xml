@@ -454,7 +454,7 @@
                                     android:id="@+id/tvNoOfPeople"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="1"
+                                    android:text="2"
                                     android:textColor="@color/colorPrimaryDark"
                                     android:textSize="@dimen/font_13sp"
                                     android:fontFamily="@font/avenir_black"
@@ -537,7 +537,7 @@
 
 
             <RelativeLayout
-                android:background="@color/white"
+                android:background="@color/colorAgeBg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -582,7 +582,7 @@
                     android:background="@drawable/select_age_bg"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:padding="@dimen/dimen_10"
+                    android:padding="@dimen/dimen_12"
                     android:layout_marginEnd="@dimen/dimen_10"
                     android:backgroundTint="@color/colorWhite"/>
 
@@ -594,7 +594,7 @@
                 android:background="@color/colorWhite">
 
                 <Button
-                    android:id="@+id/btnBook"
+                    android:id="@+id/btnSelectSlots"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_8dp"
@@ -607,8 +607,8 @@
                     android:paddingTop="@dimen/margin_12dp"
                     android:paddingEnd="@dimen/margin_4dp"
                     android:paddingBottom="@dimen/margin_12dp"
-                    android:layout_marginStart="@dimen/dimen_50"
-                    android:layout_marginEnd="@dimen/dimen_50"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
                     android:text="@string/select_slots"
                     android:textColor="@color/white"
                     android:textSize="14sp"
