@@ -1,6 +1,7 @@
 package com.htf.diva.dashboard.ui
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -23,6 +24,9 @@ import com.htf.diva.utils.showToast
 import com.htf.eyenakhr.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.activity_slot_book.*
 import kotlinx.android.synthetic.main.activity_trainer_details.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, PersonalTrainerViewModel>(
@@ -36,7 +40,9 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
     private lateinit var packageAdapter: PackagesAdapter
     private var currentDate:String?=null
 
-
+    private var mYear = 0
+    private  var mMonth:Int = 0
+    private  var mDay:Int = 0
 
     companion object{
         fun open(currActivity: Activity, topTrainer: AppDashBoard.TopTrainer){
@@ -73,9 +79,10 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
 
     private fun getExtra() {
         val topTrainer = intent.getSerializableExtra("topTrainer") as AppDashBoard.TopTrainer?
-            viewModel.trainerDetails(AppSession.locale, AppSession.deviceId,
-                AppSession.deviceType, BuildConfig.VERSION_NAME, topTrainer!!.id.toString())
-
+            viewModel.trainerDetails(
+                AppSession.locale, AppSession.deviceId,
+                AppSession.deviceType, BuildConfig.VERSION_NAME, topTrainer!!.id.toString()
+            )
             currentDate=DateUtils.getCurrentDateForDashBoard()
             tvJoiningDate.text= currentDate
 
@@ -122,6 +129,7 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
     }
 
 
+
      private fun setTrainerDetail(trainerDetails: Trainer){
          tvTrainerName.text=trainerDetails.name
          tvLocation.text=trainerDetails.location
@@ -161,12 +169,35 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
 
     private fun setListener() {
         btnSelectSlots.setOnClickListener(this)
+        tvJoiningDate.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.btnSelectSlots -> {
-                SelectSlotsActivity.open(currActivity,bookingSlots)
+                SelectSlotsActivity.open(currActivity, bookingSlots)
+            }
+            R.id.tvJoiningDate -> {
+                // Get Current Date
+
+                // Get Current Date
+                val c = Calendar.getInstance()
+                mYear = c[Calendar.YEAR]
+                mMonth = c[Calendar.MONTH]
+                mDay = c[Calendar.DAY_OF_MONTH]
+
+
+                val datePickerDialog = DatePickerDialog(
+                    this, { _, year, monthOfYear, dayOfMonth ->
+                        val selectedDate = dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
+                        tvJoiningDate.text = selectedDate
+
+                    }, mYear, mMonth, mDay
+                )
+                datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
+                datePickerDialog.show()
+
+
             }
         }
     }
@@ -243,6 +274,10 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
         }
 
 
+    private fun choseTrainingJoinDate(){
+
+
+    }
 
 
 }

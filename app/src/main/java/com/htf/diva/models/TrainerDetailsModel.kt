@@ -190,4 +190,7 @@ class TrainerDetailsModel :Serializable {
     @SerializedName("end_at")
     @Expose
     var endAt: String? = null
+
+      var date:String?=null
     }
+

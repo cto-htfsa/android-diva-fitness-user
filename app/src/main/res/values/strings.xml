@@ -121,6 +121,8 @@
     <string name="selected">Selected</string>
     <string name="no_of_session">No. of session</string>
     <string name="confirm">Confirm</string>
+    <string name="selected_slots">Selected Slots</string>
+    <string name="booking_summary">Booking Summary</string>
 
 
 </resources>

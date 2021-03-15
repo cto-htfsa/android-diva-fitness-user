@@ -147,6 +147,28 @@ object DateUtils {
         return dayOfTheWeek
     }
 
+    fun getCurrentYearC():String{
+        val dateFormat: DateFormat = SimpleDateFormat("yyyy", Locale.US)
+        val date = Date()
+        println("YEAR:${dateFormat.format(date)}")
+        return dateFormat.format(date)
+    }
+
+    fun getCurrentMonthC():String{
+        val dateFormat: DateFormat = SimpleDateFormat("MM", Locale.US)
+        val date = Date()
+        println("Month:${dateFormat.format(date)}")
+        return dateFormat.format(date)
+    }
+
+    fun getCurrentDateC():String{
+        val dateFormat: DateFormat = SimpleDateFormat("dd", Locale.US)
+        val date = Date()
+        println("Month:${dateFormat.format(date)}")
+        return dateFormat.format(date)
+    }
+
+
     fun getCurrentDateForDashBoard():String{
         val sdf = SimpleDateFormat("dd MMM,yyyy", Locale.US)
         val d = Date()
