@@ -123,6 +123,9 @@
     <string name="confirm">Confirm</string>
     <string name="selected_slots">Selected Slots</string>
     <string name="booking_summary">Booking Summary</string>
+    <string name="tenure">Tenure</string>
+    <string name="joining_from">Joining from</string>
+    <string name="remove">Remove</string>
 
 
 </resources>

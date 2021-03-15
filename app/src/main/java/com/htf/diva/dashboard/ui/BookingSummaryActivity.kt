@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.view.View
 import com.htf.diva.R
 import com.htf.diva.base.BaseActivity
-import com.htf.diva.dashboard.viewModel.PersonalTrainerViewModel
-import com.htf.diva.databinding.ActivitySlotBookBinding
+import com.htf.diva.dashboard.viewModel.BookingSummaryViewModel
+import com.htf.diva.databinding.ActivityBookingSummaryBinding
 import com.htf.eyenakhr.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.toolbar.*
 
-class BookingSummaryActivity : BaseActivity<ActivitySlotBookBinding, PersonalTrainerViewModel>(
-    PersonalTrainerViewModel::class.java), IListItemClickListener<Any>, View.OnClickListener {
+class BookingSummaryActivity : BaseActivity<ActivityBookingSummaryBinding, BookingSummaryViewModel>(
+    BookingSummaryViewModel::class.java), IListItemClickListener<Any>, View.OnClickListener {
     private var currActivity: Activity = this
     companion object{
         fun open(currActivity: Activity){
@@ -25,8 +25,7 @@ class BookingSummaryActivity : BaseActivity<ActivitySlotBookBinding, PersonalTra
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         tvTitle.text=getString(R.string.booking_summary)
-        binding.slotsViewModel = viewModel
-
+        binding.bookingSummaryViewModel = viewModel
 
     }
 

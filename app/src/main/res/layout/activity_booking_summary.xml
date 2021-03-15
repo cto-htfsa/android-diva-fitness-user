@@ -3,13 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="slotsViewModel"
-            type="com.htf.diva.dashboard.viewModel.PersonalTrainerViewModel" />
+            name="bookingSummaryViewModel"
+            type="com.htf.diva.dashboard.viewModel.BookingSummaryViewModel" />
         <import type="android.view.View" />
     </data>
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
+        android:orientation="vertical"
         android:layout_height="match_parent">
 
         <include
@@ -17,6 +19,277 @@
             layout="@layout/toolbar" />
 
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bard Cencer"
+                android:textSize="@dimen/font_14sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:fontFamily="@font/avenir_black" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:padding="@dimen/dimen_7">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_10"
+                    android:layout_height="@dimen/dimen_10"
+                    android:src="@drawable/location"
+                    android:layout_gravity="center_vertical"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/font_12sp"
+                    android:textColor="@color/colorText"
+                    android:fontFamily="@font/avenir_light"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dimen_5"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/llTenure"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_40"
+                        android:layout_height="@dimen/dimen_40"
+                        android:padding="8dp"
+                        android:src="@drawable/calendar">
+
+                    </ImageView>
+
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tenure"
+                            android:textSize="@dimen/font_14sp"
+                            android:singleLine="true"
+                            android:fontFamily="@font/avenir_black"
+                            android:textColor="@color/gray5"/>
+
+                        <TextView
+                            android:id="@+id/tvTenure"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:text=""
+                            android:layout_marginTop="5dp"
+                            android:textSize="@dimen/font_14sp"
+                            android:fontFamily="@font/avenir_black"
+                            android:textColor="@color/colorPrimaryDark"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llJoining"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/dimen_50"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_40"
+                        android:layout_height="@dimen/dimen_40"
+                        android:padding="8dp"
+                        android:src="@drawable/center_image_1">
+
+                    </ImageView>
+
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/joining_from"
+                            android:textSize="@dimen/font_14sp"
+                            android:singleLine="true"
+                            android:fontFamily="@font/avenir_black"
+                            android:textColor="@color/gray5"/>
+
+                        <TextView
+                            android:id="@+id/tvJoining_from"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:text=""
+                            android:layout_marginTop="5dp"
+                            android:textSize="@dimen/font_14sp"
+                            android:fontFamily="@font/avenir_black"
+                            android:textColor="@color/colorPrimaryDark"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/llPackage"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/dimen_40"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_resource_package">
+
+                </ImageView>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/packages"
+                        android:textSize="@dimen/font_14sp"
+                        android:singleLine="true"
+                        android:fontFamily="@font/avenir_black"
+                        android:textColor="@color/gray5"/>
+
+                    <TextView
+                        android:id="@+id/tvPackages"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text=""
+                        android:layout_marginTop="5dp"
+                        android:textSize="@dimen/font_14sp"
+                        android:fontFamily="@font/avenir_black"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/colorAgeBg"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            android:padding="@dimen/dimen_7"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <com.github.siyamed.shapeimageview.RoundedImageView
+                    android:id="@+id/ivTrainerImage"
+                    android:layout_width="@dimen/dimen_50"
+                    android:layout_height="@dimen/dimen_50"
+                    app:siBorderColor="@color/white"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/user"
+                    app:siRadius="@dimen/dimen_30" />
+
+                <LinearLayout
+                    android:id="@+id/lnrTrainerDetail"
+                    android:layout_toEndOf="@+id/ivTrainerImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/dimen_5"
+                    android:padding="@dimen/dimen_5">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/font_14sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:fontFamily="@font/avenir_black" />
+
+                    <TextView
+                        android:layout_marginTop="@dimen/margin_4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="@dimen/font_14sp"
+                        android:textColor="@color/colorPrimary"
+                        android:fontFamily="@font/avenir_black" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/remove"
+                    android:textSize="@dimen/font_14sp"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/colorTextRed"
+                    android:paddingTop="@dimen/dimen_5"
+                    android:paddingBottom="@dimen/dimen_5"
+                    android:paddingStart="@dimen/dimen_15"
+                    android:paddingEnd="@dimen/dimen_15"
+                    android:background="@drawable/remove_bg"
+                    android:drawablePadding="@dimen/margin_8dp"
+                    app:drawableTint="@color/red"
+                    app:drawableStartCompat="@drawable/cancel" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
