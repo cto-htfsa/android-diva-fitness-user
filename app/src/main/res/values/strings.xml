@@ -79,6 +79,7 @@
     <string name="sar_amount">SAR [X]/session</string>
     <string name="sar">SAR </string>
     <string name="skip">skip</string>
+    <string name="for_package">for</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="pick_image_from">Pick Image From</string>
     <string name="gallery">Gallery</string>
@@ -127,6 +128,14 @@
     <string name="joining_from">Joining from</string>
     <string name="remove">Remove</string>
     <string name="personal_trainer">Personal Trainer</string>
+    <string name="payable_amt">Payable Amount</string>
+    <string name="auto_renew_membership">Auto Renew membership</string>
+    <string name="package_membership">Plus [X] package</string>
+    <string name="please_select_slots">Please select slots</string>
+    <string name="booking_successfully">Booking Successfully!</string>
+    <string name="your_booking_confirm">Your booking has been confirm</string>
+    <string name="my_booking">My Bookings</string>
+    <string name="back_to_home">Back to home</string>
 
 
 </resources>

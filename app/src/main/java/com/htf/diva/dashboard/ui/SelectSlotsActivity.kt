@@ -18,13 +18,17 @@ import com.htf.diva.dashboard.adapters.SelectedSlotAdapter
 import com.htf.diva.dashboard.adapters.SlotsAdapter
 import com.htf.diva.dashboard.viewModel.PersonalTrainerViewModel
 import com.htf.diva.databinding.ActivitySlotBookBinding
+import com.htf.diva.models.Packages
 import com.htf.diva.models.Slot
+import com.htf.diva.models.Tenure
+import com.htf.diva.models.TrainerDetailsModel
 import com.htf.diva.utils.DateUtils
 import com.htf.diva.utils.DateUtils.getCurrentDateC
 import com.htf.diva.utils.DateUtils.getCurrentMonthC
 import com.htf.diva.utils.DateUtils.getCurrentWeekDay
 import com.htf.diva.utils.DateUtils.getCurrentYearC
 import com.htf.diva.utils.content.DummyContent
+import com.htf.diva.utils.showToast
 import com.htf.eyenakhr.callBack.IListItemClickListener
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
@@ -49,10 +53,35 @@ class SelectSlotsActivity : BaseActivity<ActivitySlotBookBinding, PersonalTraine
     private var arrSelectedSlots=ArrayList<Slot>()
     private lateinit var dialog: AlertDialog
 
+    private var currentDate:String?=null
+    private var packageSelected=Packages()
+    private var tenureSelected=Tenure()
+    private var trainerDetail=TrainerDetailsModel()
+    private var booking_type:String?=""
+    private var numberOfPeoplePerSession:String?=null
+    private var withMyFriendsGym:String?=null
+
+
     companion object{
-        fun open(currActivity: Activity, arrBookingSlots: ArrayList<Slot>){
+        fun open(
+            currActivity: Activity,
+            arrBookingSlots: ArrayList<Slot>,
+            trainerDetail: TrainerDetailsModel,
+            tenureSelected: Tenure,
+            packageSelected: Packages,
+            booking_type: String?,
+            currentDate: String?,
+            numberOfPeoplePerSession: String?,
+            withMyFriendsGym: String?){
             val intent= Intent(currActivity, SelectSlotsActivity::class.java)
             intent.putExtra("arrBookingSlots", arrBookingSlots)
+            intent.putExtra("trainerDetail", trainerDetail)
+            intent.putExtra("tenureSelected", tenureSelected)
+            intent.putExtra("packageSelected", packageSelected)
+            intent.putExtra("booking_type", booking_type)
+            intent.putExtra("currentDate", currentDate)
+            intent.putExtra("numberOfPeoplePerSession", numberOfPeoplePerSession)
+            intent.putExtra("withMyFriendsGym", withMyFriendsGym)
             currActivity.startActivity(intent) } }
 
     override var layout = R.layout.activity_slot_book
@@ -83,7 +112,12 @@ class SelectSlotsActivity : BaseActivity<ActivitySlotBookBinding, PersonalTraine
                 }
             }
             R.id.btnConfirmSlot->{
-                BookingSummaryActivity.open(currActivity)
+                if(arrSelectedSlots.isNotEmpty()){
+                    BookingSummaryActivity.open(currActivity,arrSelectedSlots,trainerDetail,
+                        tenureSelected,packageSelected,booking_type,currentDate,numberOfPeoplePerSession,withMyFriendsGym)
+                } else{
+                    showToast(currActivity.getString(R.string.please_select_slots), true)
+                }
             }
         }
     }
@@ -92,6 +126,16 @@ class SelectSlotsActivity : BaseActivity<ActivitySlotBookBinding, PersonalTraine
         selectedDayType=DummyContent.getWeekDays().single { it.weekDay==selectedDay }.type
         arrBookingSlots.clear()
         arrBookingSlots.addAll(intent.getSerializableExtra("arrBookingSlots") as ArrayList<Slot>)
+        trainerDetail=intent.getSerializableExtra("trainerDetail") as TrainerDetailsModel
+        tenureSelected=intent.getSerializableExtra("tenureSelected") as Tenure
+        packageSelected=intent.getSerializableExtra("packageSelected") as Packages
+        booking_type=intent.getStringExtra("booking_type")
+        currentDate=intent.getStringExtra("currentDate")
+        numberOfPeoplePerSession=intent.getStringExtra("numberOfPeoplePerSession")
+        withMyFriendsGym=intent.getStringExtra("withMyFriendsGym")
+
+
+
         val filterArrBookingSlots=arrBookingSlots.filter { it.weekdayId==selectedDayType }
         setSlotsList(filterArrBookingSlots)
     }

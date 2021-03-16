@@ -22,16 +22,13 @@ import com.htf.diva.utils.DateUtils
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import com.htf.eyenakhr.callBack.IListItemClickListener
-import kotlinx.android.synthetic.main.activity_slot_book.*
 import kotlinx.android.synthetic.main.activity_trainer_details.*
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 
 class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, PersonalTrainerViewModel>(
-    PersonalTrainerViewModel::class.java
-), IListItemClickListener<Any>, View.OnClickListener{
+    PersonalTrainerViewModel::class.java), IListItemClickListener<Any>, View.OnClickListener{
     private var packages=ArrayList<Packages>()
     private var bookingSlots=ArrayList<Slot>()
     private var currActivity: Activity = this
@@ -39,10 +36,17 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
     private lateinit var tenureAdapter: TenureAdapter
     private lateinit var packageAdapter: PackagesAdapter
     private var currentDate:String?=null
+    private var packageSelected=Packages()
+    private var tenureSelected=Tenure()
+    private var trainerDetail=TrainerDetailsModel()
 
     private var mYear = 0
     private  var mMonth:Int = 0
     private  var mDay:Int = 0
+    private var booking_type:String?=null
+    private var numberOfPeoplePerSession:String?=null
+    private var withMyFriendsGym:String?=null
+
 
     companion object{
         fun open(currActivity: Activity, topTrainer: AppDashBoard.TopTrainer){
@@ -108,6 +112,7 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
 
     private fun onHandleTrainerDetailsSuccessResponse(trainerDetailsModel: TrainerDetailsModel?){
         trainerDetailsModel?.let {
+            trainerDetail=trainerDetailsModel
             setTrainerDetail(trainerDetailsModel.trainer!!)
             setSpecialisingList(trainerDetailsModel.specializations!!)
             setTenureList(trainerDetailsModel.tenures!!)
@@ -119,13 +124,13 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
     }
 
     fun selectedTenure(selectedTenureItem: Tenure, position: Int) {
-        val selectedTenure=selectedTenureItem
-        val selectedPackage = packages.filter { it.tenureId== selectedTenure.id }
+        tenureSelected=selectedTenureItem
+        val selectedPackage = packages.filter { it.tenureId== tenureSelected.id }
         setPackageList(selectedPackage)
     }
 
     fun selectedPackage(selectedPackage: Packages, position: Int) {
-
+           packageSelected=selectedPackage
     }
 
 
@@ -175,7 +180,8 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.btnSelectSlots -> {
-                SelectSlotsActivity.open(currActivity, bookingSlots)
+                SelectSlotsActivity.open(currActivity, bookingSlots,trainerDetail,
+                    tenureSelected,packageSelected,booking_type,currentDate,numberOfPeoplePerSession,withMyFriendsGym)
             }
             R.id.tvJoiningDate -> {
                 // Get Current Date
@@ -210,10 +216,12 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
                         rbPackage.isChecked = true
                         rvPackages.visibility = View.VISIBLE
                         nlrPer_session.visibility = View.GONE
+                        booking_type="Package"
                     }
                     R.id.rbPerSession -> {
                         rvPackages.visibility = View.GONE
                         nlrPer_session.visibility = View.VISIBLE
+                        booking_type="Session"
                     }
                 }
             }
@@ -240,6 +248,7 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
                 var count: Int =tvNumberOfItems.text.toString().toInt()
                 count++
                 tvNumberOfItems.text = "" + count
+                numberOfPeoplePerSession="" + count
 
             }
 
@@ -250,6 +259,7 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
                 } else {
                     count -= 1
                     tvNumberOfItems.text = "" + count
+                    numberOfPeoplePerSession="" + count
                 }
             }
         }
@@ -259,6 +269,7 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
                 var count: Int = tvNoOfPeople.text.toString().toInt()
                 count++
                 tvNoOfPeople.text = "" + count
+                withMyFriendsGym=""+count
             }
 
             ivNoOfPeopleMinus.setOnClickListener {
@@ -268,16 +279,13 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
                 } else {
                     count -= 1
                     tvNoOfPeople.text = "" + count
+                    withMyFriendsGym=""+count
                 }
             }
 
         }
 
 
-    private fun choseTrainingJoinDate(){
-
-
-    }
 
 
 }

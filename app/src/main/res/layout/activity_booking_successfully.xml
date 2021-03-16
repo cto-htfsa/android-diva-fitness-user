@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="bookingSuccessfully"
+            type="com.htf.diva.dashboard.viewModel.BookingSummaryViewModel" />
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivTrainerImage"
+            android:layout_width="@dimen/dimen_50"
+            android:layout_height="@dimen/dimen_50"
+            android:layout_marginTop="@dimen/dimen_100"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/booking_successfully"/>
+        <TextView
+            android:id="@+id/tvSuccessfully"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_18sp"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:layout_gravity="center"
+            android:layout_below="@+id/ivTrainerImage"
+            android:layout_centerHorizontal="true"
+            android:text="@string/booking_successfully"
+            android:textColor="@color/colorBookingSuccess"
+            android:fontFamily="@font/avenir_black" />
+
+        <TextView
+            android:id="@+id/tvBookingDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_below="@+id/tvSuccessfully"
+            android:text="@string/your_booking_confirm"
+            android:layout_marginTop="@dimen/font_14sp"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/font_12sp"
+            android:fontFamily="@font/avenir_black"
+            android:textColor="@color/colorTextLightDark"/>
+
+
+        <TextView
+            android:id="@+id/tvMyBooking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_70"
+            android:background="@drawable/btn_bg"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:backgroundTint="@color/colorBranchBg4"
+            android:layout_below="@+id/tvBookingDescription"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            android:fontFamily="@font/avenir_roman"
+            android:paddingStart="@dimen/margin_4dp"
+            android:paddingTop="@dimen/margin_12dp"
+            android:paddingEnd="@dimen/margin_4dp"
+            android:paddingBottom="@dimen/margin_12dp"
+            android:layout_marginStart="@dimen/dimen_100"
+            android:layout_marginEnd="@dimen/dimen_100"
+            android:text="@string/my_booking"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:textAllCaps="false"/>
+
+
+            <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:background="@drawable/btn_bg"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_below="@+id/tvMyBooking"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            android:fontFamily="@font/avenir_roman"
+            android:paddingStart="@dimen/margin_4dp"
+            android:paddingTop="@dimen/margin_12dp"
+            android:paddingEnd="@dimen/margin_4dp"
+            android:paddingBottom="@dimen/margin_12dp"
+            android:layout_marginStart="@dimen/dimen_100"
+            android:layout_marginEnd="@dimen/dimen_100"
+            android:text="@string/back_to_home"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textAllCaps="false"/>
+
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_200"
+            android:scaleType="centerInside"
+            android:background="@drawable/booking_success_bottom"/>
+
+    </RelativeLayout>
+</layout>

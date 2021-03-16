@@ -56,5 +56,7 @@
     <color name="gray5">#8C8C8C</color>
     <color name="trainerDetails">#FEF5ED</color>
 
-
+    <!-- Text Color-->
+    <color name="colorTextHeading">#333333</color>
+    <color name="colorTextLightDark">#666666</color>
 </resources>
