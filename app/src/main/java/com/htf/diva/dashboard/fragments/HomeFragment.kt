@@ -17,6 +17,8 @@ import com.htf.diva.base.BaseFragment
 import com.htf.diva.dashboard.adapters.BannerAdapter
 import com.htf.diva.dashboard.adapters.CenterAdapter
 import com.htf.diva.dashboard.adapters.TrainerAdapter
+import com.htf.diva.dashboard.ui.BookingSuccessfullyActivity
+import com.htf.diva.dashboard.ui.BuyMemberShipActivity
 import com.htf.diva.dashboard.ui.PersonalTrainersActivity
 import com.htf.diva.dashboard.ui.TrainerDetailActivity
 import com.htf.diva.dashboard.viewModel.HomeViewModel
@@ -64,12 +66,16 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
 
     private fun setListener() {
         binding.root.btnViewAll.setOnClickListener(this)
+        binding.root.llBuyMembership.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.btnViewAll -> {
                 PersonalTrainersActivity.open(currActivity)
+            }
+            R.id.llBuyMembership->{
+                BuyMemberShipActivity.open(currActivity)
             }
         }
     }
@@ -80,6 +86,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
         observerViewModel(viewModel.errorResult,this::onHandleApiErrorResponse)
         observerViewModel(viewModel.mDashBoardData,this::onHandleAppDashBoardSuccessResponse)
     }
+
     private fun onHandleShowProgress(isNotShow:Boolean) {
         if (isNotShow) progressDialog?.show() else progressDialog?.dismiss()
     }

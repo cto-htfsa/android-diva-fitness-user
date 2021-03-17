@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="bookingBuyMember"
+            type="com.htf.diva.dashboard.viewModel.BuyMemberShipViewModel" />
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/llTop"
+            layout="@layout/toolbar" />
+
+    </LinearLayout>
+
+</layout>
