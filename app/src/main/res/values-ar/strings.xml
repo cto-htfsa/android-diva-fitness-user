@@ -137,6 +137,8 @@
     <string name="your_booking_confirm">Your booking has been confirm</string>
     <string name="my_booking">My Bookings</string>
     <string name="back_to_home">Back to home</string>
+    <string name="select_branch">Select Branch</string>
+    <string name="i_need_personal_trainer">I need Personal Trainer</string>
 
 
 </resources>

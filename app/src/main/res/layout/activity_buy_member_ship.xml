@@ -8,7 +8,7 @@
         <import type="android.view.View" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,6 +17,309 @@
             android:id="@+id/llTop"
             layout="@layout/toolbar" />
 
-    </LinearLayout>
+        <RelativeLayout
+            android:layout_above="@+id/btnConfirmSlot"
+            android:layout_below="@+id/llTop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/select_branch"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="12sp"
+                        android:layout_gravity="start"
+                        android:textAlignment="viewStart"
+                        android:padding="@dimen/dimen_10"
+                        android:fontFamily="@font/avenir_black"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvBranch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/dimen_10"
+                    android:background="@color/colorWhite"
+                    android:paddingBottom="@dimen/dimen_30">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/select_tenure"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="12sp"
+                        android:layout_gravity="start"
+                        android:textAlignment="viewStart"
+                        android:paddingStart="@dimen/dimen_15"
+                        android:fontFamily="@font/avenir_black"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvSelectTenure"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:layout_marginTop="@dimen/dimen_7"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:background="@color/colorAgeBg"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/margin_20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dimen_10">
+
+
+                        <TextView
+                            android:id="@+id/rbPackage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/colorPrimary"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:text="@string/packages"
+                            android:fontFamily="@font/avenir_black"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/font_12sp"/>
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:text="@string/read_policy"
+                            android:gravity="center_vertical"
+                            android:textSize="@dimen/font_10sp"
+                            android:linksClickable="true"
+                            android:textColor="@color/colorMembershipExpiredBg"
+                            android:autoLink="all"
+                            android:textColorLink="@color/colorMembershipExpiredBg" />
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvPackages"
+                        android:paddingStart="@dimen/dimen_10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <RadioGroup
+                        android:id="@+id/rgGroupSelect_for"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="@dimen/dimen_7">
+
+                        <RadioButton
+                            android:id="@+id/rbOnlyMe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/colorPrimary"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:text="@string/only_me"
+                            android:fontFamily="@font/avenir_black"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/font_12sp"/>
+
+                        <RadioButton
+                            android:id="@+id/rbWithMyFriends"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/colorPrimary"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:text="@string/with_my_friends"
+                            android:fontFamily="@font/avenir_black"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/dimen_30"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/font_12sp"/>
+
+
+                    </RadioGroup>
+
+                    <LinearLayout
+                        android:id="@+id/lnrWith_my_frnd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="visible"
+                        android:layout_marginStart="@dimen/dimen_7"
+                        android:layout_marginTop="@dimen/dimen_5">
+
+                        <LinearLayout
+                            android:layout_width="@dimen/dimen_125"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="3"
+                            android:layout_marginStart="@dimen/dimen_7"
+                            android:background="@drawable/add_diet_plan_rect">
+
+                            <ImageView
+                                android:id="@+id/ivNoOfPeopleMinus"
+                                android:layout_width="@dimen/dimen_40"
+                                android:layout_height="@dimen/dimen_40"
+                                android:padding="@dimen/dimen_10"
+                                android:src="@drawable/ic_minus_black_24dp"
+                                app:tint="@color/colorPrimaryDark"
+                                android:layout_weight="1"
+                                android:layout_gravity="center"/>
+
+                            <View
+                                android:layout_width="@dimen/dimen_1"
+                                android:layout_height="match_parent"
+                                android:background="@color/colorHintText"/>
+
+                            <TextView
+                                android:id="@+id/tvNoOfPeople"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="@dimen/font_13sp"
+                                android:fontFamily="@font/avenir_black"
+                                android:padding="@dimen/dimen_7"
+                                android:layout_weight="1"
+                                android:layout_gravity="center"
+                                android:textAlignment="center"/>
+
+                            <View
+                                android:layout_width="@dimen/dimen_1"
+                                android:layout_height="match_parent"
+                                android:background="@color/colorHintText"/>
+
+                            <ImageView
+                                android:id="@+id/ivNoOfPeopleAdd"
+                                android:layout_width="@dimen/dimen_40"
+                                android:layout_height="@dimen/dimen_40"
+                                android:padding="@dimen/dimen_10"
+                                android:src="@drawable/ic_add_black_24dp"
+                                app:tint="@color/colorPrimaryDark"
+                                android:layout_weight="1"
+                                android:layout_gravity="center"/>
+
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/no_of_people"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/font_13sp"
+                            android:fontFamily="@font/avenir_black"
+                            android:padding="@dimen/dimen_7"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/dimen_7"
+                            android:layout_gravity="center_vertical" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/llTrainerNeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:layout_marginTop="@dimen/margin_16dp"
+                        android:layout_marginStart="@dimen/margin_16dp"
+                        android:layout_alignParentStart="true"
+                        android:text="@string/i_need_personal_trainer"
+                        android:textSize="@dimen/font_14sp"
+                        android:fontFamily="@font/avenir_black"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switchAllDay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:layout_marginEnd="@dimen/margin_16dp"
+                        android:layout_alignParentEnd="true"
+                        android:checked="false"
+                        android:layout_marginStart="10dp"
+                        android:button="@drawable/checkbox_renew"
+                        android:thumb="@null"
+                        app:track="@null"/>
+
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+
+
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/btnConfirmSlot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:background="@drawable/btn_bg"
+            android:layout_gravity="center"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            android:fontFamily="@font/avenir_roman"
+            android:paddingStart="@dimen/margin_4dp"
+            android:paddingTop="@dimen/margin_12dp"
+            android:paddingEnd="@dimen/margin_4dp"
+            android:paddingBottom="@dimen/margin_12dp"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:text="Pay SAR 400"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textAllCaps="false"/>
+
+    </RelativeLayout>
 
 </layout>

@@ -79,6 +79,14 @@ object DashboardApiRepo : BaseRepository() {
         )
     }
 
+
+    suspend fun fitnessCenterDetail(locale: String?,deviceId: String?, deviceType: String?,versionName: String?): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.fitnessCenterDetailForBookingAsync(
+                locale,deviceId,deviceType,versionName).await()}
+        )
+    }
+
 }
 
 
