@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
+import com.htf.diva.dashboard.fitnessCenters.CenterDetailBookingActivity
 import com.htf.diva.dashboard.ui.FilterActivity
 import com.htf.diva.dashboard.ui.TrainerDetailActivity
 import com.htf.diva.databinding.RowSpecialisingInBinding
@@ -34,6 +35,9 @@ class TenureAdapter (
                 when (currActivity) {
                     is TrainerDetailActivity -> {
                         (currActivity as TrainerDetailActivity).selectedTenure(model,adapterPosition)
+                    }
+                    is CenterDetailBookingActivity->{
+                        (currActivity as CenterDetailBookingActivity).selectedTenure(model,adapterPosition)
                     }
                 }
 
@@ -63,6 +67,9 @@ class TenureAdapter (
                 holder.itemView.tvMonth.setTextColor(ContextCompat.getColor(currActivity, R.color.white))
                 if(currActivity is TrainerDetailActivity){
                     (currActivity as TrainerDetailActivity).selectedTenure(model, position)
+                }
+                if(currActivity is CenterDetailBookingActivity){
+                    (currActivity as CenterDetailBookingActivity).selectedTenure(model,position)
                 }
             }
             else -> {

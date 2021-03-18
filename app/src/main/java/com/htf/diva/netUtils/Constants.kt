@@ -25,6 +25,11 @@ object Constants {
     val KEY_PREF_USER_LANGUAGE="user_lang"
     const val BROADCAST_ACTION ="com.htf.eyenakGuest.utils"
 
+    val COME_FROM="comeFrom"
+    val FROM_HOME="fromHome"
+    val FROM_CENTER="fromCenter"
+
+
     object Auth{
         val KEY_TOKEN = "token"
         val KEY_USER_JSON_DETAILS = "jsonUserDetails"

@@ -12,14 +12,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.dashboard.adapters.AllTrainersAdapter
-import com.htf.diva.dashboard.adapters.NotificationAdapter
-import com.htf.diva.dashboard.adapters.TrainerAdapter
-import com.htf.diva.dashboard.viewModel.NotificationViewModel
 import com.htf.diva.dashboard.viewModel.PersonalTrainerViewModel
-import com.htf.diva.databinding.ActivityNotificationBinding
 import com.htf.diva.databinding.ActivityPersonalTrainersBinding
 import com.htf.diva.models.AppDashBoard
 import com.htf.diva.models.Listing
+import com.htf.diva.netUtils.Constants
 import com.htf.diva.utils.LoadMoreScrollListener
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
@@ -46,10 +43,12 @@ class PersonalTrainersActivity : BaseDarkActivity<ActivityPersonalTrainersBindin
     private var selectedFilter:AppDashBoard.FitnessCenter?=null
     private var term = ""
     private var timer:Timer?=null
+    private var comeFrom:String?=null
 
     companion object{
-        fun open(currActivity: Activity){
+        fun open(currActivity: Activity, keyPersonalTrainerScreenComeFrom: String?){
             val intent= Intent(currActivity, PersonalTrainersActivity::class.java)
+            intent.putExtra(Constants.COME_FROM,keyPersonalTrainerScreenComeFrom)
             currActivity.startActivity(intent)
         }
     }
@@ -62,8 +61,19 @@ class PersonalTrainersActivity : BaseDarkActivity<ActivityPersonalTrainersBindin
         binding.personalTrainerViewModel = viewModel
         viewModel.onGetTrainerListing(page = page,isProgressBar = isProgressBar,fitnessId=fitnessId,query=query)
         viewModelInitialize()
+        getExtras()
         setListener()
         initRecycler()
+
+    }
+
+    private fun getExtras(){
+        comeFrom=intent.getStringExtra(Constants.COME_FROM)
+        if (comeFrom==Constants.FROM_HOME){
+            lnrFilter.visibility=View.VISIBLE
+        } else{
+            lnrFilter.visibility=View.GONE
+        }
 
     }
 

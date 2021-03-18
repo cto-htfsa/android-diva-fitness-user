@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class BuyMemberShipViewModel :BaseViewModel() {
+class FitnessCenterDetailBookingViewModel :BaseViewModel() {
 
     val isApiCalling= MutableLiveData<Boolean>()
     val errorResult= MutableLiveData<String>()

@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_marginEnd="@dimen/margin_8dp"
                 android:background="@drawable/rect_search_trainer"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@+id/lnrFilter">
@@ -62,6 +63,7 @@
                android:id="@+id/lnrFilter"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="8dp"
+                android:visibility="gone"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/margin_16dp"
                 android:background="@drawable/rect_filter_trainer"

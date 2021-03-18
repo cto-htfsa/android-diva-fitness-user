@@ -140,6 +140,8 @@ class AppDashBoard :Serializable {
         @Expose
         var longitude: Double? = null
 
+        var isSelected=false
+
     }
 
     class Workouts:Serializable{

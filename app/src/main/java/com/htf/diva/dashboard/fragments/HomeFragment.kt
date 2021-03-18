@@ -17,14 +17,15 @@ import com.htf.diva.base.BaseFragment
 import com.htf.diva.dashboard.adapters.BannerAdapter
 import com.htf.diva.dashboard.adapters.CenterAdapter
 import com.htf.diva.dashboard.adapters.TrainerAdapter
-import com.htf.diva.dashboard.ui.BookingSuccessfullyActivity
-import com.htf.diva.dashboard.ui.BuyMemberShipActivity
+import com.htf.diva.dashboard.fitnessCenters.CenterActivity
+import com.htf.diva.dashboard.fitnessCenters.CenterDetailBookingActivity
 import com.htf.diva.dashboard.ui.PersonalTrainersActivity
 import com.htf.diva.dashboard.ui.TrainerDetailActivity
 import com.htf.diva.dashboard.viewModel.HomeViewModel
 import com.htf.diva.databinding.FragmentHomeBinding
 import com.htf.diva.models.AppDashBoard
 import com.htf.diva.models.Banner
+import com.htf.diva.netUtils.Constants
 import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
@@ -72,10 +73,10 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.btnViewAll -> {
-                PersonalTrainersActivity.open(currActivity)
+                PersonalTrainersActivity.open(currActivity,Constants.FROM_HOME)
             }
             R.id.llBuyMembership->{
-                BuyMemberShipActivity.open(currActivity)
+                CenterActivity.open(currActivity)
             }
         }
     }
@@ -152,11 +153,12 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
         rvFitnessCenter.adapter = mFitnessCenterAdapter
     }
 
+    override fun onItemClickListener(data: Any) {
+        if (data is AppDashBoard.TopTrainer)
+        TrainerDetailActivity.open(currActivity,data)
 
-
-    override fun onItemClickListener(topTrainer: Any) {
-        if (topTrainer is AppDashBoard.TopTrainer)
-        TrainerDetailActivity.open(currActivity,topTrainer)
-    }
+        if (data is AppDashBoard.FitnessCenter)
+            CenterDetailBookingActivity.open(currActivity,data)
+      }
 
 }

@@ -77,6 +77,7 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
         /* here for with my friends packages section*/
         withMyFriendsSection()
 
+
     }
 
 

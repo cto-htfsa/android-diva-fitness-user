@@ -19,13 +19,13 @@ class FitnessCenterDetailForBookModel :Serializable {
 
     @SerializedName("fitnessCenters")
     @Expose
-    var fitnessCenters: List<FitnessCenter>? = null
+    var fitnessCenters: ArrayList<FitnessCenter>? = null
 
     @SerializedName("tenures")
     @Expose
-    var tenures: List<Tenure>? = null
+    var tenures: ArrayList<Tenure>? = null
 
     @SerializedName("packages")
     @Expose
-    var packages: List<Packages>? = null
+    var packages: ArrayList<Packages>? = null
 }

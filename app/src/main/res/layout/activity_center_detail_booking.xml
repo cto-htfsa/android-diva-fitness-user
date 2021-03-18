@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="bookingBuyMember"
-            type="com.htf.diva.dashboard.viewModel.BuyMemberShipViewModel" />
+            name="centerDetailBookingViewModel"
+            type="com.htf.diva.dashboard.viewModel.FitnessCenterDetailBookingViewModel" />
         <import type="android.view.View" />
     </data>
 
@@ -18,7 +18,7 @@
             layout="@layout/toolbar" />
 
         <RelativeLayout
-            android:layout_above="@+id/btnConfirmSlot"
+            android:layout_above="@+id/lnrBookSlots"
             android:layout_below="@+id/llTop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -36,6 +36,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:layout_marginTop="@dimen/margin_16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -48,14 +49,15 @@
                         android:textSize="12sp"
                         android:layout_gravity="start"
                         android:textAlignment="viewStart"
-                        android:padding="@dimen/dimen_10"
+                        android:layout_marginStart="@dimen/dimen_13"
                         android:fontFamily="@font/avenir_black"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvBranch"
+                        android:layout_marginStart="@dimen/dimen_10"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_5"/>
+                        android:layout_marginTop="@dimen/margin_8dp"/>
 
                 </LinearLayout>
 
@@ -63,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingTop="@dimen/dimen_10"
+                    android:paddingTop="@dimen/dimen_20"
                     android:background="@color/colorWhite"
                     android:paddingBottom="@dimen/dimen_30">
 
@@ -75,7 +77,7 @@
                         android:textSize="12sp"
                         android:layout_gravity="start"
                         android:textAlignment="viewStart"
-                        android:paddingStart="@dimen/dimen_15"
+                        android:layout_marginStart="@dimen/dimen_13"
                         android:fontFamily="@font/avenir_black"/>
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -83,22 +85,23 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_10"
-                        android:layout_marginTop="@dimen/dimen_7"/>
+                        android:layout_marginTop="@dimen/margin_8dp"/>
 
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:background="@color/colorAgeBg"
                     android:orientation="vertical"
                     android:paddingBottom="@dimen/margin_20dp"
+                    android:paddingTop="@dimen/dimen_20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/dimen_10">
+                        android:layout_marginEnd="@dimen/dimen_13"
+                        android:layout_marginStart="@dimen/dimen_13">
 
 
                         <TextView
@@ -129,20 +132,22 @@
                     </RelativeLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvPackages"
-                        android:paddingStart="@dimen/dimen_10"
+                        android:id="@+id/rbCenterPackage"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_marginStart="@dimen/dimen_10"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
                     <RadioGroup
-                        android:id="@+id/rgGroupSelect_for"
+                        android:id="@+id/rgGroupSelect_center_for"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_12"
                         android:orientation="horizontal"
                         android:layout_marginStart="@dimen/dimen_7">
 
                         <RadioButton
-                            android:id="@+id/rbOnlyMe"
+                            android:id="@+id/rbOnlyMeCenter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/colorPrimary"
@@ -153,7 +158,7 @@
                             android:textSize="@dimen/font_12sp"/>
 
                         <RadioButton
-                            android:id="@+id/rbWithMyFriends"
+                            android:id="@+id/rbWithMyFriends_in_center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/colorPrimary"
@@ -169,13 +174,13 @@
                     </RadioGroup>
 
                     <LinearLayout
-                        android:id="@+id/lnrWith_my_frnd"
+                        android:id="@+id/lnrWith_my_frnd_in_center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:visibility="visible"
                         android:layout_marginStart="@dimen/dimen_7"
-                        android:layout_marginTop="@dimen/dimen_5">
+                        android:layout_marginTop="@dimen/dimen_10">
 
                         <LinearLayout
                             android:layout_width="@dimen/dimen_125"
@@ -186,7 +191,7 @@
                             android:background="@drawable/add_diet_plan_rect">
 
                             <ImageView
-                                android:id="@+id/ivNoOfPeopleMinus"
+                                android:id="@+id/ivSubtract"
                                 android:layout_width="@dimen/dimen_40"
                                 android:layout_height="@dimen/dimen_40"
                                 android:padding="@dimen/dimen_10"
@@ -201,7 +206,7 @@
                                 android:background="@color/colorHintText"/>
 
                             <TextView
-                                android:id="@+id/tvNoOfPeople"
+                                android:id="@+id/tvPeople"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="2"
@@ -219,7 +224,7 @@
                                 android:background="@color/colorHintText"/>
 
                             <ImageView
-                                android:id="@+id/ivNoOfPeopleAdd"
+                                android:id="@+id/ivAdd"
                                 android:layout_width="@dimen/dimen_40"
                                 android:layout_height="@dimen/dimen_40"
                                 android:padding="@dimen/dimen_10"
@@ -246,7 +251,6 @@
 
                 </LinearLayout>
 
-
                 <RelativeLayout
                     android:id="@+id/llTrainerNeed"
                     android:layout_width="wrap_content"
@@ -270,8 +274,8 @@
                         android:textColor="@color/colorPrimaryDark"/>
 
 
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switchAllDay"
+            <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switchNeedPersonalTrainer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -286,39 +290,107 @@
                 </RelativeLayout>
 
 
-
-            </LinearLayout>
-
-
-
+           </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 
-
-
-
         </RelativeLayout>
-        <TextView
-            android:id="@+id/btnConfirmSlot"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_8dp"
-            android:background="@drawable/btn_bg"
-            android:layout_gravity="center"
+
+
+        <LinearLayout
+            android:id="@+id/lnrBookSlots"
+            android:orientation="vertical"
+            android:background="@color/white"
             android:layout_alignParentBottom="true"
-            android:gravity="center"
-            android:layout_marginBottom="@dimen/margin_8dp"
-            android:fontFamily="@font/avenir_roman"
-            android:paddingStart="@dimen/margin_4dp"
-            android:paddingTop="@dimen/margin_12dp"
-            android:paddingEnd="@dimen/margin_4dp"
-            android:paddingBottom="@dimen/margin_12dp"
-            android:layout_marginStart="@dimen/margin_16dp"
-            android:layout_marginEnd="@dimen/margin_16dp"
-            android:text="Pay SAR 400"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:textAllCaps="false"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:paddingTop="@dimen/margin_16dp"
+                android:paddingBottom="@dimen/margin_16dp"
+                android:background="@color/colorAgeBg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/llJoinFrom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:elevation="@dimen/dimen_3"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_5">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_40"
+                        android:layout_height="@dimen/dimen_40"
+                        android:padding="@dimen/dimen_10"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/calendar"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/i_will_join_from"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:fontFamily="@font/avenir_black"
+                        android:textSize="@dimen/font_12sp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dimen_5"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvJoiningDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20,jan,2021"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/font_12sp"
+                    android:fontFamily="@font/avenir_black"
+                    android:background="@drawable/select_age_bg"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/dimen_12"
+                    android:layout_marginEnd="@dimen/dimen_10"
+                    android:backgroundTint="@color/colorWhite"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite">
+
+                <Button
+                    android:id="@+id/btnBookCenter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:background="@drawable/btn_bg"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:fontFamily="@font/avenir_roman"
+                    android:paddingStart="@dimen/margin_4dp"
+                    android:paddingTop="@dimen/margin_12dp"
+                    android:paddingEnd="@dimen/margin_4dp"
+                    android:paddingBottom="@dimen/margin_12dp"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:text="Pay SAR 400"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textAllCaps="false"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
 
     </RelativeLayout>
 

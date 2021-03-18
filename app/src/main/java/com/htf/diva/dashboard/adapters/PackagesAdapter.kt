@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
+import com.htf.diva.dashboard.fitnessCenters.CenterDetailBookingActivity
 import com.htf.diva.dashboard.ui.TrainerDetailActivity
 import com.htf.diva.databinding.RowPackgesBinding
 import com.htf.diva.models.Packages
@@ -32,6 +33,9 @@ class PackagesAdapter (
                 when (currActivity) {
                     is TrainerDetailActivity -> {
                         (currActivity as TrainerDetailActivity).selectedPackage(model,adapterPosition)
+                    }
+                    is CenterDetailBookingActivity -> {
+                        (currActivity as CenterDetailBookingActivity).selectedPackage(model,adapterPosition)
                     }
                 }
             }
