@@ -60,6 +60,7 @@
         <activity android:name=".dashboard.ui.BookingSuccessfullyActivity"/>
         <activity android:name=".dashboard.fitnessCenters.CenterActivity"/>
         <activity android:name=".dashboard.fitnessCenters.CenterDetailBookingActivity"/>
+        <activity android:name=".dashboard.fitnessCenters.FitnessCenterSummaryActivity"/>
 
 
 

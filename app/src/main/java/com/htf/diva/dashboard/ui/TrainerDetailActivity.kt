@@ -185,30 +185,28 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
                     tenureSelected,packageSelected,booking_type,currentDate,numberOfPeoplePerSession,withMyFriendsGym)
             }
             R.id.tvJoiningDate -> {
-                // Get Current Date
-
-                // Get Current Date
-                val c = Calendar.getInstance()
-                mYear = c[Calendar.YEAR]
-                mMonth = c[Calendar.MONTH]
-                mDay = c[Calendar.DAY_OF_MONTH]
-
-
-                val datePickerDialog = DatePickerDialog(
-                    this, { _, year, monthOfYear, dayOfMonth ->
-                        val selectedDate = dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
-                        tvJoiningDate.text = selectedDate
-
-                    }, mYear, mMonth, mDay
-                )
-                datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
-                datePickerDialog.show()
-
-
+                pickDate()
             }
         }
     }
 
+      private fun pickDate(){
+          val c = Calendar.getInstance()
+          mYear = c[Calendar.YEAR]
+          mMonth = c[Calendar.MONTH]
+          mDay = c[Calendar.DAY_OF_MONTH]
+
+          val datePickerDialog = DatePickerDialog(
+              this, { _, year, monthOfYear, dayOfMonth ->
+                  val selectedDate = dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
+                  tvJoiningDate.text = selectedDate
+
+              }, mYear, mMonth, mDay
+          )
+          datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
+          datePickerDialog.show()
+
+      }
 
         private fun selectPackages(){
             rbGroup.setOnCheckedChangeListener { _, checkedId ->

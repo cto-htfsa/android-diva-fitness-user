@@ -62,6 +62,8 @@ class PackagesAdapter (
                 if(currActivity is TrainerDetailActivity){
                     (currActivity as TrainerDetailActivity).selectedPackage(model, position)
                 }
+                if(currActivity is CenterDetailBookingActivity)
+                    (currActivity as CenterDetailBookingActivity).selectedPackage(model,position)
             }
             else -> {
                 holder.itemView.rltPackage.setBackgroundResource(R.drawable.package_bg_unselected)

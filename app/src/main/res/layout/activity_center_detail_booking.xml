@@ -344,10 +344,10 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tvJoiningDate"
+                    android:id="@+id/tvCenterJoiningDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20,jan,2021"
+                    android:text=""
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/font_12sp"
                     android:fontFamily="@font/avenir_black"

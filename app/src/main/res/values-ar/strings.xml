@@ -80,6 +80,7 @@
     <string name="about_app">About App</string>
     <string name="logout">Logout</string>
     <string name="sar_amount">SAR [X]/session</string>
+    <string name="pay_sar">Pay SAR [X]</string>
     <string name="skip">skip</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="pick_image_from">Pick Image From</string>
@@ -140,6 +141,9 @@
     <string name="select_branch">Select Branch</string>
     <string name="i_need_personal_trainer">I need Personal Trainer</string>
     <string name="choose_center">Choose the Center</string>
+    <string name="vat">VAT</string>
+    <string name="people">People</string>
+    <string name="session">Session</string>
 
 
 </resources>

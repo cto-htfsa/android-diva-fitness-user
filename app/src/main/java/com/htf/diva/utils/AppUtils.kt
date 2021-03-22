@@ -86,4 +86,10 @@ object AppUtils  {
             textView.text = defaultText
         }
     }
+    fun roundMathValueFromDouble(value: Double): Double {
+        var result = 0.0
+        result = Math.round(value * 100).toDouble() / 100
+        return result
+    }
+
 }
