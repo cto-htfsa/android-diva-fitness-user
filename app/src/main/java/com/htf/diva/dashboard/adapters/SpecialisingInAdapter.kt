@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
 import com.htf.diva.databinding.RowSpecialisingInBinding
 import com.htf.diva.models.Specialization
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 
 class SpecialisingInAdapter(
     private var currActivity: Activity,
     private var arrSpecialising: ArrayList<Specialization>,
-    private var iListItemClickListener: IListItemClickListener<Any>): RecyclerView.Adapter<SpecialisingInAdapter.MyViewHolder>(){
+    private var iListItemClickListener: IListItemClickListener<Any>
+): RecyclerView.Adapter<SpecialisingInAdapter.MyViewHolder>(){
     var rowFitnessCenterBinding: RowSpecialisingInBinding?=null
 
     inner class MyViewHolder(itemView: RowSpecialisingInBinding): RecyclerView.ViewHolder(itemView.root){

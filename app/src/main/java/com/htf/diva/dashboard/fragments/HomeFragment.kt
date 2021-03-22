@@ -29,7 +29,7 @@ import com.htf.diva.netUtils.Constants
 import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
 import kotlinx.android.synthetic.main.fragment_home.*

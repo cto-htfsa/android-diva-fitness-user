@@ -1,6 +1,5 @@
 package com.htf.diva.dashboard.ui
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -10,12 +9,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.dashboard.adapters.DietPlanAdapter
-import com.htf.diva.dashboard.adapters.MealTypesAdapter
 import com.htf.diva.dashboard.viewModel.DitPlanViewModel
 import com.htf.diva.databinding.ActivityDietPlanBinding
 import com.htf.diva.models.DietPlan
 import com.htf.diva.models.MealDietType
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.layout_recycler_view.*
 import kotlinx.android.synthetic.main.layout_recycler_view.view.*
 import kotlinx.android.synthetic.main.toolbar.*

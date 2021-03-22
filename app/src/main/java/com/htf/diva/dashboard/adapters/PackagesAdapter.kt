@@ -10,15 +10,14 @@ import com.htf.diva.dashboard.fitnessCenters.CenterDetailBookingActivity
 import com.htf.diva.dashboard.ui.TrainerDetailActivity
 import com.htf.diva.databinding.RowPackgesBinding
 import com.htf.diva.models.Packages
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.row_packges.view.*
-import kotlinx.android.synthetic.main.row_tenure.view.*
-import kotlinx.android.synthetic.main.row_tenure.view.rltTenure
 
 class PackagesAdapter (
     private var currActivity: Activity,
     private var arrPackges: List<Packages>,
-    private var iListItemClickListener: IListItemClickListener<Any>):
+    private var iListItemClickListener: IListItemClickListener<Any>
+):
     RecyclerView.Adapter<PackagesAdapter.MyViewHolder>(){
     var rowFitnessCenterBinding: RowPackgesBinding?=null
     var rowIndex = 0

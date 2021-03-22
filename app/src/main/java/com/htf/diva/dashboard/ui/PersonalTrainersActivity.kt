@@ -20,7 +20,7 @@ import com.htf.diva.netUtils.Constants
 import com.htf.diva.utils.LoadMoreScrollListener
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.activity_personal_trainers.*
 import kotlinx.android.synthetic.main.layout_recycler_view.*
 import kotlinx.android.synthetic.main.layout_recycler_view.view.*

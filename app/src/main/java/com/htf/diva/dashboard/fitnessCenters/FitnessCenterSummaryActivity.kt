@@ -7,12 +7,12 @@ import android.os.Bundle
 import android.view.View
 import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity
+import com.htf.diva.dashboard.ui.BookingSuccessfullyActivity
 import com.htf.diva.dashboard.viewModel.BookingSummaryViewModel
 import com.htf.diva.databinding.ActivityFitnessCenterBookingSummaryBinding
 import com.htf.diva.models.*
 import com.htf.diva.utils.AppUtils
-import com.htf.eyenakhr.callBack.IListItemClickListener
-import kotlinx.android.synthetic.main.activity_center_detail_booking.*
+import com.htf.diva.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.activity_fitness_center_booking_summary.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -58,7 +58,9 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
         tvTitle.text=getString(R.string.booking_summary)
         binding.fitnessCenterSummaryViewModel = viewModel
         getExtra()
+        setOnClickListener()
     }
+
     private fun getExtra() {
         selectedFitnessCenter=intent.getSerializableExtra("selectedFitnessCenter") as AppDashBoard.FitnessCenter
         tenureSelected=intent.getSerializableExtra("tenureSelected") as Tenure
@@ -70,33 +72,40 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
         setDetails()
     }
 
+    private fun setOnClickListener(){
+        btnPayableAmount.setOnClickListener(this)
+    }
+
     override fun onClick(p0: View?) {
         when (p0!!.id) {
-
+            R.id.btnPayableAmount->{
+                BookingSuccessfullyActivity.open(currActivity)
+            }
         }
     }
 
     @SuppressLint("SetTextI18n")
     private fun setDetails() {
         /* set all trainer detail*/
+
         tvFitnessCenter.text = selectedFitnessCenter.name
         tvFitnessCenterAddress.text = selectedFitnessCenter.location
-        val str = currActivity.getString(R.string.package_membership)
-            .replace("[X]", packageSelected.tenureName.toString())
+        val str = currActivity.getString(R.string.package_membership).replace("[X]", packageSelected.tenureName.toString())
         tvPackages.text = str
         tvTenure.text = tenureSelected.name
         tvJoining_from.text = currentDate
         tvNo_ofPeople.text = numberOfPeoplePerSession
 
+       val finalPayableAmt=numberOfPeoplePerSession!!.toDouble()*sessionPriceCalculate!!.toDouble()
 
         tvforSession.text=packageSelected.sessions.toString()+" "+currActivity.getString(R.string.session)
-        tvPackage_price.text=currActivity.getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(sessionPriceCalculate!!.toDouble())
+        tvPackage_price.text=currActivity.getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(finalPayableAmt)
 
         tvPackageTax.text="${getString(R.string.vat)} ($vatPercentage %)"
-        val afterCalculateTax=(sessionPriceCalculate!!.toDouble()*vatPercentage!!.toDouble())/100
+        val afterCalculateTax=(finalPayableAmt*vatPercentage!!.toDouble())/100
         tvPackageTaxCharges.text= getString(R.string.sar)+" "+afterCalculateTax
 
-         val totalPayableAmt= afterCalculateTax + sessionPriceCalculate!!.toDouble()
+         val totalPayableAmt= afterCalculateTax + finalPayableAmt
          val payableAmount= currActivity.getString(R.string.pay_sar).replace("[X]",AppUtils.roundMathValueFromDouble(totalPayableAmt).toString())
          btnPayableAmount.text=payableAmount
          tvPayable_amt.text=payableAmount

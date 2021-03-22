@@ -1,6 +1,5 @@
 package com.htf.diva.dashboard.adapters
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,20 +7,17 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
 import com.htf.diva.dashboard.fitnessCenters.CenterDetailBookingActivity
-import com.htf.diva.dashboard.ui.FilterActivity
 import com.htf.diva.dashboard.ui.TrainerDetailActivity
-import com.htf.diva.databinding.RowSpecialisingInBinding
 import com.htf.diva.databinding.RowTenureBinding
-import com.htf.diva.models.Specialization
 import com.htf.diva.models.Tenure
-import com.htf.eyenakhr.callBack.IListItemClickListener
-import kotlinx.android.synthetic.main.row_filter_center.view.*
+import com.htf.diva.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.row_tenure.view.*
 
 class TenureAdapter (
     private var currActivity: Activity,
     private var arrTenure: ArrayList<Tenure>,
-    private var iListItemClickListener: IListItemClickListener<Any>): RecyclerView.Adapter<TenureAdapter.MyViewHolder>(){
+    private var iListItemClickListener: IListItemClickListener<Any>
+): RecyclerView.Adapter<TenureAdapter.MyViewHolder>(){
     var rowFitnessCenterBinding: RowTenureBinding?=null
     var rowIndex = 0
     inner class MyViewHolder(itemView: RowTenureBinding): RecyclerView.ViewHolder(itemView.root){

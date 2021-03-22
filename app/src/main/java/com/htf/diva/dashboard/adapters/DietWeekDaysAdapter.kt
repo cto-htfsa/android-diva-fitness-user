@@ -6,10 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
 import com.htf.diva.databinding.RowDietWeekdaysBinding
-import com.htf.diva.databinding.RowPersonalTrainersBinding
-import com.htf.diva.models.AppDashBoard
 import com.htf.diva.models.DietWeekdayModel
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 
 class DietWeekDaysAdapter(
     private var currActivity: Activity,

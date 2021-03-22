@@ -2,16 +2,12 @@ package com.htf.diva.dashboard.adapters
 
 import android.app.Activity
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
-import com.htf.diva.databinding.RowBannerBinding
 import com.htf.diva.databinding.RowPersonalTrainersBinding
 import com.htf.diva.models.AppDashBoard
-import com.htf.diva.models.Banner
-import com.htf.diva.models.Trainers
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 
 class TrainerAdapter (
     private var currActivity: Activity,

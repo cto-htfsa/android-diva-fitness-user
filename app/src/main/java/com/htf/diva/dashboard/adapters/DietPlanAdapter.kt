@@ -6,15 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
 import com.htf.diva.databinding.RowDietPlanBinding
-import com.htf.diva.databinding.RowMealTypesBinding
 import com.htf.diva.models.DietPlan
-import com.htf.diva.models.MealDietType
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.row_diet_plan.view.*
 
 class DietPlanAdapter(private var currActivity: Activity,
                       private var arrDietWeekDays:ArrayList<DietPlan>,
-                      private var iListItemClickListener: IListItemClickListener<Any>):
+                      private var iListItemClickListener: IListItemClickListener<Any>
+):
           RecyclerView.Adapter<DietPlanAdapter.MyViewHolder>(){
 
     var rowDietWeekDayBinding: RowDietPlanBinding?=null

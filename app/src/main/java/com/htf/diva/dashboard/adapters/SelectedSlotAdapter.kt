@@ -8,13 +8,14 @@ import com.htf.diva.R
 import com.htf.diva.databinding.RowSelectedSlotsBinding
 import com.htf.diva.models.Slot
 import com.htf.diva.utils.DateUtils
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.row_selected_slots.view.*
 
 class SelectedSlotAdapter(
     private var currActivity: Activity,
     private var arrSlots: List<Slot>,
-    private var iListItemClickListener: IListItemClickListener<Any>): RecyclerView.Adapter<SelectedSlotAdapter.MyViewHolder>(){
+    private var iListItemClickListener: IListItemClickListener<Any>
+): RecyclerView.Adapter<SelectedSlotAdapter.MyViewHolder>(){
     var rowFitnessCenterBinding: RowSelectedSlotsBinding?=null
     var rowIndex = -1
     inner class MyViewHolder(itemView: RowSelectedSlotsBinding): RecyclerView.ViewHolder(itemView.root){

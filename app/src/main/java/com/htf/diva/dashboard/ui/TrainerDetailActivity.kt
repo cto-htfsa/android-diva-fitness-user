@@ -21,7 +21,7 @@ import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.DateUtils
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.activity_trainer_details.*
 import java.util.*
 import kotlin.collections.ArrayList

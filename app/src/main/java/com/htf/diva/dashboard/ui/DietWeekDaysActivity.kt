@@ -13,7 +13,7 @@ import com.htf.diva.databinding.ActivityDietWeekDaysBinding
 import com.htf.diva.models.DietWeekdayModel
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.layout_recycler_view.*
 import kotlinx.android.synthetic.main.layout_recycler_view.view.*
 import kotlinx.android.synthetic.main.toolbar.*

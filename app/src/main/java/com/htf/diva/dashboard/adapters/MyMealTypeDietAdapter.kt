@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
 import com.htf.diva.databinding.RowMyMealTypeDietBinding
 import com.htf.diva.models.MealType
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 
 class MyMealTypeDietAdapter(private var currActivity: Activity,
                             private var arrMealType:ArrayList<MealType>,
-                            private var iListItemClickListener: IListItemClickListener<Any>): RecyclerView.Adapter<MyMealTypeDietAdapter.MyViewHolder>(){
+                            private var iListItemClickListener: IListItemClickListener<Any>
+): RecyclerView.Adapter<MyMealTypeDietAdapter.MyViewHolder>(){
     var rowDietWeekDayBinding: RowMyMealTypeDietBinding?=null
 
     inner class MyViewHolder(itemView: RowMyMealTypeDietBinding): RecyclerView.ViewHolder(itemView.root){

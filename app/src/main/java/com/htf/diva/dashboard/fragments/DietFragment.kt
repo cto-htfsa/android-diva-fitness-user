@@ -16,7 +16,7 @@ import com.htf.diva.databinding.FragmentDietBinding
 import com.htf.diva.models.MyDietModel
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 import com.michalsvec.singlerowcalendar.calendar.CalendarChangesObserver
 import com.michalsvec.singlerowcalendar.calendar.CalendarViewManager
 import com.michalsvec.singlerowcalendar.calendar.SingleRowCalendarAdapter
@@ -25,14 +25,11 @@ import com.michalsvec.singlerowcalendar.utils.DateUtils
 import kotlinx.android.synthetic.main.fragment_diet.*
 import kotlinx.android.synthetic.main.calendar_item.view.*
 import kotlinx.android.synthetic.main.fragment_diet.view.*
-import kotlinx.android.synthetic.main.layout_recycler_view.view.*
-import kotlinx.android.synthetic.main.toolbar.*
-import kotlinx.android.synthetic.main.toolbar.view.*
 import java.util.*
 
 
 class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java) ,
-    View.OnClickListener,IListItemClickListener<Any> {
+    View.OnClickListener, IListItemClickListener<Any> {
     private lateinit var currActivity: Activity
     lateinit var binding: FragmentDietBinding
     private val calendar = Calendar.getInstance()

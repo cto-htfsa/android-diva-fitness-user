@@ -14,7 +14,6 @@ import com.htf.diva.models.AppDashBoard
 
 
 import com.htf.diva.utils.AppSession.appDashBoard
-import com.htf.eyenakhr.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.activity_filter.*
 import kotlinx.android.synthetic.main.layout_recycler_view.*
 import kotlinx.android.synthetic.main.toolbar.*

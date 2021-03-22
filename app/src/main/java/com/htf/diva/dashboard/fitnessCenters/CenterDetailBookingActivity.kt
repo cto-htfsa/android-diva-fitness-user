@@ -21,7 +21,7 @@ import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.DateUtils
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.activity_center_detail_booking.*
 import kotlinx.android.synthetic.main.activity_center_detail_booking.rvSelectTenure
 import kotlinx.android.synthetic.main.toolbar.*
@@ -105,13 +105,14 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
             when (checkedId) {
                 R.id.rbOnlyMeCenter -> {
                     joinCenterWithFriends="1"
+                    calculatePrice(joinCenterWithFriends)
                     rbOnlyMeCenter.isChecked = true
                     lnrWith_my_frnd_in_center.visibility = View.GONE
                 }
                 R.id.rbWithMyFriends_in_center -> {
                     joinCenterWithFriends="2"
-                   // withMyFriendsSection()
-                    //calculatePrice(joinCenterWithFriends)
+                    withMyFriendsSection()
+                    calculatePrice(joinCenterWithFriends)
                     rbWithMyFriends_in_center.isChecked = true
                     lnrWith_my_frnd_in_center.visibility = View.VISIBLE
                 }
@@ -152,19 +153,19 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
             count++
             tvPeople.text = "" + count
             joinCenterWithFriends=""+count
-            //calculatePrice(joinCenterWithFriends)
+            calculatePrice(joinCenterWithFriends)
         }
 
         ivSubtract.setOnClickListener {
             var count: Int = tvPeople.text.toString().toInt()
             if (count == 2) {
                 tvPeople.text = "2"
-                //calculatePrice(count.toString())
+                calculatePrice(count.toString())
             } else {
                 count -= 1
                 tvPeople.text = "" + count
                 joinCenterWithFriends=""+count
-                //calculatePrice(joinCenterWithFriends)
+                calculatePrice(joinCenterWithFriends)
             }
         }
 
@@ -227,32 +228,42 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
     }
 
 
+    /*Selected Tenure*/
     fun selectedTenure(selectedTenureItem: Tenure, position: Int) {
          tenureSelected=selectedTenureItem
          val selectedPackage = packages.filter { it.tenureId== tenureSelected.id }
          setPackageList(selectedPackage)
     }
 
+    /*selected Package*/
     fun selectedPackage(selectedPackage: Packages, position: Int) {
         packageSelected=selectedPackage
-//        joiningPrice=packageSelected.price!!.toDouble()
-        calculatePrice(null)
+        calculatePrice("1")
     }
 
+
+    fun selectFitnessCenter(model: AppDashBoard.FitnessCenter, position: Int) {
+        selectedFitnessCenter=model
+    }
+
+    /* calculate the price for selected package and tenure*/
     private fun calculatePrice(joinCenterWithFriends: String?) {
-       /* if (joinCenterWithFriends!=null){
-          joiningPrice= joinCenterWithFriends.toDouble()*packageSelected.price!!.toDouble()
+        if (joinCenterWithFriends!="1"){
+          joiningPrice= joinCenterWithFriends!!.toDouble()*packageSelected.price!!.toDouble()
             val payAmount= currActivity.getString(R.string.pay_sar).replace("[X]",joiningPrice.toString())
             btnBookCenter.text=payAmount
         }else{
-            val payAmount= currActivity.getString(R.string.pay_sar).replace("[X]",joiningPrice.toString())
+            sessionPriceCalculate=packageSelected.price.toString()
+            val payAmount= currActivity.getString(R.string.pay_sar).replace("[X]",sessionPriceCalculate)
             btnBookCenter.text=payAmount
-        }*/
+        }
 
-         sessionPriceCalculate=packageSelected.price.toString()
+        /* sessionPriceCalculate=packageSelected.price.toString()
         val payAmount= currActivity.getString(R.string.pay_sar).replace("[X]",sessionPriceCalculate)
-        btnBookCenter.text=payAmount
+        btnBookCenter.text=payAmount*/
 
     }
+
+
 
 }

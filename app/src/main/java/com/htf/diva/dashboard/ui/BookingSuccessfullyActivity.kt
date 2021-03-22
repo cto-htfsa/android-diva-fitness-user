@@ -8,9 +8,7 @@ import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.dashboard.viewModel.BookingSummaryViewModel
 import com.htf.diva.databinding.ActivityBookingSuccessfullyBinding
-import com.htf.diva.databinding.ActivityBookingSummaryBinding
-import com.htf.diva.models.AppDashBoard
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 
 class BookingSuccessfullyActivity : BaseDarkActivity<ActivityBookingSuccessfullyBinding, BookingSummaryViewModel>(
     BookingSummaryViewModel::class.java), IListItemClickListener<Any>, View.OnClickListener {

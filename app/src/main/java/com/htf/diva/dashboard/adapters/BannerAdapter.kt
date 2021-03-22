@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
 import com.htf.diva.databinding.RowBannerBinding
 import com.htf.diva.models.Banner
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 
 class BannerAdapter (
     private var currActivity: Activity,
     private var arrBanner:ArrayList<Banner>,
-    private var iListItemClickListener: IListItemClickListener<Any>): RecyclerView.Adapter<BannerAdapter.MyViewHolder>(){
+    private var iListItemClickListener: IListItemClickListener<Any>
+): RecyclerView.Adapter<BannerAdapter.MyViewHolder>(){
 
     var rowPayrollBinding:RowBannerBinding?=null
 

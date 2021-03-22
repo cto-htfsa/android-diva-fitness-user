@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity
-import com.htf.diva.base.MyApplication
 import com.htf.diva.dashboard.adapters.SelectedSlotAdapter
 import com.htf.diva.dashboard.viewModel.BookingSummaryViewModel
 import com.htf.diva.databinding.ActivityBookingSummaryBinding
@@ -17,12 +16,8 @@ import com.htf.diva.models.Slot
 import com.htf.diva.models.Tenure
 import com.htf.diva.models.TrainerDetailsModel
 import com.htf.diva.netUtils.Constants
-import com.htf.diva.utils.MathUtils
-import com.htf.diva.utils.content.DummyContent
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.activity_booking_summary.*
-import kotlinx.android.synthetic.main.drawer_menu.view.*
-import kotlinx.android.synthetic.main.layout_selected_slots.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, BookingSummaryViewModel>(

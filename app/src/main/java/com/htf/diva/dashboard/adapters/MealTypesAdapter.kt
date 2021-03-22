@@ -6,10 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
 import com.htf.diva.databinding.RowMealTypesBinding
-import com.htf.diva.models.DietWeekdayModel
 import com.htf.diva.models.MealDietType
-import com.htf.diva.models.MealType
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 
 class MealTypesAdapter(private var currActivity: Activity,
                         private var arrDietWeekDays:ArrayList<MealDietType>,

@@ -7,19 +7,17 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
-import com.htf.diva.dashboard.ui.SelectSlotsActivity
 import com.htf.diva.models.Slot
-import com.htf.diva.models.Specialization
 import com.htf.diva.utils.DateUtils
-import com.htf.eyenakhr.callBack.IListItemClickListener
-import kotlinx.android.synthetic.main.row_packges.view.*
+import com.htf.diva.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.row_slots.view.*
 import kotlinx.android.synthetic.main.row_slots.view.ivSelected
 
 class SlotsAdapter (
     private var currActivity: Activity,
     private var arrSlots: List<Slot>,
-    private var iListItemClickListener: IListItemClickListener<Any>): RecyclerView.Adapter<SlotsAdapter.MyViewHolder>(){
+    private var iListItemClickListener: IListItemClickListener<Any>
+): RecyclerView.Adapter<SlotsAdapter.MyViewHolder>(){
     var rowIndex = -1
     inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         init {

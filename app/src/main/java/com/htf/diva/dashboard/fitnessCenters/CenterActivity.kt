@@ -12,7 +12,7 @@ import com.htf.diva.dashboard.viewModel.FitnessCenterDetailBookingViewModel
 import com.htf.diva.databinding.ActivityCenterBinding
 import com.htf.diva.models.*
 import com.htf.diva.utils.AppSession
-import com.htf.eyenakhr.callBack.IListItemClickListener
+import com.htf.diva.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.toolbar.*
 

@@ -10,7 +10,6 @@ import com.htf.diva.R
 import com.htf.diva.dashboard.ui.FilterActivity
 import com.htf.diva.databinding.RowFilterCenterBinding
 import com.htf.diva.models.AppDashBoard
-import com.htf.eyenakhr.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.row_filter_center.view.*
 
 class FilterCenterAdapter (
