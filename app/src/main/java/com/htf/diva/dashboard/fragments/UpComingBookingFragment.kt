@@ -86,6 +86,7 @@ class UpComingBookingFragment : BaseFragment<BookingSummaryViewModel>(BookingSum
     private fun onHandleUpComingBookingSuccessResponse(upComingBooking: Listing<UpComingBookingModel>?) {
         upComingBooking?.let {
             if(upComingBooking.data!!.size>0){
+                binding.root.llRecyclerView.visibility = View.VISIBLE
                 val mLayout= LinearLayoutManager(currActivity)
                 binding.root.llRecyclerView.layoutManager=mLayout
                 upComingBookingAdapter= UpComingBookingAdapter(currActivity,upComingBooking.data!!,this)

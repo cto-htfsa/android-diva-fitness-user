@@ -7,13 +7,16 @@ import android.os.Bundle
 import android.view.View
 import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity
-import com.htf.diva.dashboard.ui.BookingSuccessfullyActivity
 import com.htf.diva.dashboard.viewModel.BookingSummaryViewModel
 import com.htf.diva.databinding.ActivityFitnessCenterBookingSummaryBinding
 import com.htf.diva.models.*
 import com.htf.diva.utils.AppUtils
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.utils.DialogUtils
+import com.htf.diva.utils.observerViewModel
+import com.htf.diva.utils.showToast
 import kotlinx.android.synthetic.main.activity_fitness_center_booking_summary.*
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBookingSummaryBinding, BookingSummaryViewModel>(
@@ -29,7 +32,10 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
     private var withMyFriendsGym:String?=null
     private var sessionPriceCalculate:String?=null
     private var vatPercentage:String?=null
-
+    private var isProgressBar=true
+    private var finalPayableAmt:Double?=null
+    private var afterCalculateTax:Double?=null
+    private var totalPayableAmt:Double?=null
         companion object{
         fun open(
             currActivity: Activity,
@@ -59,6 +65,7 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
         binding.fitnessCenterSummaryViewModel = viewModel
         getExtra()
         setOnClickListener()
+        viewModelInitialize()
     }
 
     private fun getExtra() {
@@ -79,7 +86,9 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.btnPayableAmount->{
-                BookingSuccessfullyActivity.open(currActivity)
+                viewModel.onBookFitnessCenterClick(selectedFitnessCenter.id,tenureSelected.id,
+                    "2021-03-24",packageSelected.id,numberOfPeoplePerSession,finalPayableAmt,
+                    vatPercentage,afterCalculateTax,totalPayableAmt)
             }
         }
     }
@@ -96,20 +105,46 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
         tvJoining_from.text = currentDate
         tvNo_ofPeople.text = numberOfPeoplePerSession
 
-       val finalPayableAmt=numberOfPeoplePerSession!!.toDouble()*sessionPriceCalculate!!.toDouble()
+        finalPayableAmt=numberOfPeoplePerSession!!.toDouble()*sessionPriceCalculate!!.toDouble()
 
         tvforSession.text=packageSelected.sessions.toString()+" "+currActivity.getString(R.string.session)
-        tvPackage_price.text=currActivity.getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(finalPayableAmt)
+        tvPackage_price.text=currActivity.getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(finalPayableAmt!!)
 
         tvPackageTax.text="${getString(R.string.vat)} ($vatPercentage %)"
-        val afterCalculateTax=(finalPayableAmt*vatPercentage!!.toDouble())/100
+         afterCalculateTax=(finalPayableAmt!!*vatPercentage!!.toDouble())/100
         tvPackageTaxCharges.text= getString(R.string.sar)+" "+afterCalculateTax
 
-         val totalPayableAmt= afterCalculateTax + finalPayableAmt
-         val payableAmount= currActivity.getString(R.string.pay_sar).replace("[X]",AppUtils.roundMathValueFromDouble(totalPayableAmt).toString())
+          totalPayableAmt= afterCalculateTax!! + finalPayableAmt!!
+         val payableAmount= currActivity.getString(R.string.pay_sar).replace("[X]",AppUtils.roundMathValueFromDouble(totalPayableAmt!!).toString())
          btnPayableAmount.text=payableAmount
          tvPayable_amt.text=payableAmount
 
     }
+
+    private fun viewModelInitialize() {
+        observerViewModel(viewModel.isApiCalling,this::onHandleShowProgress)
+        observerViewModel(viewModel.mBookFitnessCenterData,this::onHandleLoginSuccessResponse)
+        observerViewModel(viewModel.errorResult,this::onHandleApiErrorResponse)
+
+    }
+
+    private fun onHandleShowProgress(isNotShow:Boolean) {
+        if (isNotShow) progressDialog?.show() else progressDialog?.dismiss()
+    }
+
+    private fun onHandleApiErrorResponse(error: String){
+        showToast(error,true)
+    }
+
+    private fun onHandleValidationErrorResponse(error:String) {
+        DialogUtils.showSnackBar(currActivity, tvLoginError, error)
+    }
+
+    private fun onHandleLoginSuccessResponse(bookFitnessCenter: BookFitnessCenterModel?){
+        bookFitnessCenter?.let {
+
+        }
+    }
+
 
 }

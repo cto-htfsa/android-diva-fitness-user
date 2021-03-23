@@ -143,14 +143,25 @@ interface DashBoardApiInterface {
 
     @FormUrlEncoded
     @POST("api/v1/book/fitness/center")
-    fun bookCenterAsync(@Field("locale") locale: String,
-                             @Field("device_id") device_id: String,
-                             @Field("device_type") device_type: String,
-                             @Field("current_version") current_version: String,
-                            @Field("trainer_id") trainer_id: String?): Deferred<Response<BaseResponse<TrainerDetailsModel>>>
-
-
-
+    fun bookCenterAsync(@Field("locale") locale: String?,
+                                 @Field("device_id") device_id: String?,
+                                 @Field("device_type") device_type: String?,
+                                 @Field("current_version") current_version: String?,
+                                 @Field("fitness_center_id") fitness_center_id: String?,
+                                 @Field("tenure_id") tenure_id: String?,
+                                 @Field("join_date") join_date: String?,
+                                 @Field("package_id") package_id: String?,
+                                 @Field("number_of_people") number_of_people: String?,
+                                 @Field("offer_id") offer_id: String? ,
+                                 @Field("base_amount") base_amount: String?,
+                                 @Field("total_amount") total_amount: String?,
+                                 @Field("discount_amount") discount_amount: String?,
+                                 @Field("amount_after_discount") amount_after_discount: String?,
+                                 @Field("vat_percentage") vat_percentage: String?,
+                                 @Field("vat_amount") vat_amount: String?,
+                                 @Field("payable_amount") payable_amount: String?,
+                                 @Field("is_auto_renew") is_auto_renew: String?):
+            Deferred<Response<BaseResponse<BookFitnessCenterModel>>>
 
 }
 

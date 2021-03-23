@@ -17,6 +17,7 @@ class BookingSummaryViewModel : BaseViewModel() {
     val errorResult= MutableLiveData<String>()
     val mUpComingBookingResponse= MutableLiveData<Listing<UpComingBookingModel>>()
     val mCompletedBookingResponse= MutableLiveData<Listing<CompletedBookingModel>>()
+    val mBookFitnessCenterData= MutableLiveData<BookFitnessCenterModel>()
 
 
     fun onUpComingBookingListing(page:Int,isProgressBar:Boolean) {
@@ -74,5 +75,45 @@ class BookingSummaryViewModel : BaseViewModel() {
 
     }
 
+
+    fun onBookFitnessCenterClick(
+        fitnessCenterId: Int?,
+        tenureId: Int?,
+        joiningDate: String?,
+        packageId: Int?,
+        numberOfPeoplePerSession: String?,
+        finalPayableAmt: Double?,
+        vatPercentage: String?,
+        afterCalculateTaxAmt: Double?,
+        totalPayableAmt: Double?
+    ) {
+        if (!DialogUtils.isInternetOn()){
+            isInternetOn.postValue(false)
+            return
+        }
+        isApiCalling.postValue(true)
+            scope.launch {
+                val result = try {
+                    DashboardApiRepo.bookFitnessCenter(AppSession.locale,
+                        AppSession.deviceId, AppSession.deviceType,
+                        BuildConfig.VERSION_NAME,fitnessCenterId.toString(),tenureId.toString(),joiningDate,
+                        packageId.toString(),numberOfPeoplePerSession,"",finalPayableAmt.toString(),
+                        finalPayableAmt.toString(),"","",
+                        vatPercentage.toString(),afterCalculateTaxAmt.toString(),totalPayableAmt.toString(),
+                        "No")
+                } catch (e: Exception) {
+                    errorResult.postValue(e.localizedMessage)
+                    isApiCalling.postValue(false)
+                }
+                withContext(Dispatchers.Main) {
+                    isApiCalling.postValue(false)
+                    if (result is BookFitnessCenterModel)
+                        mBookFitnessCenterData.postValue(result)
+                    else
+                        errorResult.postValue(result.toString())
+                }
+
+            }
+    }
 
 }

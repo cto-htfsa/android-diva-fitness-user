@@ -100,6 +100,27 @@ object DashboardApiRepo : BaseRepository() {
         )
     }
 
+    suspend fun bookFitnessCenter(locale: String?,deviceId: String?,
+                                  deviceType: String?,versionName: String?,
+                                  fitness_center_id:String?,
+                                  tenure_id:String?,join_date:String?,
+                                  package_id:String?,
+                                  number_of_people:String?,
+                                  offer_id:String?,base_amount:String?,
+                                  total_amount:String?,discount_amount:String?,
+                                  amount_after_discount:String?,
+                                  vat_percentage:String?,vat_amount:String?,
+                                  payable_amount:String?,
+                                  is_auto_renew:String?): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.bookCenterAsync(
+                locale,deviceId,deviceType,versionName,fitness_center_id,
+                tenure_id,join_date,package_id,
+                number_of_people,offer_id,base_amount,total_amount,discount_amount,
+                amount_after_discount,vat_percentage,vat_amount,payable_amount,is_auto_renew).await()}
+        )
+    }
+
 }
 
 

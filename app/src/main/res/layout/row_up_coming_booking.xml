@@ -13,6 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:elevation="@dimen/dimen_3"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginStart="@dimen/margin_8dp"
+        android:layout_marginEnd="@dimen/margin_8dp"
+        android:layout_marginBottom="@dimen/margin_8dp"
         android:background="@drawable/personal_trainer_stroke_bg">
 
 
