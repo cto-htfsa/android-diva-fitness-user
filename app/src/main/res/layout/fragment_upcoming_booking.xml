@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="myUpComingPlan"
+            type="com.htf.diva.dashboard.viewModel.BookingSummaryViewModel" />
+        <import type="android.view.View" />
+    </data>
+
+    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.RequestServiceFragment">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_height="wrap_content">
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/llRecyclerView"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/llNoUpComingBooking"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/ivNoImage"
+                            android:layout_width="200dp"
+                            android:layout_height="150dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_no_membership"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="5dp" />
+
+
+                        <TextView
+                            android:id="@+id/tvTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textColor="@color/colorTextHeading"
+                            android:layout_marginTop="@dimen/margin_16dp"
+                            android:fontFamily="@font/avenir_black"
+                            android:text="@string/no_membership_avl"
+                            android:textSize="@dimen/font_16sp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tvBook_memberShip"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_16dp"
+                            android:background="@drawable/btn_bg"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_marginBottom="@dimen/margin_8dp"
+                            android:fontFamily="@font/avenir_roman"
+                            android:paddingStart="@dimen/margin_4dp"
+                            android:paddingTop="@dimen/margin_12dp"
+                            android:paddingEnd="@dimen/margin_4dp"
+                            android:paddingBottom="@dimen/margin_12dp"
+                            android:layout_marginStart="@dimen/dimen_100"
+                            android:layout_marginEnd="@dimen/dimen_100"
+                            android:text="@string/book_now"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            android:textAllCaps="false"/>
+
+                    </LinearLayout>
+                </FrameLayout>
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+        </RelativeLayout>
+
+    </FrameLayout>
+</layout>

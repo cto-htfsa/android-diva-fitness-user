@@ -124,6 +124,33 @@ interface DashBoardApiInterface {
 
 
 
+    @FormUrlEncoded
+    @POST("api/v1/upcoming/bookings")
+    fun upComingBookingAsync(@Field("locale") locale: String,
+                             @Field("device_id") device_id: String,
+                             @Field("device_type") device_type: String,
+                             @Field("current_version") current_version: String,
+                             @Field("page") page: Int): Deferred<Response<BaseResponse<Listing<UpComingBookingModel>>>>
+
+    @FormUrlEncoded
+    @POST("api/v1/completed/bookings")
+    fun completedBookingAsync(@Field("locale") locale: String,
+                             @Field("device_id") device_id: String,
+                             @Field("device_type") device_type: String,
+                             @Field("current_version") current_version: String,
+                             @Field("page") page: Int): Deferred<Response<BaseResponse<Listing<CompletedBookingModel>>>>
+
+
+    @FormUrlEncoded
+    @POST("api/v1/book/fitness/center")
+    fun bookCenterAsync(@Field("locale") locale: String,
+                             @Field("device_id") device_id: String,
+                             @Field("device_type") device_type: String,
+                             @Field("current_version") current_version: String,
+                            @Field("trainer_id") trainer_id: String?): Deferred<Response<BaseResponse<TrainerDetailsModel>>>
+
+
+
 
 }
 

@@ -3,7 +3,6 @@ package com.htf.eyenakhr.dashboard.ApiRepo
 
 import com.htf.diva.base.BaseRepository
 import com.htf.diva.netUtils.APIClient
-import com.htf.diva.utils.AppSession
 
 
 object DashboardApiRepo : BaseRepository() {
@@ -52,6 +51,20 @@ object DashboardApiRepo : BaseRepository() {
                                  deviceType: String, versionName: String,fitnessId:String , query:String,page:Int): Any? {
         return safeApiCall(
             call ={ retrofitAuthClient.personalTrainer(locale,deviceId,deviceType,versionName,fitnessId,query,page).await()}
+        )
+    }
+
+    suspend fun upComingBooking(locale: String,deviceId: String,
+                                 deviceType: String, versionName: String,page:Int): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.upComingBookingAsync(locale,deviceId,deviceType,versionName,page).await()}
+        )
+    }
+
+    suspend fun completedBooking(locale: String,deviceId: String,
+                                 deviceType: String, versionName: String,page:Int): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.completedBookingAsync(locale,deviceId,deviceType,versionName,page).await()}
         )
     }
 

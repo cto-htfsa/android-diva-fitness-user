@@ -23,7 +23,6 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_below="@+id/llTop"
-            android:layout_above="@+id/btnConfirmSlot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -44,7 +43,8 @@
                         android:layout_marginStart="@dimen/margin_16dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="sdfsadf"
+                        android:padding="@dimen/dimen_7"
                         android:textSize="@dimen/font_14sp"
                         android:textColor="@color/colorPrimaryDark"
                         android:fontFamily="@font/avenir_black" />
@@ -54,7 +54,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/margin_8dp"
                         android:layout_marginStart="@dimen/margin_16dp"
                         android:padding="@dimen/dimen_7">
 
@@ -289,7 +288,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_16dp"
-                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginStart="@dimen/dimen_20"
                     android:layout_marginTop="@dimen/margin_8dp">
 
                     <TextView
@@ -321,7 +320,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_16dp"
-                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginStart="@dimen/dimen_20"
                     android:layout_marginTop="@dimen/margin_8dp">
 
                     <TextView
@@ -360,7 +359,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_16dp"
-                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginStart="@dimen/dimen_20"
                     android:layout_marginTop="@dimen/margin_8dp"
                     android:paddingBottom="@dimen/margin_8dp">
 
@@ -401,7 +400,7 @@
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:layout_marginTop="@dimen/margin_16dp"
-                        android:layout_marginStart="@dimen/margin_16dp"
+                        android:layout_marginStart="@dimen/dimen_20"
                         android:layout_alignParentStart="true"
                         android:text="@string/auto_renew_membership"
                         android:textSize="@dimen/font_14sp"
@@ -417,7 +416,6 @@
                         android:layout_marginEnd="@dimen/margin_16dp"
                         android:layout_alignParentEnd="true"
                         android:checked="true"
-                        android:layout_marginStart="10dp"
                         android:button="@drawable/checkbox_renew"
                         android:thumb="@null"
                         app:track="@null"/>

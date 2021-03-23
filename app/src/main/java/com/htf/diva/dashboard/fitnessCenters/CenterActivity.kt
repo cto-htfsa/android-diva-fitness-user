@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 class CenterActivity  : BaseDarkActivity<ActivityCenterBinding, FitnessCenterDetailBookingViewModel>(
-    FitnessCenterDetailBookingViewModel::class.java), IListItemClickListener<Any>, View.OnClickListener {
+    FitnessCenterDetailBookingViewModel::class.java), IListItemClickListener<Any>{
     private var currActivity: Activity = this
     private var arrFitnessCenter=ArrayList<AppDashBoard.FitnessCenter>()
     private lateinit var mFitnessCenterAdapter: CenterAdapter
@@ -50,11 +50,6 @@ class CenterActivity  : BaseDarkActivity<ActivityCenterBinding, FitnessCenterDet
         rvFitnessCenter.itemAnimator = null
         mFitnessCenterAdapter = CenterAdapter(currActivity, fitnessCenters!!, this)
         rvFitnessCenter.adapter = mFitnessCenterAdapter
-    }
-
-
-    override fun onClick(p0: View?) {
-        TODO("Not yet implemented")
     }
 
 

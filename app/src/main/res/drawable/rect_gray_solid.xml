@@ -5,6 +5,6 @@
         android:radius="@dimen/dimen_20"/>
 
     <solid
-        android:color="@color/colorAgeBg"/>
+        android:color="@color/colorBranchBg4"/>
 
 </shape>

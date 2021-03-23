@@ -146,6 +146,12 @@
     <string name="session">Session</string>
     <string name="upcoming">Upcoming</string>
     <string name="completed">Completed</string>
+    <string name="no_membership_avl">No Membership Available</string>
+    <string name="book_now">Book Now</string>
+    <string name="booking_id">Booking ID #</string>
+    <string name="cancel_pt">Cancel PT</string>
+    <string name="booking_date">Booking Date;</string>
+    <string name="paid">Paid</string>
 
 
 </resources>

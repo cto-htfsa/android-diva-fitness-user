@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".dashboard.fragments.MembershipFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="myMemberShipViewModel"
+            type="com.htf.diva.dashboard.viewModel.DitPlanViewModel" />
+        <import type="android.view.View" />
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".dashboard.fragments.MembershipFragment">
 
 
 
         <LinearLayout
             android:id="@+id/llBottom"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_8dp"
+            android:paddingStart="@dimen/margin_16dp"
+            android:paddingEnd="@dimen/margin_16dp"
             android:layout_marginStart="@dimen/margin_16dp"
-            android:layout_marginEnd="@dimen/margin_16dp"
-            android:paddingTop="@dimen/dimen_10"
-            android:paddingBottom="@dimen/dimen_10"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="@dimen/dimen_5"
+            android:paddingBottom="@dimen/dimen_5"
             android:background="@drawable/rect_gray_solid"
             android:orientation="horizontal"
             android:layout_gravity="center"
@@ -25,13 +35,13 @@
 
 
             <LinearLayout
-                android:id="@+id/llHome"
+                android:id="@+id/llUpcomingBooking"
                 android:layout_weight="1"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/margin_8dp"
                 android:paddingBottom="@dimen/margin_8dp"
-                android:background="@drawable/rect_white_solid"
+                android:layout_marginStart="@dimen/dimen_80"
                 android:layout_marginEnd="@dimen/margin_16dp"
                 android:orientation="vertical">
 
@@ -42,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:layout_gravity="center_horizontal"
-                    android:textSize="@dimen/font_14sp"
+                    android:textSize="@dimen/font_12sp"
                     android:gravity="center"
                     android:fontFamily="@font/avenir_black"
                     android:text="@string/upcoming"
@@ -52,13 +62,12 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/llRequested"
-                android:layout_width="0dp"
+                android:id="@+id/llCompletedBooking"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/margin_8dp"
                 android:paddingBottom="@dimen/margin_8dp"
-                android:background="@drawable/rect_white_solid"
-                android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_marginEnd="@dimen/dimen_80"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -68,7 +77,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
-                    android:textSize="@dimen/font_14sp"
+                    android:fontFamily="@font/avenir_light"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/font_12sp"
                     android:text="@string/completed"
                     android:textColor="@color/black"/>
 
@@ -78,12 +89,13 @@
 
         </LinearLayout>
 
-    <FrameLayout
-        android:layout_below="@id/llBottom"
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        <FrameLayout
+            android:layout_below="@id/llBottom"
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>
