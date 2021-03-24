@@ -15,6 +15,7 @@ import com.htf.diva.BuildConfig
 import com.htf.diva.R
 import com.htf.diva.utils.DialogUtils.printLog
 import java.util.concurrent.TimeUnit
+import kotlin.math.roundToInt
 
 object AppUtils  {
     val isAppDebug: Boolean = BuildConfig.DEBUG
@@ -86,9 +87,9 @@ object AppUtils  {
             textView.text = defaultText
         }
     }
-    fun roundMathValueFromDouble(value: Double): Double {
-        var result = 0.0
-        result = Math.round(value * 100).toDouble() / 100
+    fun roundMathValueFromDouble(value: Int): Int {
+        var result = 0
+        result = (value * 100).toDouble().roundToInt().toInt() / 100
         return result
     }
 

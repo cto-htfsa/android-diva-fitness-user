@@ -19,7 +19,6 @@ import androidx.core.content.FileProvider
 import com.htf.diva.R
 import com.htf.diva.auth.viewModel.EditProfileViewModel
 import com.htf.diva.base.BaseDarkActivity
-import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.databinding.ActivityEditProfileBinding
 import com.htf.diva.models.AboutModel
 import com.htf.diva.utils.*

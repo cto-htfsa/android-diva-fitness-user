@@ -12,6 +12,7 @@ import com.htf.diva.databinding.ActivityFitnessCenterBookingSummaryBinding
 import com.htf.diva.models.*
 import com.htf.diva.utils.AppUtils
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.utils.DialogUtils
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
@@ -123,25 +124,25 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
 
         tvforSession.text=packageSelected.sessions.toString()+" "+currActivity.getString(R.string.session)
 
-        tvPackage_price.text=currActivity.getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(amount_after_discount!!)
+        tvPackage_price.text=currActivity.getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(amount_after_discount!!.toInt())
 
         if (offers!=null){
             rltOfferDiscount.visibility=View.VISIBLE
             discount_amount=offers.discountValue!!.toDouble()
             calculatedAmtAfterDiscount=(amount_after_discount!!*discount_amount!!/100)
             amount_after_discount=amount_after_discount!!-calculatedAmtAfterDiscount!!
-            tvOfferPercentage.text="${getString(R.string.discount)} (${"-"+offers.discountValue})"
-            tvOfferPrice.text=currActivity.getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(calculatedAmtAfterDiscount!!)
+            tvOfferPercentage.text=getString(R.string.discount) +" ("+""+(AppUtils.roundMathValueFromDouble(offers.discountValue!!.toDouble().toInt()))+"%"+")"
+            tvOfferPrice.text=currActivity.getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(calculatedAmtAfterDiscount!!.toInt())
         } else{
             amount_after_discount=numberOfPeoplePerSession!!.toDouble()*sessionPriceCalculate!!.toDouble()
         }
 
-        tvPackageTax.text="${getString(R.string.vat)} ($vatPercentage %)"
+        tvPackageTax.text=getString(R.string.vat)+" ("+""+AppUtils.roundMathValueFromDouble(vatPercentage!!.toDouble().toInt())+"%"+")"
          afterCalculateTax=(amount_after_discount!!*vatPercentage!!.toDouble())/100
-        tvPackageTaxCharges.text= getString(R.string.sar)+" "+afterCalculateTax
+        tvPackageTaxCharges.text= getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(afterCalculateTax!!.toInt()).toString()
 
           totalPayableAmt= afterCalculateTax!! + amount_after_discount!!
-         val payableAmount= currActivity.getString(R.string.pay_sar).replace("[X]",AppUtils.roundMathValueFromDouble(totalPayableAmt!!).toString())
+         val payableAmount= currActivity.getString(R.string.pay_sar).replace("[X]",AppUtils.roundMathValueFromDouble(totalPayableAmt!!.toInt()).toString())
          btnPayableAmount.text=payableAmount
          tvPayable_amt.text=payableAmount
 
@@ -168,7 +169,8 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
 
     private fun onHandleLoginSuccessResponse(bookFitnessCenter: BookFitnessCenterModel?){
         bookFitnessCenter?.let {
-
+            HomeActivity.open(currActivity,"memberShipTab")
+            currActivity.finish()
         }
     }
 

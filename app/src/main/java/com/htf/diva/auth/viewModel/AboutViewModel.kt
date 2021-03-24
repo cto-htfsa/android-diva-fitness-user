@@ -6,9 +6,7 @@ import com.htf.diva.BuildConfig
 import com.htf.diva.R
 import com.htf.diva.base.BaseViewModel
 import com.htf.diva.base.MyApplication
-import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.models.AboutModel
-import com.htf.diva.models.UserData
 import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.DialogUtils
 import com.htf.diva.utils.RegExp

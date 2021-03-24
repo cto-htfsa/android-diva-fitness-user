@@ -3,21 +3,17 @@ package com.htf.diva.auth.ui
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.htf.diva.R
 import com.htf.diva.auth.viewModel.AboutViewModel
-import com.htf.diva.auth.viewModel.SplashViewModel
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.base.MyApplication
 import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.databinding.ActivityAboutYouBinding
 import com.htf.diva.models.AboutModel
-import com.htf.diva.models.UserData
 import com.htf.diva.utils.*
 import com.jem.rubberpicker.RubberSeekBar
 import kotlinx.android.synthetic.main.activity_about_you.*
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 class AboutYouActivity : BaseDarkActivity<ActivityAboutYouBinding,AboutViewModel>(AboutViewModel::class.java) {
@@ -134,7 +130,7 @@ class AboutYouActivity : BaseDarkActivity<ActivityAboutYouBinding,AboutViewModel
             currUser.user!!.mobile=userAboutUs.mobile
             currUser.user!!.dialCode=userAboutUs.dialCode
             AppPreferences.getInstance(MyApplication.getAppContext()).saveUserDetails(currUser)
-            HomeActivity.open(currActivity)
+            HomeActivity.open(currActivity, null)
             finish()
         }
     }

@@ -260,10 +260,6 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
             btnBookCenter.text=payAmount
         }
 
-        /* sessionPriceCalculate=packageSelected.price.toString()
-        val payAmount= currActivity.getString(R.string.pay_sar).replace("[X]",sessionPriceCalculate)
-        btnBookCenter.text=payAmount*/
-
     }
 
 

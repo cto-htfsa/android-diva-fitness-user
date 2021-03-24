@@ -31,7 +31,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding,SplashViewModel>(Splas
         val currUser= AppPreferences.getInstance(MyApplication.getAppContext()).getUserDetails()
         if (currUser!=null){
             Handler(Looper.getMainLooper()).postDelayed({
-                HomeActivity.open(currActivity)
+                HomeActivity.open(currActivity, null)
                 finish()
             },3000)
         }

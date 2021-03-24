@@ -1,20 +1,13 @@
 package com.htf.diva.dashboard.ui
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
-import android.widget.AdapterView
-import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import androidx.databinding.adapters.ViewGroupBindingAdapter.setListener
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.htf.diva.R
@@ -29,7 +22,6 @@ import com.htf.diva.dashboard.fragments.MembershipFragment
 import com.htf.diva.dashboard.fragments.WorkoutFragment
 import com.htf.diva.dashboard.viewModel.HomeViewModel
 import com.htf.diva.databinding.ActivityHomeBinding
-import com.htf.diva.models.Dashboard
 import com.htf.diva.netUtils.Constants
 import com.htf.diva.netUtils.Constants.Auth.KEY_TOKEN
 import com.htf.diva.utils.AppPreferences
@@ -38,9 +30,7 @@ import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.ivUser
-import kotlinx.android.synthetic.main.activity_my_profile.*
 import kotlinx.android.synthetic.main.drawer_menu.view.*
-import me.ibrahimsn.lib.OnItemReselectedListener
 
 class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeViewModel::class.java),
     View.OnClickListener {
@@ -49,11 +39,13 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
     private val ID_MEMBERSHIP = 2
     private val ID_WORKOUT = 3
     private val ID_DIET = 4
-
+    private var comeFrom: String?=""
 
     companion object {
-        fun open(currActivity: Activity) {
+        fun open(currActivity: Activity, comeFrom: String?) {
             val intent = Intent(currActivity, HomeActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.putExtra("comeFrom", comeFrom)
             currActivity.startActivity(intent)
         }
     }
@@ -62,21 +54,13 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.homeViewModel = viewModel
-//        setBottomBar()
         setListener()
-
         viewModelInitialize()
-
-      //  binding.bottomNavigation.show(ID_HOME,true)
-     //   bottomNavigation.show(ID_HOME)
-
+        getExtra()
         if (currUser!=null){
             Glide.with(currActivity).load(Constants.Urls.USER_IMAGE_URL + currUser.user!!.profileImage).centerCrop()
                 .placeholder(R.drawable.user).into(ivUser)
         }
-
-        changeFragment("",HomeFragment())
-
 
         bottomNavigation.onItemSelected = {
           println("selectedIndex->$it")
@@ -102,6 +86,17 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
 
 
     }
+
+    private fun getExtra() {
+        comeFrom = intent.getStringExtra("comeFrom")
+        if(comeFrom=="memberShipTab"){
+            bottomNavigation.itemActiveIndex=1
+            changeFragment("",MembershipFragment())
+         }else{
+            changeFragment("",HomeFragment())
+        }
+    }
+
 
     private fun setListener() {
         ivMenu.setOnClickListener(this)
@@ -132,67 +127,6 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
     private fun onHandleApiErrorResponse(error: String){
         showToast(error, true)
     }
-
-/*    private fun setBottomBar() {
-        binding.bottomNavigation.apply {
-            add(
-                SSCustomBottomNavigation.Model(
-                    ID_HOME,
-                    R.drawable.ic_home_deselect,
-                    getString(R.string.home)
-                )
-            )
-            add(
-                SSCustomBottomNavigation.Model(
-                    ID_MEMBERSHIP,
-                    R.drawable.membership,
-                    getString(R.string.membership)
-                )
-            )
-            add(
-                SSCustomBottomNavigation.Model(
-                    ID_WORKOUT,
-                    R.drawable.workout,
-                    getString(R.string.workout)
-                )
-            )
-            add(
-                SSCustomBottomNavigation.Model(
-                    ID_DIET,
-                    R.drawable.diet_unselect,
-                    getString(R.string.diet)
-                )
-            )
-
-
-            setOnShowListener {
-                val name = when (it.id) {
-                    ID_HOME -> changeFragment("",HomeFragment())
-                    ID_MEMBERSHIP -> getString(R.string.membership)
-                    ID_WORKOUT -> getString(R.string.workout)
-                    ID_DIET -> changeFragment("",DietFragment())
-
-                    else -> ""
-
-                }
-
-                val bgColor = when (it.id) {
-                    ID_HOME -> ContextCompat.getColor(currActivity, R.color.colorText)
-                    ID_MEMBERSHIP -> ContextCompat.getColor(currActivity, R.color.colorText)
-                    ID_WORKOUT -> ContextCompat.getColor(currActivity, R.color.colorText)
-                    ID_DIET -> ContextCompat.getColor(currActivity, R.color.colorText)
-                    else -> ContextCompat.getColor(currActivity, R.color.colorText)
-                }
-            }
-         *//*   setOnClickMenuListener {
-                 *//**//*   ID_MEMBERSHIP ->  changeFragment("",MembershipFragment())
-                    ID_WORKOUT ->  changeFragment("",WorkoutFragment())
-                    ID_DIET ->  changeFragment("",DietFragment())*//**//*
-                    //else ->  ""
-                }*//*
-        }
-
-    }*/
 
     private fun changeFragment(s:String,fragment: Fragment){
         val fragmentManager=supportFragmentManager

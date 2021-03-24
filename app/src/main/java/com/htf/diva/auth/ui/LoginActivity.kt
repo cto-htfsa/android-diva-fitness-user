@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import com.htf.diva.R
 import com.htf.diva.auth.viewModel.LoginViewModel
-import com.htf.diva.auth.viewModel.SplashViewModel
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.databinding.ActivityLoginBinding
@@ -65,7 +64,7 @@ class LoginActivity : BaseDarkActivity<ActivityLoginBinding,LoginViewModel>(Logi
     }
 
     fun skipLogin(view: View){
-        HomeActivity.open(currActivity)
+        HomeActivity.open(currActivity, null)
     }
 
     private fun switchLang() {
