@@ -82,10 +82,14 @@ class BookingSummaryViewModel : BaseViewModel() {
         joiningDate: String?,
         packageId: Int?,
         numberOfPeoplePerSession: String?,
-        finalPayableAmt: Double?,
+        baseAmount: Double?,
+        totalAmt: Double?,
         vatPercentage: String?,
         afterCalculateTaxAmt: Double?,
-        totalPayableAmt: Double?
+        offerId: Int?,
+        discountValue: String?,
+        discount_amount: Double?,
+        totalPayableAmt1: Double?
     ) {
         if (!DialogUtils.isInternetOn()){
             isInternetOn.postValue(false)
@@ -97,9 +101,9 @@ class BookingSummaryViewModel : BaseViewModel() {
                     DashboardApiRepo.bookFitnessCenter(AppSession.locale,
                         AppSession.deviceId, AppSession.deviceType,
                         BuildConfig.VERSION_NAME,fitnessCenterId.toString(),tenureId.toString(),joiningDate,
-                        packageId.toString(),numberOfPeoplePerSession,"",finalPayableAmt.toString(),
-                        finalPayableAmt.toString(),"","",
-                        vatPercentage.toString(),afterCalculateTaxAmt.toString(),totalPayableAmt.toString(),
+                        packageId.toString(),numberOfPeoplePerSession,offerId.toString(),baseAmount.toString(),
+                        totalAmt.toString(),discountValue,discount_amount.toString(),
+                        vatPercentage.toString(),afterCalculateTaxAmt.toString(),totalPayableAmt1.toString(),
                         "No")
                 } catch (e: Exception) {
                     errorResult.postValue(e.localizedMessage)

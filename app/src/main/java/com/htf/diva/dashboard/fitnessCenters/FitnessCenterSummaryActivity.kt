@@ -25,6 +25,7 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
 
     private var currentDate:String?=null
     private var packageSelected=Packages()
+    private var offers=AppDashBoard.Offers()
     private var tenureSelected=Tenure()
     private var selectedFitnessCenter= AppDashBoard.FitnessCenter()
     private var booking_type:String?=""
@@ -36,9 +37,18 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
     private var finalPayableAmt:Double?=null
     private var afterCalculateTax:Double?=null
     private var totalPayableAmt:Double?=null
+
+    private var discount_amount:Double?=null
+    private var amount_after_discount:Double?=null
+    private var baseAmount:Double?=null
+    private var totalAmt:Double?=null
+    private var calculatedAmtAfterDiscount:Double?=null
+
+
         companion object{
         fun open(
             currActivity: Activity,
+            offers: AppDashBoard.Offers,
             selectedFitnessCenter: AppDashBoard.FitnessCenter,
             tenureSelected: Tenure,
             packageSelected: Packages,
@@ -48,6 +58,7 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
             vatPercentage: String
         ){
             val intent= Intent(currActivity, FitnessCenterSummaryActivity::class.java)
+            intent.putExtra("offers",offers)
             intent.putExtra("selectedFitnessCenter",selectedFitnessCenter)
             intent.putExtra("tenureSelected",tenureSelected)
             intent.putExtra("packageSelected",packageSelected)
@@ -69,6 +80,7 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
     }
 
     private fun getExtra() {
+        offers=intent.getSerializableExtra("offers") as AppDashBoard.Offers
         selectedFitnessCenter=intent.getSerializableExtra("selectedFitnessCenter") as AppDashBoard.FitnessCenter
         tenureSelected=intent.getSerializableExtra("tenureSelected") as Tenure
         packageSelected=intent.getSerializableExtra("packageSelected") as Packages
@@ -87,8 +99,8 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
         when (p0!!.id) {
             R.id.btnPayableAmount->{
                 viewModel.onBookFitnessCenterClick(selectedFitnessCenter.id,tenureSelected.id,
-                    "2021-03-24",packageSelected.id,numberOfPeoplePerSession,finalPayableAmt,
-                    vatPercentage,afterCalculateTax,totalPayableAmt)
+                    "2021-03-24",packageSelected.id,numberOfPeoplePerSession,baseAmount,totalAmt,
+                    vatPercentage,afterCalculateTax,offers.id,calculatedAmtAfterDiscount.toString(),amount_after_discount,totalPayableAmt)
             }
         }
     }
@@ -105,16 +117,30 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
         tvJoining_from.text = currentDate
         tvNo_ofPeople.text = numberOfPeoplePerSession
 
-        finalPayableAmt=numberOfPeoplePerSession!!.toDouble()*sessionPriceCalculate!!.toDouble()
+        baseAmount=packageSelected.price!!.toDouble()
+        totalAmt=numberOfPeoplePerSession!!.toDouble()*sessionPriceCalculate!!.toDouble()
+        amount_after_discount=numberOfPeoplePerSession!!.toDouble()*sessionPriceCalculate!!.toDouble()
 
         tvforSession.text=packageSelected.sessions.toString()+" "+currActivity.getString(R.string.session)
-        tvPackage_price.text=currActivity.getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(finalPayableAmt!!)
+
+        tvPackage_price.text=currActivity.getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(amount_after_discount!!)
+
+        if (offers!=null){
+            rltOfferDiscount.visibility=View.VISIBLE
+            discount_amount=offers.discountValue!!.toDouble()
+            calculatedAmtAfterDiscount=(amount_after_discount!!*discount_amount!!/100)
+            amount_after_discount=amount_after_discount!!-calculatedAmtAfterDiscount!!
+            tvOfferPercentage.text="${getString(R.string.discount)} (${"-"+offers.discountValue})"
+            tvOfferPrice.text=currActivity.getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(calculatedAmtAfterDiscount!!)
+        } else{
+            amount_after_discount=numberOfPeoplePerSession!!.toDouble()*sessionPriceCalculate!!.toDouble()
+        }
 
         tvPackageTax.text="${getString(R.string.vat)} ($vatPercentage %)"
-         afterCalculateTax=(finalPayableAmt!!*vatPercentage!!.toDouble())/100
+         afterCalculateTax=(amount_after_discount!!*vatPercentage!!.toDouble())/100
         tvPackageTaxCharges.text= getString(R.string.sar)+" "+afterCalculateTax
 
-          totalPayableAmt= afterCalculateTax!! + finalPayableAmt!!
+          totalPayableAmt= afterCalculateTax!! + amount_after_discount!!
          val payableAmount= currActivity.getString(R.string.pay_sar).replace("[X]",AppUtils.roundMathValueFromDouble(totalPayableAmt!!).toString())
          btnPayableAmount.text=payableAmount
          tvPayable_amt.text=payableAmount

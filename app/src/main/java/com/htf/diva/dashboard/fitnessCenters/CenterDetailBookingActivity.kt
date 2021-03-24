@@ -35,6 +35,7 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
     private lateinit var mFitnessCenterAdapter: DetailFitnessCenterAdapter
     private var packageSelected=Packages()
     private var tenureSelected=Tenure()
+    private var offer=AppDashBoard.Offers()
     private var packages=ArrayList<Packages>()
     private lateinit var tenureAdapter: TenureAdapter
     private lateinit var packageAdapter: PackagesAdapter
@@ -89,7 +90,7 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
              }
 
             R.id.btnBookCenter->{
-                FitnessCenterSummaryActivity.open(currActivity,selectedFitnessCenter,
+                FitnessCenterSummaryActivity.open(currActivity,offer,selectedFitnessCenter,
                     tenureSelected,packageSelected,currentDate,joinCenterWithFriends,sessionPriceCalculate,vatPercentage)
             }
 
@@ -192,6 +193,7 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
     private fun onHandleAppDashBoardSuccessResponse(fitnessCenterDetailResponse: FitnessCenterDetailForBookModel?){
         fitnessCenterDetailResponse?.let {
             vatPercentage=fitnessCenterDetailResponse.vatPercentage.toString()
+            offer=fitnessCenterDetailResponse.offers!!
             packages=fitnessCenterDetailResponse.packages!!
             setOutFitnessCenter(fitnessCenterDetailResponse.fitnessCenters)
             setTenureList(fitnessCenterDetailResponse.tenures)
