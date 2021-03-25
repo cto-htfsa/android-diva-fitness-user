@@ -31,7 +31,8 @@ import kotlinx.android.synthetic.main.layout_recycler_view.*
 import kotlinx.android.synthetic.main.layout_recycler_view.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class UpComingBookingFragment : BaseFragment<BookingSummaryViewModel>(BookingSummaryViewModel::class.java) ,
+class UpComingBookingFragment : BaseFragment<BookingSummaryViewModel>
+    (BookingSummaryViewModel::class.java) ,
     IListItemClickListener<Any> ,
     View.OnClickListener{
     private lateinit var currActivity: Activity
