@@ -13,6 +13,7 @@ import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.dashboard.adapters.DietWeekDaysAdapter
 import com.htf.diva.dashboard.adapters.TrainerAdapter
 import com.htf.diva.dashboard.adapters.UpComingBookingAdapter
+import com.htf.diva.dashboard.bookingDetails.CenterBookingDetailsActivity
 import com.htf.diva.dashboard.fitnessCenters.CenterActivity
 import com.htf.diva.dashboard.viewModel.BookingSummaryViewModel
 import com.htf.diva.dashboard.viewModel.DitPlanViewModel
@@ -99,6 +100,10 @@ class UpComingBookingFragment : BaseFragment<BookingSummaryViewModel>
         }
     }
 
+    override fun onItemClickListener(data: Any) {
+         data is UpComingBookingModel
+        CenterBookingDetailsActivity.open(currActivity)
+    }
 
 
 }

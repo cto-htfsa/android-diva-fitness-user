@@ -56,8 +56,7 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
             currentDate: String?,
             joinCenterWithFriends: String?,
             sessionPriceCalculate: String,
-            vatPercentage: String
-        ){
+            vatPercentage: String){
             val intent= Intent(currActivity, FitnessCenterSummaryActivity::class.java)
             intent.putExtra("offers",offers)
             intent.putExtra("selectedFitnessCenter",selectedFitnessCenter)
@@ -100,7 +99,7 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
         when (p0!!.id) {
             R.id.btnPayableAmount->{
                 viewModel.onBookFitnessCenterClick(selectedFitnessCenter.id,tenureSelected.id,
-                    "2021-03-24",packageSelected.id,numberOfPeoplePerSession,baseAmount,totalAmt,
+                    "2021-03-28",packageSelected.id,numberOfPeoplePerSession,baseAmount,totalAmt,
                     vatPercentage,afterCalculateTax,offers.id,calculatedAmtAfterDiscount.toString(),amount_after_discount,totalPayableAmt)
             }
         }

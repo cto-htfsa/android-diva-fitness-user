@@ -13,6 +13,8 @@ import com.htf.diva.databinding.RowUpComingBookingBinding
 import com.htf.diva.models.AppDashBoard
 import com.htf.diva.models.UpComingBookingModel
 import com.htf.diva.netUtils.Constants
+import com.htf.diva.utils.AppUtils
+import com.htf.diva.utils.DateUtils
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.row_up_coming_booking.view.*
 
@@ -56,8 +58,10 @@ class UpComingBookingAdapter(
         holder.itemView.tvBookingId.text=model.trackingId
         holder.itemView.tvFitnessCenterName.text=model.fitnessCenterName
         holder.itemView.tvTenureName.text=model.tenureName
-        holder.itemView.tvBookingPrice.text=model.payableAmount
+        holder.itemView.tvBookingPrice.text=currActivity.getString(R.string.sar)+" "+model.payableAmount!!.toString()
 
+        holder.itemView.tvBookingDate.text=DateUtils.convertDateFormat(model.createdAt,
+            DateUtils.serverChatUTCDateTimeFormat,DateUtils.targetDateTimeFormat)
 
         val str = currActivity.getString(R.string.package_membership).replace("[X]", model.packageName.toString())
         holder.itemView.tvPackage.text=str
@@ -65,6 +69,7 @@ class UpComingBookingAdapter(
         Glide.with(currActivity).load(Constants.Urls.FITNESS_CENTER_IMAGE_URL +
                 model.fitnessCenterImage)
             .placeholder(R.drawable.user).into(holder.itemView.ivCenterImage)
+
 
     }
 }

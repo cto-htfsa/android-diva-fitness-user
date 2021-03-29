@@ -24,10 +24,8 @@ class NotificationAdapter(
 
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationAdapter.MyViewHolder {
-        val itemview=
-            LayoutInflater.from(parent.context).inflate(R.layout.row_notifications,parent,false)
-        return MyViewHolder(itemview)
-
+        val itemView= LayoutInflater.from(parent.context).inflate(R.layout.row_notifications,parent,false)
+        return MyViewHolder(itemView)
     }
 
     override fun getItemCount(): Int {

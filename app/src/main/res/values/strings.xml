@@ -150,7 +150,7 @@
     <string name="book_now">Book Now</string>
     <string name="booking_id">Booking ID #</string>
     <string name="cancel_pt">Cancel PT</string>
-    <string name="booking_date">Booking Date;</string>
+    <string name="booking_date">Booking Date:</string>
     <string name="paid">Paid</string>
     <string name="discount">Discount</string>
 
