@@ -100,6 +100,14 @@ object DashboardApiRepo : BaseRepository() {
         )
     }
 
+
+ suspend fun bookingDetail(locale: String?,deviceId: String?, deviceType: String?,versionName: String?): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.bookingDetailAsync(
+                locale,deviceId,deviceType,versionName).await()}
+        )
+    }
+
     suspend fun bookFitnessCenter(locale: String?,deviceId: String?,
                                   deviceType: String?,versionName: String?,
                                   fitness_center_id:String?,

@@ -123,6 +123,15 @@ interface DashBoardApiInterface {
         @Field("current_version") current_version: String?): Deferred<Response<BaseResponse<FitnessCenterDetailForBookModel>>>
 
 
+    @FormUrlEncoded
+    @POST("api/v1/booking/detail")
+    fun bookingDetailAsync(
+        @Field("locale") locale: String?,
+        @Field("device_id") device_id: String?,
+        @Field("device_type") device_type: String?,
+        @Field("current_version") current_version: String?): Deferred<Response<BaseResponse<BookingDetailModel>>>
+
+
 
     @FormUrlEncoded
     @POST("api/v1/upcoming/bookings")

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import com.htf.diva.BuildConfig
 import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.callBack.IListItemClickListener
@@ -12,6 +13,7 @@ import com.htf.diva.databinding.ActivityBookingDetailsBinding
 import com.htf.diva.models.AppDashBoard
 import com.htf.diva.models.Packages
 import com.htf.diva.models.Tenure
+import com.htf.diva.utils.AppSession
 import kotlinx.android.synthetic.main.toolbar.*
 
 class CenterBookingDetailsActivity : BaseDarkActivity<ActivityBookingDetailsBinding, BookingDetailsViewModel>(
@@ -30,6 +32,7 @@ class CenterBookingDetailsActivity : BaseDarkActivity<ActivityBookingDetailsBind
             super.onCreate(savedInstanceState)
             tvTitle.text=getString(R.string.booking_summary)
             binding.bookingDetailsViewModel = viewModel
+            viewModel.bookingDetail(AppSession.locale, AppSession.deviceId, AppSession.deviceType, BuildConfig.VERSION_NAME)
 
         }
 
