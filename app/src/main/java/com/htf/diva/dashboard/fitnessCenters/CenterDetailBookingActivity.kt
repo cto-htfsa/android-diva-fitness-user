@@ -9,27 +9,31 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.htf.diva.BuildConfig
 import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity
+import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.dashboard.adapters.DetailFitnessCenterAdapter
 import com.htf.diva.dashboard.adapters.PackagesAdapter
 import com.htf.diva.dashboard.adapters.TenureAdapter
 import com.htf.diva.dashboard.ui.PersonalTrainersActivity
 import com.htf.diva.dashboard.viewModel.FitnessCenterDetailBookingViewModel
 import com.htf.diva.databinding.ActivityCenterDetailBookingBinding
-import com.htf.diva.models.*
+import com.htf.diva.models.AppDashBoard
+import com.htf.diva.models.FitnessCenterDetailForBookModel
+import com.htf.diva.models.Packages
+import com.htf.diva.models.Tenure
 import com.htf.diva.netUtils.Constants
 import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.DateUtils
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
-import com.htf.diva.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.activity_center_detail_booking.*
-import kotlinx.android.synthetic.main.activity_center_detail_booking.rvSelectTenure
 import kotlinx.android.synthetic.main.toolbar.*
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBookingBinding, FitnessCenterDetailBookingViewModel>(
-    FitnessCenterDetailBookingViewModel::class.java), IListItemClickListener<Any>, View.OnClickListener {
+    FitnessCenterDetailBookingViewModel::class.java
+), IListItemClickListener<Any>, View.OnClickListener {
     private var currActivity: Activity = this
     private var selectedFitnessCenter = AppDashBoard.FitnessCenter()
     private lateinit var mFitnessCenterAdapter: DetailFitnessCenterAdapter
@@ -48,12 +52,13 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
     private var joiningPrice:Double=0.0
     private var sessionPriceCalculate:String=""
     private var vatPercentage:String=""
+    private var selectedDate:String=""
 
 
     companion object{
         fun open(currActivity: Activity, selectedFitnessCenter: AppDashBoard.FitnessCenter?){
             val intent= Intent(currActivity, CenterDetailBookingActivity::class.java)
-            intent.putExtra("selectedFitnessCenter",selectedFitnessCenter)
+            intent.putExtra("selectedFitnessCenter", selectedFitnessCenter)
             currActivity.startActivity(intent)
         }
     }
@@ -63,7 +68,12 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
         super.onCreate(savedInstanceState)
 
         binding.centerDetailBookingViewModel = viewModel
-        viewModel.fitnessCenterDetailBooking(AppSession.locale, AppSession.deviceId, AppSession.deviceType, BuildConfig.VERSION_NAME)
+        viewModel.fitnessCenterDetailBooking(
+            AppSession.locale,
+            AppSession.deviceId,
+            AppSession.deviceType,
+            BuildConfig.VERSION_NAME
+        )
         viewModelInitialize()
         getExtra()
         selectGroup()
@@ -86,15 +96,23 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
         when (view?.id) {
             R.id.switchNeedPersonalTrainer -> {
                 switchNeedPersonalTrainer.isChecked = true
-                PersonalTrainersActivity.open(currActivity,Constants.FROM_CENTER)
-             }
-
-            R.id.btnBookCenter->{
-                FitnessCenterSummaryActivity.open(currActivity,offer,selectedFitnessCenter,
-                    tenureSelected,packageSelected,currentDate,joinCenterWithFriends,sessionPriceCalculate,vatPercentage)
+                PersonalTrainersActivity.open(currActivity, Constants.FROM_CENTER)
             }
 
-            R.id.tvCenterJoiningDate->{
+            R.id.btnBookCenter -> {
+                FitnessCenterSummaryActivity.open(
+                    currActivity,
+                    offer,
+                    selectedFitnessCenter,
+                    tenureSelected,
+                    packageSelected,
+                    currentDate,
+                    joinCenterWithFriends,
+                    sessionPriceCalculate,
+                    vatPercentage)
+            }
+
+            R.id.tvCenterJoiningDate -> {
                 pickDate()
             }
         }
@@ -105,13 +123,13 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
         rgGroupSelect_center_for.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.rbOnlyMeCenter -> {
-                    joinCenterWithFriends="1"
+                    joinCenterWithFriends = "1"
                     calculatePrice(joinCenterWithFriends)
                     rbOnlyMeCenter.isChecked = true
                     lnrWith_my_frnd_in_center.visibility = View.GONE
                 }
                 R.id.rbWithMyFriends_in_center -> {
-                    joinCenterWithFriends="2"
+                    joinCenterWithFriends = "2"
                     withMyFriendsSection()
                     calculatePrice(joinCenterWithFriends)
                     rbWithMyFriends_in_center.isChecked = true
@@ -130,8 +148,8 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
             mDay = c[Calendar.DAY_OF_MONTH]
 
             val datePickerDialog = DatePickerDialog(this, { _, year, monthOfYear, dayOfMonth ->
-                    val selectedDate = dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
-                    tvCenterJoiningDate.text = selectedDate
+                currentDate = dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
+                tvCenterJoiningDate.text = currentDate
             }, mYear, mMonth, mDay)
             datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
             datePickerDialog.show()
@@ -144,8 +162,13 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
            tvTitle.text=selectedFitnessCenter.name
            rbOnlyMeCenter.isChecked=true
            lnrWith_my_frnd_in_center.visibility=View.GONE
-           currentDate= DateUtils.getCurrentDateForDashBoard()
+        /*   val c = Calendar.getInstance().time
+           val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+           val formattedDate: String = df.format(c)
+         */
+           currentDate= DateUtils.getCurrentDateInServerFormat()
            tvCenterJoiningDate.text= currentDate
+
       }
 
     private fun withMyFriendsSection(){
@@ -177,17 +200,20 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
 
 
     private fun viewModelInitialize() {
-        observerViewModel(viewModel.isApiCalling,this::onHandleShowProgress)
-        observerViewModel(viewModel.errorResult,this::onHandleApiErrorResponse)
-        observerViewModel(viewModel.mFitnessCenterDetailData,this::onHandleAppDashBoardSuccessResponse)
+        observerViewModel(viewModel.isApiCalling, this::onHandleShowProgress)
+        observerViewModel(viewModel.errorResult, this::onHandleApiErrorResponse)
+        observerViewModel(
+            viewModel.mFitnessCenterDetailData,
+            this::onHandleAppDashBoardSuccessResponse
+        )
     }
 
-    private fun onHandleShowProgress(isNotShow:Boolean) {
+    private fun onHandleShowProgress(isNotShow: Boolean) {
         if (isNotShow) progressDialog?.show() else progressDialog?.dismiss()
     }
 
     private fun onHandleApiErrorResponse(error: String){
-        currActivity.showToast(error,true)
+        currActivity.showToast(error, true)
     }
 
     private fun onHandleAppDashBoardSuccessResponse(fitnessCenterDetailResponse: FitnessCenterDetailForBookModel?){
@@ -205,9 +231,14 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
         val mLayout = LinearLayoutManager(currActivity, LinearLayoutManager.HORIZONTAL, false)
         rvBranch.layoutManager = mLayout
         rvBranch.itemAnimator = null
-        mFitnessCenterAdapter = DetailFitnessCenterAdapter(currActivity, arrFitnessCenters!!,selectedFitnessCenter, this)
+        mFitnessCenterAdapter = DetailFitnessCenterAdapter(
+            currActivity,
+            arrFitnessCenters!!,
+            selectedFitnessCenter,
+            this
+        )
         rvBranch.adapter = mFitnessCenterAdapter
-       val position =arrFitnessCenters.indexOf(arrFitnessCenters.filter { it.id==selectedFitnessCenter.id }[0])
+       val position =arrFitnessCenters.indexOf(arrFitnessCenters.filter { it.id == selectedFitnessCenter.id }[0])
         mFitnessCenterAdapter.rowIndex=position
         mFitnessCenterAdapter.notifyDataSetChanged()
     }
@@ -252,11 +283,17 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
     private fun calculatePrice(joinCenterWithFriends: String?) {
         if (joinCenterWithFriends!="1"){
           joiningPrice= joinCenterWithFriends!!.toDouble()*packageSelected.price!!.toDouble()
-            val payAmount= currActivity.getString(R.string.pay_sar).replace("[X]",joiningPrice.toString())
+            val payAmount= currActivity.getString(R.string.pay_sar).replace(
+                "[X]",
+                joiningPrice.toString()
+            )
             btnBookCenter.text=payAmount
         }else{
             sessionPriceCalculate=packageSelected.price.toString()
-            val payAmount= currActivity.getString(R.string.pay_sar).replace("[X]",sessionPriceCalculate)
+            val payAmount= currActivity.getString(R.string.pay_sar).replace(
+                "[X]",
+                sessionPriceCalculate
+            )
             btnBookCenter.text=payAmount
         }
 

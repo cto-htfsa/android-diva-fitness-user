@@ -57,12 +57,12 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
         setListener()
         viewModel.appDashBoard(AppSession.locale, AppSession.deviceId, AppSession.deviceType, BuildConfig.VERSION_NAME)
         viewModelInitialize()
-        if (currUser!!.user!!.name!=null){
+        if(currUser==null){
+        } else{
             val nameStr=getString(R.string.hey_name)
             binding.root.tvHeyMsg.text=nameStr.replace("[x]", currUser.user!!.name!!)
         }
         return binding.root
-
     }
 
     private fun setListener() {

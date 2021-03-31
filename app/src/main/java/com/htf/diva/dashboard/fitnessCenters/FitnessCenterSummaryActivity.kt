@@ -99,8 +99,9 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
         when (p0!!.id) {
             R.id.btnPayableAmount->{
                 viewModel.onBookFitnessCenterClick(selectedFitnessCenter.id,tenureSelected.id,
-                    "2021-03-28",packageSelected.id,numberOfPeoplePerSession,baseAmount,totalAmt,
-                    vatPercentage,afterCalculateTax,offers.id,calculatedAmtAfterDiscount.toString(),amount_after_discount,totalPayableAmt)
+                    currentDate,packageSelected.id,numberOfPeoplePerSession,baseAmount,totalAmt,
+                    vatPercentage,afterCalculateTax,offers.id,calculatedAmtAfterDiscount.toString(),
+                    amount_after_discount,totalPayableAmt)
             }
         }
     }

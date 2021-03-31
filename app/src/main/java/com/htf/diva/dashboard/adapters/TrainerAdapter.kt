@@ -12,14 +12,11 @@ import com.htf.diva.callBack.IListItemClickListener
 class TrainerAdapter (
     private var currActivity: Activity,
     private var arrTopTrainer:ArrayList<AppDashBoard.TopTrainer>,
-    private var iListItemClickListener: IListItemClickListener<Any>
-  ): RecyclerView.Adapter<TrainerAdapter.MyViewHolder>(){
-
+    private var iListItemClickListener: IListItemClickListener<Any>):
+    RecyclerView.Adapter<TrainerAdapter.MyViewHolder>(){
     var rowPersonalTrainerBinding: RowPersonalTrainersBinding?=null
-
     inner class MyViewHolder(itemView: RowPersonalTrainersBinding): RecyclerView.ViewHolder(itemView.root){
         init {
-
             rowPersonalTrainerBinding=itemView
             itemView.root.setOnClickListener {
                 iListItemClickListener.onItemClickListener(arrTopTrainer[adapterPosition])
@@ -31,8 +28,6 @@ class TrainerAdapter (
             ,parent,false)
         val bindingUtil= RowPersonalTrainersBinding.bind(itemView);
         return MyViewHolder(bindingUtil)
-
-
     }
 
     override fun getItemCount(): Int {
