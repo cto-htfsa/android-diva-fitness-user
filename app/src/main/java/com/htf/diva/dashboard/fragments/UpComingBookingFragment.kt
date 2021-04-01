@@ -10,31 +10,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.htf.diva.R
 import com.htf.diva.base.BaseFragment
 import com.htf.diva.callBack.IListItemClickListener
-import com.htf.diva.dashboard.adapters.DietWeekDaysAdapter
-import com.htf.diva.dashboard.adapters.TrainerAdapter
 import com.htf.diva.dashboard.adapters.UpComingBookingAdapter
 import com.htf.diva.dashboard.bookingDetails.CenterBookingDetailsActivity
 import com.htf.diva.dashboard.fitnessCenters.CenterActivity
 import com.htf.diva.dashboard.viewModel.BookingSummaryViewModel
-import com.htf.diva.dashboard.viewModel.DitPlanViewModel
 import com.htf.diva.databinding.FragmentUpcomingBookingBinding
-import com.htf.diva.models.AppDashBoard
-import com.htf.diva.models.DietWeekdayModel
 import com.htf.diva.models.Listing
 import com.htf.diva.models.UpComingBookingModel
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
-import kotlinx.android.synthetic.main.fragment_membership.view.*
-import kotlinx.android.synthetic.main.fragment_membership.view.llUpcomingBooking
 import kotlinx.android.synthetic.main.fragment_upcoming_booking.view.*
-import kotlinx.android.synthetic.main.fragment_upcoming_booking.view.ivNoImage
-import kotlinx.android.synthetic.main.layout_recycler_view.*
-import kotlinx.android.synthetic.main.layout_recycler_view.view.*
-import kotlinx.android.synthetic.main.toolbar.*
 
 class UpComingBookingFragment : BaseFragment<BookingSummaryViewModel>
     (BookingSummaryViewModel::class.java) ,
-    IListItemClickListener<Any> ,
+    IListItemClickListener<UpComingBookingModel> ,
     View.OnClickListener{
     private lateinit var currActivity: Activity
     private lateinit var upComingBookingAdapter: UpComingBookingAdapter
@@ -100,9 +89,8 @@ class UpComingBookingFragment : BaseFragment<BookingSummaryViewModel>
         }
     }
 
-    override fun onItemClickListener(data: Any) {
-         data is UpComingBookingModel
-        CenterBookingDetailsActivity.open(currActivity)
+    override fun onItemClickListener(data: UpComingBookingModel) {
+        CenterBookingDetailsActivity.open(currActivity,data)
     }
 
 

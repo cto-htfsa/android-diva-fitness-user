@@ -42,4 +42,5 @@ ext {
 //Moshi
     moshiVersion ="1.9.2"
     libraryVersion ="1.0.4"
+
 }

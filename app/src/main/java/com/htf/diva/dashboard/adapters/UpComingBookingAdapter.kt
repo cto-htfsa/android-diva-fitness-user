@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.row_up_coming_booking.view.*
 class UpComingBookingAdapter(
     private var currActivity: Activity,
     private var arrTopTrainer:ArrayList<UpComingBookingModel>,
-    private var iListItemClickListener: IListItemClickListener<Any>):
+    private var iListItemClickListener: IListItemClickListener<UpComingBookingModel>):
     RecyclerView.Adapter<UpComingBookingAdapter.MyViewHolder>(){
 
     var rowPersonalTrainerBinding: RowUpComingBookingBinding?=null

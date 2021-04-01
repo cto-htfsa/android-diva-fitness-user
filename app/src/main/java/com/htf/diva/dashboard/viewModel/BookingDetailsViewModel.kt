@@ -16,7 +16,7 @@ class BookingDetailsViewModel :BaseViewModel(){
     val errorResult= MutableLiveData<String>()
     val mBookingDetailData= MutableLiveData<BookingDetailModel>()
 
-    fun bookingDetail(locale: String?, deviceId: String?, deviceType: String?, versionName: String?){
+    fun bookingDetail(locale: String?, deviceId: String?, deviceType: String?, versionName: String?,bookingId:String?){
         if (!DialogUtils.isInternetOn()){
             isInternetOn.postValue(false)
             return
@@ -25,7 +25,7 @@ class BookingDetailsViewModel :BaseViewModel(){
         scope.launch {
             val result = try {
                 DashboardApiRepo.bookingDetail(
-                    locale,deviceId,deviceType,versionName
+                    locale,deviceId,deviceType,versionName,bookingId
                 )
             } catch (e: Exception) {
                 errorResult.postValue(e.localizedMessage)

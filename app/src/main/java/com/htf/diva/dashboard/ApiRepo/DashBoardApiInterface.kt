@@ -129,7 +129,8 @@ interface DashBoardApiInterface {
         @Field("locale") locale: String?,
         @Field("device_id") device_id: String?,
         @Field("device_type") device_type: String?,
-        @Field("current_version") current_version: String?): Deferred<Response<BaseResponse<BookingDetailModel>>>
+        @Field("current_version") current_version: String?,
+        @Field("booking_id") booking_id: String?): Deferred<Response<BaseResponse<BookingDetailModel>>>
 
 
 

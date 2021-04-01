@@ -153,6 +153,7 @@
     <string name="booking_date">Booking Date:</string>
     <string name="paid">Paid</string>
     <string name="discount">Discount</string>
+    <string name="view_direction">View Direction</string>
 
 
 </resources>
