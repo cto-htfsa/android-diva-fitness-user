@@ -177,19 +177,19 @@ class BookingDetailModel :Serializable{
 
     @SerializedName("trainer_name")
     @Expose
-     val trainerName: Any? = null
+     val trainerName: String? = null
 
     @SerializedName("trainer_image")
     @Expose
-     val trainerImage: Any? = null
+     val trainerImage: String? = null
 
     @SerializedName("slots")
     @Expose
-     val slots: List<Any>? = null
+     val slots: List<Slot>? = null
 
     @SerializedName("reviews")
     @Expose
-     val reviews: Any? = null
+     val reviews: String? = null
 
     @SerializedName("invoice")
     @Expose

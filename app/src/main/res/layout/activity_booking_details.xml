@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
+
+   <data>
         <variable
             name="bookingDetailsViewModel"
             type="com.htf.diva.dashboard.viewModel.BookingDetailsViewModel" />
         <import type="android.view.View" />
-
     </data>
 
     <RelativeLayout
@@ -23,19 +23,20 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_below="@+id/llTop"
+            android:layout_above="@+id/btnPayableAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
 
-                <LinearLayout
+            <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
 
                     <LinearLayout
@@ -389,24 +390,226 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/lnrTrainer"
+                    android:layout_width="match_parent"
+                    android:background="@color/colorAgeBg"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:padding="@dimen/dimen_7"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_marginStart="@dimen/margin_16dp"
+                        android:layout_marginEnd="@dimen/margin_16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <com.github.siyamed.shapeimageview.RoundedImageView
+                            android:id="@+id/ivTrainerImage"
+                            android:layout_width="@dimen/dimen_50"
+                            android:layout_height="@dimen/dimen_50"
+                            app:siBorderColor="@color/white"
+                            android:layout_alignParentStart="true"
+                            android:src="@drawable/user"
+                            app:siRadius="@dimen/dimen_30" />
+
+                        <LinearLayout
+                            android:id="@+id/lnrTrainerDetail"
+                            android:layout_toEndOf="@+id/ivTrainerImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginStart="@dimen/dimen_5"
+                            android:padding="@dimen/dimen_5">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/font_14sp"
+                                android:text="@string/personal_trainer"
+                                android:textColor="@color/colorTextLightDark"
+                                android:fontFamily="@font/avenir_black" />
+
+                            <TextView
+                                android:id="@+id/tvTrainerName"
+                                android:layout_marginTop="@dimen/margin_4dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textSize="@dimen/font_14sp"
+                                android:textColor="@color/colorPrimary"
+                                android:fontFamily="@font/avenir_black" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_alignParentEnd="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cancel_pt"
+                            android:paddingBottom="@dimen/margin_8dp"
+                            android:paddingStart="@dimen/margin_24dp"
+                            android:paddingTop="@dimen/margin_8dp"
+                            android:paddingEnd="@dimen/margin_24dp"
+                            android:layout_marginEnd="@dimen/margin_16dp"
+                            android:textSize="@dimen/font_12sp"
+                            android:backgroundTint="@color/colorBranchBg1"
+                            android:background="@drawable/view_direction_age_bg"
+                            android:fontFamily="@font/avenir_black"
+                            android:textColor="@color/colorAccent"/>
+
+
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llSlots"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAgeBg"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_black"
+                        android:padding="10dp"
+                        android:textAlignment="textStart"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/selected_slots"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="12sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvSelectedSlots"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/avenir_black"
+                    android:textAlignment="textStart"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/personal_trainer"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="12sp" />
+
+
+                <RelativeLayout
+                    android:id="@+id/rlPersonalTrainer"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginEnd="@dimen/margin_16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:fontFamily="@font/avenir_light"
+                        android:text="@string/personal_trainer"
+                        android:textColor="@color/colorTextLightDark"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvPersonal_trainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:fontFamily="@font/avenir_black"
+                        android:text="SAR 400"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorTextLightDark"
+                        android:textSize="13sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlVat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginTop="@dimen/margin_8dp">
+
+                    <TextView
+                        android:id="@+id/tvTax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:fontFamily="@font/avenir_light"
+                        android:text="Vat 5%"
+                        android:textColor="@color/colorTextLightDark"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvTaxCharges"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:fontFamily="@font/avenir_black"
+                        android:text="SAR 20"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorTextLightDark"
+                        android:textSize="13sp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/gray2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/avenir_black"
+                    android:textAlignment="textStart"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:text="@string/packages"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="12sp" />
+
+
+
 
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_16dp"
-                    android:layout_marginStart="@dimen/dimen_20"
+                    android:layout_marginStart="@dimen/margin_16dp"
                     android:layout_marginTop="@dimen/margin_8dp">
 
                     <TextView
-                        android:id="@+id/tvforSession"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:fontFamily="@font/avenir_light"
-                        android:text=""
+                        android:text="plus one month package"
                         android:layout_marginTop="@dimen/margin_8dp"
-                        android:textColor="@color/colorTextHeading"
+                        android:textColor="@color/colorTextLightDark"
                         android:textSize="12sp" />
 
                     <TextView
@@ -415,39 +618,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:fontFamily="@font/avenir_black"
-                        android:text=""
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorTextLightDark"
-                        android:textSize="13sp" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/rltOfferDiscount"
-                    android:visibility="gone"
-                    android:layout_marginEnd="@dimen/margin_16dp"
-                    android:layout_marginStart="@dimen/dimen_20"
-                    android:layout_marginTop="@dimen/margin_8dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tvOfferPercentage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:fontFamily="@font/avenir_light"
-                        android:text="Discount 20%"
-                        android:textColor="@color/colorTextHeading"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/tvOfferPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:fontFamily="@font/avenir_black"
-                        android:text="80"
+                        android:text="SAR 200"
                         android:textAllCaps="true"
                         android:textColor="@color/colorTextLightDark"
                         android:textSize="13sp" />
@@ -459,7 +630,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_16dp"
-                    android:layout_marginStart="@dimen/dimen_20"
+                    android:layout_marginStart="@dimen/margin_16dp"
                     android:layout_marginTop="@dimen/margin_8dp">
 
                     <TextView
@@ -468,8 +639,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:fontFamily="@font/avenir_light"
-                        android:text=""
-                        android:textColor="@color/colorTextHeading"
+                        android:text="Vat 5%"
+                        android:textColor="@color/colorTextLightDark"
                         android:textSize="12sp" />
 
                     <TextView
@@ -478,7 +649,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:fontFamily="@font/avenir_black"
-                        android:text=""
+                        android:text="SAR 20"
                         android:textAllCaps="true"
                         android:textColor="@color/colorTextLightDark"
                         android:textSize="13sp" />
@@ -498,7 +669,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_16dp"
-                    android:layout_marginStart="@dimen/dimen_20"
+                    android:layout_marginStart="@dimen/margin_16dp"
                     android:layout_marginTop="@dimen/margin_8dp"
                     android:paddingBottom="@dimen/margin_8dp">
 
@@ -539,7 +710,7 @@
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:layout_marginTop="@dimen/margin_16dp"
-                        android:layout_marginStart="@dimen/dimen_20"
+                        android:layout_marginStart="@dimen/margin_16dp"
                         android:layout_alignParentStart="true"
                         android:text="@string/auto_renew_membership"
                         android:textSize="@dimen/font_14sp"
@@ -555,6 +726,7 @@
                         android:layout_marginEnd="@dimen/margin_16dp"
                         android:layout_alignParentEnd="true"
                         android:checked="true"
+                        android:layout_marginStart="10dp"
                         android:button="@drawable/checkbox_renew"
                         android:thumb="@null"
                         app:track="@null"/>
