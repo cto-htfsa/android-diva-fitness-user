@@ -60,6 +60,7 @@ class SelectSlotsActivity : BaseActivity<ActivitySlotBookBinding, PersonalTraine
     private var booking_type:String?=""
     private var numberOfPeoplePerSession:String?=null
     private var withMyFriendsGym:String?=null
+    private var gymBookingWith:String?=null
 
 
     companion object{
@@ -72,7 +73,8 @@ class SelectSlotsActivity : BaseActivity<ActivitySlotBookBinding, PersonalTraine
             booking_type: String?,
             currentDate: String?,
             numberOfPeoplePerSession: String?,
-            withMyFriendsGym: String?){
+            withMyFriendsGym: String?,
+            gymBookingWith: String?){
             val intent= Intent(currActivity, SelectSlotsActivity::class.java)
             intent.putExtra("arrBookingSlots", arrBookingSlots)
             intent.putExtra("trainerDetail", trainerDetail)
@@ -82,7 +84,9 @@ class SelectSlotsActivity : BaseActivity<ActivitySlotBookBinding, PersonalTraine
             intent.putExtra("currentDate", currentDate)
             intent.putExtra("numberOfPeoplePerSession", numberOfPeoplePerSession)
             intent.putExtra("withMyFriendsGym", withMyFriendsGym)
-            currActivity.startActivity(intent) } }
+            intent.putExtra("gymBookingWith", gymBookingWith)
+            currActivity.startActivity(intent) }
+    }
 
     override var layout = R.layout.activity_slot_book
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,14 +111,14 @@ class SelectSlotsActivity : BaseActivity<ActivitySlotBookBinding, PersonalTraine
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.viewSelectedSlots -> {
-                if (arrSelectedSlots.isNotEmpty()){
-                    openDialog()
-                }
+            if (arrSelectedSlots.isNotEmpty()){
+                openDialog()
+               }
             }
             R.id.btnConfirmSlot->{
                 if(arrSelectedSlots.isNotEmpty()){
                     BookingSummaryActivity.open(currActivity,arrSelectedSlots,trainerDetail,
-                        tenureSelected,packageSelected,booking_type,currentDate,numberOfPeoplePerSession,withMyFriendsGym)
+                        tenureSelected,packageSelected,booking_type,currentDate,numberOfPeoplePerSession,withMyFriendsGym,gymBookingWith)
                 } else{
                     showToast(currActivity.getString(R.string.please_select_slots), true)
                 }
@@ -133,6 +137,7 @@ class SelectSlotsActivity : BaseActivity<ActivitySlotBookBinding, PersonalTraine
         currentDate=intent.getStringExtra("currentDate")
         numberOfPeoplePerSession=intent.getStringExtra("numberOfPeoplePerSession")
         withMyFriendsGym=intent.getStringExtra("withMyFriendsGym")
+        gymBookingWith=intent.getStringExtra("gymBookingWith")
 
 
 

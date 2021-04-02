@@ -104,14 +104,14 @@ class CenterBookingDetailsActivity : BaseDarkActivity<ActivityBookingDetailsBind
 
 
         /* Selected slots rv*/
-        if(bookingDetail.slots!!.isNotEmpty()){
-            llSlots.visibility=View.VISIBLE
+        if(bookingDetail.trainerId!=null){
+            llPersonalTrainer.visibility=View.VISIBLE
             val mLayout = LinearLayoutManager(currActivity, LinearLayoutManager.VERTICAL, false)
             rvSelectedSlots.layoutManager = mLayout
             selectedSlotsAdapter = SelectedSlotAdapter(currActivity, bookingDetail.slots!!, this)
             rvSelectedSlots.adapter = selectedSlotsAdapter
         }else{
-            llSlots.visibility=View.GONE
+            llPersonalTrainer.visibility=View.GONE
         }
 
 

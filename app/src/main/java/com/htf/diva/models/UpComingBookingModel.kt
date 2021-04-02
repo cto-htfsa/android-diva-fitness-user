@@ -176,11 +176,11 @@ class UpComingBookingModel :Serializable {
 
     @SerializedName("trainer_name")
     @Expose
-    var trainerName: Any? = null
+    var trainerName: String? = null
 
     @SerializedName("trainer_image")
     @Expose
-    var trainerImage: Any? = null
+    var trainerImage: String? = null
 
     @SerializedName("invoice")
     @Expose

@@ -12,6 +12,7 @@ import com.htf.diva.databinding.ActivityFitnessCenterBookingSummaryBinding
 import com.htf.diva.models.*
 import com.htf.diva.utils.AppUtils
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.dashboard.ui.BookingSuccessfullyActivity
 import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.utils.DialogUtils
 import com.htf.diva.utils.observerViewModel
@@ -169,8 +170,7 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
 
     private fun onHandleLoginSuccessResponse(bookFitnessCenter: BookFitnessCenterModel?){
         bookFitnessCenter?.let {
-            HomeActivity.open(currActivity,"memberShipTab")
-            currActivity.finish()
+            BookingSuccessfullyActivity.open(currActivity)
         }
     }
 

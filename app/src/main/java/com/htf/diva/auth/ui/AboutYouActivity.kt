@@ -129,6 +129,7 @@ class AboutYouActivity : BaseDarkActivity<ActivityAboutYouBinding,AboutViewModel
             currUser!!.user!!.name=userAboutUs.name
             currUser.user!!.mobile=userAboutUs.mobile
             currUser.user!!.dialCode=userAboutUs.dialCode
+            currUser.user!!.isReturner=userAboutUs.isReturner
             AppPreferences.getInstance(MyApplication.getAppContext()).saveUserDetails(currUser)
             HomeActivity.open(currActivity, null)
             finish()

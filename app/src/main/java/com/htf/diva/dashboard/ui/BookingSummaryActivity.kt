@@ -32,6 +32,7 @@ class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, B
     private var booking_type:String?=""
     private var numberOfPeoplePerSession:String?=null
     private var withMyFriendsGym:String?=null
+    private var gymBookingWith:String?=null
     private var arrSelectedSlots=ArrayList<Slot>()
     private lateinit var selectedSlotsAdapter: SelectedSlotAdapter
 
@@ -41,7 +42,8 @@ class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, B
 
 
     companion object{
-        fun open(currActivity: Activity,
+        fun open(
+            currActivity: Activity,
             arrBookingSlots: ArrayList<Slot>,
             trainerDetail: TrainerDetailsModel,
             tenureSelected: Tenure,
@@ -49,7 +51,9 @@ class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, B
             booking_type: String?,
             currentDate: String?,
             numberOfPeoplePerSession: String?,
-            withMyFriendsGym: String?){
+            withMyFriendsGym: String?,
+            gymBookingWith: String?
+        ){
             val intent= Intent(currActivity, BookingSummaryActivity::class.java)
             intent.putExtra("arrBookingSlots", arrBookingSlots)
             intent.putExtra("trainerDetail", trainerDetail)
@@ -59,6 +63,7 @@ class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, B
             intent.putExtra("currentDate", currentDate)
             intent.putExtra("numberOfPeoplePerSession", numberOfPeoplePerSession)
             intent.putExtra("withMyFriendsGym", withMyFriendsGym)
+            intent.putExtra("gymBookingWith", gymBookingWith)
             currActivity.startActivity(intent)
         }
     }
@@ -82,6 +87,7 @@ class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, B
         currentDate=intent.getStringExtra("currentDate")
         numberOfPeoplePerSession=intent.getStringExtra("numberOfPeoplePerSession")
         withMyFriendsGym=intent.getStringExtra("withMyFriendsGym")
+        gymBookingWith=intent.getStringExtra("gymBookingWith")
         setDetails()
     }
 
@@ -121,17 +127,14 @@ class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, B
         }
     }
 
-
     private fun calculateAmount(){
         trainerPerSessionPrice=trainerDetail.trainer!!.perSessionPrice!!.toDouble()
           if (booking_type=="Session"){
+              llBookingWithPackage.visibility=View.GONE
               trainerPerSessionPrice= trainerDetail.trainer!!.perSessionPrice!!.toDouble()*numberOfPeoplePerSession!!.toDouble()
           }else{
+              llBookingWithPackage.visibility=View.VISIBLE
               packagePrice=packageSelected.price!!.toDouble()
           }
-
     }
-
-
-
 }

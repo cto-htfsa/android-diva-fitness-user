@@ -84,10 +84,10 @@
                             android:layout_marginStart="@dimen/dimen_5">
 
                             <TextView
-                                android:id="@+id/tvTrainerName"
+                                android:id="@+id/tvPerSession"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="shivani"
+                                android:text=""
                                 android:textSize="@dimen/font_13sp"
                                 android:textColor="@color/colorPrimary"
                                 android:fontFamily="@font/avenir_black" />

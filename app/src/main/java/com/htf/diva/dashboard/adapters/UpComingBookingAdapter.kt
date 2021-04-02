@@ -70,6 +70,11 @@ class UpComingBookingAdapter(
                 model.fitnessCenterImage)
             .placeholder(R.drawable.user).into(holder.itemView.ivCenterImage)
 
+         if (model.trainerId!=null){
+             holder.itemView.lnrTrainerDeatil.visibility=View.VISIBLE
+         }else{
+             holder.itemView.lnrTrainerDeatil.visibility=View.GONE
+         }
 
     }
 }

@@ -13,6 +13,7 @@ import com.htf.diva.R
 import com.htf.diva.auth.viewModel.OtpViewModel
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.base.MyApplication
+import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.databinding.ActivityOtpBinding
 import com.htf.diva.models.UserData
 import com.htf.diva.netUtils.Constants.Auth.KEY_TOKEN
@@ -73,20 +74,37 @@ class OtpActivity : BaseDarkActivity<ActivityOtpBinding,OtpViewModel>(OtpViewMod
     private fun onHandleApiErrorResponse(error: String){
         showToast(error,true)
     }
+
     private fun onHandleVerifyOtpSuccessResponse(resendOtp: UserData?){
         resendOtp?.let {
-            AppPreferences.getInstance(MyApplication.getAppContext()).saveInPreference(KEY_TOKEN,resendOtp.accessToken!!)
-            AppSession.userToken = resendOtp.accessToken!!
-            val currTime = System.currentTimeMillis()
-            val expTime=currTime+((resendOtp.expiresIn!!-10)*1000)
-            resendOtp.userTokenExpireTime=expTime
-            resendOtp.userTokenRefreshTime=currTime
-            resendOtp.user!!.name=resendOtp.user!!.name
-            resendOtp.user!!.mobile=resendOtp.user!!.mobile
-            resendOtp.user!!.dialCode=resendOtp.user!!.dialCode
-            AppPreferences.getInstance(MyApplication.getAppContext()).saveUserDetails(resendOtp)
-            AboutYouActivity.open(currActivity)
-            finish()
+            if (resendOtp.user!!.isReturner==0){
+                AppPreferences.getInstance(MyApplication.getAppContext()).saveInPreference(KEY_TOKEN,resendOtp.accessToken!!)
+                AppSession.userToken = resendOtp.accessToken!!
+                val currTime = System.currentTimeMillis()
+                val expTime=currTime+((resendOtp.expiresIn!!-10)*1000)
+                resendOtp.userTokenExpireTime=expTime
+                resendOtp.userTokenRefreshTime=currTime
+                resendOtp.user!!.name=resendOtp.user!!.name
+                resendOtp.user!!.mobile=resendOtp.user!!.mobile
+                resendOtp.user!!.dialCode=resendOtp.user!!.dialCode
+                AppPreferences.getInstance(MyApplication.getAppContext()).saveUserDetails(resendOtp)
+                AboutYouActivity.open(currActivity)
+                finish()
+            } else{
+                AppPreferences.getInstance(MyApplication.getAppContext()).saveInPreference(KEY_TOKEN,resendOtp.accessToken!!)
+                AppSession.userToken = resendOtp.accessToken!!
+                val currTime = System.currentTimeMillis()
+                val expTime=currTime+((resendOtp.expiresIn!!-10)*1000)
+                resendOtp.userTokenExpireTime=expTime
+                resendOtp.userTokenRefreshTime=currTime
+                resendOtp.user!!.name=resendOtp.user!!.name
+                resendOtp.user!!.mobile=resendOtp.user!!.mobile
+                resendOtp.user!!.dialCode=resendOtp.user!!.dialCode
+                AppPreferences.getInstance(MyApplication.getAppContext()).saveUserDetails(resendOtp)
+                HomeActivity.open(currActivity, null)
+                finish()
+            }
+
         }
     }
 

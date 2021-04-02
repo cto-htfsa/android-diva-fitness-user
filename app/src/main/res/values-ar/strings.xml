@@ -154,6 +154,8 @@
     <string name="paid">Paid</string>
     <string name="discount">Discount</string>
     <string name="view_direction">View Direction</string>
+    <string name="download_invoice">Download invoice</string>
+    <string name="rate_now">Rate Now</string>
 
 
 </resources>

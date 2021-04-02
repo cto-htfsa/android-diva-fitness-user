@@ -17,11 +17,8 @@ import com.htf.diva.dashboard.viewModel.PersonalTrainerViewModel
 import com.htf.diva.databinding.ActivityTrainerDetailsBinding
 import com.htf.diva.models.*
 import com.htf.diva.netUtils.Constants
-import com.htf.diva.utils.AppSession
-import com.htf.diva.utils.DateUtils
-import com.htf.diva.utils.observerViewModel
-import com.htf.diva.utils.showToast
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.utils.*
 import kotlinx.android.synthetic.main.activity_trainer_details.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -44,7 +41,8 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
     private  var mMonth:Int = 0
     private  var mDay:Int = 0
     private var booking_type:String?=null
-    private var numberOfPeoplePerSession:String?=null
+    private var gymBookingWith:String?=null
+    private var numberOfPeoplePerSession:String?="1"
     private var withMyFriendsGym:String?=null
 
 
@@ -137,7 +135,9 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
 
 
      private fun setTrainerDetail(trainerDetails: Trainer){
-         tvTrainerName.text=trainerDetails.name
+         val perSessionPrice= MathUtils.convertDoubleToString(trainerDetails.perSessionPrice!!.toDouble())
+         val str= currActivity.getString(R.string.sar_amount).replace("[X]",perSessionPrice)
+         tvPerSession.text=str
          tvLocation.text=trainerDetails.location
          tvRating.text=trainerDetails.rating
          tvReview.text=trainerDetails.totalReviews.toString()
@@ -182,7 +182,8 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
         when (p0!!.id) {
             R.id.btnSelectSlots -> {
                 SelectSlotsActivity.open(currActivity, bookingSlots,trainerDetail,
-                    tenureSelected,packageSelected,booking_type,currentDate,numberOfPeoplePerSession,withMyFriendsGym)
+                    tenureSelected,packageSelected,booking_type,currentDate,
+                    numberOfPeoplePerSession,withMyFriendsGym,gymBookingWith)
             }
             R.id.tvJoiningDate -> {
                 pickDate()
@@ -232,10 +233,12 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
                     R.id.rbOnlyMe -> {
                         rbOnlyMe.isChecked = true
                         lnrWith_my_frnd.visibility = View.GONE
+                        gymBookingWith="onlyMe"
                     }
                     R.id.rbWithMyFriends -> {
                         rbWithMyFriends.isChecked = true
                         lnrWith_my_frnd.visibility = View.VISIBLE
+                        gymBookingWith="with_my_friends"
                     }
 
                 }
