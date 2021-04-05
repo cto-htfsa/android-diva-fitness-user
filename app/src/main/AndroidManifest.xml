@@ -61,7 +61,7 @@
         <activity android:name=".dashboard.fitnessCenters.CenterActivity"/>
         <activity android:name=".dashboard.fitnessCenters.CenterDetailBookingActivity"/>
         <activity android:name=".dashboard.fitnessCenters.FitnessCenterSummaryActivity"/>
-        <activity android:name=".dashboard.bookingDetails.CenterBookingDetailsActivity"/>
+        <activity android:name=".dashboard.upComingCompletedBookingDetails.CenterBookingDetailsActivity"/>
 
 
     </application>

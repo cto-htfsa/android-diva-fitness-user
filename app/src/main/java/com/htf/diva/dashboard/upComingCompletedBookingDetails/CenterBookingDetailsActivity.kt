@@ -1,4 +1,4 @@
-package com.htf.diva.dashboard.bookingDetails
+package com.htf.diva.dashboard.upComingCompletedBookingDetails
 
 import android.app.Activity
 import android.content.Intent
@@ -26,8 +26,6 @@ import kotlinx.android.synthetic.main.activity_booking_details.tvJoining_from
 import kotlinx.android.synthetic.main.activity_booking_details.tvPackages
 import kotlinx.android.synthetic.main.activity_booking_details.tvTenure
 import kotlinx.android.synthetic.main.activity_booking_details.tvTrainerName
-import kotlinx.android.synthetic.main.activity_booking_summary.*
-import kotlinx.android.synthetic.main.row_up_coming_booking.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 class CenterBookingDetailsActivity : BaseDarkActivity<ActivityBookingDetailsBinding, BookingDetailsViewModel>(
