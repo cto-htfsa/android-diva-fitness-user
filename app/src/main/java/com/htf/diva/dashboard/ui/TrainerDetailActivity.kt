@@ -43,7 +43,7 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
     private var booking_type:String?=null
     private var gymBookingWith:String?=null
     private var numberOfPeoplePerSession:String?="1"
-    private var withMyFriendsGym:String?=null
+    private var withMyFriendsGym:String?="1"
 
 
     companion object{
@@ -111,6 +111,7 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
 
     private fun onHandleTrainerDetailsSuccessResponse(trainerDetailsModel: TrainerDetailsModel?){
         trainerDetailsModel?.let {
+            llTrainerMain.visibility=View.VISIBLE
             trainerDetail=trainerDetailsModel
             setTrainerDetail(trainerDetailsModel.trainer!!)
             setSpecialisingList(trainerDetailsModel.specializations!!)
@@ -234,11 +235,13 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
                         rbOnlyMe.isChecked = true
                         lnrWith_my_frnd.visibility = View.GONE
                         gymBookingWith="onlyMe"
+
                     }
                     R.id.rbWithMyFriends -> {
                         rbWithMyFriends.isChecked = true
                         lnrWith_my_frnd.visibility = View.VISIBLE
                         gymBookingWith="with_my_friends"
+                        withMyFriendsGym="2"
                     }
 
                 }

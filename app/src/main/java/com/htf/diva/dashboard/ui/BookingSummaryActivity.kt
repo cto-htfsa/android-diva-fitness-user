@@ -1,5 +1,6 @@
 package com.htf.diva.dashboard.ui
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -17,7 +18,17 @@ import com.htf.diva.models.Tenure
 import com.htf.diva.models.TrainerDetailsModel
 import com.htf.diva.netUtils.Constants
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.utils.AppSession
+import com.htf.diva.utils.AppUtils
 import kotlinx.android.synthetic.main.activity_booking_summary.*
+import kotlinx.android.synthetic.main.activity_booking_summary.tvFitnessCenter
+import kotlinx.android.synthetic.main.activity_booking_summary.tvFitnessCenterAddress
+import kotlinx.android.synthetic.main.activity_booking_summary.tvJoining_from
+import kotlinx.android.synthetic.main.activity_booking_summary.tvPackageTax
+import kotlinx.android.synthetic.main.activity_booking_summary.tvPackage_price
+import kotlinx.android.synthetic.main.activity_booking_summary.tvPackages
+import kotlinx.android.synthetic.main.activity_booking_summary.tvTenure
+import kotlinx.android.synthetic.main.activity_fitness_center_booking_summary.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, BookingSummaryViewModel>(
@@ -35,11 +46,13 @@ class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, B
     private var gymBookingWith:String?=null
     private var arrSelectedSlots=ArrayList<Slot>()
     private lateinit var selectedSlotsAdapter: SelectedSlotAdapter
-
-
     private var trainerPerSessionPrice:Double?=null
     private var packagePrice:Double?=null
-
+    private var afterCalculateTax:Double?=null
+    private var discount_amount:Double?=null
+    private var amount_after_discount:Double?=null
+    private var baseAmount:Double?=null
+    private var calculatedAmtAfterDiscount:Double?=null
 
     companion object{
         fun open(
@@ -127,14 +140,86 @@ class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, B
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun calculateAmount(){
-        trainerPerSessionPrice=trainerDetail.trainer!!.perSessionPrice!!.toDouble()
+
           if (booking_type=="Session"){
-              llBookingWithPackage.visibility=View.GONE
-              trainerPerSessionPrice= trainerDetail.trainer!!.perSessionPrice!!.toDouble()*numberOfPeoplePerSession!!.toDouble()
+              /* Booking with session*/
+              amount_after_discount=numberOfPeoplePerSession!!.toDouble()*trainerDetail.trainer!!.perSessionPrice!!.toDouble()*withMyFriendsGym!!.toDouble()
+              if(AppSession.appDashBoard!!.offers !=null) {
+                  tvNo_ofPeopleTraining.text = withMyFriendsGym
+                  rltTrainerOfferDiscount.visibility=View.VISIBLE
+                  llBookingWithPerSession.visibility=View.VISIBLE
+                  llBookingWithPackage.visibility=View.GONE
+
+                  discount_amount=AppSession.appDashBoard!!.offers!!.discountValue!!.toDouble()
+                  calculatedAmtAfterDiscount=(amount_after_discount!!*discount_amount!!/100)
+                  amount_after_discount=amount_after_discount!!-calculatedAmtAfterDiscount!!
+                  tvTrainerOfferPercentage.text=getString(R.string.discount) +" ("+""+(AppUtils.roundMathValueFromDouble(AppSession.appDashBoard!!.offers!!.discountValue!!.toDouble().toInt()))+"%"+")"
+                  tvTrainerOfferPrice.text=currActivity.getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(calculatedAmtAfterDiscount!!.toInt())
+                  tvPersonal_trainer_price.text=currActivity.getString(R.string.sar)+" "+numberOfPeoplePerSession!!.toDouble()*trainerDetail.trainer!!.perSessionPrice!!.toDouble()*withMyFriendsGym!!.toDouble()
+
+                  tvTax.text=getString(R.string.vat)+" ("+""+AppUtils.roundMathValueFromDouble(
+                      trainerDetail.vatPercentage!!.toDouble().toInt())+"%"+")"
+                  afterCalculateTax=(amount_after_discount!!.toDouble()*trainerDetail.vatPercentage!!.toDouble())/100
+                  tvTaxCharges.text= getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(afterCalculateTax!!.toInt()).toString()
+
+
+              } else{
+                  tvNo_ofPeopleTraining.text = withMyFriendsGym
+                  rltTrainerOfferDiscount.visibility=View.GONE
+                  llBookingWithPerSession.visibility=View.VISIBLE
+                  amount_after_discount=numberOfPeoplePerSession!!.toDouble()*trainerDetail.trainer!!.perSessionPrice!!.toDouble()*withMyFriendsGym!!.toDouble()
+                  tvPersonal_trainer_price.text=currActivity.getString(R.string.sar)+" "+amount_after_discount
+                  tvTax.text=getString(R.string.vat)+" ("+""+AppUtils.roundMathValueFromDouble(trainerDetail.vatPercentage!!.toDouble().toInt())+"%"+")"
+                  afterCalculateTax=(amount_after_discount!!.toDouble()*trainerDetail.vatPercentage!!.toDouble())/100
+                  tvTaxCharges.text= getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(afterCalculateTax!!.toInt()).toString()
+              }
+
           }else{
-              llBookingWithPackage.visibility=View.VISIBLE
-              packagePrice=packageSelected.price!!.toDouble()
+              /* Booking with package*/
+
+              if(AppSession.appDashBoard!!.offers !=null) {
+                  tvNo_ofPeopleTraining.text = withMyFriendsGym
+                  llBookingWithPackage.visibility=View.VISIBLE
+                  rltPackageOfferDiscount.visibility=View.VISIBLE
+                  llBookingWithPerSession.visibility=View.GONE
+                  packagePrice=packageSelected.price!!.toDouble()*withMyFriendsGym!!.toDouble()*numberOfPeoplePerSession!!.toDouble()
+                  val strPackageName = currActivity.getString(R.string.package_membership).replace("[X]", packageSelected.tenureName.toString())
+                  tvPackageName.text=strPackageName
+                  tvPackage_price.text=currActivity.getString(R.string.sar)+" "+packagePrice
+
+
+                  tvPackageOfferPercentage.text=getString(R.string.discount) +" ("+""+(AppUtils.roundMathValueFromDouble(AppSession.appDashBoard!!.offers!!.discountValue!!.toDouble().toInt()))+"%"+")"
+                  discount_amount=AppSession.appDashBoard!!.offers!!.discountValue!!.toDouble()
+                  calculatedAmtAfterDiscount=(packagePrice!!*discount_amount!!/100)
+                  amount_after_discount=packagePrice!!-calculatedAmtAfterDiscount!!
+                  tvPackageOfferPrice.text=currActivity.getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(calculatedAmtAfterDiscount!!.toInt())
+
+
+                  tvPackageTax.text=getString(R.string.vat)+" ("+""+AppUtils.roundMathValueFromDouble(
+                      trainerDetail.vatPercentage!!.toDouble().toInt())+"%"+")"
+                  afterCalculateTax=(amount_after_discount!!.toDouble()*trainerDetail.vatPercentage!!.toDouble())/100
+                  tvPackageTainerTaxCharges.text= getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(afterCalculateTax!!.toInt()).toString()
+
+
+              }else{
+                  tvNo_ofPeopleTraining.text = withMyFriendsGym
+                  rltPackageOfferDiscount.visibility=View.GONE
+                  llBookingWithPackage.visibility=View.VISIBLE
+                  llBookingWithPerSession.visibility=View.GONE
+                  packagePrice=packageSelected.price!!.toDouble()*withMyFriendsGym!!.toDouble()*numberOfPeoplePerSession!!.toDouble()
+                  val strPackageName = currActivity.getString(R.string.package_membership).replace("[X]", packageSelected.tenureName.toString())
+                  tvPackageName.text=strPackageName
+                  tvPackage_price.text=currActivity.getString(R.string.sar)+" "+packagePrice
+                  tvPackageTax.text=getString(R.string.vat)+" ("+""+AppUtils.roundMathValueFromDouble(
+                      trainerDetail.vatPercentage!!.toDouble().toInt())+"%"+")"
+                  afterCalculateTax=(packageSelected.price!!.toDouble()*trainerDetail.vatPercentage!!.toDouble())/100
+                  tvPackageTainerTaxCharges.text= getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(afterCalculateTax!!.toInt()).toString()
+
+              }
+
+
           }
     }
 }

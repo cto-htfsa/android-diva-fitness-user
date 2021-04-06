@@ -98,10 +98,12 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
 
     private fun onHandleAppDashBoardSuccessResponse(appDashBoard: AppDashBoard?){
         appDashBoard?.let {
+                llMain.visibility=View.VISIBLE
                 setUpBanner(appDashBoard.banners!!)
                 setTopPersonalTrainer(appDashBoard.topTrainers)
                 setOutFitnessCenter(appDashBoard.fitnessCenters)
                 AppSession.appDashBoard=appDashBoard
+                tvOfferMsg.text=appDashBoard.offers!!.offerName
         }
     }
 
