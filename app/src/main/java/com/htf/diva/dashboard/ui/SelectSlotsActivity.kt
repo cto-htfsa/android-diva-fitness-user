@@ -117,7 +117,7 @@ class SelectSlotsActivity : BaseActivity<ActivitySlotBookBinding, PersonalTraine
             }
             R.id.btnConfirmSlot->{
                 if(arrSelectedSlots.isNotEmpty()){
-                    BookingSummaryActivity.open(currActivity,arrSelectedSlots,trainerDetail,
+                    TrainerBookingSummaryActivity.open(currActivity,arrSelectedSlots,trainerDetail,
                         tenureSelected,packageSelected,booking_type,currentDate,numberOfPeoplePerSession,withMyFriendsGym,gymBookingWith)
                 } else{
                     showToast(currActivity.getString(R.string.please_select_slots), true)

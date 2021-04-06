@@ -126,4 +126,10 @@ class BookFitnessCenterModel :Serializable {
     @SerializedName("invoice_id")
     @Expose
     var invoiceId: Int? = null
+
+    @SerializedName("trainer_id")
+    @Expose
+    var trainer_id: Int? = null
+
+
 }

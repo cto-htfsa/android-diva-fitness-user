@@ -48,8 +48,7 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
 
 
         companion object{
-        fun open(
-            currActivity: Activity,
+        fun open(currActivity: Activity,
             offers: AppDashBoard.Offers,
             selectedFitnessCenter: AppDashBoard.FitnessCenter,
             tenureSelected: Tenure,

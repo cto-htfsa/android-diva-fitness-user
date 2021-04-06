@@ -7,19 +7,19 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.htf.diva.BuildConfig
 import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.dashboard.adapters.SelectedSlotAdapter
 import com.htf.diva.dashboard.viewModel.BookingSummaryViewModel
 import com.htf.diva.databinding.ActivityBookingSummaryBinding
-import com.htf.diva.models.Packages
-import com.htf.diva.models.Slot
-import com.htf.diva.models.Tenure
-import com.htf.diva.models.TrainerDetailsModel
 import com.htf.diva.netUtils.Constants
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.models.*
 import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.AppUtils
+import com.htf.diva.utils.observerViewModel
+import com.htf.diva.utils.showToast
 import kotlinx.android.synthetic.main.activity_booking_summary.*
 import kotlinx.android.synthetic.main.activity_booking_summary.tvFitnessCenter
 import kotlinx.android.synthetic.main.activity_booking_summary.tvFitnessCenterAddress
@@ -28,10 +28,9 @@ import kotlinx.android.synthetic.main.activity_booking_summary.tvPackageTax
 import kotlinx.android.synthetic.main.activity_booking_summary.tvPackage_price
 import kotlinx.android.synthetic.main.activity_booking_summary.tvPackages
 import kotlinx.android.synthetic.main.activity_booking_summary.tvTenure
-import kotlinx.android.synthetic.main.activity_fitness_center_booking_summary.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, BookingSummaryViewModel>(
+class TrainerBookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, BookingSummaryViewModel>(
     BookingSummaryViewModel::class.java), IListItemClickListener<Any>, View.OnClickListener {
     private var currActivity: Activity = this
 
@@ -53,6 +52,8 @@ class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, B
     private var amount_after_discount:Double?=null
     private var baseAmount:Double?=null
     private var calculatedAmtAfterDiscount:Double?=null
+    private var totalPayableAmt:Double?=null
+
 
     companion object{
         fun open(
@@ -65,9 +66,8 @@ class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, B
             currentDate: String?,
             numberOfPeoplePerSession: String?,
             withMyFriendsGym: String?,
-            gymBookingWith: String?
-        ){
-            val intent= Intent(currActivity, BookingSummaryActivity::class.java)
+            gymBookingWith: String?){
+            val intent= Intent(currActivity, TrainerBookingSummaryActivity::class.java)
             intent.putExtra("arrBookingSlots", arrBookingSlots)
             intent.putExtra("trainerDetail", trainerDetail)
             intent.putExtra("tenureSelected", tenureSelected)
@@ -88,7 +88,7 @@ class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, B
         binding.bookingSummaryViewModel = viewModel
         setListener()
         getExtra()
-
+        viewModelInitialize()
     }
 
     private fun getExtra() {
@@ -129,13 +129,28 @@ class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, B
     }
 
     fun setListener(){
-        btnConfirmSlot.setOnClickListener(this)
+        btnTrainerPayableAmount.setOnClickListener(this)
+
     }
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
-            R.id.btnConfirmSlot->{
-                BookingSuccessfullyActivity.open(currActivity)
+            R.id.btnTrainerPayableAmount->{
+               // BookingSuccessfullyActivity.open(currActivity)
+                val slots = HashMap<String, String?>()
+                for (i in 0.until(arrSelectedSlots.size)) {
+                    if (arrSelectedSlots[i].date!=null){
+                        slots["slots[$i][date]"] = arrSelectedSlots[i].date.toString()
+                        slots["slots[$i][start_at]"] = arrSelectedSlots[i].startAt.toString()
+                        slots["slots[$i][end_at]"] = arrSelectedSlots[i].endAt.toString()
+                    }
+                }
+                viewModel.onBookTrainerClick(AppSession.locale,
+                    AppSession.deviceId, AppSession.deviceType,
+                    BuildConfig.VERSION_NAME,"","","",",",
+                    "","","",",","","",
+                    "","","",",","","",
+                    slots)
             }
         }
     }
@@ -163,7 +178,9 @@ class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, B
                       trainerDetail.vatPercentage!!.toDouble().toInt())+"%"+")"
                   afterCalculateTax=(amount_after_discount!!.toDouble()*trainerDetail.vatPercentage!!.toDouble())/100
                   tvTaxCharges.text= getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(afterCalculateTax!!.toInt()).toString()
-
+                  totalPayableAmt= afterCalculateTax!! + amount_after_discount!!
+                  val payableAmount= currActivity.getString(R.string.pay_sar).replace("[X]",AppUtils.roundMathValueFromDouble(totalPayableAmt!!.toInt()).toString())
+                  btnTrainerPayableAmount.text=payableAmount
 
               } else{
                   tvNo_ofPeopleTraining.text = withMyFriendsGym
@@ -174,6 +191,10 @@ class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, B
                   tvTax.text=getString(R.string.vat)+" ("+""+AppUtils.roundMathValueFromDouble(trainerDetail.vatPercentage!!.toDouble().toInt())+"%"+")"
                   afterCalculateTax=(amount_after_discount!!.toDouble()*trainerDetail.vatPercentage!!.toDouble())/100
                   tvTaxCharges.text= getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(afterCalculateTax!!.toInt()).toString()
+                  totalPayableAmt= afterCalculateTax!! + amount_after_discount!!
+                  val payableAmount= currActivity.getString(R.string.pay_sar).replace("[X]",AppUtils.roundMathValueFromDouble(totalPayableAmt!!.toInt()).toString())
+                  btnTrainerPayableAmount.text=payableAmount
+
               }
 
           }else{
@@ -197,11 +218,12 @@ class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, B
                   tvPackageOfferPrice.text=currActivity.getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(calculatedAmtAfterDiscount!!.toInt())
 
 
-                  tvPackageTax.text=getString(R.string.vat)+" ("+""+AppUtils.roundMathValueFromDouble(
-                      trainerDetail.vatPercentage!!.toDouble().toInt())+"%"+")"
+                  tvPackageTax.text=getString(R.string.vat)+" ("+""+AppUtils.roundMathValueFromDouble(trainerDetail.vatPercentage!!.toDouble().toInt())+"%"+")"
                   afterCalculateTax=(amount_after_discount!!.toDouble()*trainerDetail.vatPercentage!!.toDouble())/100
                   tvPackageTainerTaxCharges.text= getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(afterCalculateTax!!.toInt()).toString()
-
+                  totalPayableAmt= afterCalculateTax!! + amount_after_discount!!
+                  val payableAmount= currActivity.getString(R.string.pay_sar).replace("[X]",AppUtils.roundMathValueFromDouble(totalPayableAmt!!.toInt()).toString())
+                  btnTrainerPayableAmount.text=payableAmount
 
               }else{
                   tvNo_ofPeopleTraining.text = withMyFriendsGym
@@ -212,14 +234,35 @@ class BookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, B
                   val strPackageName = currActivity.getString(R.string.package_membership).replace("[X]", packageSelected.tenureName.toString())
                   tvPackageName.text=strPackageName
                   tvPackage_price.text=currActivity.getString(R.string.sar)+" "+packagePrice
-                  tvPackageTax.text=getString(R.string.vat)+" ("+""+AppUtils.roundMathValueFromDouble(
-                      trainerDetail.vatPercentage!!.toDouble().toInt())+"%"+")"
+                  tvPackageTax.text=getString(R.string.vat)+" ("+""+AppUtils.roundMathValueFromDouble(trainerDetail.vatPercentage!!.toDouble().toInt())+"%"+")"
                   afterCalculateTax=(packageSelected.price!!.toDouble()*trainerDetail.vatPercentage!!.toDouble())/100
                   tvPackageTainerTaxCharges.text= getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(afterCalculateTax!!.toInt()).toString()
-
+                  totalPayableAmt= afterCalculateTax!! + amount_after_discount!!
+                  val payableAmount= currActivity.getString(R.string.pay_sar).replace("[X]",AppUtils.roundMathValueFromDouble(totalPayableAmt!!.toInt()).toString())
+                  btnTrainerPayableAmount.text=payableAmount
               }
-
-
           }
+    }
+
+
+    private fun viewModelInitialize() {
+        observerViewModel(viewModel.isApiCalling,this::onHandleShowProgress)
+        observerViewModel(viewModel.mBookFitnessCenterData,this::onHandleLoginSuccessResponse)
+        observerViewModel(viewModel.errorResult,this::onHandleApiErrorResponse)
+
+    }
+
+    private fun onHandleShowProgress(isNotShow:Boolean) {
+        if (isNotShow) progressDialog?.show() else progressDialog?.dismiss()
+    }
+
+    private fun onHandleApiErrorResponse(error: String){
+        showToast(error,true)
+    }
+
+    private fun onHandleLoginSuccessResponse(bookFitnessCenter: BookFitnessCenterModel?){
+        bookFitnessCenter?.let {
+           /* BookingSuccessfullyActivity.open(currActivity)*/
+        }
     }
 }

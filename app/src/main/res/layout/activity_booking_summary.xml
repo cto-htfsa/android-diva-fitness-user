@@ -21,7 +21,7 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_below="@+id/llTop"
-            android:layout_above="@+id/btnConfirmSlot"
+            android:layout_above="@+id/btnTrainerPayableAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -731,7 +731,7 @@
 
 
         <TextView
-            android:id="@+id/btnConfirmSlot"
+            android:id="@+id/btnTrainerPayableAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_8dp"
@@ -747,7 +747,7 @@
             android:paddingBottom="@dimen/margin_12dp"
             android:layout_marginStart="@dimen/margin_16dp"
             android:layout_marginEnd="@dimen/margin_16dp"
-            android:text="Pay SAR 400"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textAllCaps="false"/>

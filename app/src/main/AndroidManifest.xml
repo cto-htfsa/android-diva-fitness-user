@@ -56,7 +56,7 @@
         <activity android:name=".dashboard.ui.AboutUsActivity"/>
         <activity android:name=".dashboard.ui.TrainerDetailActivity"/>
         <activity android:name=".dashboard.ui.SelectSlotsActivity"/>
-        <activity android:name=".dashboard.ui.BookingSummaryActivity"/>
+        <activity android:name=".dashboard.ui.TrainerBookingSummaryActivity"/>
         <activity android:name=".dashboard.ui.BookingSuccessfullyActivity"/>
         <activity android:name=".dashboard.fitnessCenters.CenterActivity"/>
         <activity android:name=".dashboard.fitnessCenters.CenterDetailBookingActivity"/>
