@@ -198,11 +198,7 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
                 calculatePrice(joinCenterWithFriends)
             }
         }
-
     }
-
-
-
 
 
     private fun viewModelInitialize() {
@@ -224,6 +220,7 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
 
     private fun onHandleAppDashBoardSuccessResponse(fitnessCenterDetailResponse: FitnessCenterDetailForBookModel?){
         fitnessCenterDetailResponse?.let {
+            rltCenterDetail.visibility=View.VISIBLE
             vatPercentage=fitnessCenterDetailResponse.vatPercentage.toString()
             offer=fitnessCenterDetailResponse.offers!!
             packages=fitnessCenterDetailResponse.packages!!

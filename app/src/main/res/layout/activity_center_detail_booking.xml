@@ -9,6 +9,7 @@
     </data>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/rltCenterDetail"
         android:orientation="vertical"
         android:layout_width="match_parent"
