@@ -9,8 +9,7 @@
     </data>
 
     <RelativeLayout
-        android:visibility="gone"
-        android:id="@+id/rltCenterDetail"
+
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -22,7 +21,9 @@
         <RelativeLayout
             android:layout_above="@+id/lnrBookSlots"
             android:layout_below="@+id/llTop"
+            android:visibility="gone"
             android:layout_width="match_parent"
+            android:id="@+id/rltCenterDetail"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="@color/white">
@@ -302,6 +303,7 @@
         <LinearLayout
             android:id="@+id/lnrBookSlots"
             android:orientation="vertical"
+            android:visibility="visible"
             android:background="@color/white"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
@@ -383,7 +385,7 @@
                     android:paddingBottom="@dimen/margin_12dp"
                     android:layout_marginStart="@dimen/margin_16dp"
                     android:layout_marginEnd="@dimen/margin_16dp"
-                    android:text="Pay SAR 400"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textAllCaps="false"/>
