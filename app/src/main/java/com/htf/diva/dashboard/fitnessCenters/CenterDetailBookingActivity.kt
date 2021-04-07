@@ -150,6 +150,7 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
             val datePickerDialog = DatePickerDialog(this, { _, year, monthOfYear, dayOfMonth ->
                 currentDate = dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
                 tvCenterJoiningDate.text = currentDate
+                currentDate=currentDate
             }, mYear, mMonth, mDay)
             datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
             datePickerDialog.show()
@@ -162,7 +163,7 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
            tvTitle.text=selectedFitnessCenter.name
            rbOnlyMeCenter.isChecked=true
            lnrWith_my_frnd_in_center.visibility=View.GONE
-        /*   val c = Calendar.getInstance().time
+         /*val c = Calendar.getInstance().time
            val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
            val formattedDate: String = df.format(c)
          */

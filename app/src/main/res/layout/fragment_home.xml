@@ -608,6 +608,16 @@
                         </LinearLayout>
 
                     </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvError"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/avenir_roman"
+                        android:gravity="end"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="5dp"
+                        android:textColor="@color/colorWhite"
+                        android:visibility="gone" />
 
 
 

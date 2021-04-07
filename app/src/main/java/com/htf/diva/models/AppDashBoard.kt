@@ -27,6 +27,10 @@ class AppDashBoard :Serializable {
     @Expose
     var myScheduled: MyScheduled? = null
 
+    @SerializedName("fitnessCenterSubscription")
+    @Expose
+    var fitnessCenterSubscription: FitnessCenterSubscription? = null
+
     @SerializedName("toBeExpiredSubscription")
     @Expose
     var toBeExpiredSubscription: List<Any>? = null
@@ -38,6 +42,8 @@ class AppDashBoard :Serializable {
     @SerializedName("version")
     @Expose
     var version: String? = null
+
+
 
     class Offers:Serializable{
 
@@ -195,6 +201,95 @@ class AppDashBoard :Serializable {
         var calories: Any? = null
     }
 
+    class FitnessCenterSubscription :Serializable{
+        @SerializedName("id")
+        @Expose
+        private val id: Int? = null
+
+        @SerializedName("tracking_id")
+        @Expose
+        private val trackingId: String? = null
+
+        @SerializedName("trainer_id")
+        @Expose
+        private val trainerId: Any? = null
+
+        @SerializedName("booking_for")
+        @Expose
+        private val bookingFor: String? = null
+
+        @SerializedName("booking_type")
+        @Expose
+        private val bookingType: String? = null
+
+        @SerializedName("fitness_center_id")
+        @Expose
+        private val fitnessCenterId: Int? = null
+
+        @SerializedName("tenure_id")
+        @Expose
+        private val tenureId: Int? = null
+
+        @SerializedName("days")
+        @Expose
+        private val days: Int? = null
+
+        @SerializedName("join_date")
+        @Expose
+        private val joinDate: String? = null
+
+        @SerializedName("expired_at")
+        @Expose
+        private val expiredAt: String? = null
+
+        @SerializedName("package_id")
+        @Expose
+        private val packageId: Int? = null
+
+        @SerializedName("base_sessions")
+        @Expose
+        private val baseSessions: Int? = null
+
+        @SerializedName("total_sessions")
+        @Expose
+        private val totalSessions: Int? = null
+
+        @SerializedName("number_of_people")
+        @Expose
+        private val numberOfPeople: Int? = null
+
+        @SerializedName("base_amount")
+        @Expose
+        private val baseAmount: String? = null
+
+        @SerializedName("total_amount")
+        @Expose
+        private val totalAmount: String? = null
+
+        @SerializedName("discount_amount")
+        @Expose
+        private val discountAmount: String? = null
+
+        @SerializedName("amount_after_discount")
+        @Expose
+        private val amountAfterDiscount: String? = null
+
+        @SerializedName("vat_percentage")
+        @Expose
+        private val vatPercentage: String? = null
+
+        @SerializedName("vat_amount")
+        @Expose
+        private val vatAmount: String? = null
+
+        @SerializedName("payable_amount")
+        @Expose
+        private val payableAmount: String? = null
+
+        @SerializedName("created_at")
+        @Expose
+        private val createdAt: String? = null
+    }
 
 }
 

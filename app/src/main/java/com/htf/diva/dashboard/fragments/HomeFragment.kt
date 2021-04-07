@@ -30,8 +30,11 @@ import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.utils.DialogUtils
+import com.htf.diva.utils.DialogUtils.showToast
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
@@ -157,8 +160,13 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
 
     override fun onItemClickListener(data: Any) {
         if (data is AppDashBoard.TopTrainer)
-        TrainerDetailActivity.open(currActivity,data)
+            if ( AppSession.appDashBoard!!.fitnessCenterSubscription!=null){
+                TrainerDetailActivity.open(currActivity,data)
+            } else{
+             /*   showToast(currActivity,currActivity.getString(R.string.buy_membership),true)*/
+                DialogUtils.showSnackBar(currActivity, tvError, currActivity.getString(R.string.buy_membership))
 
+            }
         if (data is AppDashBoard.FitnessCenter)
             CenterDetailBookingActivity.open(currActivity,data)
       }
