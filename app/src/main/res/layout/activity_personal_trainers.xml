@@ -6,7 +6,6 @@
             name="personalTrainerViewModel"
             type="com.htf.diva.dashboard.viewModel.PersonalTrainerViewModel" />
         <import type="android.view.View" />
-
     </data>
 
     <LinearLayout

@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
-import com.htf.diva.dashboard.fitnessCenters.CenterDetailBookingActivity
+import com.htf.diva.dashboard.bookingFitnessCenters.CenterDetailBookingActivity
 import com.htf.diva.dashboard.ui.TrainerDetailActivity
 import com.htf.diva.databinding.RowPackgesBinding
 import com.htf.diva.models.Packages
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.dashboard.bookingTrainerWithCenter.BookTrainerCenterDetailActivity
 import kotlinx.android.synthetic.main.row_packges.view.*
 
 class PackagesAdapter (
@@ -35,6 +36,9 @@ class PackagesAdapter (
                     }
                     is CenterDetailBookingActivity -> {
                         (currActivity as CenterDetailBookingActivity).selectedPackage(model,adapterPosition)
+                    }
+                    is BookTrainerCenterDetailActivity -> {
+                        (currActivity as BookTrainerCenterDetailActivity).selectedPackage(model,adapterPosition)
                     }
                 }
             }
@@ -63,6 +67,9 @@ class PackagesAdapter (
                 }
                 if(currActivity is CenterDetailBookingActivity)
                     (currActivity as CenterDetailBookingActivity).selectedPackage(model,position)
+
+                if(currActivity is BookTrainerCenterDetailActivity)
+                    (currActivity as BookTrainerCenterDetailActivity).selectedPackage(model,position)
             }
             else -> {
                 holder.itemView.rltPackage.setBackgroundResource(R.drawable.package_bg_unselected)

@@ -1,9 +1,8 @@
-package com.htf.diva.dashboard.fitnessCenters
+package com.htf.diva.dashboard.bookingFitnessCenters
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity

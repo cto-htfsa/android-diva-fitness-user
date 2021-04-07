@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="trainerDetailViewModel"
+            type="com.htf.diva.dashboard.viewModel.PersonalTrainerViewModel" />
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/llTrainerMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorBookingTrainerDetailBg">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_above="@+id/lnrBookSlots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_250"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:background="@drawable/trainer_details_rect"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/ivBack"
+                            android:layout_width="@dimen/dimen_40"
+                            android:layout_height="@dimen/dimen_40"
+                            android:layout_marginTop="@dimen/dimen_20"
+                            android:src="@drawable/ic_back"
+                            android:layout_marginStart="8dp"
+                            android:onClick="onBackBtnClick"
+                            android:padding="@dimen/dimen_10"/>
+
+
+                        <com.github.siyamed.shapeimageview.RoundedImageView
+                            android:id="@+id/ivTrainerImage"
+                            android:layout_width="@dimen/dimen_200"
+                            android:layout_height="@dimen/dimen_200"
+                            app:siBorderColor="@color/white"
+                            android:layout_centerInParent="true"
+                            android:layout_alignParentBottom="true"
+                            android:src="@drawable/trainer_placeholder"
+                            app:siRadius="@dimen/dimen_10"
+                            />
+
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:background="@drawable/dialog_curve_bg"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dimen_10"
+                        android:layout_marginTop="@dimen/dimen_7">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/dimen_5">
+
+                            <TextView
+                                android:id="@+id/tvPerSession"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textSize="@dimen/font_13sp"
+                                android:textColor="@color/colorPrimary"
+                                android:fontFamily="@font/avenir_black" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="@dimen/dimen_10"
+                                    android:layout_height="@dimen/dimen_10"
+                                    android:src="@drawable/location"
+                                    android:layout_gravity="center_vertical"/>
+
+                                <TextView
+                                    android:id="@+id/tvLocation"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="ghfhgfgh"
+                                    android:textSize="@dimen/font_10sp"
+                                    android:textColor="@color/colorText"
+                                    android:fontFamily="@font/avenir_light"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="@dimen/dimen_5"/>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true">
+
+                            <LinearLayout
+                                android:id="@+id/llRating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:layout_marginBottom="@dimen/dimen_5"
+                                android:backgroundTint="@color/colorScheduleCircularProgressBg"
+                                android:background="@drawable/rating_bg"
+                                android:padding="@dimen/dimen_5"
+                                android:layout_gravity="center_vertical">
+
+                                <ImageView
+                                    android:layout_width="@dimen/dimen_10"
+                                    android:layout_height="@dimen/dimen_10"
+                                    android:src="@drawable/review"
+                                    android:layout_gravity="center_vertical"/>
+
+                                <TextView
+                                    android:id="@+id/tvRating"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="shivani"
+                                    android:layout_marginStart="@dimen/dimen_3"
+                                    android:textSize="@dimen/font_10sp"
+                                    android:layout_gravity="center_vertical"
+                                    android:textColor="@color/colorPrimary"
+                                    android:fontFamily="@font/avenir_light" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tvReview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="shivani"
+                                android:layout_marginStart="@dimen/dimen_5"
+                                android:textSize="@dimen/font_12sp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:fontFamily="@font/avenir_light" />
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/specialising_in"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="12sp"
+                            android:layout_gravity="start"
+                            android:textAlignment="viewStart"
+                            android:padding="@dimen/dimen_10"
+                            android:fontFamily="@font/avenir_black"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvSpecialisation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dimen_5"/>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/dimen_10"
+                        android:background="@color/colorAgeBg"
+                        android:paddingBottom="@dimen/dimen_30">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/select_tenure"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="12sp"
+                            android:layout_gravity="start"
+                            android:textAlignment="viewStart"
+                            android:paddingStart="@dimen/dimen_15"
+                            android:fontFamily="@font/avenir_black"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvSelectTenure"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_10"
+                            android:layout_marginTop="@dimen/dimen_7"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/dimen_10">
+
+                            <RadioGroup
+                                android:id="@+id/rbGroup"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true">
+
+                                <RadioButton
+                                    android:id="@+id/rbPackage"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:buttonTint="@color/colorPrimary"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    android:text="@string/packages"
+                                    android:fontFamily="@font/avenir_black"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="@dimen/font_12sp"/>
+
+                                <RadioButton
+                                    android:id="@+id/rbPerSession"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:buttonTint="@color/colorPrimary"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    android:text="@string/per_session"
+                                    android:fontFamily="@font/avenir_black"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="@dimen/dimen_30"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="@dimen/font_12sp"/>
+
+
+                            </RadioGroup>
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:text="@string/read_policy"
+                                android:gravity="center_vertical"
+                                android:textSize="@dimen/font_10sp"
+                                android:linksClickable="true"
+                                android:textColor="@color/colorMembershipExpiredBg"
+                                android:autoLink="all"
+                                android:textColorLink="@color/colorMembershipExpiredBg" />
+
+                        </RelativeLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvPackages"
+                            android:paddingStart="@dimen/dimen_10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+
+                        <LinearLayout
+                            android:paddingStart="@dimen/dimen_20"
+                            android:id="@+id/nlrPer_session"
+                            android:layout_marginTop="@dimen/dimen_20"
+                            android:background="@color/white"
+                            android:paddingTop="@dimen/dimen_20"
+                            android:paddingBottom="@dimen/dimen_20"
+                            android:layout_marginBottom="@dimen/dimen_20"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:id="@+id/lnrAdd"
+                                android:orientation="horizontal"
+                                android:visibility="visible"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+
+                                <LinearLayout
+                                    android:id="@+id/llQuantity"
+                                    android:visibility="visible"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/add_diet_plan_rect"
+                                        android:gravity="center_vertical"
+                                        android:orientation="horizontal">
+
+                                        <ImageView
+                                            android:id="@+id/ivSessionSubtract"
+                                            android:layout_width="40dp"
+                                            android:layout_height="40dp"
+                                            android:padding="8dp"
+                                            android:src="@drawable/ic_minus_black_24dp" />
+
+                                        <View
+                                            android:background="@color/gray3"
+                                            android:layout_width="@dimen/dimen_0.1"
+                                            android:layout_height="@dimen/dimen_40"/>
+
+                                        <TextView
+                                            android:id="@+id/tvNumberOfItems"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:background="@color/white"
+                                            android:fontFamily="@font/avenir_black"
+                                            android:inputType="number"
+                                            android:paddingStart="15dp"
+                                            android:paddingTop="10dp"
+                                            android:paddingEnd="15dp"
+                                            android:paddingBottom="10dp"
+                                            android:text="1"
+                                            android:textColor="@color/black"
+                                            android:textSize="13sp" />
+
+                                        <View
+                                            android:background="@color/black"
+                                            android:layout_width="@dimen/dimen_0.1"
+                                            android:layout_height="@dimen/dimen_40"/>
+
+
+                                        <ImageView
+                                            android:id="@+id/ivSessionAdd_person"
+                                            android:layout_width="40dp"
+                                            android:layout_height="40dp"
+                                            android:padding="8dp"
+                                            android:src="@drawable/ic_add_black_24dp" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/no_of_session"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="12sp"
+                                android:layout_gravity="start"
+                                android:paddingTop="@dimen/dimen_12"
+                                android:textAlignment="viewStart"
+                                android:paddingStart="@dimen/dimen_15"
+                                android:fontFamily="@font/avenir_black"/>
+
+
+                        </LinearLayout>
+
+                        <RadioGroup
+                            android:id="@+id/rgGroupSelect_for"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="@dimen/dimen_7">
+
+                            <RadioButton
+                                android:id="@+id/rbOnlyMe"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:buttonTint="@color/colorPrimary"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:text="@string/only_me"
+                                android:fontFamily="@font/avenir_black"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="@dimen/font_12sp"/>
+
+                            <RadioButton
+                                android:id="@+id/rbWithMyFriends"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:buttonTint="@color/colorPrimary"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:text="@string/with_my_friends"
+                                android:fontFamily="@font/avenir_black"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="@dimen/dimen_30"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="@dimen/font_12sp"/>
+
+
+                        </RadioGroup>
+
+                        <LinearLayout
+                            android:id="@+id/lnrWith_my_frnd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:visibility="visible"
+                            android:layout_marginStart="@dimen/dimen_7"
+                            android:layout_marginTop="@dimen/dimen_5">
+
+                            <LinearLayout
+                                android:layout_width="@dimen/dimen_125"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="3"
+                                android:layout_marginStart="@dimen/dimen_7"
+                                android:background="@drawable/add_diet_plan_rect">
+
+                                <ImageView
+                                    android:id="@+id/ivNoOfPeopleMinus"
+                                    android:layout_width="@dimen/dimen_40"
+                                    android:layout_height="@dimen/dimen_40"
+                                    android:padding="@dimen/dimen_10"
+                                    android:src="@drawable/ic_minus_black_24dp"
+                                    app:tint="@color/colorPrimaryDark"
+                                    android:layout_weight="1"
+                                    android:layout_gravity="center"/>
+
+                                <View
+                                    android:layout_width="@dimen/dimen_1"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/colorHintText"/>
+
+                                <TextView
+                                    android:id="@+id/tvNoOfPeople"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="2"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="@dimen/font_13sp"
+                                    android:fontFamily="@font/avenir_black"
+                                    android:padding="@dimen/dimen_7"
+                                    android:layout_weight="1"
+                                    android:layout_gravity="center"
+                                    android:textAlignment="center"/>
+
+                                <View
+                                    android:layout_width="@dimen/dimen_1"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/colorHintText"/>
+
+                                <ImageView
+                                    android:id="@+id/ivNoOfPeopleAdd"
+                                    android:layout_width="@dimen/dimen_40"
+                                    android:layout_height="@dimen/dimen_40"
+                                    android:padding="@dimen/dimen_10"
+                                    android:src="@drawable/ic_add_black_24dp"
+                                    app:tint="@color/colorPrimaryDark"
+                                    android:layout_weight="1"
+                                    android:layout_gravity="center"/>
+
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/no_of_people"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="@dimen/font_13sp"
+                                android:fontFamily="@font/avenir_black"
+                                android:padding="@dimen/dimen_7"
+                                android:layout_weight="1"
+                                android:layout_marginStart="@dimen/dimen_7"
+                                android:layout_gravity="center_vertical" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/about_trainer"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/font_12sp"
+                        android:layout_gravity="start"
+                        android:textAlignment="viewStart"
+                        android:paddingStart="@dimen/dimen_15"
+                        android:fontFamily="@font/avenir_black"/>
+
+                    <TextView
+                        android:id="@+id/tvAboutUs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/font_10sp"
+                        android:layout_gravity="start"
+                        android:textAlignment="viewStart"
+                        android:paddingStart="@dimen/dimen_15"
+                        android:fontFamily="@font/avenir_black"/>
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:id="@+id/lnrBookSlots"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:background="@color/colorAgeBg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/llJoinFrom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:elevation="@dimen/dimen_3"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_5">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_40"
+                        android:layout_height="@dimen/dimen_40"
+                        android:padding="@dimen/dimen_10"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/calendar"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/i_will_join_from"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:fontFamily="@font/avenir_black"
+                        android:textSize="@dimen/font_12sp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dimen_5"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvJoiningDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20,jan,2021"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/font_12sp"
+                    android:fontFamily="@font/avenir_black"
+                    android:background="@drawable/select_age_bg"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/dimen_12"
+                    android:layout_marginEnd="@dimen/dimen_10"
+                    android:backgroundTint="@color/colorWhite"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite">
+
+                <Button
+                    android:id="@+id/btnSelectSlots"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:background="@drawable/btn_bg"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:fontFamily="@font/avenir_roman"
+                    android:paddingStart="@dimen/margin_4dp"
+                    android:paddingTop="@dimen/margin_12dp"
+                    android:paddingEnd="@dimen/margin_4dp"
+                    android:paddingBottom="@dimen/margin_12dp"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:text="@string/select_slots"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textAllCaps="false"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</layout>

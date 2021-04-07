@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
 import com.htf.diva.models.AppDashBoard
 import com.htf.diva.callBack.IListItemClickListener
-import com.htf.diva.dashboard.fitnessCenters.CenterDetailBookingActivity
+import com.htf.diva.dashboard.bookingFitnessCenters.CenterDetailBookingActivity
 import kotlinx.android.synthetic.main.row_detail_fitness_center.view.*
 
 class DetailFitnessCenterAdapter (private var currActivity: Activity, private var arrDetailCenter: List<AppDashBoard.FitnessCenter>,

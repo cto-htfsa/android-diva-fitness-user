@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
-import com.htf.diva.dashboard.fitnessCenters.CenterDetailBookingActivity
+import com.htf.diva.dashboard.bookingFitnessCenters.CenterDetailBookingActivity
 import com.htf.diva.dashboard.ui.TrainerDetailActivity
 import com.htf.diva.databinding.RowTenureBinding
 import com.htf.diva.models.Tenure
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.dashboard.bookingTrainerWithCenter.BookTrainerCenterDetailActivity
 import kotlinx.android.synthetic.main.row_tenure.view.*
 
 class TenureAdapter (
@@ -34,6 +35,10 @@ class TenureAdapter (
                     }
                     is CenterDetailBookingActivity->{
                         (currActivity as CenterDetailBookingActivity).selectedTenure(model,adapterPosition)
+                    }
+
+                    is BookTrainerCenterDetailActivity ->{
+                        (currActivity as BookTrainerCenterDetailActivity).selectedTenure(model,adapterPosition)
                     }
                 }
 
@@ -66,6 +71,10 @@ class TenureAdapter (
                 }
                 if(currActivity is CenterDetailBookingActivity){
                     (currActivity as CenterDetailBookingActivity).selectedTenure(model,position)
+                }
+
+                if(currActivity is BookTrainerCenterDetailActivity){
+                    (currActivity as BookTrainerCenterDetailActivity).selectedTenure(model,position)
                 }
             }
             else -> {

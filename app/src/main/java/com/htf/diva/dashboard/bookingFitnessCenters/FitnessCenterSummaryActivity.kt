@@ -1,4 +1,4 @@
-package com.htf.diva.dashboard.fitnessCenters
+package com.htf.diva.dashboard.bookingFitnessCenters
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -13,7 +13,6 @@ import com.htf.diva.models.*
 import com.htf.diva.utils.AppUtils
 import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.dashboard.ui.BookingSuccessfullyActivity
-import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.utils.DialogUtils
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast

@@ -17,8 +17,8 @@ import com.htf.diva.base.BaseFragment
 import com.htf.diva.dashboard.adapters.BannerAdapter
 import com.htf.diva.dashboard.adapters.CenterAdapter
 import com.htf.diva.dashboard.adapters.TrainerAdapter
-import com.htf.diva.dashboard.fitnessCenters.CenterActivity
-import com.htf.diva.dashboard.fitnessCenters.CenterDetailBookingActivity
+import com.htf.diva.dashboard.bookingFitnessCenters.CenterActivity
+import com.htf.diva.dashboard.bookingFitnessCenters.CenterDetailBookingActivity
 import com.htf.diva.dashboard.ui.PersonalTrainersActivity
 import com.htf.diva.dashboard.ui.TrainerDetailActivity
 import com.htf.diva.dashboard.viewModel.HomeViewModel
@@ -31,10 +31,8 @@ import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.utils.DialogUtils
-import com.htf.diva.utils.DialogUtils.showToast
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 

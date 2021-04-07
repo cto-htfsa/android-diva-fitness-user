@@ -1,4 +1,4 @@
-package com.htf.diva.dashboard.fitnessCenters
+package com.htf.diva.dashboard.bookingFitnessCenters
 
 import android.app.Activity
 import android.app.DatePickerDialog
@@ -13,7 +13,7 @@ import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.dashboard.adapters.DetailFitnessCenterAdapter
 import com.htf.diva.dashboard.adapters.PackagesAdapter
 import com.htf.diva.dashboard.adapters.TenureAdapter
-import com.htf.diva.dashboard.ui.PersonalTrainersActivity
+import com.htf.diva.dashboard.bookingTrainerWithCenter.TrainerListActivity
 import com.htf.diva.dashboard.viewModel.FitnessCenterDetailBookingViewModel
 import com.htf.diva.databinding.ActivityCenterDetailBookingBinding
 import com.htf.diva.models.AppDashBoard
@@ -27,7 +27,6 @@ import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import kotlinx.android.synthetic.main.activity_center_detail_booking.*
 import kotlinx.android.synthetic.main.toolbar.*
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -96,12 +95,18 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
         when (view?.id) {
             R.id.switchNeedPersonalTrainer -> {
                 switchNeedPersonalTrainer.isChecked = true
-                PersonalTrainersActivity.open(currActivity, Constants.FROM_CENTER)
+                TrainerListActivity.open(currActivity, Constants.FROM_CENTER,offer,
+                    selectedFitnessCenter,
+                    tenureSelected,
+                    packageSelected,
+                    currentDate,
+                    joinCenterWithFriends,
+                    sessionPriceCalculate,
+                    vatPercentage)
             }
 
             R.id.btnBookCenter -> {
-                FitnessCenterSummaryActivity.open(
-                    currActivity,
+                FitnessCenterSummaryActivity.open(currActivity,
                     offer,
                     selectedFitnessCenter,
                     tenureSelected,
