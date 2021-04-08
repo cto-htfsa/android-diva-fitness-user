@@ -12,7 +12,7 @@ import com.htf.diva.base.BaseFragment
 import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.dashboard.adapters.UpComingBookingAdapter
 import com.htf.diva.dashboard.upComingCompletedBookingDetails.CenterBookingDetailsActivity
-import com.htf.diva.dashboard.bookingFitnessCenters.CenterActivity
+import com.htf.diva.dashboard.bookFitnessCenter.CenterActivity
 import com.htf.diva.dashboard.viewModel.BookingSummaryViewModel
 import com.htf.diva.databinding.FragmentUpcomingBookingBinding
 import com.htf.diva.models.Listing

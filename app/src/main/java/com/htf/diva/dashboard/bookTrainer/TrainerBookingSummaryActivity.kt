@@ -1,14 +1,12 @@
-package com.htf.diva.dashboard.ui
+package com.htf.diva.dashboard.bookTrainer
 
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.CompoundButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import com.htf.diva.BuildConfig
 import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity
@@ -18,12 +16,8 @@ import com.htf.diva.dashboard.viewModel.BookingSummaryViewModel
 import com.htf.diva.databinding.ActivityBookingSummaryBinding
 import com.htf.diva.models.*
 import com.htf.diva.netUtils.Constants
-import com.htf.diva.utils.AppSession
-import com.htf.diva.utils.AppUtils
-import com.htf.diva.utils.observerViewModel
-import com.htf.diva.utils.showToast
+import com.htf.diva.utils.*
 import kotlinx.android.synthetic.main.activity_booking_summary.*
-import kotlinx.android.synthetic.main.activity_center_detail_booking.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 
@@ -115,7 +109,8 @@ class TrainerBookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBin
         )
         tvPackages.text=str
         tvTenure.text=tenureSelected.name
-        tvJoining_from.text=currentDate
+        val showInUiDate=DateUtils.convertDateFormat(currentDate,DateUtils.serverDateFormat,DateUtils.targetDateFormat)
+        tvJoining_from.text=showInUiDate
         tvTrainerName.text= trainerDetail.trainer!!.name
         Glide.with(currActivity).load(Constants.Urls.TRAINER_IMAGE_URL + trainerDetail.trainer!!.image).centerCrop()
             .placeholder(R.drawable.user).into(ivTrainerImage)
@@ -163,8 +158,10 @@ class TrainerBookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBin
                     AppSession.locale,
                     AppSession.deviceId, AppSession.deviceType,
                     BuildConfig.VERSION_NAME, trainerDetail.trainer!!.id.toString(),
-                    tenureSelected.id.toString(), currentDate, booking_type,
-                    packageSelected.id.toString(), tenureSelected.id.toString(), withMyFriendsGym, AppSession.appDashBoard!!.offers!!.id.toString(),
+                    tenureSelected.id.toString(),
+                    DateUtils.convertDateFormat(currentDate,DateUtils.targetDateFormat,DateUtils.serverDateFormat),booking_type,
+                    packageSelected.id.toString(), tenureSelected.id.toString(),
+                    withMyFriendsGym, AppSession.appDashBoard!!.offers!!.id.toString(),
                     baseAmount.toString(),baseAmount.toString(),
                     calculatedAmtAfterDiscount.toString(),
                     amount_after_discount.toString() ,trainerDetail.vatPercentage.toString(),

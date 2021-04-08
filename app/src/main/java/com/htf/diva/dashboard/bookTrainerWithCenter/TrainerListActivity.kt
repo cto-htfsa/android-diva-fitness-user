@@ -1,4 +1,4 @@
-package com.htf.diva.dashboard.bookingTrainerWithCenter
+package com.htf.diva.dashboard.bookTrainerWithCenter
 
 import android.app.Activity
 import android.content.Intent
@@ -50,7 +50,7 @@ class TrainerListActivity : BaseDarkActivity<ActivityPersonalTrainersBinding, Pe
     private var offers=AppDashBoard.Offers()
     private var tenureSelected=Tenure()
     private var selectedFitnessCenter= AppDashBoard.FitnessCenter()
-    private var numberOfPeoplePerSession:String?=null
+    private var joinCenterWithFriends:String?=null
     private var sessionPriceCalculate:String?=null
     private var vatPercentage:String?=null
     private var currentDate:String?=null
@@ -76,7 +76,7 @@ class TrainerListActivity : BaseDarkActivity<ActivityPersonalTrainersBinding, Pe
             intent.putExtra("tenureSelected",tenureSelected)
             intent.putExtra("packageSelected",packageSelected)
             intent.putExtra("currentDate",currentDate)
-            intent.putExtra("numberOfPeoplePerSession",joinCenterWithFriends)
+            intent.putExtra("joinCenterWithFriends",joinCenterWithFriends)
             intent.putExtra("sessionPriceCalculate",sessionPriceCalculate)
             intent.putExtra("vatPercentage",vatPercentage)
             currActivity.startActivity(intent)
@@ -108,7 +108,7 @@ class TrainerListActivity : BaseDarkActivity<ActivityPersonalTrainersBinding, Pe
         tenureSelected=intent.getSerializableExtra("tenureSelected") as Tenure
         packageSelected=intent.getSerializableExtra("packageSelected") as Packages
         currentDate=intent.getStringExtra("currentDate")
-        numberOfPeoplePerSession=intent.getStringExtra("numberOfPeoplePerSession")
+        joinCenterWithFriends=intent.getStringExtra("joinCenterWithFriends")
         sessionPriceCalculate=intent.getStringExtra("sessionPriceCalculate")
         vatPercentage=intent.getStringExtra("vatPercentage")
 
@@ -236,7 +236,7 @@ class TrainerListActivity : BaseDarkActivity<ActivityPersonalTrainersBinding, Pe
                 tenureSelected,
                 packageSelected,
                 currentDate,
-                numberOfPeoplePerSession,
+                joinCenterWithFriends,
                 sessionPriceCalculate,
                 vatPercentage)
     }

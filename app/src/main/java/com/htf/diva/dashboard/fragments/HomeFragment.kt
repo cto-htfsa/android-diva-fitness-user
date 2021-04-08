@@ -1,11 +1,16 @@
 package com.htf.diva.dashboard.fragments
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,10 +22,10 @@ import com.htf.diva.base.BaseFragment
 import com.htf.diva.dashboard.adapters.BannerAdapter
 import com.htf.diva.dashboard.adapters.CenterAdapter
 import com.htf.diva.dashboard.adapters.TrainerAdapter
-import com.htf.diva.dashboard.bookingFitnessCenters.CenterActivity
-import com.htf.diva.dashboard.bookingFitnessCenters.CenterDetailBookingActivity
+import com.htf.diva.dashboard.bookFitnessCenter.CenterActivity
+import com.htf.diva.dashboard.bookFitnessCenter.CenterDetailBookingActivity
 import com.htf.diva.dashboard.ui.PersonalTrainersActivity
-import com.htf.diva.dashboard.ui.TrainerDetailActivity
+import com.htf.diva.dashboard.bookTrainer.TrainerDetailActivity
 import com.htf.diva.dashboard.viewModel.HomeViewModel
 import com.htf.diva.databinding.FragmentHomeBinding
 import com.htf.diva.models.AppDashBoard
@@ -30,9 +35,9 @@ import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import com.htf.diva.callBack.IListItemClickListener
-import com.htf.diva.utils.DialogUtils
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
+import kotlinx.android.synthetic.main.dialog_buy_membership.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
@@ -45,7 +50,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
     private var dots = ArrayList<ImageView>()
     private var arrBanner = ArrayList<Banner>()
     private lateinit var mAdapter: BannerAdapter
-
+    var cartExpDialog:AlertDialog?=null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -161,12 +166,37 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
             if ( AppSession.appDashBoard!!.fitnessCenterSubscription!=null){
                 TrainerDetailActivity.open(currActivity,data)
             } else{
-             /*   showToast(currActivity,currActivity.getString(R.string.buy_membership),true)*/
-                DialogUtils.showSnackBar(currActivity, tvError, currActivity.getString(R.string.buy_membership))
-
+                openBuyMemberShipDialog()
             }
         if (data is AppDashBoard.FitnessCenter)
             CenterDetailBookingActivity.open(currActivity,data)
       }
+
+
+    private fun openBuyMemberShipDialog() {
+        val builder = AlertDialog.Builder(currActivity)
+        val dialogView = currActivity.layoutInflater.inflate(R.layout.dialog_buy_membership, null)
+
+        builder.setView(dialogView)
+        builder.setCancelable(false)
+        cartExpDialog = builder.create()
+        cartExpDialog!!.show()
+
+
+        dialogView.ivClose.setOnClickListener {
+            cartExpDialog!!.dismiss()
+        }
+
+
+        val window = cartExpDialog!!.window
+        window!!.setLayout(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        window.setGravity(Gravity.CENTER)
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+    }
+
 
 }

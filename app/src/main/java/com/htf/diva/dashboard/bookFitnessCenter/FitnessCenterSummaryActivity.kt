@@ -1,4 +1,4 @@
-package com.htf.diva.dashboard.bookingFitnessCenters
+package com.htf.diva.dashboard.bookFitnessCenter
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -10,12 +10,9 @@ import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.dashboard.viewModel.BookingSummaryViewModel
 import com.htf.diva.databinding.ActivityFitnessCenterBookingSummaryBinding
 import com.htf.diva.models.*
-import com.htf.diva.utils.AppUtils
 import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.dashboard.ui.BookingSuccessfullyActivity
-import com.htf.diva.utils.DialogUtils
-import com.htf.diva.utils.observerViewModel
-import com.htf.diva.utils.showToast
+import com.htf.diva.utils.*
 import kotlinx.android.synthetic.main.activity_fitness_center_booking_summary.*
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -98,7 +95,7 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
         when (p0!!.id) {
             R.id.btnPayableAmount->{
                 viewModel.onBookFitnessCenterClick(selectedFitnessCenter.id,tenureSelected.id,
-                    currentDate,packageSelected.id,numberOfPeoplePerSession,baseAmount,totalAmt,
+                    DateUtils.convertDateFormat(currentDate,DateUtils.targetDateFormat,DateUtils.serverDateFormat), packageSelected.id,numberOfPeoplePerSession,baseAmount,totalAmt,
                     vatPercentage,afterCalculateTax,offers.id,calculatedAmtAfterDiscount.toString(),
                     amount_after_discount,totalPayableAmt)
             }
@@ -114,7 +111,10 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
         val str = currActivity.getString(R.string.package_membership).replace("[X]", packageSelected.tenureName.toString())
         tvPackages.text = str
         tvTenure.text = tenureSelected.name
-        tvJoining_from.text = currentDate
+          val showInUiDate=DateUtils.convertDateFormat(currentDate,DateUtils.serverDateFormat,DateUtils.targetDateFormat)
+          tvJoining_from.text = showInUiDate
+        /*        currentDate=currentDateShow
+        tvJoining_from.text = currentDate*/
         tvNo_ofPeople.text = numberOfPeoplePerSession
 
         baseAmount=packageSelected.price!!.toDouble()

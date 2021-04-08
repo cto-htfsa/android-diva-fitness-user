@@ -145,6 +145,51 @@ object DashboardApiRepo : BaseRepository() {
         )
     }
 
+
+    suspend fun bookTrainerWithCenter( locale: String?,
+                                       deviceId: String?,
+                                       deviceType: String?,
+                                       versionName: String?,
+                                       fitness_center_id: String?,
+                                       trainer_id: String?,
+                                       is_auto_renew: String?,
+                                       vat_percentage: String?,
+                                       offer_id: String?,
+                                       discount_amount: String?,
+                                       amount_after_discount: String?,
+                                       vat_amount: String,
+                                       payable_amount: String?,
+                                       fitness_center_tenure_id: String?,
+                                       fitness_center_join_date: String?,
+                                       fitness_center_package_id: String?,
+                                       fitness_center_number_of_people: String?,
+                                       fitness_center_base_amount: String?,
+                                       fitness_center_total_amount: String?,
+                                       trainer_tenure_id: String?,
+                                       trainer_join_date: String?,
+                                       trainer_booking_type: String?,
+                                       trainer_package_id: String?,
+                                       trainer_base_sessions: String?,
+                                       trainer_number_of_people: String?,
+                                       trainer_base_amount: String?,
+                                       trainer_total_amount: String?,
+                                       slots: HashMap<String, String?>): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.bookCenterTrainerAsync( locale, deviceId, deviceType,
+                versionName, fitness_center_id, trainer_id,
+                is_auto_renew, vat_percentage,
+                offer_id, discount_amount,
+                amount_after_discount, vat_amount,
+                payable_amount, fitness_center_tenure_id,
+                fitness_center_join_date, fitness_center_package_id,
+                fitness_center_number_of_people, fitness_center_base_amount,
+                fitness_center_total_amount, trainer_tenure_id, trainer_join_date,
+                trainer_booking_type,
+                trainer_package_id, trainer_base_sessions, trainer_number_of_people,
+                trainer_base_amount, trainer_total_amount,slots).await()}
+        )
+    }
+
 }
 
 

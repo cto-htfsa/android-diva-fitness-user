@@ -1,4 +1,4 @@
-package com.htf.diva.dashboard.bookingFitnessCenters
+package com.htf.diva.dashboard.bookFitnessCenter
 
 import android.app.Activity
 import android.content.Intent

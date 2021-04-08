@@ -156,6 +156,8 @@
     <string name="view_direction">View Direction</string>
     <string name="download_invoice">Download invoice</string>
     <string name="rate_now">Rate Now</string>
+    <string name="please_buy_membership">Please Buy Membership</string>
+    <string name="please_buy_membership_des">Please buy membership for booking with any personal trainer</string>
 
 
 </resources>

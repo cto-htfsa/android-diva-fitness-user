@@ -1,4 +1,4 @@
-package com.htf.diva.dashboard.ui
+package com.htf.diva.dashboard.bookTrainer
 
 import android.app.Activity
 import android.app.DatePickerDialog
@@ -20,6 +20,8 @@ import com.htf.diva.netUtils.Constants
 import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.utils.*
 import kotlinx.android.synthetic.main.activity_trainer_details.*
+import kotlinx.android.synthetic.main.activity_trainer_details.rbPackage
+import kotlinx.android.synthetic.main.activity_trainer_details.rvSelectTenure
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -44,6 +46,7 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
     private var gymBookingWith:String?=null
     private var numberOfPeoplePerSession:String?="1"
     private var withMyFriendsGym:String?="1"
+    private  var startDate= Date()
 
 
     companion object{
@@ -84,11 +87,11 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
         val topTrainer = intent.getSerializableExtra("topTrainer") as AppDashBoard.TopTrainer?
             viewModel.trainerDetails(
                 AppSession.locale, AppSession.deviceId,
-                AppSession.deviceType, BuildConfig.VERSION_NAME, topTrainer!!.id.toString()
-            )
-            currentDate=DateUtils.getCurrentDateForDashBoard()
-            tvJoiningDate.text= currentDate
+                AppSession.deviceType, BuildConfig.VERSION_NAME, topTrainer!!.id.toString())
 
+            currentDate= DateUtils.getCurrentDateInServerFormat()
+            val showInUiDate=DateUtils.convertDateFormat(currentDate,DateUtils.serverDateFormat,DateUtils.targetDateFormat)
+            tvJoiningDate.text= showInUiDate
 
     }
 
@@ -182,33 +185,41 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.btnSelectSlots -> {
-                SelectSlotsActivity.open(currActivity, bookingSlots,trainerDetail,
-                    tenureSelected,packageSelected,booking_type,currentDate,
-                    numberOfPeoplePerSession,withMyFriendsGym,gymBookingWith)
+                SelectSlotsActivity.open(
+                    currActivity, bookingSlots, trainerDetail,
+                    tenureSelected, packageSelected, booking_type, currentDate,
+                    numberOfPeoplePerSession, withMyFriendsGym, gymBookingWith
+                )
             }
             R.id.tvJoiningDate -> {
-                pickDate()
+                datePickerStart()
             }
         }
     }
 
-      private fun pickDate(){
-          val c = Calendar.getInstance()
-          mYear = c[Calendar.YEAR]
-          mMonth = c[Calendar.MONTH]
-          mDay = c[Calendar.DAY_OF_MONTH]
+    private fun datePickerStart() {
+        val currentDate1 = Calendar.getInstance()
+        val date = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(
+            currActivity,
+            DatePickerDialog.OnDateSetListener { datePicker, year, monthOfYear, dayOfMonth ->
+                date.set(Calendar.MONTH, monthOfYear)
+                date.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                date.set(Calendar.YEAR, year)
+                date.set(year, monthOfYear, dayOfMonth)
+                startDate = date.time
+                currentDate=DateUtils.targetDateFormat.format(startDate)
+                tvJoiningDate.text = (DateUtils.targetDateFormat.format(startDate))
 
-          val datePickerDialog = DatePickerDialog(
-              this, { _, year, monthOfYear, dayOfMonth ->
-                  val selectedDate = dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
-                  tvJoiningDate.text = selectedDate
+            },
+            currentDate1.get(Calendar.YEAR),
+            currentDate1.get(Calendar.MONTH),
+            currentDate1.get(Calendar.DATE)
+        )
+        datePickerDialog.datePicker.minDate=System.currentTimeMillis()
+        datePickerDialog.show()
+    }
 
-              }, mYear, mMonth, mDay
-          )
-          datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
-          datePickerDialog.show()
-
-      }
 
         private fun selectPackages(){
             rbGroup.setOnCheckedChangeListener { _, checkedId ->

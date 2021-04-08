@@ -1,4 +1,4 @@
-package com.htf.diva.dashboard.bookingTrainerWithCenter
+package com.htf.diva.dashboard.bookTrainerWithCenter
 
 import android.app.Activity
 import android.app.DatePickerDialog
@@ -20,6 +20,8 @@ import com.htf.diva.models.*
 import com.htf.diva.netUtils.Constants
 import com.htf.diva.utils.*
 import kotlinx.android.synthetic.main.activity_trainer_details.*
+import kotlinx.android.synthetic.main.activity_trainer_details.rbPackage
+import kotlinx.android.synthetic.main.activity_trainer_details.rvSelectTenure
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -45,6 +47,16 @@ class BookTrainerCenterDetailActivity : BaseDarkActivity<ActivityBookTrainerCent
     private var withMyFriendsGym:String?="1"
 
 
+    private var joinCenterWithFriends:String?=null
+    private var sessionPriceCalculate:String?=null
+    private var vatPercentage:String?=null
+    private var packageCenterSelected=Packages()
+    private var offers=AppDashBoard.Offers()
+    private var tenureCenterSelected=Tenure()
+    private var selectedFitnessCenter= AppDashBoard.FitnessCenter()
+    private var currentCenterDate:String?=null
+    private  var startDate= Date()
+
     companion object{
         fun open(
             currActivity: Activity,
@@ -54,12 +66,19 @@ class BookTrainerCenterDetailActivity : BaseDarkActivity<ActivityBookTrainerCent
             tenureSelected: Tenure,
             packageSelected: Packages,
             currentDate: String?,
-            numberOfPeoplePerSession: String?,
+            joinCenterWithFriends: String?,
             sessionPriceCalculate: String?,
-            vatPercentage: String?
-        ){
+            vatPercentage: String?){
             val intent= Intent(currActivity, BookTrainerCenterDetailActivity::class.java)
             intent.putExtra("topTrainer", topTrainer)
+            intent.putExtra("offers",offers)
+            intent.putExtra("selectedFitnessCenter",selectedFitnessCenter)
+            intent.putExtra("tenureSelected",tenureSelected)
+            intent.putExtra("packageSelected",packageSelected)
+            intent.putExtra("currentDate",currentDate)
+            intent.putExtra("joinCenterWithFriends",joinCenterWithFriends)
+            intent.putExtra("sessionPriceCalculate",sessionPriceCalculate)
+            intent.putExtra("vatPercentage",vatPercentage)
             currActivity.startActivity(intent)
         }
     }
@@ -85,18 +104,24 @@ class BookTrainerCenterDetailActivity : BaseDarkActivity<ActivityBookTrainerCent
         /* here for with my friends packages section*/
         withMyFriendsSection()
 
-
     }
 
     private fun getExtra() {
         val topTrainer = intent.getSerializableExtra("topTrainer") as AppDashBoard.TopTrainer?
-        viewModel.trainerDetails(
-            AppSession.locale, AppSession.deviceId,
-            AppSession.deviceType, BuildConfig.VERSION_NAME, topTrainer!!.id.toString()
-        )
-        currentDate= DateUtils.getCurrentDateForDashBoard()
-        tvJoiningDate.text= currentDate
+        viewModel.trainerDetails(AppSession.locale, AppSession.deviceId,
+            AppSession.deviceType, BuildConfig.VERSION_NAME, topTrainer!!.id.toString())
 
+        currentDate= DateUtils.getCurrentDateInServerFormat()
+        val showInUiDate=DateUtils.convertDateFormat(currentDate,DateUtils.serverDateFormat,DateUtils.targetDateFormat)
+        tvJoiningDate.text= showInUiDate
+        offers=intent.getSerializableExtra("offers") as AppDashBoard.Offers
+        selectedFitnessCenter=intent.getSerializableExtra("selectedFitnessCenter") as AppDashBoard.FitnessCenter
+        tenureCenterSelected=intent.getSerializableExtra("tenureSelected") as Tenure
+        packageCenterSelected=intent.getSerializableExtra("packageSelected") as Packages
+        currentCenterDate=intent.getStringExtra("currentDate")
+        joinCenterWithFriends=intent.getStringExtra("joinCenterWithFriends")
+        sessionPriceCalculate=intent.getStringExtra("sessionPriceCalculate")
+        vatPercentage=intent.getStringExtra("vatPercentage")
 
     }
 
@@ -190,33 +215,43 @@ class BookTrainerCenterDetailActivity : BaseDarkActivity<ActivityBookTrainerCent
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.btnSelectSlots -> {
-               /* SelectSlotsActivity.open(currActivity, bookingSlots,trainerDetail,
+                TrainerCenterSlotsActivity.open(currActivity, bookingSlots,trainerDetail,
                     tenureSelected,packageSelected,booking_type,currentDate,
-                    numberOfPeoplePerSession,withMyFriendsGym,gymBookingWith)*/
+                    numberOfPeoplePerSession,withMyFriendsGym,gymBookingWith,offers,
+                    selectedFitnessCenter,tenureCenterSelected,packageCenterSelected,
+                    currentCenterDate,joinCenterWithFriends,sessionPriceCalculate,vatPercentage)
             }
             R.id.tvJoiningDate -> {
-                pickDate()
+                datePickerStart()
             }
         }
     }
 
-    private fun pickDate(){
-        val c = Calendar.getInstance()
-        mYear = c[Calendar.YEAR]
-        mMonth = c[Calendar.MONTH]
-        mDay = c[Calendar.DAY_OF_MONTH]
-
+    private fun datePickerStart() {
+        val currentDate1 = Calendar.getInstance()
+        val date = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
-            this, { _, year, monthOfYear, dayOfMonth ->
-                val selectedDate = dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
-                tvJoiningDate.text = selectedDate
+            currActivity,
+            DatePickerDialog.OnDateSetListener { datePicker, year, monthOfYear, dayOfMonth ->
+                date.set(Calendar.MONTH, monthOfYear)
+                date.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                date.set(Calendar.YEAR, year)
+                date.set(year, monthOfYear, dayOfMonth)
+                startDate = date.time
+                currentDate=DateUtils.targetDateFormat.format(startDate)
+                tvJoiningDate.text = (DateUtils.targetDateFormat.format(startDate))
 
-            }, mYear, mMonth, mDay
+            },
+            currentDate1.get(Calendar.YEAR),
+            currentDate1.get(Calendar.MONTH),
+            currentDate1.get(Calendar.DATE)
         )
-        datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
+        datePickerDialog.datePicker.minDate=System.currentTimeMillis()
         datePickerDialog.show()
-
     }
+
+
+
 
     private fun selectPackages(){
         rbGroup.setOnCheckedChangeListener { _, checkedId ->

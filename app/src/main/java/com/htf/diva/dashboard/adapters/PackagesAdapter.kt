@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
-import com.htf.diva.dashboard.bookingFitnessCenters.CenterDetailBookingActivity
-import com.htf.diva.dashboard.ui.TrainerDetailActivity
+import com.htf.diva.dashboard.bookFitnessCenter.CenterDetailBookingActivity
+import com.htf.diva.dashboard.bookTrainer.TrainerDetailActivity
 import com.htf.diva.databinding.RowPackgesBinding
 import com.htf.diva.models.Packages
 import com.htf.diva.callBack.IListItemClickListener
-import com.htf.diva.dashboard.bookingTrainerWithCenter.BookTrainerCenterDetailActivity
+import com.htf.diva.dashboard.bookTrainerWithCenter.BookTrainerCenterDetailActivity
 import kotlinx.android.synthetic.main.row_packges.view.*
 
 class PackagesAdapter (

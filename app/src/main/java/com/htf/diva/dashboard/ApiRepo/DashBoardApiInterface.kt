@@ -202,5 +202,39 @@ interface DashBoardApiInterface {
             Deferred<Response<BaseResponse<BookFitnessCenterModel>>>
 
 
+    @FormUrlEncoded
+    @POST("api/v1/book/trainer-fitness-center")
+    fun bookCenterTrainerAsync(
+                        @Field("locale") locale: String?,
+                        @Field("device_id") device_id: String?,
+                        @Field("device_type") device_type: String?,
+                        @Field("current_version") current_version: String?,
+                        @Field("fitness_center_id") fitness_center_id: String?,
+                        @Field("trainer_id") trainer_id: String?,
+                        @Field("is_auto_renew") is_auto_renew: String?,
+                        @Field("vat_percentage") vat_percentage: String?,
+                        @Field("offer_id") offer_id: String?,
+                        @Field("discount_amount") discount_amount: String?,
+                        @Field("amount_after_discount") amount_after_discount: String? ,
+                        @Field("vat_amount") vat_amount: String?,
+                        @Field("payable_amount") payable_amount: String?,
+                        @Field("fitness_center_tenure_id") fitness_center_tenure_id: String?,
+                        @Field("fitness_center_join_date") fitness_center_join_date: String?,
+                        @Field("fitness_center_package_id") fitness_center_package_id: String?,
+                        @Field("fitness_center_number_of_people") fitness_center_number_of_people: String?,
+                        @Field("fitness_center_base_amount") fitness_center_base_amount: String?,
+                        @Field("fitness_center_total_amount") fitness_center_total_amount: String?,
+                        @Field("trainer_tenure_id") trainer_tenure_id: String?,
+                        @Field("trainer_join_date") trainer_join_date: String?,
+                        @Field("trainer_booking_type") trainer_booking_type: String?,
+                        @Field("trainer_package_id") trainer_package_id: String?,
+                        @Field("trainer_base_sessions") trainer_base_sessions: String?,
+                        @Field("trainer_number_of_people") trainer_number_of_people: String?,
+                        @Field("trainer_base_amount") trainer_base_amount: String?,
+                        @Field("trainer_total_amount") trainer_total_amount: String?,
+                        @FieldMap slotsHashMap: HashMap<String, String?>):
+            Deferred<Response<BaseResponse<BookCenterTrainerModel>>>
+
+
 }
 

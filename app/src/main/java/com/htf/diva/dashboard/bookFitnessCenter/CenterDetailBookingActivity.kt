@@ -1,4 +1,4 @@
-package com.htf.diva.dashboard.bookingFitnessCenters
+package com.htf.diva.dashboard.bookFitnessCenter
 
 import android.app.Activity
 import android.app.DatePickerDialog
@@ -13,7 +13,7 @@ import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.dashboard.adapters.DetailFitnessCenterAdapter
 import com.htf.diva.dashboard.adapters.PackagesAdapter
 import com.htf.diva.dashboard.adapters.TenureAdapter
-import com.htf.diva.dashboard.bookingTrainerWithCenter.TrainerListActivity
+import com.htf.diva.dashboard.bookTrainerWithCenter.TrainerListActivity
 import com.htf.diva.dashboard.viewModel.FitnessCenterDetailBookingViewModel
 import com.htf.diva.databinding.ActivityCenterDetailBookingBinding
 import com.htf.diva.models.AppDashBoard
@@ -21,10 +21,7 @@ import com.htf.diva.models.FitnessCenterDetailForBookModel
 import com.htf.diva.models.Packages
 import com.htf.diva.models.Tenure
 import com.htf.diva.netUtils.Constants
-import com.htf.diva.utils.AppSession
-import com.htf.diva.utils.DateUtils
-import com.htf.diva.utils.observerViewModel
-import com.htf.diva.utils.showToast
+import com.htf.diva.utils.*
 import kotlinx.android.synthetic.main.activity_center_detail_booking.*
 import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
@@ -33,6 +30,7 @@ import kotlin.collections.ArrayList
 class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBookingBinding, FitnessCenterDetailBookingViewModel>(
     FitnessCenterDetailBookingViewModel::class.java
 ), IListItemClickListener<Any>, View.OnClickListener {
+    private  var startDate= Date()
     private var currActivity: Activity = this
     private var selectedFitnessCenter = AppDashBoard.FitnessCenter()
     private lateinit var mFitnessCenterAdapter: DetailFitnessCenterAdapter
@@ -118,7 +116,7 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
             }
 
             R.id.tvCenterJoiningDate -> {
-                pickDate()
+                datePickerStart()
             }
         }
 
@@ -145,21 +143,27 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
         }
     }
 
+    private fun datePickerStart() {
+        val currentDate1 = Calendar.getInstance()
+        val date = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(
+            currActivity,
+            DatePickerDialog.OnDateSetListener { datePicker, year, monthOfYear, dayOfMonth ->
+                date.set(Calendar.MONTH, monthOfYear)
+                date.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                date.set(Calendar.YEAR, year)
+                date.set(year, monthOfYear, dayOfMonth)
+                startDate = date.time
+                currentDate=DateUtils.targetDateFormat.format(startDate)
+                tvCenterJoiningDate.text = (DateUtils.targetDateFormat.format(startDate))
 
-    private fun pickDate(){
-            val c = Calendar.getInstance()
-            mYear = c[Calendar.YEAR]
-            mMonth = c[Calendar.MONTH]
-            mDay = c[Calendar.DAY_OF_MONTH]
-
-            val datePickerDialog = DatePickerDialog(this, { _, year, monthOfYear, dayOfMonth ->
-                currentDate = dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
-                tvCenterJoiningDate.text = currentDate
-                currentDate=currentDate
-            }, mYear, mMonth, mDay)
-            datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
-            datePickerDialog.show()
-
+            },
+            currentDate1.get(Calendar.YEAR),
+            currentDate1.get(Calendar.MONTH),
+            currentDate1.get(Calendar.DATE)
+        )
+        datePickerDialog.datePicker.minDate=System.currentTimeMillis()
+        datePickerDialog.show()
     }
 
 
@@ -172,8 +176,9 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
            val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
            val formattedDate: String = df.format(c)
          */
-           currentDate= DateUtils.getCurrentDateInServerFormat()
-           tvCenterJoiningDate.text= currentDate
+            currentDate= DateUtils.getCurrentDateInServerFormat()
+           val showInUiDate=DateUtils.convertDateFormat(currentDate,DateUtils.serverDateFormat,DateUtils.targetDateFormat)
+           tvCenterJoiningDate.text= showInUiDate
 
       }
 

@@ -54,17 +54,18 @@
         <activity android:name=".dashboard.ui.FilterActivity"/>
         <activity android:name=".dashboard.ui.CustomerSupportActivity"/>
         <activity android:name=".dashboard.ui.AboutUsActivity"/>
-        <activity android:name=".dashboard.ui.TrainerDetailActivity"/>
-        <activity android:name=".dashboard.ui.SelectSlotsActivity"/>
-        <activity android:name=".dashboard.ui.TrainerBookingSummaryActivity"/>
+        <activity android:name=".dashboard.bookTrainer.TrainerDetailActivity"/>
+        <activity android:name=".dashboard.bookTrainer.SelectSlotsActivity"/>
+        <activity android:name=".dashboard.bookTrainer.TrainerBookingSummaryActivity"/>
         <activity android:name=".dashboard.ui.BookingSuccessfullyActivity"/>
-        <activity android:name=".dashboard.bookingFitnessCenters.CenterActivity"/>
-        <activity android:name=".dashboard.bookingFitnessCenters.CenterDetailBookingActivity"/>
-        <activity android:name=".dashboard.bookingFitnessCenters.FitnessCenterSummaryActivity"/>
+        <activity android:name=".dashboard.bookFitnessCenter.CenterActivity"/>
+        <activity android:name=".dashboard.bookFitnessCenter.CenterDetailBookingActivity"/>
+        <activity android:name=".dashboard.bookFitnessCenter.FitnessCenterSummaryActivity"/>
         <activity android:name=".dashboard.upComingCompletedBookingDetails.CenterBookingDetailsActivity"/>
-        <activity android:name=".dashboard.bookingTrainerWithCenter.TrainerListActivity"/>
-        <activity android:name=".dashboard.bookingTrainerWithCenter.BookTrainerCenterDetailActivity"/>
-
+        <activity android:name=".dashboard.bookTrainerWithCenter.TrainerListActivity"/>
+        <activity android:name=".dashboard.bookTrainerWithCenter.BookTrainerCenterDetailActivity"/>
+        <activity android:name=".dashboard.bookTrainerWithCenter.TrainerCenterSlotsActivity"/>
+        <activity android:name=".dashboard.bookTrainerWithCenter.BookingSummaryTrainerCenterActivity"/>
 
     </application>
 
