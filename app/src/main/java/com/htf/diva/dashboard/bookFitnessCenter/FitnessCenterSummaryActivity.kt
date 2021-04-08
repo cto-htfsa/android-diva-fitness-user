@@ -95,7 +95,8 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
         when (p0!!.id) {
             R.id.btnPayableAmount->{
                 viewModel.onBookFitnessCenterClick(selectedFitnessCenter.id,tenureSelected.id,
-                    DateUtils.convertDateFormat(currentDate,DateUtils.targetDateFormat,DateUtils.serverDateFormat), packageSelected.id,numberOfPeoplePerSession,baseAmount,totalAmt,
+                    DateUtils.convertDateFormat(currentDate,DateUtils.targetDateFormat,DateUtils.serverDateFormat),
+                    packageSelected.id,numberOfPeoplePerSession,baseAmount,totalAmt,
                     vatPercentage,afterCalculateTax,offers.id,calculatedAmtAfterDiscount.toString(),
                     amount_after_discount,totalPayableAmt)
             }

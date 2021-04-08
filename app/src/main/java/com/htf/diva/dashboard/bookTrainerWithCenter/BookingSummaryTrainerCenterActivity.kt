@@ -212,8 +212,9 @@ class BookingSummaryTrainerCenterActivity : BaseDarkActivity<ActivityCenterTrain
                         slots["slots[$i][end_at]"] = arrSelectedSlots[i].endAt.toString()
                     }
                 }
-                viewModel.onBookTrainerWithCenterClick("","","","",
-                    "","","","","","",
+                viewModel.onBookTrainerWithCenterClick(AppSession.locale, AppSession.deviceId, AppSession.deviceType,
+                    BuildConfig.VERSION_NAME, selectedFitnessCenter.id.toString(),trainerDetail.trainer!!.id.toString(),
+                    is_auto_renew,vatPercentage,offers.id.toString(),"",
                     "","","","","",
                     "","","",
                     "","","","","",
