@@ -227,7 +227,9 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
         fitnessCenterDetailResponse?.let {
             rltCenterDetail.visibility=View.VISIBLE
             vatPercentage=fitnessCenterDetailResponse.vatPercentage.toString()
-            offer=fitnessCenterDetailResponse.offers!!
+            if (fitnessCenterDetailResponse.offers!=null){
+                offer=fitnessCenterDetailResponse.offers!!
+            }
             packages=fitnessCenterDetailResponse.packages!!
             setOutFitnessCenter(fitnessCenterDetailResponse.fitnessCenters)
             setTenureList(fitnessCenterDetailResponse.tenures)

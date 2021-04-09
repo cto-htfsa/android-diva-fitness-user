@@ -47,8 +47,6 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
     lateinit var binding: FragmentHomeBinding
     private lateinit var personalTrainerAdapter: TrainerAdapter
     private lateinit var mFitnessCenterAdapter: CenterAdapter
-    private var dots = ArrayList<ImageView>()
-    private var arrBanner = ArrayList<Banner>()
     private lateinit var mAdapter: BannerAdapter
     var cartExpDialog:AlertDialog?=null
 
@@ -109,7 +107,8 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
                 setTopPersonalTrainer(appDashBoard.topTrainers)
                 setOutFitnessCenter(appDashBoard.fitnessCenters)
                 AppSession.appDashBoard=appDashBoard
-                tvOfferMsg.text=appDashBoard.offers!!.offerName
+                AppSession.appDashBoard!!.offers=null
+               /* tvOfferMsg.text=appDashBoard.offers!!.offerName*/
         }
     }
 
