@@ -190,6 +190,42 @@ object DashboardApiRepo : BaseRepository() {
         )
     }
 
+
+    suspend fun checkOutIdGenerate(locale: String?,deviceId: String?, deviceType: String?,versionName: String?,
+                                   bookingCenterId:String?,bookingTrainerId:String?,
+                                   payable_amount: String?,paymentMode:String?): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.checkOutIdGenerateAsync(locale,deviceId,deviceType,versionName,bookingCenterId,
+                bookingTrainerId,payable_amount,paymentMode).await()})
+    }
+
+
+
+    suspend fun checkOutIdGenerateForCenter(locale: String?,deviceId: String?, deviceType: String?,versionName: String?,
+                                   bookingCenterId:String?,
+                                   payable_amount: String?,paymentMode:String?): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.checkOutIdGenerateForCenterAsync(locale,deviceId,deviceType,versionName,bookingCenterId,
+                payable_amount,paymentMode).await()})
+    }
+
+
+    suspend fun verifyPayment(locale: String?,deviceId: String?, deviceType: String?,versionName: String?,
+                                   bookingCenterId:String?,bookingTrainerId:String?,
+                                checkoutId: String?,paymentMode:String?): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.verifyPaymentStatusAsync(locale,deviceId,deviceType,versionName,bookingCenterId,
+                bookingTrainerId,checkoutId,paymentMode).await()})
+    }
+
+    suspend fun verifyCenterPayment(locale: String?,deviceId: String?, deviceType: String?,versionName: String?,
+                                   bookingCenterId:String?,
+                                checkoutId: String?,paymentMode:String?): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.verifyPaymentStatusCenterAsync(locale,deviceId,deviceType,versionName,bookingCenterId,
+                checkoutId,paymentMode).await()})
+    }
+
 }
 
 

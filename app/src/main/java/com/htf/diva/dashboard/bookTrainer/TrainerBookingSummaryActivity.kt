@@ -17,8 +17,12 @@ import com.htf.diva.databinding.ActivityBookingSummaryBinding
 import com.htf.diva.models.*
 import com.htf.diva.netUtils.Constants
 import com.htf.diva.utils.*
+import com.oppwa.mobile.connect.checkout.dialog.CheckoutActivity
+import com.oppwa.mobile.connect.checkout.meta.CheckoutSettings
+import com.oppwa.mobile.connect.provider.Connect
 import kotlinx.android.synthetic.main.activity_booking_summary.*
 import kotlinx.android.synthetic.main.toolbar.*
+import java.util.LinkedHashSet
 
 
 class TrainerBookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBinding, BookingSummaryViewModel>(
@@ -42,10 +46,11 @@ class TrainerBookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBin
     private var afterCalculateTax:Double?=null
     private var discount_amount:Double?=null
     private var amount_after_discount:Double?=null
-    private var baseAmount:Double?=null
     private var calculatedAmtAfterDiscount:Double?=null
     private var totalPayableAmt:Double?=null
     private var is_auto_renew:String?="Yes"
+    private var baseAmount:Double?=0.0
+    private var trainerBaseAmt:Double?=0.0
 
 
     companion object{
@@ -145,28 +150,52 @@ class TrainerBookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBin
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.btnTrainerPayableAmount -> {
-                // BookingSuccessfullyActivity.open(currActivity)
-                val slots = HashMap<String, String?>()
-                for (i in 0.until(arrSelectedSlots.size)) {
-                    if (arrSelectedSlots[i].date != null) {
-                        slots["slots[$i][date]"] = arrSelectedSlots[i].date.toString()
-                        slots["slots[$i][start_at]"] = arrSelectedSlots[i].startAt.toString()
-                        slots["slots[$i][end_at]"] = arrSelectedSlots[i].endAt.toString()
+                if (booking_type=="Session"){
+                    val slots = HashMap<String, String?>()
+                    for (i in 0.until(arrSelectedSlots.size)) {
+                        if (arrSelectedSlots[i].date != null) {
+                            slots["slots[$i][date]"] = arrSelectedSlots[i].date.toString()
+                            slots["slots[$i][start_at]"] = arrSelectedSlots[i].startAt.toString()
+                            slots["slots[$i][end_at]"] = arrSelectedSlots[i].endAt.toString()
+                        }
                     }
+                    viewModel.onBookTrainerClick(
+                        AppSession.locale,
+                        AppSession.deviceId, AppSession.deviceType,
+                        BuildConfig.VERSION_NAME, trainerDetail.trainer!!.id.toString(),
+                        tenureSelected.id.toString(),
+                        currentDate,booking_type,
+                      "", numberOfPeoplePerSession,
+                        withMyFriendsGym, AppSession.appDashBoard!!.offers!!.id.toString(),
+                        trainerBaseAmt.toString(),baseAmount.toString(),
+                        calculatedAmtAfterDiscount.toString(),
+                        amount_after_discount.toString() ,trainerDetail.vatPercentage.toString(),
+                        afterCalculateTax.toString(), totalPayableAmt.toString(), is_auto_renew, slots
+                    )
+                }else{
+                    val slots = HashMap<String, String?>()
+                    for (i in 0.until(arrSelectedSlots.size)) {
+                        if (arrSelectedSlots[i].date != null) {
+                            slots["slots[$i][date]"] = arrSelectedSlots[i].date.toString()
+                            slots["slots[$i][start_at]"] = arrSelectedSlots[i].startAt.toString()
+                            slots["slots[$i][end_at]"] = arrSelectedSlots[i].endAt.toString()
+                        }
+                    }
+                    viewModel.onBookTrainerClick(
+                        AppSession.locale,
+                        AppSession.deviceId, AppSession.deviceType,
+                        BuildConfig.VERSION_NAME, trainerDetail.trainer!!.id.toString(),
+                        tenureSelected.id.toString(),
+                        currentDate,booking_type,
+                        packageSelected.id.toString(), "",
+                        withMyFriendsGym, AppSession.appDashBoard!!.offers!!.id.toString(),
+                        trainerBaseAmt.toString(),baseAmount.toString(),
+                        calculatedAmtAfterDiscount.toString(),
+                        amount_after_discount.toString() ,trainerDetail.vatPercentage.toString(),
+                        afterCalculateTax.toString(), totalPayableAmt.toString(), is_auto_renew, slots
+                    )
                 }
-                viewModel.onBookTrainerClick(
-                    AppSession.locale,
-                    AppSession.deviceId, AppSession.deviceType,
-                    BuildConfig.VERSION_NAME, trainerDetail.trainer!!.id.toString(),
-                    tenureSelected.id.toString(),
-                    DateUtils.convertDateFormat(currentDate,DateUtils.targetDateFormat,DateUtils.serverDateFormat),booking_type,
-                    packageSelected.id.toString(), tenureSelected.id.toString(),
-                    withMyFriendsGym, AppSession.appDashBoard!!.offers!!.id.toString(),
-                    baseAmount.toString(),baseAmount.toString(),
-                    calculatedAmtAfterDiscount.toString(),
-                    amount_after_discount.toString() ,trainerDetail.vatPercentage.toString(),
-                    afterCalculateTax.toString(), totalPayableAmt.toString(), is_auto_renew, slots
-                )
+
             }
 
         }
@@ -177,8 +206,8 @@ class TrainerBookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBin
 
           if (booking_type=="Session"){
               /* Booking with session*/
-              baseAmount=trainerDetail.trainer!!.perSessionPrice!!.toDouble()
-
+              trainerBaseAmt=trainerDetail.trainer!!.perSessionPrice!!.toDouble()
+              baseAmount=trainerDetail.trainer!!.perSessionPrice!!.toDouble()*withMyFriendsGym!!.toDouble()*numberOfPeoplePerSession!!.toDouble()
               amount_after_discount=numberOfPeoplePerSession!!.toDouble()*trainerDetail.trainer!!.perSessionPrice!!.toDouble()*withMyFriendsGym!!.toDouble()
               if(AppSession.appDashBoard!!.offers !=null) {
                   tvNo_ofPeopleTraining.text = withMyFriendsGym
@@ -213,7 +242,8 @@ class TrainerBookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBin
                   btnTrainerPayableAmount.text=payableAmount
 
               } else{
-                  baseAmount=trainerDetail.trainer!!.perSessionPrice!!.toDouble()
+                  trainerBaseAmt=trainerDetail.trainer!!.perSessionPrice!!.toDouble()
+                  baseAmount=trainerDetail.trainer!!.perSessionPrice!!.toDouble()*withMyFriendsGym!!.toDouble()*numberOfPeoplePerSession!!.toDouble()
                   tvNo_ofPeopleTraining.text = withMyFriendsGym
                   rltTrainerOfferDiscount.visibility=View.GONE
                   llBookingWithPerSession.visibility=View.VISIBLE
@@ -252,7 +282,8 @@ class TrainerBookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBin
                   tvPackageName.text=strPackageName
                   tvPackage_price.text=currActivity.getString(R.string.sar)+" "+packagePrice
 
-                  baseAmount=packageSelected.price!!.toDouble()
+                  trainerBaseAmt=packageSelected.price!!.toDouble()
+                  baseAmount=packageSelected.price!!.toDouble()*withMyFriendsGym!!.toDouble()*numberOfPeoplePerSession!!.toDouble()
 
                   tvPackageOfferPercentage.text=getString(R.string.discount) +" ("+""+(AppUtils.roundMathValueFromDouble(
                       AppSession.appDashBoard!!.offers!!.discountValue!!.toDouble().toInt()
@@ -305,7 +336,9 @@ class TrainerBookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBin
                           totalPayableAmt!!.toInt()
                       ).toString()
                   )
-                  baseAmount=packageSelected.price!!.toDouble()
+                  trainerBaseAmt=packageSelected.price!!.toDouble()
+                  baseAmount=packageSelected.price!!.toDouble()*withMyFriendsGym!!.toDouble()*numberOfPeoplePerSession!!.toDouble()
+
                   btnTrainerPayableAmount.text=payableAmount
               }
           }
@@ -315,6 +348,7 @@ class TrainerBookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBin
     private fun viewModelInitialize() {
         observerViewModel(viewModel.isApiCalling, this::onHandleShowProgress)
         observerViewModel(viewModel.mBookFitnessCenterData, this::onHandleLoginSuccessResponse)
+        observerViewModel(viewModel.mCheckOutIdGenerateData, this::onHandleCheckOutIdGenerateSuccessResponse)
         observerViewModel(viewModel.errorResult, this::onHandleApiErrorResponse)
 
     }
@@ -327,9 +361,39 @@ class TrainerBookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBin
         showToast(error, true)
     }
 
-    private fun onHandleLoginSuccessResponse(bookFitnessCenter: BookFitnessCenterModel?){
-        bookFitnessCenter?.let {
-           /* BookingSuccessfullyActivity.open(currActivity)*/
+    private fun onHandleLoginSuccessResponse(bookTrainerCenter: BookFitnessCenterModel?){
+        bookTrainerCenter?.let {
+            viewModel.onCheckOutIdGenerateForCenter(bookTrainerCenter.id!!.toString(),
+                totalPayableAmt,"HyperPay")
+            AppSession.centerBookingId=bookTrainerCenter.id.toString()
+            AppSession.trainerBookingId=null
+            AppSession.paymentType="HyperPay"
         }
     }
+
+    private fun onHandleCheckOutIdGenerateSuccessResponse(checkoutIdGenerateResponse: BookingDetailModel?){
+        checkoutIdGenerateResponse?.let {
+            val checkoutId=checkoutIdGenerateResponse.id!!
+            AppSession.checkoutID=checkoutId
+            val paymentBrands = LinkedHashSet<String>()
+            paymentBrands.add("VISA")
+            paymentBrands.add("MASTER")
+
+            val checkoutSettings = CheckoutSettings(checkoutId, paymentBrands, Connect.ProviderMode.TEST)
+            checkoutSettings.shopperResultUrl = "com.htf.diva://result"
+            checkoutSettings.skipCVVMode
+            val intent = checkoutSettings.createCheckoutActivityIntent(currActivity)
+            startActivityForResult(intent, CheckoutActivity.REQUEST_CODE_CHECKOUT)
+
+
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data != null) {
+
+        }
+    }
+
 }

@@ -55,6 +55,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/llOffer"
                 android:layout_width="@dimen/dimen_120"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

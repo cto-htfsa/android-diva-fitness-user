@@ -15,3 +15,5 @@ class BookCenterTrainerModel :Serializable {
     var trainerBookings: Trainers? = null
 
 }
+
+

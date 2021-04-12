@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.htf.diva">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -57,7 +58,6 @@
         <activity android:name=".dashboard.bookTrainer.TrainerDetailActivity"/>
         <activity android:name=".dashboard.bookTrainer.SelectSlotsActivity"/>
         <activity android:name=".dashboard.bookTrainer.TrainerBookingSummaryActivity"/>
-        <activity android:name=".dashboard.ui.BookingSuccessfullyActivity"/>
         <activity android:name=".dashboard.bookFitnessCenter.CenterActivity"/>
         <activity android:name=".dashboard.bookFitnessCenter.CenterDetailBookingActivity"/>
         <activity android:name=".dashboard.bookFitnessCenter.FitnessCenterSummaryActivity"/>
@@ -66,6 +66,30 @@
         <activity android:name=".dashboard.bookTrainerWithCenter.BookTrainerCenterDetailActivity"/>
         <activity android:name=".dashboard.bookTrainerWithCenter.TrainerCenterSlotsActivity"/>
         <activity android:name=".dashboard.bookTrainerWithCenter.BookingSummaryTrainerCenterActivity"/>
+
+        <activity
+            android:name="com.oppwa.mobile.connect.checkout.dialog.CheckoutActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Checkout.Dark"
+            android:windowSoftInputMode="adjustPan"
+            tools:replace="android:windowSoftInputMode,theme" />
+
+        <activity android:name=".dashboard.ui.BookingSuccessfullyActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <data android:scheme="com.htf.diva" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+
+        </activity>
+
 
     </application>
 

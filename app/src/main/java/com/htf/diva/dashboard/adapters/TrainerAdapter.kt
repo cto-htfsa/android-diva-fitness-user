@@ -2,12 +2,14 @@ package com.htf.diva.dashboard.adapters
 
 import android.app.Activity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
 import com.htf.diva.databinding.RowPersonalTrainersBinding
 import com.htf.diva.models.AppDashBoard
 import com.htf.diva.callBack.IListItemClickListener
+import kotlinx.android.synthetic.main.row_personal_trainers.view.*
 
 class TrainerAdapter (
     private var currActivity: Activity,
@@ -37,6 +39,11 @@ class TrainerAdapter (
     override fun onBindViewHolder(holder: TrainerAdapter.MyViewHolder, position: Int) {
         val model=arrTopTrainer[position]
         rowPersonalTrainerBinding!!.topTrainer =model
+        if (model.rating=="0.0"){
+            holder.itemView.llRating.visibility= View.GONE
+        }else{
+            holder.itemView.llRating.visibility= View.VISIBLE
+        }
     }
 
 }

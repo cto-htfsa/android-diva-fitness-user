@@ -9,7 +9,7 @@ class BookingDetailModel :Serializable{
 
     @SerializedName("id")
     @Expose
-     val id: Int? = null
+     val id: String? = null
 
     @SerializedName("booking_review_id")
     @Expose

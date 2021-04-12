@@ -107,8 +107,27 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
                 setTopPersonalTrainer(appDashBoard.topTrainers)
                 setOutFitnessCenter(appDashBoard.fitnessCenters)
                 AppSession.appDashBoard=appDashBoard
-                AppSession.appDashBoard!!.offers=null
-               /* tvOfferMsg.text=appDashBoard.offers!!.offerName*/
+               /* AppSession.appDashBoard!!.offers=null*/
+
+            when {
+                AppSession.appDashBoard!!.fitnessCenterSubscription!=null -> {
+                    llBuyMembership.visibility=View.GONE
+                }
+                else -> {
+                    llBuyMembership.visibility=View.VISIBLE
+                }
+            }
+            when {
+                appDashBoard.offers!=null -> {
+                    llOffer.visibility=View.VISIBLE
+                    tvOfferMsg.text=appDashBoard.offers!!.offerName
+                }
+                else -> {
+                    llOffer.visibility=View.GONE
+                    llOffer.visibility=View.GONE
+                }
+            }
+
         }
     }
 
@@ -162,7 +181,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
 
     override fun onItemClickListener(data: Any) {
         if (data is AppDashBoard.TopTrainer)
-            if ( AppSession.appDashBoard!!.fitnessCenterSubscription!=null){
+            if(AppSession.appDashBoard!!.fitnessCenterSubscription!=null){
                 TrainerDetailActivity.open(currActivity,data)
             } else{
                 openBuyMemberShipDialog()

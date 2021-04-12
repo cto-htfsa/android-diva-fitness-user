@@ -13,9 +13,13 @@ import com.htf.diva.models.*
 import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.dashboard.ui.BookingSuccessfullyActivity
 import com.htf.diva.utils.*
+import com.oppwa.mobile.connect.checkout.dialog.CheckoutActivity
+import com.oppwa.mobile.connect.checkout.meta.CheckoutSettings
+import com.oppwa.mobile.connect.provider.Connect
 import kotlinx.android.synthetic.main.activity_fitness_center_booking_summary.*
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.toolbar.*
+import java.util.LinkedHashSet
 
 class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBookingSummaryBinding, BookingSummaryViewModel>(
     BookingSummaryViewModel::class.java), IListItemClickListener<Any>, View.OnClickListener {
@@ -152,6 +156,7 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
         observerViewModel(viewModel.isApiCalling,this::onHandleShowProgress)
         observerViewModel(viewModel.mBookFitnessCenterData,this::onHandleLoginSuccessResponse)
         observerViewModel(viewModel.errorResult,this::onHandleApiErrorResponse)
+        observerViewModel(viewModel.mCheckOutIdGenerateData, this::onHandleCheckOutIdGenerateSuccessResponse)
 
     }
 
@@ -169,9 +174,38 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
 
     private fun onHandleLoginSuccessResponse(bookFitnessCenter: BookFitnessCenterModel?){
         bookFitnessCenter?.let {
-            BookingSuccessfullyActivity.open(currActivity)
+            viewModel.onCheckOutIdGenerateForCenter(bookFitnessCenter.id!!.toString(),
+              totalPayableAmt,"HyperPay")
+            AppSession.centerBookingId=bookFitnessCenter.id.toString()
+            AppSession.trainerBookingId=null
+            AppSession.paymentType="HyperPay"
+
         }
     }
 
+    private fun onHandleCheckOutIdGenerateSuccessResponse(checkoutIdGenerateResponse: BookingDetailModel?){
+        checkoutIdGenerateResponse?.let {
+            val checkoutId=checkoutIdGenerateResponse.id!!
+            AppSession.checkoutID=checkoutId
+            val paymentBrands = LinkedHashSet<String>()
+            paymentBrands.add("VISA")
+            paymentBrands.add("MASTER")
+
+            val checkoutSettings = CheckoutSettings(checkoutId, paymentBrands, Connect.ProviderMode.TEST)
+            checkoutSettings.shopperResultUrl = "com.htf.diva://result"
+            checkoutSettings.skipCVVMode
+            val intent = checkoutSettings.createCheckoutActivityIntent(currActivity)
+            startActivityForResult(intent, CheckoutActivity.REQUEST_CODE_CHECKOUT)
+
+
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data != null) {
+
+        }
+    }
 
 }

@@ -2,18 +2,20 @@ package com.htf.diva.dashboard.adapters
 
 import android.app.Activity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
 import com.htf.diva.databinding.RowAllTrainersBinding
 import com.htf.diva.models.AppDashBoard
 import com.htf.diva.callBack.IListItemClickListener
+import kotlinx.android.synthetic.main.row_all_trainers.view.*
 
 class AllTrainersAdapter (
     private var currActivity: Activity,
     private var arrTopTrainer:ArrayList<AppDashBoard.TopTrainer>,
     private var iListItemClickListener: IListItemClickListener<Any>
-): RecyclerView.Adapter<AllTrainersAdapter.MyViewHolder>(){
+  ): RecyclerView.Adapter<AllTrainersAdapter.MyViewHolder>(){
 
     var rowPersonalTrainerBinding: RowAllTrainersBinding?=null
 
@@ -43,6 +45,11 @@ class AllTrainersAdapter (
     override fun onBindViewHolder(holder: AllTrainersAdapter.MyViewHolder, position: Int) {
         val model=arrTopTrainer[position]
         rowPersonalTrainerBinding!!.allTrainer =model
+        if(model.rating=="0.0"){
+            holder.itemView.llTrainerReview.visibility=View.GONE
+        } else{
+            holder.itemView.llTrainerReview.visibility=View.VISIBLE
+        }
     }
 
 }

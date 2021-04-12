@@ -22,6 +22,7 @@ import com.htf.diva.utils.*
 import kotlinx.android.synthetic.main.activity_trainer_details.*
 import kotlinx.android.synthetic.main.activity_trainer_details.rbPackage
 import kotlinx.android.synthetic.main.activity_trainer_details.rvSelectTenure
+import kotlinx.android.synthetic.main.row_personal_trainers.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -143,8 +144,21 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
          val str= currActivity.getString(R.string.sar_amount).replace("[X]",perSessionPrice)
          tvPerSession.text=str
          tvLocation.text=trainerDetails.location
-         tvRating.text=trainerDetails.rating
-         tvReview.text=trainerDetails.totalReviews.toString()
+
+         if (trainerDetails.rating=="0.0"){
+             llRating.visibility=View.GONE
+         }else{
+             llRating.visibility=View.VISIBLE
+             tvRating.text=trainerDetails.rating
+         }
+
+         if (trainerDetails.totalReviews==0){
+             tvReview.visibility=View.GONE
+         }else{
+             tvReview.visibility=View.VISIBLE
+             tvReview.text=trainerDetails.totalReviews.toString()
+         }
+
          tvAboutUs.text=trainerDetails.aboutUs
          Glide.with(currActivity).load(Constants.Urls.TRAINER_IMAGE_URL + trainerDetails.image).
          override(250, 250).placeholder(R.drawable.trainer_placeholder).into(ivTrainerImage)

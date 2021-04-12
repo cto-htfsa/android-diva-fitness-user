@@ -9,6 +9,11 @@ import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.dashboard.viewModel.BookingSummaryViewModel
 import com.htf.diva.databinding.ActivityBookingSuccessfullyBinding
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.models.BookCenterTrainerModel
+import com.htf.diva.models.VerifyAmount
+import com.htf.diva.utils.AppSession
+import com.htf.diva.utils.observerViewModel
+import com.htf.diva.utils.showToast
 import kotlinx.android.synthetic.main.activity_booking_successfully.*
 import kotlinx.android.synthetic.main.activity_fitness_center_booking_summary.*
 import kotlinx.android.synthetic.main.activity_fitness_center_booking_summary.btnPayableAmount
@@ -29,6 +34,16 @@ class BookingSuccessfullyActivity : BaseDarkActivity<ActivityBookingSuccessfully
         super.onCreate(savedInstanceState)
         binding.bookingSuccessfully = viewModel
         setOnClickListener()
+        if(AppSession.trainerBookingId!=null){
+            viewModel.onVerifyPayment(AppSession.centerBookingId,AppSession.trainerBookingId,
+                AppSession.checkoutID,"HyperPay")
+        } else{
+            viewModel.onVerifyCenterPayment(AppSession.centerBookingId,
+                AppSession.checkoutID,"HyperPay")
+        }
+
+        viewModelInitialize()
+
     }
 
     private fun setOnClickListener(){
@@ -49,5 +64,28 @@ class BookingSuccessfullyActivity : BaseDarkActivity<ActivityBookingSuccessfully
             }
         }
     }
+
+
+    private fun viewModelInitialize() {
+        observerViewModel(viewModel.isApiCalling, this::onHandleShowProgress)
+        observerViewModel(viewModel.mVerifyAmount, this::onHandleVerifyAmtSuccessResponse)
+        observerViewModel(viewModel.errorResult, this::onHandleApiErrorResponse)
+
+    }
+
+    private fun onHandleShowProgress(isNotShow: Boolean) {
+        if (isNotShow) progressDialog?.show() else progressDialog?.dismiss()
+    }
+
+    private fun onHandleApiErrorResponse(error: String){
+        showToast(error, true)
+    }
+
+    private fun onHandleVerifyAmtSuccessResponse(paymentVerifyResponse: Any?){
+        paymentVerifyResponse?.let {
+            ll_paymentSuccess.visibility=View.VISIBLE
+        }
+    }
+
 
 }

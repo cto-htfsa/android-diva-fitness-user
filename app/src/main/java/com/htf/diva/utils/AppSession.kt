@@ -28,5 +28,11 @@ object AppSession {
     var isPendingRequestOpen=false
     var appDashBoard:AppDashBoard?=null
 
+    var checkoutID: String? = ""
+    var paymentType: String?=""
+    var centerBookingId :String?=""
+    var trainerBookingId:String?=""
+
+
 
 }

@@ -235,6 +235,55 @@ interface DashBoardApiInterface {
                         @FieldMap slotsHashMap: HashMap<String, String?>):
             Deferred<Response<BaseResponse<BookCenterTrainerModel>>>
 
+    @FormUrlEncoded
+    @POST("api/v1/generate/checkout")
+    fun checkOutIdGenerateAsync(
+        @Field("locale") locale: String?,
+        @Field("device_id") device_id: String?,
+        @Field("device_type") device_type: String?,
+        @Field("current_version") current_version: String?,
+        @Field("booking_id[0]") center_booking_id: String?,
+        @Field("booking_id[1]") trainer_booking_id: String?,
+        @Field("amount") amount: String?,
+        @Field("payment_mode") payment_mode: String?): Deferred<Response<BaseResponse<BookingDetailModel>>>
+
+
+    @FormUrlEncoded
+    @POST("api/v1/generate/checkout")
+    fun checkOutIdGenerateForCenterAsync(
+        @Field("locale") locale: String?,
+        @Field("device_id") device_id: String?,
+        @Field("device_type") device_type: String?,
+        @Field("current_version") current_version: String?,
+        @Field("booking_id[0]") center_booking_id: String?,
+        @Field("amount") amount: String?,
+        @Field("payment_mode") payment_mode: String?): Deferred<Response<BaseResponse<BookingDetailModel>>>
+
+
+    @FormUrlEncoded
+    @POST("api/v1/verify/payment/status")
+    fun verifyPaymentStatusAsync(
+        @Field("locale") locale: String?,
+        @Field("device_id") device_id: String?,
+        @Field("device_type") device_type: String?,
+        @Field("current_version") current_version: String?,
+        @Field("booking_id[0]") center_booking_id: String?,
+        @Field("booking_id[1]") trainer_booking_id: String?,
+        @Field("checkout_id") checkout_id: String?,
+        @Field("payment_mode") payment_mode: String?): Deferred<Response<BaseResponse<Any>>>
+
+    @FormUrlEncoded
+    @POST("api/v1/verify/payment/status")
+    fun verifyPaymentStatusCenterAsync(
+        @Field("locale") locale: String?,
+        @Field("device_id") device_id: String?,
+        @Field("device_type") device_type: String?,
+        @Field("current_version") current_version: String?,
+        @Field("booking_id[0]") center_booking_id: String?,
+        @Field("checkout_id") checkout_id: String?,
+        @Field("payment_mode") payment_mode: String?): Deferred<Response<BaseResponse<Any>>>
+
+
 
 }
 

@@ -18,6 +18,9 @@ import com.htf.diva.databinding.ActivityCenterTrainerBookingSummaryBinding
 import com.htf.diva.models.*
 import com.htf.diva.netUtils.Constants
 import com.htf.diva.utils.*
+import com.oppwa.mobile.connect.checkout.dialog.CheckoutActivity
+import com.oppwa.mobile.connect.checkout.meta.CheckoutSettings
+import com.oppwa.mobile.connect.provider.Connect
 import kotlinx.android.synthetic.main.activity_booking_summary.ivTrainerImage
 import kotlinx.android.synthetic.main.activity_booking_summary.llBookingWithPackage
 import kotlinx.android.synthetic.main.activity_booking_summary.llBookingWithPerSession
@@ -45,6 +48,8 @@ import kotlinx.android.synthetic.main.activity_booking_summary.tvTrainerOfferPer
 import kotlinx.android.synthetic.main.activity_booking_summary.tvTrainerOfferPrice
 import kotlinx.android.synthetic.main.activity_center_trainer_booking_summary.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.json.JSONObject
+import java.util.LinkedHashSet
 
 class BookingSummaryTrainerCenterActivity : BaseDarkActivity<ActivityCenterTrainerBookingSummaryBinding, BookingSummaryViewModel>(
     BookingSummaryViewModel::class.java
@@ -68,6 +73,7 @@ class BookingSummaryTrainerCenterActivity : BaseDarkActivity<ActivityCenterTrain
     private var discount_amount:Double?=0.0
     private var amount_after_discount:Double?=0.0
     private var baseAmount:Double?=0.0
+    private var trainerBaseAmt:Double?=0.0
     private var calculatedAmtAfterDiscount:Double?=0.0
     private var totalPayableAmt:Double?=null
     private var is_auto_renew:String?="Yes"
@@ -211,11 +217,6 @@ class BookingSummaryTrainerCenterActivity : BaseDarkActivity<ActivityCenterTrain
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.btnTrainerCenterPayableAmount -> {
-
-                if (offers.id!=null){
-
-                }
-
                 if (booking_type=="Session"){
                     val slots = HashMap<String, String?>()
                     for (i in 0.until(arrSelectedSlots.size)) {
@@ -225,15 +226,15 @@ class BookingSummaryTrainerCenterActivity : BaseDarkActivity<ActivityCenterTrain
                             slots["slots[$i][end_at]"] = arrSelectedSlots[i].endAt.toString()
                         }
                     }
-                    if (offers.id!=null){
+                    if (AppSession.appDashBoard!!.offers!=null){
                         viewModel.onBookTrainerWithCenterClick(AppSession.locale, AppSession.deviceId, AppSession.deviceType,
                             BuildConfig.VERSION_NAME, selectedFitnessCenter.id.toString(),trainerDetail.trainer!!.id.toString(),
                             is_auto_renew,trainerDetail.vatPercentage.toString(),offers.id.toString(),calculatedAmtAfterDiscount.toString(),
                             amount_after_discount.toString(),afterCalculateTax.toString(),totalPayableAmt.toString(),
                             tenureCenterSelected.id.toString(),currentCenterDate,
                             packageCenterSelected.id.toString(),joinCenterWithFriends,packageCenterSelected.price,
-                            packageCenterSelected.price,tenureSelected.id.toString(),currentDate,booking_type,"",
-                          numberOfPeoplePerSession,withMyFriendsGym,baseAmount.toString(),baseAmount.toString(),slots)
+                            (packageCenterSelected.price!!.toDouble()*joinCenterWithFriends!!.toDouble()).toString(),tenureSelected.id.toString(),currentDate,booking_type,"",
+                            numberOfPeoplePerSession,withMyFriendsGym,trainerBaseAmt.toString(),baseAmount.toString(),slots)
                     }else{
                         viewModel.onBookTrainerWithCenterClick(AppSession.locale, AppSession.deviceId, AppSession.deviceType,
                             BuildConfig.VERSION_NAME, selectedFitnessCenter.id.toString(),trainerDetail.trainer!!.id.toString(),
@@ -241,8 +242,8 @@ class BookingSummaryTrainerCenterActivity : BaseDarkActivity<ActivityCenterTrain
                             amount_after_discount.toString(),afterCalculateTax.toString(),totalPayableAmt.toString(),
                             tenureCenterSelected.id.toString(),currentCenterDate,
                             packageCenterSelected.id.toString(),joinCenterWithFriends,packageCenterSelected.price,
-                            packageCenterSelected.price,tenureSelected.id.toString(),currentDate,booking_type,"",
-                            numberOfPeoplePerSession,withMyFriendsGym,baseAmount.toString(),baseAmount.toString(),slots)
+                            (packageCenterSelected.price!!.toDouble()*joinCenterWithFriends!!.toDouble()).toString(),tenureSelected.id.toString(),currentDate,booking_type,"",
+                            numberOfPeoplePerSession,withMyFriendsGym,trainerBaseAmt.toString(),baseAmount.toString(),slots)
                     }
 
                 }else{
@@ -254,15 +255,15 @@ class BookingSummaryTrainerCenterActivity : BaseDarkActivity<ActivityCenterTrain
                             slots["slots[$i][end_at]"] = arrSelectedSlots[i].endAt.toString()
                         }
                     }
-                    if(offers.id!=null){
+                    if(AppSession.appDashBoard!!.offers!=null){
                         viewModel.onBookTrainerWithCenterClick(AppSession.locale, AppSession.deviceId, AppSession.deviceType,
                             BuildConfig.VERSION_NAME, selectedFitnessCenter.id.toString(),trainerDetail.trainer!!.id.toString(),
                             is_auto_renew,trainerDetail.vatPercentage.toString(),offers.id.toString(),calculatedAmtAfterDiscount.toString(),
                             amount_after_discount.toString(),afterCalculateTax.toString(),totalPayableAmt.toString(),
                             tenureCenterSelected.id.toString(),currentCenterDate,
                             packageCenterSelected.id.toString(),joinCenterWithFriends,packageCenterSelected.price,
-                            packageCenterSelected.price,tenureSelected.id.toString(),currentDate,booking_type,packageSelected.id.toString(),
-                        "",withMyFriendsGym,baseAmount.toString(),baseAmount.toString(),slots)
+                            (packageCenterSelected.price!!.toDouble()*joinCenterWithFriends!!.toDouble()).toString(),tenureSelected.id.toString(),currentDate,booking_type,packageSelected.id.toString(),
+                        "",withMyFriendsGym,trainerBaseAmt.toString(),baseAmount.toString(),slots)
                     }else{
                         viewModel.onBookTrainerWithCenterClick(AppSession.locale, AppSession.deviceId, AppSession.deviceType,
                             BuildConfig.VERSION_NAME, selectedFitnessCenter.id.toString(),trainerDetail.trainer!!.id.toString(),
@@ -270,8 +271,8 @@ class BookingSummaryTrainerCenterActivity : BaseDarkActivity<ActivityCenterTrain
                             amount_after_discount.toString(),afterCalculateTax.toString(),totalPayableAmt.toString(),
                             tenureCenterSelected.id.toString(),currentCenterDate,
                             packageCenterSelected.id.toString(),joinCenterWithFriends,packageCenterSelected.price,
-                            packageCenterSelected.price,tenureSelected.id.toString(),currentDate,booking_type,packageSelected.id.toString(),
-                            "",withMyFriendsGym,baseAmount.toString(),baseAmount.toString(),slots)
+                            (packageCenterSelected.price!!.toDouble()*joinCenterWithFriends!!.toDouble()).toString(),tenureSelected.id.toString(),currentDate,booking_type,packageSelected.id.toString(),
+                            "",withMyFriendsGym,trainerBaseAmt.toString(),baseAmount.toString(),slots)
                     }
 
                 }
@@ -286,6 +287,7 @@ class BookingSummaryTrainerCenterActivity : BaseDarkActivity<ActivityCenterTrain
 
         if (booking_type=="Session"){
             /* Booking with session*/
+            trainerBaseAmt=trainerDetail.trainer!!.perSessionPrice!!.toDouble()
             baseAmount=trainerDetail.trainer!!.perSessionPrice!!.toDouble()*withMyFriendsGym!!.toDouble()*numberOfPeoplePerSession!!.toDouble()
 
             amount_after_discount=numberOfPeoplePerSession!!.toDouble()*trainerDetail.trainer!!.perSessionPrice!!.toDouble()*withMyFriendsGym!!.toDouble()
@@ -324,6 +326,7 @@ class BookingSummaryTrainerCenterActivity : BaseDarkActivity<ActivityCenterTrain
                 tvPayable_amt.text=payableAmount
 
             } else{
+                trainerBaseAmt=trainerDetail.trainer!!.perSessionPrice!!.toDouble()
                 baseAmount=trainerDetail.trainer!!.perSessionPrice!!.toDouble()*withMyFriendsGym!!.toDouble()*numberOfPeoplePerSession!!.toDouble()
                 tvNo_ofPeopleTraining.text = withMyFriendsGym
                 rltTrainerOfferDiscount.visibility= View.GONE
@@ -356,20 +359,18 @@ class BookingSummaryTrainerCenterActivity : BaseDarkActivity<ActivityCenterTrain
         }else{
             /* Booking with package*/
 
-            if(AppSession.appDashBoard!!.offers !=null) {
+            if(AppSession.appDashBoard!!.offers!=null) {
                 tvNo_ofPeopleTraining.text = withMyFriendsGym
                 llBookingWithPackage.visibility= View.VISIBLE
                 rltPackageOfferDiscount.visibility= View.VISIBLE
                 llBookingWithPerSession.visibility= View.GONE
                 packagePrice=packageSelected.price!!.toDouble()*withMyFriendsGym!!.toDouble()*numberOfPeoplePerSession!!.toDouble()
-                val strPackageName = currActivity.getString(R.string.package_membership).replace(
-                    "[X]",
-                    packageSelected.tenureName.toString()
-                )
+                val strPackageName = currActivity.getString(R.string.package_membership).replace("[X]", packageSelected.tenureName.toString())
+
                 tvPackageName.text=strPackageName
                 tvPackage_price.text=currActivity.getString(R.string.sar)+" "+packagePrice
 
-
+                trainerBaseAmt=packageSelected.price!!.toDouble()
                 baseAmount=packageSelected.price!!.toDouble()*withMyFriendsGym!!.toDouble()*numberOfPeoplePerSession!!.toDouble()
 
                 tvPackageOfferPercentage.text=getString(R.string.discount) +" ("+""+(AppUtils.roundMathValueFromDouble(
@@ -427,6 +428,7 @@ class BookingSummaryTrainerCenterActivity : BaseDarkActivity<ActivityCenterTrain
                         totalPayableAmt!!.toInt()
                     ).toString()
                 )
+                trainerBaseAmt=packageSelected.price!!.toDouble()
                 baseAmount=packageSelected.price!!.toDouble()*withMyFriendsGym!!.toDouble()*numberOfPeoplePerSession!!.toDouble()
                 btnTrainerCenterPayableAmount.text=payableAmount
                 tvPayable_amt.text=payableAmount
@@ -438,6 +440,7 @@ class BookingSummaryTrainerCenterActivity : BaseDarkActivity<ActivityCenterTrain
     private fun viewModelInitialize() {
         observerViewModel(viewModel.isApiCalling, this::onHandleShowProgress)
         observerViewModel(viewModel.mBookTrainerFitnessCenterData, this::onHandleBookTrainerCenterSuccessResponse)
+        observerViewModel(viewModel.mCheckOutIdGenerateData, this::onHandleCheckOutIdGenerateSuccessResponse)
         observerViewModel(viewModel.errorResult, this::onHandleApiErrorResponse)
 
     }
@@ -452,7 +455,41 @@ class BookingSummaryTrainerCenterActivity : BaseDarkActivity<ActivityCenterTrain
 
     private fun onHandleBookTrainerCenterSuccessResponse(bookTrainerFitnessCenter: BookCenterTrainerModel?){
         bookTrainerFitnessCenter?.let {
-             BookingSuccessfullyActivity.open(currActivity)
+            viewModel.onCheckOutGenerate(bookTrainerFitnessCenter.fitnessCenterBookings!!.id.toString(),
+                bookTrainerFitnessCenter.trainerBookings!!.id.toString(),totalPayableAmt,"HyperPay")
+               AppSession.centerBookingId=bookTrainerFitnessCenter.fitnessCenterBookings!!.id.toString()
+               AppSession.trainerBookingId=  bookTrainerFitnessCenter.trainerBookings!!.id.toString()
+               AppSession.paymentType="HyperPay"
+
         }
     }
+
+
+    private fun onHandleCheckOutIdGenerateSuccessResponse(checkoutIdGenerateResponse: BookingDetailModel?){
+        checkoutIdGenerateResponse?.let {
+            val checkoutId=checkoutIdGenerateResponse.id!!
+            AppSession.checkoutID=checkoutId
+            val paymentBrands = LinkedHashSet<String>()
+            paymentBrands.add("VISA")
+            paymentBrands.add("MASTER")
+
+            val checkoutSettings = CheckoutSettings(checkoutId, paymentBrands, Connect.ProviderMode.TEST)
+            checkoutSettings.shopperResultUrl = "com.htf.diva://result"
+            checkoutSettings.skipCVVMode
+            val intent = checkoutSettings.createCheckoutActivityIntent(currActivity)
+            startActivityForResult(intent, CheckoutActivity.REQUEST_CODE_CHECKOUT)
+
+
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data != null) {
+
+
+        }
+
+    }
+
 }

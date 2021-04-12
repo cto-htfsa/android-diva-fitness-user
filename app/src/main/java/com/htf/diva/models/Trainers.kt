@@ -129,7 +129,7 @@ class Trainers:Serializable{
 
     @SerializedName("id")
     @Expose
-    private val id: Int? = null
+    val id: Int? = null
 
     @SerializedName("invoice_id")
     @Expose

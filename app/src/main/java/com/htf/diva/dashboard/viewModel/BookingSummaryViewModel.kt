@@ -10,6 +10,7 @@ import com.htf.eyenakhr.dashboard.ApiRepo.DashboardApiRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okio.IOException
 
 class BookingSummaryViewModel : BaseViewModel() {
 
@@ -19,6 +20,9 @@ class BookingSummaryViewModel : BaseViewModel() {
     val mCompletedBookingResponse= MutableLiveData<Listing<CompletedBookingModel>>()
     val mBookFitnessCenterData= MutableLiveData<BookFitnessCenterModel>()
     val mBookTrainerFitnessCenterData= MutableLiveData<BookCenterTrainerModel>()
+    val mCheckOutIdGenerateData= MutableLiveData<BookingDetailModel>()
+    val mVerifyAmount= MutableLiveData<Any>()
+
 
 
     fun onUpComingBookingListing(page:Int,isProgressBar:Boolean) {
@@ -229,6 +233,130 @@ class BookingSummaryViewModel : BaseViewModel() {
             }
     }
 
+
+    fun onCheckOutGenerate(
+        centerBookingId: String?,
+        trainerBookingId: String?,
+        payableAmount: Double?,
+        payment_mode: String?) {
+        if (!DialogUtils.isInternetOn()){
+            isInternetOn.postValue(false)
+            return
+        }
+        isApiCalling.postValue(true)
+        scope.launch {
+            val result = try {
+                DashboardApiRepo.checkOutIdGenerate(AppSession.locale,
+                    AppSession.deviceId, AppSession.deviceType,
+                    BuildConfig.VERSION_NAME,centerBookingId.toString(),
+                    trainerBookingId.toString(),payableAmount.toString(),payment_mode.toString())
+            } catch (e: Exception) {
+                errorResult.postValue(e.localizedMessage)
+                isApiCalling.postValue(false)
+            }
+            withContext(Dispatchers.Main) {
+                isApiCalling.postValue(false)
+                if (result is BookingDetailModel)
+                    mCheckOutIdGenerateData.postValue(result)
+                else
+                    errorResult.postValue(result.toString())
+            }
+
+        }
+    }
+
+
+  fun onCheckOutIdGenerateForCenter(
+        centerBookingId: String?,
+        payableAmount: Double?,
+        payment_mode: String?) {
+        if (!DialogUtils.isInternetOn()){
+            isInternetOn.postValue(false)
+            return
+        }
+        isApiCalling.postValue(true)
+        scope.launch {
+            val result = try {
+                DashboardApiRepo.checkOutIdGenerateForCenter(AppSession.locale,
+                    AppSession.deviceId, AppSession.deviceType,
+                    BuildConfig.VERSION_NAME,centerBookingId.toString(),payableAmount.toString(),payment_mode.toString())
+            } catch (e: Exception) {
+                errorResult.postValue(e.localizedMessage)
+                isApiCalling.postValue(false)
+            }
+            withContext(Dispatchers.Main) {
+                isApiCalling.postValue(false)
+                if (result is BookingDetailModel)
+                    mCheckOutIdGenerateData.postValue(result)
+                else
+                    errorResult.postValue(result.toString())
+            }
+
+        }
+    }
+
+
+
+    fun onVerifyPayment(
+        centerBookingId: String?,
+        trainerBookingId: String?,
+        checkOutId: String?,
+        payment_mode: String?) {
+        if (!DialogUtils.isInternetOn()){
+            isInternetOn.postValue(false)
+            return
+        }
+        isApiCalling.postValue(true)
+        scope.launch {
+            val result = try {
+                DashboardApiRepo.verifyPayment(AppSession.locale,
+                    AppSession.deviceId, AppSession.deviceType,
+                    BuildConfig.VERSION_NAME,centerBookingId.toString(),
+                    trainerBookingId.toString(),checkOutId.toString(),payment_mode.toString())
+            } catch (e: Exception) {
+                errorResult.postValue(e.localizedMessage)
+                isApiCalling.postValue(false)
+            }
+            withContext(Dispatchers.Main) {
+                isApiCalling.postValue(false)
+                if (result is IOException)
+                    errorResult.postValue(result.toString())
+                else
+                    mVerifyAmount.postValue(result.toString())
+            }
+
+        }
+    }
+
+
+    fun onVerifyCenterPayment(
+        centerBookingId: String?,
+        checkOutId: String?,
+        payment_mode: String?) {
+        if (!DialogUtils.isInternetOn()){
+            isInternetOn.postValue(false)
+            return
+        }
+        isApiCalling.postValue(true)
+        scope.launch {
+            val result = try {
+                DashboardApiRepo.verifyCenterPayment(AppSession.locale,
+                    AppSession.deviceId, AppSession.deviceType,
+                    BuildConfig.VERSION_NAME,centerBookingId.toString(), checkOutId.toString(),payment_mode.toString())
+            } catch (e: Exception) {
+                errorResult.postValue(e.localizedMessage)
+                isApiCalling.postValue(false)
+            }
+            withContext(Dispatchers.Main) {
+                isApiCalling.postValue(false)
+                if (result is IOException)
+                    errorResult.postValue(result.toString())
+                else
+                    mVerifyAmount.postValue(result.toString())
+            }
+
+        }
+    }
 
 
 }
