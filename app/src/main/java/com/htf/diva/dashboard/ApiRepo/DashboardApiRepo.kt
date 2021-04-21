@@ -226,6 +226,15 @@ object DashboardApiRepo : BaseRepository() {
                 checkoutId,paymentMode).await()})
     }
 
+
+    suspend fun paymentHistory(locale: String,deviceId: String,
+                                 deviceType: String, versionName: String,page:Int): Any? {
+        return safeApiCall(
+                call ={ retrofitAuthClient.paymentHistory(locale,deviceId,deviceType,versionName,page).await()}
+        )
+    }
+
+
 }
 
 

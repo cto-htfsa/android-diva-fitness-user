@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="completedBookingModel"
+            type="com.htf.diva.models.CompletedBookingModel" />
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:elevation="@dimen/dimen_3"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginStart="@dimen/margin_8dp"
+        android:layout_marginEnd="@dimen/margin_8dp"
+        android:layout_marginBottom="@dimen/margin_8dp"
+        android:background="@drawable/personal_trainer_stroke_bg">
+
+
+        <LinearLayout
+            android:layout_marginStart="@dimen/dimen_5"
+            android:layout_marginEnd="@dimen/dimen_5"
+            android:layout_marginTop="@dimen/dimen_5"
+            android:padding="@dimen/dimen_7"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/booking_id"
+                android:textColor="@color/colorTextHeading"
+                android:fontFamily="@font/avenir_light"
+                android:textSize="12sp"
+                android:textAlignment="viewStart" />
+
+            <TextView
+                android:id="@+id/tvBookingId"
+                android:text="897589"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/avenir_black"
+                android:textSize="@dimen/font_10sp"
+                android:layout_marginStart="5dp"
+                android:textAlignment="viewStart" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginStart="@dimen/dimen_5"
+            android:layout_marginEnd="@dimen/dimen_5"
+            android:padding="@dimen/dimen_7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:orientation="horizontal">
+
+            <com.github.siyamed.shapeimageview.RoundedImageView
+                android:id="@+id/ivCenterImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:siBorderColor="@color/white"
+                android:src="@drawable/user"
+                app:siRadius="@dimen/dimen_10" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/dimen_5"
+                android:padding="@dimen/dimen_5">
+
+                <TextView
+                    android:id="@+id/tvFitnessCenterName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/font_13sp"
+                    android:text="Badr Branch"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:fontFamily="@font/avenir_black" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:layout_marginTop="@dimen/margin_4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tenure"
+                        android:textSize="@dimen/font_12sp"
+                        android:textColor="@color/colorTextLightDark"
+                        android:fontFamily="@font/avenir_black" />
+
+                    <TextView
+                        android:id="@+id/tvTenureName"
+                        android:layout_marginTop="@dimen/margin_4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:layout_marginStart="@dimen/margin_8dp"
+                        android:textSize="@dimen/font_12sp"
+                        android:textColor="@color/colorTextHeading"
+                        android:fontFamily="@font/avenir_black" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/font_12sp"
+                        android:text="@string/packages"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:fontFamily="@font/avenir_light" />
+
+                    <TextView
+                        android:id="@+id/tvPackage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_5"
+                        android:textSize="@dimen/font_12sp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/colorPrimaryDark"
+                        android:fontFamily="@font/avenir_black" />
+
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnrTrainerDeatil"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_marginStart="@dimen/dimen_5"
+            android:layout_marginEnd="@dimen/dimen_5"
+            android:padding="@dimen/dimen_7"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <com.github.siyamed.shapeimageview.RoundedImageView
+                    android:id="@+id/ivTrainerImage"
+                    android:layout_width="@dimen/dimen_50"
+                    android:layout_height="@dimen/dimen_50"
+                    app:siBorderColor="@color/white"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/user"
+                    app:siRadius="@dimen/dimen_30" />
+
+                <LinearLayout
+                    android:id="@+id/lnrTrainerDetail"
+                    android:layout_toEndOf="@+id/ivTrainerImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/dimen_5"
+                    android:padding="@dimen/dimen_5">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/font_14sp"
+                        android:text="@string/personal_trainer"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:fontFamily="@font/avenir_light" />
+
+                    <TextView
+                        android:id="@+id/tvTrainerName"
+                        android:layout_marginTop="@dimen/margin_4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ala Alkhateeb"
+                        android:textSize="@dimen/font_14sp"
+                        android:textColor="@color/colorTextHeading"
+                        android:fontFamily="@font/avenir_black" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancel_pt"
+                    android:textSize="@dimen/font_12sp"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/colorPrimary"
+                    android:paddingTop="@dimen/dimen_5"
+                    android:paddingBottom="@dimen/dimen_5"
+                    android:fontFamily="@font/avenir_light"
+                    android:paddingStart="@dimen/dimen_15"
+                    android:paddingEnd="@dimen/dimen_15"
+                    android:background="@drawable/select_age_bg"
+                    />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:paddingTop="@dimen/margin_16dp"
+            android:paddingBottom="@dimen/margin_16dp"
+            android:background="@drawable/select_age_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/rltBookingDate"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/booking_date"
+                    android:layout_alignParentStart="true"
+                    android:textColor="@color/colorTextHeading"
+                    android:fontFamily="@font/avenir_light"
+                    android:textSize="12sp"
+                    android:textAlignment="viewStart" />
+
+                <TextView
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/paid"
+                    android:layout_marginEnd="@dimen/margin_36dp"
+                    android:textColor="@color/colorTextHeading"
+                    android:fontFamily="@font/avenir_light"
+                    android:textSize="12sp"
+                    android:textAlignment="viewStart" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_below="@+id/rltBookingDate"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvBookingDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_alignParentStart="true"
+                    android:textColor="@color/colorTextHeading"
+                    android:fontFamily="@font/avenir_black"
+                    android:textSize="12sp"
+                    android:textAlignment="viewStart" />
+
+                <TextView
+                    android:id="@+id/tvBookingPrice"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:textColor="@color/colorTextHeading"
+                    android:fontFamily="@font/avenir_black"
+                    android:textSize="12sp"
+                    android:textAlignment="viewStart" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</layout>
+

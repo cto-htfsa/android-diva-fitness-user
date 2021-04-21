@@ -5,6 +5,7 @@ import com.htf.diva.BuildConfig
 import com.htf.diva.base.BaseViewModel
 import com.htf.diva.models.AppDashBoard
 import com.htf.diva.models.Listing
+import com.htf.diva.models.PaymentHistoryModel
 import com.htf.diva.models.TrainerDetailsModel
 import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.DialogUtils
@@ -71,7 +72,6 @@ class PersonalTrainerViewModel :BaseViewModel() {
 
         }
     }
-
 
 
 

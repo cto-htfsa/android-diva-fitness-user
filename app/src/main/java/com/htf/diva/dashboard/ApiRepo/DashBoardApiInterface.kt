@@ -284,6 +284,14 @@ interface DashBoardApiInterface {
         @Field("payment_mode") payment_mode: String?): Deferred<Response<BaseResponse<Any>>>
 
 
+    @FormUrlEncoded
+    @POST("api/v1/payment/history")
+    fun paymentHistory(@Field("locale") locale: String,
+                        @Field("device_id") device_id: String,
+                        @Field("device_type") device_type: String,
+                        @Field("current_version") current_version: String,
+                        @Field("page") page: Int): Deferred<Response<BaseResponse<Listing<PaymentHistoryModel>>>>
+
 
 }
 

@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="paymentViewModel"
+            name="rvPaymentHistoryViewModel"
             type="com.htf.diva.auth.viewModel.PaymentHistoryViewModel" />
         <import type="android.view.View" />
     </data>
@@ -16,14 +16,8 @@
             android:id="@+id/llTop"
             layout="@layout/toolbar" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvPaymentHistory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:orientation="horizontal" />
+        <include
+            layout="@layout/layout_recycler_view"/>
 
     </LinearLayout>
 

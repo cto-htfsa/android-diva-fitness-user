@@ -13,13 +13,13 @@ import com.bumptech.glide.Glide
 import com.htf.diva.R
 import com.htf.diva.auth.ui.LoginActivity
 import com.htf.diva.auth.ui.MyProfileActivity
-import com.htf.diva.auth.ui.PaymentHistoryActivity
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.base.MyApplication
 import com.htf.diva.dashboard.fragments.DietFragment
 import com.htf.diva.dashboard.fragments.HomeFragment
 import com.htf.diva.dashboard.fragments.MembershipFragment
 import com.htf.diva.dashboard.fragments.WorkoutFragment
+import com.htf.diva.dashboard.payment.PaymentHistoryActivity
 import com.htf.diva.dashboard.viewModel.HomeViewModel
 import com.htf.diva.databinding.ActivityHomeBinding
 import com.htf.diva.netUtils.Constants
@@ -207,6 +207,10 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
 
         dialogView.llProfileInfo.setOnClickListener {
             MyProfileActivity.open(currActivity)
+            builder.dismiss()
+        }
+       dialogView.llPaymentHistory.setOnClickListener {
+           PaymentHistoryActivity.open(currActivity)
             builder.dismiss()
         }
 
