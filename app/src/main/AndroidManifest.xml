@@ -46,7 +46,6 @@
                 android:resource="@xml/file_paths"/>
         </provider>
 
-        <activity android:name=".auth.ui.PaymentHistoryActivity"/>
         <activity android:name=".dashboard.ui.NotificationActivity"/>
         <activity android:name=".dashboard.ui.DietWeekDaysActivity"/>
         <activity android:name=".dashboard.ui.MealTypesActivity"/>

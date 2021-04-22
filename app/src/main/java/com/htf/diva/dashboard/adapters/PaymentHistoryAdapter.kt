@@ -1,5 +1,6 @@
 package com.htf.diva.dashboard.adapters
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,12 @@ import com.htf.diva.databinding.RowAllTrainersBinding
 import com.htf.diva.databinding.RowPaymentHistoryBinding
 import com.htf.diva.models.AppDashBoard
 import com.htf.diva.models.PaymentHistoryModel
+import com.htf.diva.utils.AppUtils
+import com.htf.diva.utils.DateUtils
+import kotlinx.android.synthetic.main.activity_fitness_center_booking_summary.*
 import kotlinx.android.synthetic.main.row_all_trainers.view.*
+import kotlinx.android.synthetic.main.row_payment_history.view.*
+import kotlinx.android.synthetic.main.row_up_coming_booking.view.*
 
 class PaymentHistoryAdapter (
         private var currActivity: Activity,
@@ -32,26 +38,27 @@ class PaymentHistoryAdapter (
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentHistoryAdapter.MyViewHolder {
         val itemView= LayoutInflater.from(parent.context).inflate(
-                R.layout.row_payment_history
-                ,parent,false)
+                R.layout.row_payment_history,parent,false)
         val bindingUtil= RowPaymentHistoryBinding.bind(itemView);
         return MyViewHolder(bindingUtil)
-
-
     }
 
     override fun getItemCount(): Int {
         return arrTopTrainer.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: PaymentHistoryAdapter.MyViewHolder, position: Int) {
         val model=arrTopTrainer[position]
         rowPaymentHistoryBinding!!.paymentHistoryViewModel =model
-        if(model.amount=="0.0"){
-            holder.itemView.llTrainerReview.visibility= View.GONE
-        } else{
-            holder.itemView.llTrainerReview.visibility= View.VISIBLE
-        }
+
+        /*val str = currActivity.getString(R.string.package_membership).replace("[X]", model.bookings!![position].tenureName.toString())
+        holder.itemView.tv_tenure.text = str*/
+        holder.itemView.tvAmount.text=currActivity.getString(R.string.sar)+" "+ model.amount!!.toString()
+        holder.itemView.payment_mode.text=model.paymentMode
+        holder.itemView.payment_status.text=model.status
+        holder.itemView.payment_date.text= DateUtils.convertDateFormat(model.createdAt,
+                DateUtils.serverChatUTCDateTimeFormat, DateUtils.targetDateFormat)
     }
 
 }

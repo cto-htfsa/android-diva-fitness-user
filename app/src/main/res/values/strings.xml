@@ -160,6 +160,9 @@
     <string name="please_buy_membership_des">Please buy membership for booking with any personal trainer</string>
     <string name="selected_center">Selected Center</string>
     <string name="no_completed_booking">No Completed Booking</string>
+    <string name="date">Date:</string>
+    <string name="payment_method">Payment Method:</string>
+    <string name="mode">Mode:</string>
 
 
 </resources>

@@ -44,4 +44,8 @@ class PaymentHistoryModel :Serializable {
     var createdAt: String? = null
 
 
+    @SerializedName("bookings")
+    @Expose
+    var bookings: List<BookingDetailModel>? = null
+
 }
