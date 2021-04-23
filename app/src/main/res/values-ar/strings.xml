@@ -163,6 +163,10 @@
     <string name="date">Date:</string>
     <string name="payment_method">Payment Method:</string>
     <string name="mode">Mode:</string>
+    <string name="my_workout_plan">My Workout</string>
+    <string name="no_workout_created">No Workout Created</string>
+    <string name="create_workout">Create Workout</string>
+    <string name="edit_workout_plan">Edit Workout Plan</string>
 
 
 </resources>

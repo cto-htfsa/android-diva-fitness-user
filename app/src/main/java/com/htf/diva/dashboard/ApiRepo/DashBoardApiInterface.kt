@@ -59,7 +59,7 @@ interface DashBoardApiInterface {
 
     @FormUrlEncoded
     @POST("api/v1/my/diet")
-    fun myDietPlan(
+    fun myDietPlanAsync(
         @Field("locale") locale: String,
         @Field("device_id") device_id: String,
         @Field("device_type") device_type: String,
@@ -68,15 +68,26 @@ interface DashBoardApiInterface {
     ): Deferred<Response<BaseResponse<MyDietModel>>>
 
 
-    @FormUrlEncoded
-    @POST("api/v1/trainers")
-    fun personalTrainer(@Field("locale") locale: String,
+   @FormUrlEncoded
+    @POST("api/v1/my/workout")
+    fun myWorkoutPlanAsync(
+        @Field("locale") locale: String,
         @Field("device_id") device_id: String,
         @Field("device_type") device_type: String,
         @Field("current_version") current_version: String,
-        @Field("fitness_center_id") fitness_center_id: String,
-        @Field("query") query: String,
-        @Field("page") page: Int): Deferred<Response<BaseResponse<Listing<AppDashBoard.TopTrainer>>>>
+        @Field("date") date: String
+    ): Deferred<Response<BaseResponse<MyWorkoutPlanModel>>>
+
+
+    @FormUrlEncoded
+    @POST("api/v1/trainers")
+    fun personalTrainerAsync(@Field("locale") locale: String,
+                             @Field("device_id") device_id: String,
+                             @Field("device_type") device_type: String,
+                             @Field("current_version") current_version: String,
+                             @Field("fitness_center_id") fitness_center_id: String,
+                             @Field("query") query: String,
+                             @Field("page") page: Int): Deferred<Response<BaseResponse<Listing<AppDashBoard.TopTrainer>>>>
 
 
 

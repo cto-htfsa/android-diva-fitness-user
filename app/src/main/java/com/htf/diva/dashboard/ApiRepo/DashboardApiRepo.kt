@@ -43,14 +43,21 @@ object DashboardApiRepo : BaseRepository() {
 
     suspend fun myDietPlan(locale: String,deviceId: String, deviceType: String, versionName: String): Any? {
         return safeApiCall(
-            call ={ retrofitAuthClient.myDietPlan(locale,deviceId,deviceType,versionName,"2021-02-25").await()}
+            call ={ retrofitAuthClient.myDietPlanAsync(locale,deviceId,deviceType,versionName,"2021-02-25").await()}
         )
     }
+
+    suspend fun myWorkOutPlan(locale: String,deviceId: String, deviceType: String, versionName: String): Any? {
+        return safeApiCall(
+                call ={ retrofitAuthClient.myWorkoutPlanAsync(locale,deviceId,deviceType,versionName,"2021-02-25").await()}
+        )
+    }
+
 
     suspend fun personalTrainers(locale: String,deviceId: String,
                                  deviceType: String, versionName: String,fitnessId:String , query:String,page:Int): Any? {
         return safeApiCall(
-            call ={ retrofitAuthClient.personalTrainer(locale,deviceId,deviceType,versionName,fitnessId,query,page).await()}
+            call ={ retrofitAuthClient.personalTrainerAsync(locale,deviceId,deviceType,versionName,fitnessId,query,page).await()}
         )
     }
 

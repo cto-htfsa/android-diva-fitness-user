@@ -1,14 +1,447 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".dashboard.fragments.WorkoutFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+        <variable
+            name="myWorkoutPlan"
+            type="com.htf.diva.dashboard.viewModel.WorkoutPlanViewModel" />
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".dashboard.fragments.DietFragment">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_above="@+id/lnrEdit"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:id="@+id/llTop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/rltToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dimen_5"
+                    android:paddingEnd="@dimen/dimen_5">
+
+
+                    <LinearLayout
+                        android:id="@+id/llEnd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/margin_8dp"
+                        android:layout_alignParentStart="true"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="@dimen/font_18sp"
+                            android:textColor="@color/black"
+                            android:padding="@dimen/dimen_12"
+                            android:fontFamily="@font/avenir_black"
+                            android:text="@string/my_workout_plan" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal"
+                        android:layout_alignParentEnd="true"
+                        android:visibility="visible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:id="@+id/tvWorkoutDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/font_14sp"
+                            android:textColor="@color/black"
+                            android:padding="@dimen/dimen_15"
+                            android:fontFamily="@font/avenir_black"
+                            android:text="" />
+
+
+                        <ImageView
+                            android:id="@+id/ivMenu"
+                            android:layout_width="@dimen/dimen_50"
+                            android:layout_height="@dimen/dimen_50"
+                            android:padding="@dimen/dimen_10"
+                            android:src="@drawable/ic_drop_down" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <com.michalsvec.singlerowcalendar.calendar.SingleRowCalendar
+                    android:id="@+id/main_workout_single_row_calendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:includeCurrentDate="true"
+                    app:deselection="false"
+                    app:longPress="false"
+                    app:multiSelection="false"
+                    tools:ignore="MissingConstraints" />
+
+                <LinearLayout
+                    android:id="@+id/lnrMySchedule"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="invisible"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:background="@drawable/rating_bg"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:padding="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_7">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.dinuscxj.progressbar.CircleProgressBar
+                            android:id="@+id/line_progress"
+                            android:layout_width="@dimen/dimen_50"
+                            android:layout_height="@dimen/dimen_50"
+                            android:layout_gravity="center"
+                            app:progress_background_color="@color/colorTodayWorkOutText"
+                            app:progress_blur_style="outer"
+                            app:progress_end_color="@color/colorScheduleCircularProgressBg"
+                            app:progress_shader="radial"
+                            app:progress_start_color="@color/colorScheduleCircularProgressBg"
+                            app:progress_stroke_cap="round"
+                            app:progress_stroke_width="@dimen/dimen_7"
+                            app:progress_style="solid_line"
+                            app:progress_text_color="@color/colorScheduleCircularProgressBg" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="3"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/dimen_10">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:gravity="center">
+
+                                <me.grantland.widget.AutofitTextView
+                                    android:id="@+id/tvCalsLeft"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="56656"
+                                    android:maxLines="1"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/font_11sp"
+                                    android:fontFamily="@font/avenir_black"/>
+
+                                <me.grantland.widget.AutofitTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/cals_left"
+                                    android:textColor="@color/white"
+                                    android:maxLines="1"
+                                    android:textSize="@dimen/font_9sp"
+                                    android:fontFamily="@font/avenir_light"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:gravity="center">
+
+                                <me.grantland.widget.AutofitTextView
+                                    android:id="@+id/tvConsumed"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="56656"
+                                    android:maxLines="1"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/font_11sp"
+                                    android:fontFamily="@font/avenir_black"/>
+
+                                <me.grantland.widget.AutofitTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/consumed"
+                                    android:textColor="@color/white"
+                                    android:maxLines="1"
+                                    android:textSize="@dimen/font_9sp"
+                                    android:fontFamily="@font/avenir_light"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:gravity="center">
+
+                                <me.grantland.widget.AutofitTextView
+                                    android:id="@+id/tvBurned"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="56656"
+                                    android:maxLines="1"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/font_11sp"
+                                    android:fontFamily="@font/avenir_black"/>
+
+                                <me.grantland.widget.AutofitTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/consumed"
+                                    android:textColor="@color/white"
+                                    android:maxLines="1"
+                                    android:textSize="@dimen/font_9sp"
+                                    android:fontFamily="@font/avenir_light"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="4"
+                        android:layout_marginTop="@dimen/dimen_7">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:gravity="center">
+
+                            <me.grantland.widget.AutofitTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/proteins"
+                                android:maxLines="1"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/font_9sp"
+                                android:fontFamily="@font/avenir_light"/>
+
+                            <me.grantland.widget.AutofitTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="60kg"
+                                android:textColor="@color/white"
+                                android:maxLines="1"
+                                android:textSize="@dimen/font_9sp"
+                                android:fontFamily="@font/avenir_black"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:gravity="center">
+
+                            <me.grantland.widget.AutofitTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/carbs"
+                                android:maxLines="1"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/font_9sp"
+                                android:fontFamily="@font/avenir_light"/>
+
+                            <me.grantland.widget.AutofitTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="60kg"
+                                android:textColor="@color/white"
+                                android:maxLines="1"
+                                android:textSize="@dimen/font_9sp"
+                                android:fontFamily="@font/avenir_black"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:gravity="center">
+
+                            <me.grantland.widget.AutofitTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/fats"
+                                android:maxLines="1"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/font_9sp"
+                                android:fontFamily="@font/avenir_light"/>
+
+                            <me.grantland.widget.AutofitTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="60kg"
+                                android:textColor="@color/white"
+                                android:maxLines="1"
+                                android:textSize="@dimen/font_9sp"
+                                android:fontFamily="@font/avenir_black"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:gravity="center">
+
+                            <me.grantland.widget.AutofitTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/calories"
+                                android:maxLines="1"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/font_9sp"
+                                android:fontFamily="@font/avenir_light"/>
+
+                            <me.grantland.widget.AutofitTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="60kg"
+                                android:textColor="@color/white"
+                                android:maxLines="1"
+                                android:textSize="@dimen/font_9sp"
+                                android:fontFamily="@font/avenir_black"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/lnrNoWorkoutPlanAvailable"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imgNoWorkout"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:src="@drawable/ic_no_membership"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_150">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/tv_no_workout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:text="@string/no_workout_created"
+                        android:fontFamily="@font/avenir_black"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/font_12sp" />
+
+                    <Button
+                        android:id="@+id/btn_create_workout"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="@dimen/margin_16dp"
+                        android:background="@drawable/btn_bg"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/dimen_20"
+                        android:fontFamily="@font/avenir_roman"
+                        android:paddingStart="@dimen/margin_4dp"
+                        android:paddingTop="@dimen/margin_12dp"
+                        android:paddingEnd="@dimen/margin_4dp"
+                        android:paddingBottom="@dimen/margin_12dp"
+                        android:layout_marginStart="@dimen/dimen_110"
+                        android:layout_marginEnd="@dimen/dimen_110"
+                        android:text="@string/create_workout"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textAllCaps="false"/>
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/workoutRecycler"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lnrEdit"
+            android:background="@color/white"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnEditWorkoutPlan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_edit_diet"
+                android:fontFamily="@font/avenir_roman"
+                android:text="@string/edit_workout_plan"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textAllCaps="false">
+            </Button>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

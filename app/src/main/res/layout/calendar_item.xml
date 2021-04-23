@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cl_calendar_item"
-    android:layout_width="60dp"
-    android:layout_height="70dp"
+    android:layout_width="50dp"
+    android:layout_height="60dp"
     android:layout_marginStart="4dp"
     android:layout_marginEnd="4dp"
     android:background="@drawable/calendar_item_background"
@@ -17,7 +17,7 @@
         android:layout_marginTop="@dimen/margin_8dp"
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/avenir_black"
-        android:textSize="14sp" />
+        android:textSize="12sp" />
 
 
     <TextView
@@ -28,7 +28,7 @@
         android:text="10"
         android:fontFamily="@font/avenir_black"
         android:gravity="center"
-        android:textSize="@dimen/font_16sp" />
+        android:textSize="@dimen/font_14sp" />
 
 
 </LinearLayout>

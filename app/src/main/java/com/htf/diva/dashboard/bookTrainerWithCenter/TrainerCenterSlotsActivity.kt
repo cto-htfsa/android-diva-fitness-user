@@ -115,6 +115,7 @@ class TrainerCenterSlotsActivity : BaseActivity<ActivitySlotBookBinding, Persona
         val cDay= CalendarDay.from(
             DateUtils.getCurrentYearC().toInt(), DateUtils.getCurrentMonthC().toInt(), DateUtils.getCurrentDateC()
                 .toInt())
+
         binding.calendarView.selectionMode = MaterialCalendarView.SELECTION_MODE_SINGLE
         binding.calendarView.state().edit().setMinimumDate(cDay).commit()
         binding.calendarView.selectedDate = cDay

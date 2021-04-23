@@ -18,7 +18,7 @@ import com.htf.diva.base.MyApplication
 import com.htf.diva.dashboard.fragments.DietFragment
 import com.htf.diva.dashboard.fragments.HomeFragment
 import com.htf.diva.dashboard.fragments.MembershipFragment
-import com.htf.diva.dashboard.fragments.WorkoutFragment
+import com.htf.diva.dashboard.homeWorkout.WorkoutFragment
 import com.htf.diva.dashboard.payment.PaymentHistoryActivity
 import com.htf.diva.dashboard.viewModel.HomeViewModel
 import com.htf.diva.databinding.ActivityHomeBinding
@@ -72,7 +72,7 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
                     changeFragment("",MembershipFragment())
                 }
                 2->{
-                    changeFragment("",WorkoutFragment())
+                    changeFragment("", WorkoutFragment())
                 }
                 3->{
                     changeFragment("",DietFragment())
