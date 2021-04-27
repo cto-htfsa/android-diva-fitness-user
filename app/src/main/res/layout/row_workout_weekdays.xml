@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="workoutWeekDays"
+            type="com.htf.diva.models.WorkoutWeekDaysModel" />
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:layout_marginBottom="@dimen/margin_4dp"
+        android:padding="@dimen/dimen_7"
+        android:elevation="@dimen/dimen_1"
+        android:orientation="vertical"
+        android:background="@drawable/diet_weekdays_stroke_bg">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dimen_5"
+            android:paddingEnd="@dimen/dimen_5">
+
+
+            <LinearLayout
+                android:id="@+id/llweekDayName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/margin_8dp"
+                android:layout_alignParentStart="true"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/font_16sp"
+                    android:textColor="@color/black"
+                    userName="@{workoutWeekDays.name}"
+                    android:padding="@dimen/font_10sp"
+                    android:fontFamily="@font/avenir_light"
+                    android:text="@string/my_diet_plan" />
+
+            </LinearLayout>
+
+
+
+   <LinearLayout
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/margin_8dp"
+        android:layout_toStartOf="@+id/llWorkoutAddWeekDay"
+        android:visibility="visible"
+        android:background="@drawable/add_rect_bg"
+        android:layout_width="wrap_content"
+        android:gravity="start"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivDayRest"
+            android:visibility="visible"
+            android:layout_gravity="center"
+            android:layout_width="@dimen/dimen_20"
+            android:layout_height="@dimen/dimen_20"
+            android:src="@drawable/checkout_list_mark" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/font_14sp"
+                    android:textColor="@color/black"
+                    android:paddingTop="@dimen/dimen_5"
+                    android:paddingStart="@dimen/dimen_10"
+                    android:paddingEnd="@dimen/dimen_10"
+                    android:paddingBottom="@dimen/dimen_5"
+                    android:fontFamily="@font/avenir_light"
+                    android:text="@string/day_rest" />
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/llWorkoutAddWeekDay"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:layout_alignParentEnd="true"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:visibility="visible"
+                    android:id="@+id/lnrUserDietPlan"
+                    android:background="@drawable/add_rect_bg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="@dimen/font_14sp"
+                        android:textColor="@color/black"
+                        android:paddingTop="@dimen/dimen_5"
+                        android:paddingStart="@dimen/dimen_10"
+                        android:paddingEnd="@dimen/dimen_10"
+                        android:paddingBottom="@dimen/dimen_5"
+                        android:fontFamily="@font/avenir_light"
+                        android:text="@string/add" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ivUserDietPlan"
+                    android:visibility="gone"
+                    android:layout_width="@dimen/dimen_50"
+                    android:layout_height="@dimen/dimen_50"
+                    android:padding="@dimen/dimen_10"
+                    android:src="@drawable/ic_drop_down" />
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</layout>
+

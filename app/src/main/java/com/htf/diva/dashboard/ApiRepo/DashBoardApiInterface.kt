@@ -304,5 +304,17 @@ interface DashBoardApiInterface {
                         @Field("page") page: Int): Deferred<Response<BaseResponse<Listing<PaymentHistoryModel>>>>
 
 
+    @FormUrlEncoded
+    @POST("api/v1/workout/weekdays")
+    fun workoutWeekdaysAsync(
+            @Field("locale") locale: String,
+            @Field("device_id") device_id: String,
+            @Field("device_type") device_type: String,
+            @Field("current_version") current_version: String
+    ): Deferred<Response<BaseResponse<ArrayList<WorkoutWeekDaysModel>>>>
+
+
+
+
 }
 

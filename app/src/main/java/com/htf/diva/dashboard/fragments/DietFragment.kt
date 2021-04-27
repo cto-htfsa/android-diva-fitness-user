@@ -91,9 +91,7 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
         }
 
         // using calendar changes observer we can track changes in calendar
-        val myCalendarChangesObserver = object :
-
-        CalendarChangesObserver {
+        val myCalendarChangesObserver = object : CalendarChangesObserver {
             // you can override more methods, in this example we need only this one
             override fun whenSelectionChanged(isSelected: Boolean, position: Int, date: Date) {
                 tvDate.text = "${DateUtils.getMonthName(date)},${DateUtils.getYear(date)} "
@@ -178,12 +176,12 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
 
 
     private fun setListener() {
-        binding.root.btn_create_workout.setOnClickListener(this)
+        binding.root.btn_create_diet.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
-            R.id.btn_create_workout -> {
+            R.id.btn_create_diet -> {
                 DietWeekDaysActivity.open(currActivity)
             }
         }

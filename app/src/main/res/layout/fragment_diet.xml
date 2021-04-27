@@ -383,7 +383,7 @@
                          android:textSize="@dimen/font_12sp" />
 
                      <Button
-                         android:id="@+id/btn_create_workout"
+                         android:id="@+id/btn_create_diet"
                          android:layout_width="match_parent"
                          android:layout_height="40dp"
                          android:layout_marginTop="@dimen/margin_16dp"

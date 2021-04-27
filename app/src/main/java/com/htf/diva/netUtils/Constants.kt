@@ -16,10 +16,7 @@ object Constants {
 
         val COUNTRY_IMAGE_URL = "$BASE_URL/uploads/country_flags/"
         val PAYROLL_PDF_URL="$BASE_URL/uploads/salarySlip/"
-        val HR_PROFILE_IMAGE_URL="https://d1ytdogfi1jqor.cloudfront.net/assets/uploads/hr/employee"
-        val HR_DOCUMENT_IMAGE_URL="https://d1ytdogfi1jqor.cloudfront.net/assets/uploads/hr/document"
-        val HR_RESUME_IMAGE_URL="https://d1ytdogfi1jqor.cloudfront.net/assets/uploads/hr/resume"
-        val HR_BILL_COPY_URL="https://d1ytdogfi1jqor.cloudfront.net/assets/uploads/hr/bill"
+
     }
 
     val KEY_PREF_USER_LANGUAGE="user_lang"

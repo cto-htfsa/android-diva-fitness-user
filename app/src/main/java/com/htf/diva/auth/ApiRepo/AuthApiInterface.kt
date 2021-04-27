@@ -21,9 +21,12 @@ interface AuthApiInterface {
             @Field("device_type")device_type:String,
             @Field("current_version")current_version:String):Deferred<Response<BaseResponse<AppSetting>>>
 
-
-    @GET("api/v1/refresh/token")
-    fun userRefreshTokenAsync():Deferred<Response<BaseResponse<UserData>>>
+    @FormUrlEncoded
+    @POST("api/v1/refresh/token")
+    fun userRefreshTokenAsync(@Field("locale") locale:String,
+                               @Field("device_id")device_id:String,
+                               @Field("device_type")device_type:String,
+                               @Field("current_version")current_version:String):Deferred<Response<BaseResponse<UserData>>>
 
 
     @FormUrlEncoded

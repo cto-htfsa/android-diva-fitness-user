@@ -39,6 +39,11 @@ object DashboardApiRepo : BaseRepository() {
             call ={ retrofitAuthClient.dietWeekdays(locale,deviceId,deviceType,versionName).await()}
         )
     }
+    suspend fun workoutWeekdaysAsync(locale: String,deviceId: String, deviceType: String, versionName: String): Any? {
+        return safeApiCall(
+                call ={ retrofitAuthClient.workoutWeekdaysAsync(locale,deviceId,deviceType,versionName).await()}
+        )
+    }
 
 
     suspend fun myDietPlan(locale: String,deviceId: String, deviceType: String, versionName: String): Any? {

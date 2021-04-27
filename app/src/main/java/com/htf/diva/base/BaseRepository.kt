@@ -4,6 +4,7 @@ package com.htf.diva.base
 import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.htf.diva.BuildConfig
 import com.htf.diva.netUtils.APIClient
 import com.htf.diva.netUtils.Constants
 import com.htf.diva.netUtils.Constants.Auth_Intent_Actions.BROADCAST_ACTION_BLACKLISTED
@@ -23,7 +24,7 @@ open class BaseRepository {
             val expireTime=userData.userTokenExpireTime!!
             if (currTime>=expireTime){ //triggered when user login but token expired
                 var output: T? = null
-                val c= APIClient.authApiClient.userRefreshTokenAsync().await()
+                val c= APIClient.authApiClient.userRefreshTokenAsync(AppSession.locale,AppSession.deviceId,AppSession.deviceType,BuildConfig.VERSION_NAME).await()
                 if (c.isSuccessful){
                     val res=c.body()?.data
                     userData.expiresIn=res?.expiresIn

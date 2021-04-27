@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.htf.diva.R
 import com.htf.diva.base.BaseFragment
 import com.htf.diva.dashboard.adapters.MyMealTypeDietAdapter
+import com.htf.diva.dashboard.ui.DietWeekDaysActivity
 import com.htf.diva.dashboard.viewModel.DitPlanViewModel
 import com.htf.diva.dashboard.viewModel.WorkoutPlanViewModel
 import com.htf.diva.databinding.FragmentDietBinding
@@ -30,6 +31,7 @@ import com.michalsvec.singlerowcalendar.selection.CalendarSelectionManager
 import com.michalsvec.singlerowcalendar.utils.DateUtils
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import kotlinx.android.synthetic.main.activity_booking_successfully.*
 import kotlinx.android.synthetic.main.calendar_item.view.*
 import kotlinx.android.synthetic.main.fragment_diet.*
 import kotlinx.android.synthetic.main.fragment_diet.lnrNoDietPlanAvailable
@@ -58,14 +60,23 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
         binding.myWorkoutPlan = viewModel
         viewModel.myWorkoutPlan()
         viewModelInitialize()
-
+       setOnClickListner()
         binding.root.main_workout_single_row_calendar.init()
 
         return binding.root
     }
 
+    private fun setOnClickListner() {
+        binding.root.btn_create_workout.setOnClickListener(this)
+    }
+
     override fun onClick(p0: View?) {
-        TODO("Not yet implemented")
+        when (p0!!.id) {
+            R.id.btn_create_workout -> {
+                CreateWorkoutPlanActivity.open(currActivity)
+
+            }
+        }
     }
 
 

@@ -167,6 +167,9 @@
     <string name="no_workout_created">No Workout Created</string>
     <string name="create_workout">Create Workout</string>
     <string name="edit_workout_plan">Edit Workout Plan</string>
+    <string name="no_workout_available">No Workout Available</string>
+    <string name="create_workout_plan">Create Workout Plan</string>
+    <string name="day_rest">Day Rest</string>
 
 
 </resources>
