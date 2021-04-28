@@ -54,7 +54,7 @@ object DashboardApiRepo : BaseRepository() {
 
     suspend fun myWorkOutPlan(locale: String,deviceId: String, deviceType: String, versionName: String): Any? {
         return safeApiCall(
-                call ={ retrofitAuthClient.myWorkoutPlanAsync(locale,deviceId,deviceType,versionName,"2021-02-25").await()}
+                call ={ retrofitAuthClient.myWorkoutPlanAsync(locale,deviceId,deviceType,versionName,"2021-05-03").await()}
         )
     }
 
@@ -199,6 +199,20 @@ object DashboardApiRepo : BaseRepository() {
                 trainer_booking_type,
                 trainer_package_id, trainer_base_sessions, trainer_number_of_people,
                 trainer_base_amount, trainer_total_amount,slots).await()}
+        )
+    }
+
+
+
+    suspend fun updateWorkoutWeekDay(locale: String?,
+                                       deviceId: String?,
+                                       deviceType: String?,
+                                       versionName: String?,
+                                       weekDayId: String?,
+                                       workouts: HashMap<String, String?>): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.updateWorkoutAsync(locale, deviceId, deviceType,
+                versionName, weekDayId,workouts).await()}
         )
     }
 

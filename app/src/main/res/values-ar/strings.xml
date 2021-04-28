@@ -170,6 +170,8 @@
     <string name="no_workout_available">No Workout Available</string>
     <string name="create_workout_plan">Create Workout Plan</string>
     <string name="day_rest">Day Rest</string>
+    <string name="reps">Reps</string>
+    <string name="set">Set</string>
 
 
 </resources>

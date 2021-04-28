@@ -138,6 +138,10 @@ class AppDashBoard :Serializable {
         @Expose
         var text_color: String? = null
 
+        @SerializedName("background_color ")
+        @Expose
+        var background_color : String? = null
+
         @SerializedName("latitude")
         @Expose
         var latitude: Double? = null

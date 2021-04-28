@@ -5,12 +5,14 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
 import com.htf.diva.databinding.RowCenterBinding
 import com.htf.diva.models.AppDashBoard
 import com.htf.diva.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.row_center.view.*
+import kotlinx.android.synthetic.main.row_reps_qty.view.*
 
 class CenterAdapter(
     private var currActivity: Activity,
@@ -41,7 +43,10 @@ class CenterAdapter(
     override fun onBindViewHolder(holder: CenterAdapter.MyViewHolder, position: Int) {
         val model=arrFitnessCenter[position]
         rowFitnessCenterBinding!!.fitnessCenter =model
-        holder.itemView.lnrCenter.backgroundTintList = ColorStateList.valueOf(Color.parseColor(model.text_color))
+        holder.itemView.lnrCenter.backgroundTintList = ColorStateList.valueOf(Color.parseColor(model.background_color))
+/*
+        holder.itemView.tvBranchName.setTextColor(ContextCompat.getColor(currActivity, Color.parseColor(model.background_color)))
+*/
 
     }
 

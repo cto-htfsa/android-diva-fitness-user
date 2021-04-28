@@ -21,7 +21,7 @@ class WorkoutWeekDaysModel:Serializable{
 
     @SerializedName("workouts")
     @Expose
-    var workouts: List<Workout>? = null
+    var workouts: ArrayList<Workout>? = null
 }
 
 class Workout :Serializable{

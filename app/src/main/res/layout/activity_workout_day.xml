@@ -9,7 +9,7 @@
         <import type="android.view.View" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,18 +19,48 @@
             layout="@layout/toolbar" />
 
         <LinearLayout
+            android:layout_below="@+id/llTop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             tools:context=".auth.ui.NotificationActivity">
 
-            <include
-                layout="@layout/layout_recycler_view"/>
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_workout_day"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
 
+        <LinearLayout
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:layout_alignParentBottom="true"
+            android:paddingTop="@dimen/margin_16dp"
+            android:paddingBottom="@dimen/margin_16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lnrbtnSave"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/btnSaveDayWorkout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_bg"
+                android:fontFamily="@font/avenir_roman"
+                android:text="@string/save"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textAllCaps="false">
+            </Button>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </layout>

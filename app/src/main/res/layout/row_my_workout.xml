@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="myWorkout"
+            type="com.htf.diva.models.UserWorkout" />
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_12"
+        android:layout_marginEnd="@dimen/dimen_12"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginBottom="@dimen/margin_4dp"
+        android:padding="@dimen/dimen_5"
+        android:orientation="vertical"
+        android:background="@drawable/meal_type_rect_bg">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="@dimen/dimen_5"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.github.siyamed.shapeimageview.RoundedImageView
+                android:id="@+id/ivWorkoutDay"
+                android:layout_width="@dimen/dimen_60"
+                app:siBorderColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_height="@dimen/dimen_60"
+                android:src="@drawable/user"
+                app:siRadius="@dimen/dimen_10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/dimen_5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    userName="@{myWorkout.name}"
+                    android:layout_marginStart="8dp"
+                    android:textSize="@dimen/font_16sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:fontFamily="@font/avenir_black" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvRepQty"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </androidx.recyclerview.widget.RecyclerView>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</layout>
+

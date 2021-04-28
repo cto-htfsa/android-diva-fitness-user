@@ -1,5 +1,6 @@
 package com.htf.diva.dashboard.ApiRepo
 
+import com.bumptech.glide.load.model.Model
 import com.htf.diva.base.BaseResponse
 import com.htf.diva.models.*
 import kotlinx.coroutines.Deferred
@@ -314,6 +315,15 @@ interface DashBoardApiInterface {
     ): Deferred<Response<BaseResponse<ArrayList<WorkoutWeekDaysModel>>>>
 
 
+    @FormUrlEncoded
+    @POST("api/v1/update/my/workout")
+    fun updateWorkoutAsync(@Field("locale") locale: String?,
+                         @Field("device_id") device_id: String?,
+                         @Field("device_type") device_type: String?,
+                         @Field("current_version") current_version: String?,
+                         @Field("weekday_id") trainer_id: String?,
+                         @FieldMap workoutsHashMap: HashMap<String, String?>):
+                            Deferred<Response<BaseResponse<Any>>>
 
 
 }

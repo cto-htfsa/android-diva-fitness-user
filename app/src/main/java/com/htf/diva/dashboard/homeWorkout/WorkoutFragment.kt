@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.htf.diva.R
 import com.htf.diva.base.BaseFragment
+import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.dashboard.adapters.MyMealTypeDietAdapter
 import com.htf.diva.dashboard.ui.DietWeekDaysActivity
 import com.htf.diva.dashboard.viewModel.DitPlanViewModel
@@ -33,23 +34,22 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import kotlinx.android.synthetic.main.activity_booking_successfully.*
 import kotlinx.android.synthetic.main.calendar_item.view.*
-import kotlinx.android.synthetic.main.fragment_diet.*
-import kotlinx.android.synthetic.main.fragment_diet.lnrNoDietPlanAvailable
 import kotlinx.android.synthetic.main.fragment_diet.view.*
 import kotlinx.android.synthetic.main.fragment_diet.view.lnrEdit
-import kotlinx.android.synthetic.main.fragment_diet.view.lnrNoDietPlanAvailable
 import kotlinx.android.synthetic.main.fragment_workout.*
 import kotlinx.android.synthetic.main.fragment_workout.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel::class.java) ,
-        View.OnClickListener {
+        View.OnClickListener, IListItemClickListener<Any> {
     private lateinit var currActivity: Activity
     lateinit var binding: FragmentWorkoutBinding
     private val calendar = Calendar.getInstance()
     private var currentMonth = 0
     private var currentDate=0
+    private lateinit var myWorkoutAdapter: MyWorkoutAdapter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         currActivity = requireActivity()
@@ -74,11 +74,9 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
         when (p0!!.id) {
             R.id.btn_create_workout -> {
                 CreateWorkoutPlanActivity.open(currActivity)
-
             }
         }
     }
-
 
     private fun viewModelInitialize() {
         observerViewModel(viewModel.isApiCalling,this::onHandleShowProgress)
@@ -94,24 +92,21 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
         currActivity.showToast(error,true)
     }
 
-    private fun onHandleMyWorkoutPlanSuccessResponse(myDiet: MyWorkoutPlanModel?) {
-        myDiet?.let {
-            if(myDiet.userWorkouts!!.isNotEmpty()){
+    private fun onHandleMyWorkoutPlanSuccessResponse(myWorkoutPLan: MyWorkoutPlanModel?) {
+        myWorkoutPLan?.let {
+            if(myWorkoutPLan.userWorkouts!!.isNotEmpty()){
               /*  lnrMyWorkoutSchedule.visibility=View.VISIBLE*/
                 binding.root.workoutRecycler.visibility=View.VISIBLE
+                binding.root.lnrMyWorkout.visibility=View.VISIBLE
                 binding.root.lnrNoWorkoutPlanAvailable.visibility=View.GONE
-             /*   val mLayout= LinearLayoutManager(currActivity)
-                dietRecycler.layoutManager=mLayout
-                myDietAdapter= MyMealTypeDietAdapter(currActivity,myDiet.mealTypes!!,this)
-                dietRecycler.adapter=myDietAdapter
-                binding.root.lnrEdit.visibility=View.VISIBLE*/
-
-                /*   binding.root.lnrMySchedule.visibility=View.GONE
-                   binding.root.lnrNoDietPlanAvailable.visibility=View.VISIBLE
-                   binding.root.lnrEdit.visibility=View.GONE*/
+                val mLayout= LinearLayoutManager(currActivity)
+                workoutRecycler.layoutManager=mLayout
+                myWorkoutAdapter= MyWorkoutAdapter(currActivity,myWorkoutPLan.userWorkouts!!,this)
+                workoutRecycler.adapter=myWorkoutAdapter
+                binding.root.lnrEdit.visibility=View.VISIBLE
 
             }else{
-              /*  binding.root.lnrMySchedule.visibility=View.GONE*/
+                binding.root.lnrMyWorkout.visibility=View.GONE
                 binding.root.lnrNoWorkoutPlanAvailable.visibility=View.VISIBLE
                 binding.root.lnrEdit.visibility=View.GONE
 
@@ -180,12 +175,11 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
                 cal.time = date
                 // in this example sunday and saturday can't be selected, others can
 
-                /*return when (cal[Calendar.DATE]) {
+                return when (cal[Calendar.DATE]) {
                     Calendar.SATURDAY -> true
                     Calendar.SUNDAY -> true
                     else -> true
-                }*/
-                return true
+                }
             }
         }
 

@@ -32,7 +32,8 @@ object AppSession {
     var paymentType: String?=""
     var centerBookingId :String?=""
     var trainerBookingId:String?=""
-
+    var arrRepsMax=ArrayList<Int>()
+    var arrSetMax=ArrayList<Int>()
 
 
 }

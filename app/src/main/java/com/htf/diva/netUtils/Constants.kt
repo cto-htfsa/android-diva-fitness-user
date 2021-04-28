@@ -13,6 +13,7 @@ object Constants {
 
         const val FITNESS_CENTER_IMAGE_URL="https://development.htf.sa/diva/uploads/fitness_centers/"
         const val SPECIALISING_IN_IMAGE_URL="https://development.htf.sa/diva/uploads/specializations/"
+        const val WORKOUT_DAY_IMAGE_URL="https://development.htf.sa/diva/uploads/workouts/"
 
         val COUNTRY_IMAGE_URL = "$BASE_URL/uploads/country_flags/"
         val PAYROLL_PDF_URL="$BASE_URL/uploads/salarySlip/"

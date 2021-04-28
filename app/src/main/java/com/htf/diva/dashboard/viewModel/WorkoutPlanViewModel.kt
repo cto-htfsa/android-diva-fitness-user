@@ -3,10 +3,7 @@ package com.htf.diva.dashboard.viewModel
 import androidx.lifecycle.MutableLiveData
 import com.htf.diva.BuildConfig
 import com.htf.diva.base.BaseViewModel
-import com.htf.diva.models.DietWeekdayModel
-import com.htf.diva.models.MyDietModel
-import com.htf.diva.models.MyWorkoutPlanModel
-import com.htf.diva.models.WorkoutWeekDaysModel
+import com.htf.diva.models.*
 import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.DialogUtils
 import com.htf.eyenakhr.dashboard.ApiRepo.DashboardApiRepo
@@ -21,6 +18,8 @@ class WorkoutPlanViewModel: BaseViewModel() {
     val errorResult= MutableLiveData<String>()
     val myWorkOutPlanData= MutableLiveData<MyWorkoutPlanModel>()
     val mWorkoutWeekDaysResponse= MutableLiveData<ArrayList<WorkoutWeekDaysModel>>()
+    val mWorkoutWeekDaysData= MutableLiveData<Any>()
+
 
     fun myWorkoutPlan(){
         if (!DialogUtils.isInternetOn()){
@@ -74,6 +73,39 @@ class WorkoutPlanViewModel: BaseViewModel() {
             }
         }
     }
+
+
+    fun onUpdateWorkoutClick(
+        locale: String?,
+        deviceId: String?,
+        deviceType: String?,
+        versionName: String?,
+        weekDayId: String?,
+        workoutWeekDay: HashMap<String, String?>) {
+        if (!DialogUtils.isInternetOn()){
+            isInternetOn.postValue(false)
+            return
+        }
+        isApiCalling.postValue(true)
+        scope.launch {
+            val result = try {
+                DashboardApiRepo.updateWorkoutWeekDay( locale, deviceId, deviceType,
+                    versionName, weekDayId,workoutWeekDay)
+            } catch (e: Exception) {
+                errorResult.postValue(e.localizedMessage)
+                isApiCalling.postValue(false)
+            }
+            withContext(Dispatchers.Main) {
+                isApiCalling.postValue(false)
+                if (result is Any)
+                    mWorkoutWeekDaysData.postValue(result)
+                else
+                    errorResult.postValue(result.toString())
+            }
+
+        }
+    }
+
 
 
 }

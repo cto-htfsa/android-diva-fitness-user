@@ -18,7 +18,7 @@ class MyWorkoutPlanModel :Serializable{
 
     @SerializedName("userWorkouts")
     @Expose
-    var userWorkouts: List<UserWorkout>? = null
+    var userWorkouts: ArrayList<UserWorkout>? = null
 
 }
 class UserWorkout:Serializable{
