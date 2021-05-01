@@ -1,121 +1,71 @@
 package com.htf.diva.dashboard.homeWorkout
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.htf.diva.BuildConfig
 import com.htf.diva.R
 import com.htf.diva.base.BaseFragment
-import com.htf.diva.callBack.IListItemClickListener
-import com.htf.diva.dashboard.adapters.MyMealTypeDietAdapter
-import com.htf.diva.dashboard.ui.DietWeekDaysActivity
-import com.htf.diva.dashboard.viewModel.DitPlanViewModel
 import com.htf.diva.dashboard.viewModel.WorkoutPlanViewModel
-import com.htf.diva.databinding.FragmentDietBinding
 import com.htf.diva.databinding.FragmentWorkoutBinding
-import com.htf.diva.models.MyDietModel
 import com.htf.diva.models.MyWorkoutPlanModel
-import com.htf.diva.utils.DateUtils.getCurrentDateC
-import com.htf.diva.utils.DateUtils.getCurrentMonthC
-import com.htf.diva.utils.DateUtils.getCurrentYearC
+import com.htf.diva.models.UserWorkout
+import com.htf.diva.utils.AppSession
+import com.htf.diva.utils.DateUtilss.getCurrentDateC
+import com.htf.diva.utils.DateUtilss.getCurrentMonthC
+import com.htf.diva.utils.DateUtilss.getCurrentYearC
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import com.michalsvec.singlerowcalendar.calendar.CalendarChangesObserver
 import com.michalsvec.singlerowcalendar.calendar.CalendarViewManager
-import com.michalsvec.singlerowcalendar.calendar.SingleRowCalendar
 import com.michalsvec.singlerowcalendar.calendar.SingleRowCalendarAdapter
 import com.michalsvec.singlerowcalendar.selection.CalendarSelectionManager
 import com.michalsvec.singlerowcalendar.utils.DateUtils
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView
-import kotlinx.android.synthetic.main.activity_booking_successfully.*
 import kotlinx.android.synthetic.main.calendar_item.view.*
-import kotlinx.android.synthetic.main.fragment_diet.view.*
 import kotlinx.android.synthetic.main.fragment_diet.view.lnrEdit
 import kotlinx.android.synthetic.main.fragment_workout.*
 import kotlinx.android.synthetic.main.fragment_workout.view.*
 import java.util.*
-import kotlin.collections.ArrayList
 
-class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel::class.java) ,
-        View.OnClickListener, IListItemClickListener<Any> {
+class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel::class.java) , View.OnClickListener{
+    private var selectedDate :String?=""
     private lateinit var currActivity: Activity
     lateinit var binding: FragmentWorkoutBinding
     private val calendar = Calendar.getInstance()
     private var currentMonth = 0
     private var currentDate=0
     private lateinit var myWorkoutAdapter: MyWorkoutAdapter
+    private lateinit var arrWorkout: ArrayList<UserWorkout>
+    private var userWorkout =UserWorkout()
+    private var workPlanData =MyWorkoutPlanModel()
+    private var requestAddressCode = 101
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         currActivity = requireActivity()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_workout, container, false)
-        val cDay= CalendarDay.from(getCurrentYearC().toInt(), getCurrentMonthC().toInt(), getCurrentDateC()
-                .toInt())
-        myCalenderView()
+
+
+        val cDay= CalendarDay.from(getCurrentYearC().toInt(), getCurrentMonthC().toInt(), getCurrentDateC().toInt())
+
+        selectedDate=cDay.date.toString()
         binding.myWorkoutPlan = viewModel
-        viewModel.myWorkoutPlan()
+        viewModel.myWorkoutPlan(selectedDate)
         viewModelInitialize()
-       setOnClickListner()
-        binding.root.main_workout_single_row_calendar.init()
+        setOnClickListner()
+        // set current date to calendar and current month to currentMonth variable
+        calendar.time = Date()
+        currentMonth = calendar[Calendar.MONTH]
+        currentDate=calendar[Calendar.DATE]
 
-        return binding.root
-    }
-
-    private fun setOnClickListner() {
-        binding.root.btn_create_workout.setOnClickListener(this)
-    }
-
-    override fun onClick(p0: View?) {
-        when (p0!!.id) {
-            R.id.btn_create_workout -> {
-                CreateWorkoutPlanActivity.open(currActivity)
-            }
-        }
-    }
-
-    private fun viewModelInitialize() {
-        observerViewModel(viewModel.isApiCalling,this::onHandleShowProgress)
-        observerViewModel(viewModel.errorResult,this::onHandleApiErrorResponse)
-        observerViewModel(viewModel.myWorkOutPlanData, this::onHandleMyWorkoutPlanSuccessResponse)
-    }
-
-    private fun onHandleShowProgress(isNotShow:Boolean) {
-        if (isNotShow) progressDialog?.show() else progressDialog?.dismiss()
-    }
-
-    private fun onHandleApiErrorResponse(error: String){
-        currActivity.showToast(error,true)
-    }
-
-    private fun onHandleMyWorkoutPlanSuccessResponse(myWorkoutPLan: MyWorkoutPlanModel?) {
-        myWorkoutPLan?.let {
-            if(myWorkoutPLan.userWorkouts!!.isNotEmpty()){
-              /*  lnrMyWorkoutSchedule.visibility=View.VISIBLE*/
-                binding.root.workoutRecycler.visibility=View.VISIBLE
-                binding.root.lnrMyWorkout.visibility=View.VISIBLE
-                binding.root.lnrNoWorkoutPlanAvailable.visibility=View.GONE
-                val mLayout= LinearLayoutManager(currActivity)
-                workoutRecycler.layoutManager=mLayout
-                myWorkoutAdapter= MyWorkoutAdapter(currActivity,myWorkoutPLan.userWorkouts!!,this)
-                workoutRecycler.adapter=myWorkoutAdapter
-                binding.root.lnrEdit.visibility=View.VISIBLE
-
-            }else{
-                binding.root.lnrMyWorkout.visibility=View.GONE
-                binding.root.lnrNoWorkoutPlanAvailable.visibility=View.VISIBLE
-                binding.root.lnrEdit.visibility=View.GONE
-
-            }
-        }
-    }
-
-
-    private fun myCalenderView() {
         // calendar view manager is responsible for our displaying logic
         val myCalendarViewManager = object : CalendarViewManager {
             override fun setCalendarViewResourceId(position: Int, date: Date, isSelected: Boolean): Int {
@@ -145,7 +95,6 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
                     date: Date,
                     position: Int,
                     isSelected: Boolean) {
-
                 // using this method we can bind data to calendar view
                 // good practice is if all views in layout have same IDs in all item views
                 holder.itemView.tv_date_calendar_item.text = DateUtils.getDayNumber(date)
@@ -155,15 +104,15 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
         }
 
         // using calendar changes observer we can track changes in calendar
-        val myCalendarChangesObserver = object :
-                CalendarChangesObserver {
+        val myCalendarChangesObserver = object : CalendarChangesObserver {
             // you can override more methods, in this example we need only this one
             override fun whenSelectionChanged(isSelected: Boolean, position: Int, date: Date) {
-                binding.root.tvWorkoutDate.text = "${DateUtils.getMonthName(date)},${DateUtils.getYear(date)} "
-                //     tvDay.text = DateUtils.getDayName(date)
+                tvWorkoutDate.text = "${DateUtils.getDayNumber(date)},${DateUtils.getMonth3LettersName(date)},${DateUtils.getYear(date)}"
+                 selectedDate="${DateUtils.getYear(date)}-${DateUtils.getMonthNumber(date)}-${DateUtils.getDayNumber(date)}"
                 super.whenSelectionChanged(isSelected, position, date)
-            }
 
+                 viewModel.myWorkoutPlan(selectedDate)
+            }
 
         }
 
@@ -174,8 +123,7 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
                 val cal = Calendar.getInstance()
                 cal.time = date
                 // in this example sunday and saturday can't be selected, others can
-
-                return when (cal[Calendar.DATE]) {
+                return when (cal[Calendar.DAY_OF_WEEK]) {
                     Calendar.SATURDAY -> true
                     Calendar.SUNDAY -> true
                     else -> true
@@ -184,18 +132,166 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
         }
 
         // here we init our calendar, also you can set more properties if you haven't specified in XML layout
-        val list=ArrayList<Int>()
-        list.add(0)
-
         val singleRowCalendar = binding.root.main_workout_single_row_calendar.apply {
-            binding.root.main_workout_single_row_calendar.calendarViewManager = myCalendarViewManager
+            binding.root.main_workout_single_row_calendar.
+            calendarViewManager = myCalendarViewManager
             calendarChangesObserver = myCalendarChangesObserver
             calendarSelectionManager = mySelectionManager
             includeCurrentDate = true
             setDates(getFutureDatesOfCurrentMonth())
-            //setItemsSelected(list,true)
             init()
         }
+
+
+
+        return binding.root
+    }
+
+    private fun setOnClickListner() {
+        binding.root.btn_create_workout.setOnClickListener(this)
+        binding.root.btnEditWorkoutPlan.setOnClickListener(this)
+    }
+
+    override fun onClick(p0: View?) {
+        when (p0!!.id) {
+            R.id.btn_create_workout -> {
+                CreateWorkoutPlanActivity.open(currActivity,"comeFromNoWorkout")
+            }
+
+            R.id.btnEditWorkoutPlan -> {
+                CreateWorkoutPlanActivity.open(currActivity,"comeFromEditWorkout")
+            }
+        }
+    }
+
+    private fun viewModelInitialize() {
+        observerViewModel(viewModel.isApiCalling, this::onHandleShowProgress)
+        observerViewModel(viewModel.errorResult, this::onHandleApiErrorResponse)
+        observerViewModel(viewModel.myWorkOutPlanData, this::onHandleMyWorkoutPlanSuccessResponse)
+        observerViewModel(viewModel.mUpdateCompletedWorkoutData, this::onHandleupdateCompletedWorkoutSuccessResponse)
+
+    }
+
+    private fun onHandleShowProgress(isNotShow: Boolean) {
+        if (isNotShow) progressDialog?.show() else progressDialog?.dismiss()
+    }
+
+    private fun onHandleApiErrorResponse(error: String){
+        currActivity.showToast(error, true)
+    }
+
+    private fun onHandleMyWorkoutPlanSuccessResponse(myWorkoutPLan: MyWorkoutPlanModel?) {
+        myWorkoutPLan?.let {
+            if(myWorkoutPLan.userWorkouts!!.isNotEmpty()){
+                workPlanData=myWorkoutPLan
+                arrWorkout=myWorkoutPLan.userWorkouts!!
+              /*  lnrMyWorkoutSchedule.visibility=View.VISIBLE*/
+                binding.root.workoutRecycler.visibility=View.VISIBLE
+                binding.root.lnrMyWorkout.visibility=View.VISIBLE
+                binding.root.lnrNoWorkoutPlanAvailable.visibility=View.GONE
+
+                val mLayout= LinearLayoutManager(currActivity)
+                workoutRecycler.layoutManager=mLayout
+                myWorkoutAdapter= MyWorkoutAdapter(currActivity, myWorkoutPLan.userWorkouts!!, this)
+                workoutRecycler.adapter=myWorkoutAdapter
+                binding.root.lnrEdit.visibility=View.VISIBLE
+                setDietPlanWorkout(myWorkoutPLan)
+
+            }else{
+                binding.root.workoutRecycler.visibility=View.GONE
+                binding.root.lnrMyWorkout.visibility=View.GONE
+                binding.root.lnrNoWorkoutPlanAvailable.visibility=View.VISIBLE
+                binding.root.lnrEdit.visibility=View.GONE
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setDietPlanWorkout(myWorkoutPLan: MyWorkoutPlanModel) {
+        if (myWorkoutPLan.myScheduled!!.workouts!!.caloriesBurn!=null){
+            tvBurned.text=myWorkoutPLan.myScheduled!!.workouts!!.caloriesBurn.toString()
+        }
+        if (myWorkoutPLan.myScheduled!!.workoutCompleted!!.caloriesBurn==null){
+            val calBurn=myWorkoutPLan.myScheduled!!.workouts!!.caloriesBurn!!.toDouble()- 0
+            tvCalsLeft.text=calBurn.toString()
+        }else{
+            val calBurn=myWorkoutPLan.myScheduled!!.workouts!!.caloriesBurn!!.toDouble()- myWorkoutPLan.myScheduled!!.workoutCompleted!!.caloriesBurn!!.toDouble()
+            tvCalsLeft.text=calBurn.toString()
+        }
+        if (myWorkoutPLan.myScheduled!!.dietConsumed!!.calories!=null){
+            tvConsumed.text=myWorkoutPLan.myScheduled!!.workoutCompleted!!.caloriesBurn.toString()
+        }
+
+        if(myWorkoutPLan.myScheduled!!.dietConsumed!!.calories!=null &&myWorkoutPLan.myScheduled!!.dietPlans!!.calories!=null){
+            val progress=(myWorkoutPLan.myScheduled!!.dietConsumed!!.calories!!.toDouble())/(myWorkoutPLan.myScheduled!!.dietPlans!!.calories!!.toDouble())
+            workoutProgress.progress = progress.toInt()
+        }else{
+            workoutProgress.progress=0
+        }
+
+        /* Diet plan and diet consumed */
+        if (myWorkoutPLan.myScheduled!!.dietPlans!!.proteins!=null){
+            tvPlanProtien.text=myWorkoutPLan.myScheduled!!.dietPlans!!.proteins+currActivity.getString(R.string.g)
+        } else{
+            tvPlanProtien.text="0"+currActivity.getString(R.string.g)
+        }
+
+        if (myWorkoutPLan.myScheduled!!.dietPlans!!.carbs!=null){
+            tvPlanCabs.text=myWorkoutPLan.myScheduled!!.dietPlans!!.carbs+currActivity.getString(R.string.g)
+        } else{
+            tvPlanCabs.text="0"+currActivity.getString(R.string.g)
+        }
+
+        if (myWorkoutPLan.myScheduled!!.dietPlans!!.fats!=null){
+            tvPlanFat.text=myWorkoutPLan.myScheduled!!.dietPlans!!.fats+currActivity.getString(R.string.g)
+        } else{
+            tvPlanFat.text="0"+currActivity.getString(R.string.g)
+        }
+
+        if (myWorkoutPLan.myScheduled!!.dietPlans!!.calories!=null){
+            tvPlanCalories.text=myWorkoutPLan.myScheduled!!.dietPlans!!.calories+currActivity.getString(R.string.g)
+        } else{
+            tvPlanCalories.text="0"+currActivity.getString(R.string.g)
+        }
+
+
+        /* diet consumed */
+        if (myWorkoutPLan.myScheduled!!.dietConsumed!!.proteins!=null){
+            tvDietConsumedProtien.text=myWorkoutPLan.myScheduled!!.dietConsumed!!.proteins+currActivity.getString(R.string.g)
+        } else{
+            tvDietConsumedProtien.text="0"+currActivity.getString(R.string.g)
+        }
+
+        if (myWorkoutPLan.myScheduled!!.dietPlans!!.carbs!=null){
+            tvDietConsumedCabs.text=myWorkoutPLan.myScheduled!!.dietConsumed!!.carbs+currActivity.getString(R.string.g)
+        } else{
+            tvDietConsumedCabs.text="0"+currActivity.getString(R.string.g)
+        }
+
+        if (myWorkoutPLan.myScheduled!!.dietConsumed!!.fats!=null){
+            tvDietConsumedFat.text=myWorkoutPLan.myScheduled!!.dietConsumed!!.fats+currActivity.getString(R.string.g)
+        } else{
+            tvDietConsumedFat.text="0"+currActivity.getString(R.string.g)
+        }
+
+        if (myWorkoutPLan.myScheduled!!.dietConsumed!!.calories!=null){
+            tvDietConsumedCalories.text=myWorkoutPLan.myScheduled!!.dietConsumed!!.calories+currActivity.getString(R.string.g)
+        } else{
+            tvDietConsumedCalories.text="0"+currActivity.getString(R.string.g)
+        }
+
+
+    }
+
+
+    private fun getDatesOfNextMonth(): List<Date> {
+        currentMonth++ // + because we want next month
+        if (currentMonth == 12) {
+            // we will switch to january of next year, when we reach last month of year
+            calendar.set(Calendar.YEAR, calendar[Calendar.YEAR] + 1)
+            currentMonth = 0 // 0 == january
+        }
+        return getDates(mutableListOf())
     }
 
     private fun getDatesOfPreviousMonth(): List<Date> {
@@ -208,10 +304,17 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
         return getDates(mutableListOf())
     }
 
+    private fun getFutureDatesOfCurrentMonth(): List<Date> {
+        // get all next dates of current month
+        currentMonth = calendar[Calendar.MONTH]
+        return getDates(mutableListOf())
+    }
+
+
     private fun getDates(list: MutableList<Date>): List<Date> {
         // load dates of whole month
         calendar.set(Calendar.MONTH, currentMonth)
-        calendar.set(Calendar.DAY_OF_MONTH, getCurrentDateC().toInt())
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
         list.add(calendar.time)
         while (currentMonth == calendar[Calendar.MONTH]) {
             calendar.add(Calendar.DATE, +1)
@@ -222,11 +325,34 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
         return list
     }
 
+    /* when user click on workout completed button*/
+      fun updateCompletedWorkout(model: UserWorkout, adapterPosition: Int) {
+          userWorkout=model
+          viewModel.updateCompletedWorkout(AppSession.locale, AppSession.deviceId, AppSession.deviceType,
+                BuildConfig.VERSION_NAME, model.workoutId.toString())
+      }
 
-    private fun getFutureDatesOfCurrentMonth(): List<Date> {
-        // get all next dates of current month
-        currentMonth = calendar[Calendar.MONTH]
-        return getDates(mutableListOf())
+
+    private fun onHandleupdateCompletedWorkoutSuccessResponse(updateCompletedWorkout :Any) {
+        arrWorkout.filter { it.workoutId==userWorkout.workoutId }.map { it.workoutCompleted=1 }
+        binding.root.workoutRecycler.post {myWorkoutAdapter.notifyDataSetChanged()}
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (data != null) {
+            when (requestCode) {
+                requestAddressCode -> {
+                    when (resultCode) {
+                        Activity.RESULT_OK -> {
+                       //     callNewCustomizationReq()
+                        }
+                    }
+                }
+
+            }
+
+        }
     }
 
 

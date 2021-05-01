@@ -71,9 +71,9 @@ class WorkoutDayActivity : BaseDarkActivity<ActivityWorkoutDayBinding, WorkoutPl
     private fun workout() {
         if(arrayWorkoutList!!.size>0){
             val mLayout= LinearLayoutManager(currActivity)
-             recycler_workout_day.layoutManager=mLayout
+            binding.root.recycler_workout_day.layoutManager=mLayout
             mWorkoutDaysAdapter= WorkoutDaysAdapter(currActivity,arrayWorkoutList!!,this)
-            recycler_workout_day.adapter=mWorkoutDaysAdapter
+            binding.root.recycler_workout_day.adapter=mWorkoutDaysAdapter
         }else{
             tvClearAll.visibility= View.GONE
             binding.root.ll_empty.visibility = View.VISIBLE
@@ -85,16 +85,17 @@ class WorkoutDayActivity : BaseDarkActivity<ActivityWorkoutDayBinding, WorkoutPl
     fun selectedReps(selectedRepetitionsQty: Int, adapterPosition: Int, cartItemPosition: Int, workoutModel: Workout) {
         arrayWorkoutList!!.filter { it.id==workoutModel.id}.map { it.repetitions=selectedRepetitionsQty}
         workout()
+        mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)
     /*    binding.root.recycler.mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)*/
-       //recycler.post { mWorkoutDaysAdapter.notifyDataSetChanged()}
+       // binding.root.recycler_workout_day.post { mWorkoutDaysAdapter.notifyDataSetChanged()}
 
     }
 
     fun selectedWorkoutSet(selectedRepetitionsQty: Int, adapterPosition: Int, cartItemPosition: Int, workoutModel: Workout) {
         arrayWorkoutList!!.filter { it.id==workoutModel.id}.map { it.sets=selectedRepetitionsQty}
         workout()
-    /*    binding.root.recycler.mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)*/
-       //recycler.post { mWorkoutDaysAdapter.notifyDataSetChanged()}
+          mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)
+      //  binding.root.recycler_workout_day.post { mWorkoutDaysAdapter.notifyDataSetChanged()}
 
     }
 

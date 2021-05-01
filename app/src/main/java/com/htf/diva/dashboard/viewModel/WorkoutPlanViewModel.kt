@@ -20,8 +20,12 @@ class WorkoutPlanViewModel: BaseViewModel() {
     val mWorkoutWeekDaysResponse= MutableLiveData<ArrayList<WorkoutWeekDaysModel>>()
     val mWorkoutWeekDaysData= MutableLiveData<Any>()
 
+    val mMarkDayRestData= MutableLiveData<Any>()
+    val mRemoveDayRestData= MutableLiveData<Any>()
+    val mUpdateCompletedWorkoutData= MutableLiveData<Any>()
 
-    fun myWorkoutPlan(){
+
+    fun myWorkoutPlan(selectedDate: String?) {
         if (!DialogUtils.isInternetOn()){
             isInternetOn.postValue(false)
             return
@@ -30,7 +34,7 @@ class WorkoutPlanViewModel: BaseViewModel() {
         scope.launch {
             val result = try {
                 DashboardApiRepo.myWorkOutPlan(AppSession.locale, AppSession.deviceId,
-                        AppSession.deviceType, BuildConfig.VERSION_NAME)
+                        AppSession.deviceType, BuildConfig.VERSION_NAME,selectedDate)
             } catch (e: Exception) {
                 errorResult.postValue(e.localizedMessage)
                 isApiCalling.postValue(false)
@@ -99,6 +103,98 @@ class WorkoutPlanViewModel: BaseViewModel() {
                 isApiCalling.postValue(false)
                 if (result is Any)
                     mWorkoutWeekDaysData.postValue(result)
+                else
+                    errorResult.postValue(result.toString())
+            }
+
+        }
+    }
+
+
+   fun  markDayRestClick(
+        locale: String?,
+        deviceId: String?,
+        deviceType: String?,
+        versionName: String?,
+        weekDayId: String?) {
+        if (!DialogUtils.isInternetOn()){
+            isInternetOn.postValue(false)
+            return
+        }
+        isApiCalling.postValue(true)
+        scope.launch {
+            val result = try {
+                DashboardApiRepo.markDayRest(locale,deviceId,deviceType,
+                    versionName, weekDayId)
+            } catch (e: Exception) {
+                errorResult.postValue(e.localizedMessage)
+                isApiCalling.postValue(false)
+            }
+            withContext(Dispatchers.Main) {
+                isApiCalling.postValue(false)
+                if (result is Any)
+                    mMarkDayRestData.postValue(result)
+                else
+                    errorResult.postValue(result.toString())
+            }
+
+        }
+    }
+
+    fun  removeDayRestClick(
+        locale: String?,
+        deviceId: String?,
+        deviceType: String?,
+        versionName: String?,
+        weekDayId: String?) {
+        if (!DialogUtils.isInternetOn()){
+            isInternetOn.postValue(false)
+            return
+        }
+        isApiCalling.postValue(true)
+        scope.launch {
+            val result = try {
+                DashboardApiRepo.removeDayRest(locale,deviceId,deviceType,
+                    versionName, weekDayId)
+            } catch (e: Exception) {
+                errorResult.postValue(e.localizedMessage)
+                isApiCalling.postValue(false)
+            }
+            withContext(Dispatchers.Main) {
+                isApiCalling.postValue(false)
+                if (result is Any)
+                    mUpdateCompletedWorkoutData.postValue(result)
+                else
+                    errorResult.postValue(result.toString())
+            }
+
+        }
+    }
+
+
+   fun  updateCompletedWorkout(
+        locale: String?,
+        deviceId: String?,
+        deviceType: String?,
+        versionName: String?,
+        workoutId: String?) {
+        if (!DialogUtils.isInternetOn()){
+            isInternetOn.postValue(false)
+            return
+        }
+        isApiCalling.postValue(true)
+        scope.launch {
+            val result = try {
+                DashboardApiRepo.updateCompletedWorkoutAsync(locale,deviceId,deviceType,
+                    versionName, workoutId)
+            } catch (e: Exception) {
+                errorResult.postValue(e.localizedMessage)
+                isApiCalling.postValue(false)
+            }
+            withContext(Dispatchers.Main) {
+                isApiCalling.postValue(false)
+                if (result is Any)
+                    mUpdateCompletedWorkoutData.postValue(result)
                 else
                     errorResult.postValue(result.toString())
             }

@@ -52,9 +52,9 @@ object DashboardApiRepo : BaseRepository() {
         )
     }
 
-    suspend fun myWorkOutPlan(locale: String,deviceId: String, deviceType: String, versionName: String): Any? {
+    suspend fun myWorkOutPlan(locale: String, deviceId: String, deviceType: String, versionName: String, selectedDate: String?): Any? {
         return safeApiCall(
-                call ={ retrofitAuthClient.myWorkoutPlanAsync(locale,deviceId,deviceType,versionName,"2021-05-03").await()}
+                call ={ retrofitAuthClient.myWorkoutPlanAsync(locale,deviceId,deviceType,versionName,selectedDate.toString()).await()}
         )
     }
 
@@ -257,6 +257,40 @@ object DashboardApiRepo : BaseRepository() {
                                  deviceType: String, versionName: String,page:Int): Any? {
         return safeApiCall(
                 call ={ retrofitAuthClient.paymentHistory(locale,deviceId,deviceType,versionName,page).await()}
+        )
+    }
+
+
+
+    suspend fun markDayRest(locale: String?,
+                                     deviceId: String?,
+                                     deviceType: String?,
+                                     versionName: String?,
+                                     weekDayId: String?): Any? {
+        return safeApiCall(
+                call ={ retrofitAuthClient.markDayRestAsync(locale, deviceId, deviceType,
+                        versionName, weekDayId).await()})
+    }
+
+    suspend fun removeDayRest(locale: String?,
+                                     deviceId: String?,
+                                     deviceType: String?,
+                                     versionName: String?,
+                                     weekDayId: String?): Any? {
+        return safeApiCall(
+                call ={ retrofitAuthClient.removeDayRestAsync(locale, deviceId, deviceType,
+                        versionName, weekDayId).await()}
+        )
+    }
+
+    suspend fun updateCompletedWorkoutAsync(locale: String?,
+                                     deviceId: String?,
+                                     deviceType: String?,
+                                     versionName: String?,
+                                     weekDayId: String?): Any? {
+        return safeApiCall(
+                call ={ retrofitAuthClient.updateCompletedWorkoutAsync(locale, deviceId, deviceType,
+                        versionName, weekDayId).await()}
         )
     }
 

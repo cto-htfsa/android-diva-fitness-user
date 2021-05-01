@@ -114,7 +114,7 @@ class TrainerBookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBin
         )
         tvPackages.text=str
         tvTenure.text=tenureSelected.name
-        val showInUiDate=DateUtils.convertDateFormat(currentDate,DateUtils.serverDateFormat,DateUtils.targetDateFormat)
+        val showInUiDate=DateUtilss.convertDateFormat(currentDate,DateUtilss.serverDateFormat,DateUtilss.targetDateFormat)
         tvJoining_from.text=showInUiDate
         tvTrainerName.text= trainerDetail.trainer!!.name
         Glide.with(currActivity).load(Constants.Urls.TRAINER_IMAGE_URL + trainerDetail.trainer!!.image).centerCrop()

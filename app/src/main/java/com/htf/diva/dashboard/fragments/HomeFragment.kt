@@ -48,7 +48,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
     private lateinit var personalTrainerAdapter: TrainerAdapter
     private lateinit var mFitnessCenterAdapter: CenterAdapter
     private lateinit var mAdapter: BannerAdapter
-    var cartExpDialog:AlertDialog?=null
+    var noMembershipAvlDialog:AlertDialog?=null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -197,16 +197,20 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
 
         builder.setView(dialogView)
         builder.setCancelable(false)
-        cartExpDialog = builder.create()
-        cartExpDialog!!.show()
+        noMembershipAvlDialog = builder.create()
+        noMembershipAvlDialog!!.show()
 
+        dialogView.btnConfirmMembership.setOnClickListener {
+            CenterActivity.open(currActivity)
+            noMembershipAvlDialog!!.dismiss()
+        }
 
         dialogView.ivClose.setOnClickListener {
-            cartExpDialog!!.dismiss()
+            noMembershipAvlDialog!!.dismiss()
         }
 
 
-        val window = cartExpDialog!!.window
+        val window = noMembershipAvlDialog!!.window
         window!!.setLayout(
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT

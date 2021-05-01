@@ -111,8 +111,8 @@ class BookTrainerCenterDetailActivity : BaseDarkActivity<ActivityBookTrainerCent
         viewModel.trainerDetails(AppSession.locale, AppSession.deviceId,
             AppSession.deviceType, BuildConfig.VERSION_NAME, topTrainer!!.id.toString())
 
-        currentDate= DateUtils.getCurrentDateInServerFormat()
-        val showInUiDate=DateUtils.convertDateFormat(currentDate,DateUtils.serverDateFormat,DateUtils.targetDateFormat)
+        currentDate= DateUtilss.getCurrentDateInServerFormat()
+        val showInUiDate=DateUtilss.convertDateFormat(currentDate,DateUtilss.serverDateFormat,DateUtilss.targetDateFormat)
         tvJoiningDate.text= showInUiDate
         offers=intent.getSerializableExtra("offers") as AppDashBoard.Offers
         selectedFitnessCenter=intent.getSerializableExtra("selectedFitnessCenter") as AppDashBoard.FitnessCenter
@@ -238,8 +238,8 @@ class BookTrainerCenterDetailActivity : BaseDarkActivity<ActivityBookTrainerCent
                 date.set(Calendar.YEAR, year)
                 date.set(year, monthOfYear, dayOfMonth)
                 startDate = date.time
-                currentDate=DateUtils.targetDateFormat.format(startDate)
-                tvJoiningDate.text = (DateUtils.targetDateFormat.format(startDate))
+                currentDate=DateUtilss.targetDateFormat.format(startDate)
+                tvJoiningDate.text = (DateUtilss.targetDateFormat.format(startDate))
 
             },
             currentDate1.get(Calendar.YEAR),

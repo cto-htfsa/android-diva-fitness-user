@@ -11,7 +11,6 @@ import com.htf.diva.dashboard.viewModel.BookingSummaryViewModel
 import com.htf.diva.databinding.ActivityFitnessCenterBookingSummaryBinding
 import com.htf.diva.models.*
 import com.htf.diva.callBack.IListItemClickListener
-import com.htf.diva.dashboard.ui.BookingSuccessfullyActivity
 import com.htf.diva.utils.*
 import com.oppwa.mobile.connect.checkout.dialog.CheckoutActivity
 import com.oppwa.mobile.connect.checkout.meta.CheckoutSettings
@@ -99,7 +98,7 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
         when (p0!!.id) {
             R.id.btnPayableAmount->{
                 viewModel.onBookFitnessCenterClick(selectedFitnessCenter.id,tenureSelected.id,
-                    DateUtils.convertDateFormat(currentDate,DateUtils.targetDateFormat,DateUtils.serverDateFormat),
+                    DateUtilss.convertDateFormat(currentDate,DateUtilss.targetDateFormat,DateUtilss.serverDateFormat),
                     packageSelected.id,numberOfPeoplePerSession,baseAmount,totalAmt,
                     vatPercentage,afterCalculateTax,offers.id,calculatedAmtAfterDiscount.toString(),
                     amount_after_discount,totalPayableAmt)
@@ -116,7 +115,7 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
         val str = currActivity.getString(R.string.package_membership).replace("[X]", packageSelected.tenureName.toString())
         tvPackages.text = str
         tvTenure.text = tenureSelected.name
-          val showInUiDate=DateUtils.convertDateFormat(currentDate,DateUtils.serverDateFormat,DateUtils.targetDateFormat)
+          val showInUiDate=DateUtilss.convertDateFormat(currentDate,DateUtilss.serverDateFormat,DateUtilss.targetDateFormat)
           tvJoining_from.text = showInUiDate
         /*        currentDate=currentDateShow
         tvJoining_from.text = currentDate*/

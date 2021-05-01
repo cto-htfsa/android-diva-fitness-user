@@ -154,8 +154,8 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
                 date.set(Calendar.YEAR, year)
                 date.set(year, monthOfYear, dayOfMonth)
                 startDate = date.time
-                currentDate=DateUtils.targetDateFormat.format(startDate)
-                tvCenterJoiningDate.text = (DateUtils.targetDateFormat.format(startDate))
+                currentDate=DateUtilss.targetDateFormat.format(startDate)
+                tvCenterJoiningDate.text = (DateUtilss.targetDateFormat.format(startDate))
 
             },
             currentDate1.get(Calendar.YEAR),
@@ -176,8 +176,8 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
            val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
            val formattedDate: String = df.format(c)
          */
-            currentDate= DateUtils.getCurrentDateInServerFormat()
-           val showInUiDate=DateUtils.convertDateFormat(currentDate,DateUtils.serverDateFormat,DateUtils.targetDateFormat)
+            currentDate= DateUtilss.getCurrentDateInServerFormat()
+           val showInUiDate=DateUtilss.convertDateFormat(currentDate,DateUtilss.serverDateFormat,DateUtilss.targetDateFormat)
            tvCenterJoiningDate.text= showInUiDate
 
       }

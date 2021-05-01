@@ -8,12 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.htf.diva.R
 import com.htf.diva.callBack.IListItemClickListener
-import com.htf.diva.dashboard.fragments.CompletedBookingFragment
 import com.htf.diva.databinding.RowCompletedBookingBinding
 import com.htf.diva.models.CompletedBookingModel
-import com.htf.diva.models.UpComingBookingModel
 import com.htf.diva.netUtils.Constants
-import com.htf.diva.utils.DateUtils
+import com.htf.diva.utils.DateUtilss
 import kotlinx.android.synthetic.main.row_completed_booking.view.*
 
 class CompletedBookingAdapter(
@@ -58,8 +56,8 @@ class CompletedBookingAdapter(
         holder.itemView.tvTenureName.text=model.tenureName
         holder.itemView.tvBookingPrice.text=currActivity.getString(R.string.sar)+" "+model.payableAmount!!.toString()
 
-        holder.itemView.tvBookingDate.text= DateUtils.convertDateFormat(model.createdAt,
-                DateUtils.serverChatUTCDateTimeFormat, DateUtils.targetDateTimeFormat)
+        holder.itemView.tvBookingDate.text= DateUtilss.convertDateFormat(model.createdAt,
+                DateUtilss.serverChatUTCDateTimeFormat, DateUtilss.targetDateTimeFormat)
 
         val str = currActivity.getString(R.string.package_membership).replace("[X]", model.packageName.toString())
         holder.itemView.tvPackage.text=str

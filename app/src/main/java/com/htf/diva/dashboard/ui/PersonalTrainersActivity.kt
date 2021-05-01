@@ -1,11 +1,16 @@
 package com.htf.diva.dashboard.ui
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Gravity
 import android.view.View
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -21,8 +26,11 @@ import com.htf.diva.utils.LoadMoreScrollListener
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.dashboard.bookFitnessCenter.CenterActivity
 import com.htf.diva.dashboard.bookTrainer.TrainerDetailActivity
+import com.htf.diva.utils.AppSession
 import kotlinx.android.synthetic.main.activity_personal_trainers.*
+import kotlinx.android.synthetic.main.dialog_buy_membership.view.*
 import kotlinx.android.synthetic.main.layout_recycler_view.*
 import kotlinx.android.synthetic.main.layout_recycler_view.view.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -45,6 +53,8 @@ class PersonalTrainersActivity : BaseDarkActivity<ActivityPersonalTrainersBindin
     private var term = ""
     private var timer:Timer?=null
     private var comeFrom:String?=null
+    var noMembershipAvlDialog:AlertDialog?=null
+
 
     companion object{
         fun open(currActivity: Activity, keyPersonalTrainerScreenComeFrom: String?){
@@ -132,9 +142,7 @@ class PersonalTrainersActivity : BaseDarkActivity<ActivityPersonalTrainersBindin
                     this@PersonalTrainersActivity.page++
                     isProgressBar = false
                     viewModel.onGetTrainerListing(page = this@PersonalTrainersActivity.page,isProgressBar = isProgressBar,fitnessId=fitnessId,query=query)
-                }
-            }
-
+                } }
         })
     }
 
@@ -223,8 +231,41 @@ class PersonalTrainersActivity : BaseDarkActivity<ActivityPersonalTrainersBindin
 
     override fun onItemClickListener(topTrainer: Any) {
         if (topTrainer is AppDashBoard.TopTrainer)
-            TrainerDetailActivity.open(currActivity,topTrainer)
+            if(AppSession.appDashBoard!!.fitnessCenterSubscription!=null){
+                TrainerDetailActivity.open(currActivity,topTrainer)
+            } else{
+                openBuyMemberShipDialog()
+            }
     }
 
+    private fun openBuyMemberShipDialog() {
+        val builder = AlertDialog.Builder(currActivity)
+        val dialogView = currActivity.layoutInflater.inflate(R.layout.dialog_buy_membership, null)
+
+        builder.setView(dialogView)
+        builder.setCancelable(false)
+        noMembershipAvlDialog = builder.create()
+        noMembershipAvlDialog!!.show()
+
+
+        dialogView.ivClose.setOnClickListener {
+            noMembershipAvlDialog!!.dismiss()
+        }
+
+        dialogView.btnConfirmMembership.setOnClickListener {
+            CenterActivity.open(currActivity)
+            noMembershipAvlDialog!!.dismiss()
+        }
+
+
+        val window = noMembershipAvlDialog!!.window
+        window!!.setLayout(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        window.setGravity(Gravity.CENTER)
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+    }
 
 }

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.htf.diva.R
 import com.htf.diva.base.BaseActivity
+import com.htf.diva.base.MyApplication
 import com.htf.diva.dashboard.adapters.SelectedSlotAdapter
 import com.htf.diva.dashboard.adapters.SlotsAdapter
 import com.htf.diva.dashboard.viewModel.PersonalTrainerViewModel
@@ -22,11 +23,11 @@ import com.htf.diva.models.Packages
 import com.htf.diva.models.Slot
 import com.htf.diva.models.Tenure
 import com.htf.diva.models.TrainerDetailsModel
-import com.htf.diva.utils.DateUtils
-import com.htf.diva.utils.DateUtils.getCurrentDateC
-import com.htf.diva.utils.DateUtils.getCurrentMonthC
-import com.htf.diva.utils.DateUtils.getCurrentWeekDay
-import com.htf.diva.utils.DateUtils.getCurrentYearC
+import com.htf.diva.utils.DateUtilss
+import com.htf.diva.utils.DateUtilss.getCurrentDateC
+import com.htf.diva.utils.DateUtilss.getCurrentMonthC
+import com.htf.diva.utils.DateUtilss.getCurrentWeekDay
+import com.htf.diva.utils.DateUtilss.getCurrentYearC
 import com.htf.diva.utils.content.DummyContent
 import com.htf.diva.utils.showToast
 import com.htf.diva.callBack.IListItemClickListener
@@ -116,20 +117,24 @@ class SelectSlotsActivity : BaseActivity<ActivitySlotBookBinding, PersonalTraine
                }
             }
             R.id.btnConfirmSlot->{
-                if(arrSelectedSlots.isNotEmpty()){
-                    TrainerBookingSummaryActivity.open(
-                        currActivity,
-                        arrSelectedSlots,
-                        trainerDetail,
-                        tenureSelected,
-                        packageSelected,
-                        booking_type,
-                        currentDate,
-                        numberOfPeoplePerSession,
-                        withMyFriendsGym,
-                        gymBookingWith
-                    )
-                } else{
+                if(arrSelectedSlots.isNotEmpty()) {
+                    if (arrSelectedSlots.size==packageSelected.sessions){
+                        TrainerBookingSummaryActivity.open(
+                                currActivity,
+                                arrSelectedSlots,
+                                trainerDetail,
+                                tenureSelected,
+                                packageSelected,
+                                booking_type,
+                                currentDate,
+                                numberOfPeoplePerSession,
+                                withMyFriendsGym,
+                                gymBookingWith)
+                    }else{
+                        val str= MyApplication.getAppContext().getString(R.string.select_slot).replace("[X]",packageSelected.sessions.toString())
+                        showToast(str, true)
+                    }
+                } else {
                     showToast(currActivity.getString(R.string.please_select_slots), true)
                 }
             }
@@ -158,7 +163,7 @@ class SelectSlotsActivity : BaseActivity<ActivitySlotBookBinding, PersonalTraine
     override fun onDateSelected(widget: MaterialCalendarView, date: CalendarDay, selected: Boolean) {
            selectedDate=date.date.toString()
            arrBookingSlots.clear()
-           val weekDay=DateUtils.convertDateFormat(selectedDate, DateUtils.serverDateFormat, DateUtils.weekdaysFormat)
+           val weekDay=DateUtilss.convertDateFormat(selectedDate, DateUtilss.serverDateFormat, DateUtilss.weekdaysFormat)
            selectedDayType=DummyContent.getWeekDays().single { it.weekDay==weekDay }.type
            arrBookingSlots.addAll(intent.getSerializableExtra("arrBookingSlots") as ArrayList<Slot>)
            val filterArrBookingSlots=arrBookingSlots.filter { it.weekdayId==selectedDayType }

@@ -2,7 +2,6 @@ package com.htf.diva.utils
 
 import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.htf.diva.R
@@ -14,13 +13,13 @@ class BindingAdapter {
         @JvmStatic
         @BindingAdapter("date")
         fun setDate(view: TextView, strDob: String?) {
-            view.text = DateUtils.convertDateFormat(strDob, DateUtils.serverDateFormat, DateUtils.targetDateWithWeekFormat)
+            view.text = DateUtilss.convertDateFormat(strDob, DateUtilss.serverDateFormat, DateUtilss.targetDateWithWeekFormat)
         }
 
         @JvmStatic
         @BindingAdapter("dob")
         fun setDob(view: TextView, strDob: String?) {
-            view.text = DateUtils.convertDateFormat(strDob, DateUtils.serverDateFormat, DateUtils.targetDateFormat)
+            view.text = DateUtilss.convertDateFormat(strDob, DateUtilss.serverDateFormat, DateUtilss.targetDateFormat)
         }
 
         @JvmStatic
@@ -90,6 +89,25 @@ class BindingAdapter {
         }
 
 
+       @JvmStatic
+        @BindingAdapter("burnsCalories")
+        fun burnsCalories(view: TextView, burnsCalories: String?){
+                    view.text=burnsCalories+" "+MyApplication.getAppContext().getString(R.string.burns)
+        }
+
+        @JvmStatic
+        @BindingAdapter("workoutReps")
+        fun workoutReps(view: TextView, workoutReps: String?){
+                    view.text=MyApplication.getAppContext().getString(R.string.reps)+": "+ workoutReps
+        }
+
+        @JvmStatic
+        @BindingAdapter("workoutSets")
+        fun workoutSets(view: TextView, workoutSets: String?){
+            view.text=MyApplication.getAppContext().getString(R.string.set)+": "+ workoutSets
+        }
+
+
         @JvmStatic
         @BindingAdapter("forSessionMonth")
         fun setSessionMonth(view: TextView, forSessionMonth: String?){
@@ -115,8 +133,8 @@ class BindingAdapter {
         @JvmStatic
         @BindingAdapter("start_date", "end_date")
         fun setLeaveStartEndDate(view: TextView, start_date: String?, end_date: String) {
-            val startDate = DateUtils.convertDateFormat(start_date, DateUtils.serverDateFormat, DateUtils.dayMonthFormat)
-            val endDate = DateUtils.convertDateFormat(end_date, DateUtils.serverDateFormat, DateUtils.targetDateFormat)
+            val startDate = DateUtilss.convertDateFormat(start_date, DateUtilss.serverDateFormat, DateUtilss.dayMonthFormat)
+            val endDate = DateUtilss.convertDateFormat(end_date, DateUtilss.serverDateFormat, DateUtilss.targetDateFormat)
             view.text = "$startDate-$endDate"
         }
 

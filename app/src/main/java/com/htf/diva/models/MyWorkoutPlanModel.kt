@@ -37,11 +37,11 @@ class UserWorkout:Serializable{
 
     @SerializedName("repetitions")
     @Expose
-    var repetitions: Int? = null
+    var repetitions: String? = null
 
     @SerializedName("sets")
     @Expose
-    var sets: Int? = null
+    var sets: String? = null
 
     @SerializedName("name")
     @Expose

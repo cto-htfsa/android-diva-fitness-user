@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.htf.diva.R
 import com.htf.diva.callBack.IListItemClickListener
-import com.htf.diva.databinding.RowWorkoutDaysBinding
 import com.htf.diva.models.Workout
 import com.htf.diva.netUtils.Constants
 import kotlinx.android.synthetic.main.row_workout_days.view.*
@@ -20,12 +19,10 @@ class WorkoutDaysAdapter(
     private var iListItemClickListener: IListItemClickListener<Any>
 ): RecyclerView.Adapter<WorkoutDaysAdapter.MyViewHolder>(){
 
-    var rowDietWeekDayBinding: RowWorkoutDaysBinding?=null
 
-    inner class MyViewHolder(itemView: RowWorkoutDaysBinding): RecyclerView.ViewHolder(itemView.root){
+    inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         init {
 
-            rowDietWeekDayBinding=itemView
       /*      itemView.root.setOnClickListener {
                 iListItemClickListener.onItemClickListener(arrWorkoutDays[adapterPosition])
             }
@@ -37,8 +34,7 @@ class WorkoutDaysAdapter(
         val itemView= LayoutInflater.from(parent.context).inflate(
             R.layout.row_workout_days, parent, false
         )
-        val bindingUtil= RowWorkoutDaysBinding.bind(itemView);
-        return MyViewHolder(bindingUtil)
+        return MyViewHolder(itemView)
 
 
     }
@@ -49,12 +45,12 @@ class WorkoutDaysAdapter(
 
     override fun onBindViewHolder(holder: WorkoutDaysAdapter.MyViewHolder, position: Int) {
         val model=arrWorkoutDays[position]
-        rowDietWeekDayBinding!!.workoutDay =model
-
         Glide.with(currActivity).load(
             Constants.Urls.WORKOUT_DAY_IMAGE_URL +
                     model.image)
             .placeholder(R.drawable.user).into(holder.itemView.ivWorkoutDay)
+
+        holder.itemView.tvWorkoutName.text=model.name
 
         holder.itemView.tvRepetition.text=model.repetitions.toString()
         holder.itemView.tvSets.text=model.sets.toString()

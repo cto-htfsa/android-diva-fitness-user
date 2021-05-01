@@ -44,9 +44,7 @@ class CenterAdapter(
         val model=arrFitnessCenter[position]
         rowFitnessCenterBinding!!.fitnessCenter =model
         holder.itemView.lnrCenter.backgroundTintList = ColorStateList.valueOf(Color.parseColor(model.background_color))
-/*
-        holder.itemView.tvBranchName.setTextColor(ContextCompat.getColor(currActivity, Color.parseColor(model.background_color)))
-*/
+        holder.itemView.tvBranchName.setTextColor(ColorStateList.valueOf(Color.parseColor(model.text_color)))
 
     }
 

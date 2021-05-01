@@ -326,5 +326,32 @@ interface DashBoardApiInterface {
                             Deferred<Response<BaseResponse<Any>>>
 
 
+    @FormUrlEncoded
+    @POST("api/v1/create/day-rest")
+    fun markDayRestAsync(@Field("locale") locale: String?,
+                         @Field("device_id") device_id: String?,
+                         @Field("device_type") device_type: String?,
+                         @Field("current_version") current_version: String?,
+                         @Field("weekday_id") trainer_id: String?):
+                            Deferred<Response<BaseResponse<Any>>>
+
+
+    @DELETE("api/v1/remove/day-rest")
+    fun removeDayRestAsync(@Query("locale") locale: String?,
+                            @Query("device_id") device_id: String?,
+                            @Query("device_type") device_type: String?,
+                            @Query("current_version") current_version: String?,
+                            @Query("weekday_id") trainer_id: String?):
+                            Deferred<Response<BaseResponse<Any>>>
+
+    @FormUrlEncoded
+    @POST("api/v1/update/completed/workout")
+    fun updateCompletedWorkoutAsync(@Field("locale") locale: String?,
+                         @Field("device_id") device_id: String?,
+                         @Field("device_type") device_type: String?,
+                         @Field("current_version") current_version: String?,
+                         @Field("workout_id[0]") workoutId: String?):
+            Deferred<Response<BaseResponse<Any>>>
+
 }
 

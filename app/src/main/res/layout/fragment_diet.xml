@@ -416,31 +416,37 @@
 
          </LinearLayout>
 
-     <LinearLayout
-             android:layout_marginStart="@dimen/margin_16dp"
-             android:layout_marginEnd="@dimen/margin_16dp"
+         <LinearLayout
              android:layout_alignParentBottom="true"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:id="@+id/lnrEdit"
-             android:background="@color/white"
+             android:paddingTop="@dimen/margin_8dp"
+             android:paddingStart="@dimen/margin_16dp"
+             android:paddingEnd="@dimen/margin_16dp"
+             android:paddingBottom="@dimen/margin_16dp"
              android:gravity="center"
+             android:visibility="visible"
              android:orientation="horizontal">
 
-             <Button
-                 android:id="@+id/btnEditDietPlan"
+             <TextView
+                 android:id="@+id/btnEditWorkoutPlan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:background="@drawable/btn_edit_diet"
                  android:fontFamily="@font/avenir_roman"
                  android:text="@string/edit_diet_plan"
+                 android:gravity="center"
+                 android:paddingTop="@dimen/margin_16dp"
+                 android:paddingBottom="@dimen/margin_16dp"
                  android:textColor="@color/colorPrimary"
                  android:textSize="14sp"
                  android:textAllCaps="false">
-             </Button>
+             </TextView>
 
 
          </LinearLayout>
+
 
      </RelativeLayout>
 

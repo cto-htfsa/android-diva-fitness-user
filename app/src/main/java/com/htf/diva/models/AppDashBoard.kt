@@ -138,7 +138,7 @@ class AppDashBoard :Serializable {
         @Expose
         var text_color: String? = null
 
-        @SerializedName("background_color ")
+        @SerializedName("background_color")
         @Expose
         var background_color : String? = null
 
@@ -165,7 +165,7 @@ class AppDashBoard :Serializable {
 
         @SerializedName("calories_burn")
         @Expose
-        var caloriesBurn: Any? = null
+        var caloriesBurn: String? = null
     }
 
     class DietPlans:Serializable{
@@ -190,19 +190,19 @@ class AppDashBoard :Serializable {
     class DietConsumed:Serializable{
         @SerializedName("proteins")
         @Expose
-        var proteins: Any? = null
+        var proteins: String? = null
 
         @SerializedName("carbs")
         @Expose
-        var carbs: Any? = null
+        var carbs: String? = null
 
         @SerializedName("fats")
         @Expose
-        var fats: Any? = null
+        var fats: String? = null
 
         @SerializedName("calories")
         @Expose
-        var calories: Any? = null
+        var calories: String? = null
     }
 
     class FitnessCenterSubscription :Serializable{

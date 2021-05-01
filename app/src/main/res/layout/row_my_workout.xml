@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-        <variable
-            name="myWorkout"
-            type="com.htf.diva.models.UserWorkout" />
-        <import type="android.view.View"/>
-    </data>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_12"
-        android:layout_marginEnd="@dimen/dimen_12"
-        android:layout_marginTop="@dimen/margin_8dp"
-        android:layout_marginBottom="@dimen/margin_4dp"
-        android:padding="@dimen/dimen_5"
-        android:orientation="vertical"
-        android:background="@drawable/meal_type_rect_bg">
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginStart="@dimen/dimen_12"
+    android:layout_marginEnd="@dimen/dimen_12"
+    android:layout_marginTop="@dimen/margin_8dp"
+    android:layout_marginBottom="@dimen/margin_4dp"
+    android:padding="@dimen/dimen_5"
+    android:orientation="vertical"
+    android:background="@drawable/meal_type_rect_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
         <LinearLayout
@@ -27,7 +19,7 @@
             android:orientation="horizontal">
 
             <com.github.siyamed.shapeimageview.RoundedImageView
-                android:id="@+id/ivWorkoutDay"
+                android:id="@+id/ivWorkout"
                 android:layout_width="@dimen/dimen_60"
                 app:siBorderColor="@color/white"
                 android:layout_gravity="center"
@@ -42,23 +34,78 @@
                 android:layout_marginStart="@dimen/dimen_5">
 
                 <TextView
+                    android:id="@+id/tvWorkoutName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    userName="@{myWorkout.name}"
                     android:layout_marginStart="8dp"
-                    android:textSize="@dimen/font_16sp"
+                    android:textSize="@dimen/font_14sp"
                     android:textColor="@color/colorPrimaryDark"
                     android:fontFamily="@font/avenir_black" />
 
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rcvRepQty"
-                    android:visibility="gone"
-                    android:layout_marginTop="@dimen/margin_8dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </androidx.recyclerview.widget.RecyclerView>
+                    <RelativeLayout
+                        android:layout_marginStart="8dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                        <TextView
+                            android:id="@+id/tvCaloriesBurn"
+                            android:layout_alignParentStart="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="@dimen/font_12sp"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:fontFamily="@font/avenir_black" />
+
+                        <ImageView
+                            android:layout_alignParentEnd="true"
+                            android:id="@+id/ivCheckGrey"
+                            android:layout_marginEnd="@dimen/margin_8dp"
+                            android:layout_width="@dimen/dimen_20"
+                            android:layout_height="@dimen/dimen_20"
+                            android:src="@drawable/grey_tick" />
+
+                        <ImageView
+                            android:layout_alignParentEnd="true"
+                            android:id="@+id/ivCheckGreen"
+                            android:layout_marginEnd="@dimen/margin_8dp"
+                            android:layout_width="@dimen/dimen_20"
+                            android:layout_height="@dimen/dimen_20"
+                            android:src="@drawable/green_tick" />
+
+                    </RelativeLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tvWorkoutRepetition"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text=""
+                        android:textSize="@dimen/font_12sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:fontFamily="@font/avenir_light">
+                    </TextView>
+
+
+                    <TextView
+                        android:id="@+id/tvWorkoutSet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text=""
+                        android:textSize="@dimen/font_12sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:fontFamily="@font/avenir_light">
+                    </TextView>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -67,6 +114,4 @@
 
     </LinearLayout>
 
-
-</layout>
 

@@ -3,21 +3,14 @@ package com.htf.diva.dashboard.adapters
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
 import com.htf.diva.callBack.IListItemClickListener
-import com.htf.diva.databinding.RowAllTrainersBinding
 import com.htf.diva.databinding.RowPaymentHistoryBinding
-import com.htf.diva.models.AppDashBoard
 import com.htf.diva.models.PaymentHistoryModel
-import com.htf.diva.utils.AppUtils
-import com.htf.diva.utils.DateUtils
-import kotlinx.android.synthetic.main.activity_fitness_center_booking_summary.*
-import kotlinx.android.synthetic.main.row_all_trainers.view.*
+import com.htf.diva.utils.DateUtilss
 import kotlinx.android.synthetic.main.row_payment_history.view.*
-import kotlinx.android.synthetic.main.row_up_coming_booking.view.*
 
 class PaymentHistoryAdapter (
         private var currActivity: Activity,
@@ -57,8 +50,8 @@ class PaymentHistoryAdapter (
         holder.itemView.tvAmount.text=currActivity.getString(R.string.sar)+" "+ model.amount!!.toString()
         holder.itemView.payment_mode.text=model.paymentMode
         holder.itemView.payment_status.text=model.status
-        holder.itemView.payment_date.text= DateUtils.convertDateFormat(model.createdAt,
-                DateUtils.serverChatUTCDateTimeFormat, DateUtils.targetDateFormat)
+        holder.itemView.payment_date.text= DateUtilss.convertDateFormat(model.createdAt,
+                DateUtilss.serverChatUTCDateTimeFormat, DateUtilss.targetDateFormat)
     }
 
 }

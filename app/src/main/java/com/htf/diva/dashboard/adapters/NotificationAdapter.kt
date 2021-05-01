@@ -1,7 +1,6 @@
 package com.htf.diva.dashboard.adapters
 
 import android.app.Activity
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
 import com.htf.diva.models.Notifications
 import com.htf.diva.utils.AppSession
-import com.htf.diva.utils.DateUtils
+import com.htf.diva.utils.DateUtilss
 import kotlinx.android.synthetic.main.row_notifications.view.*
-import kotlinx.android.synthetic.main.toolbar.view.*
 import kotlinx.android.synthetic.main.toolbar.view.tvTitle
 
 class NotificationAdapter(
@@ -36,7 +34,7 @@ class NotificationAdapter(
         val model=arrNoti[position]
         holder.itemView.tvTitle.text=if (AppSession.locale=="en") model.title else model.title
         holder.itemView.tvTime.text=
-            DateUtils.convertDateFormat(model.createdAt,DateUtils.serverDateTimeFormat,DateUtils.targetDateTimeFormat)
+            DateUtilss.convertDateFormat(model.createdAt,DateUtilss.serverDateTimeFormat,DateUtilss.targetDateTimeFormat)
     }
 
     override fun getItemViewType(position: Int): Int {

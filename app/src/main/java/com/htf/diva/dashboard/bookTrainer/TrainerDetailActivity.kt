@@ -22,7 +22,6 @@ import com.htf.diva.utils.*
 import kotlinx.android.synthetic.main.activity_trainer_details.*
 import kotlinx.android.synthetic.main.activity_trainer_details.rbPackage
 import kotlinx.android.synthetic.main.activity_trainer_details.rvSelectTenure
-import kotlinx.android.synthetic.main.row_personal_trainers.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -90,8 +89,8 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
                 AppSession.locale, AppSession.deviceId,
                 AppSession.deviceType, BuildConfig.VERSION_NAME, topTrainer!!.id.toString())
 
-            currentDate= DateUtils.getCurrentDateInServerFormat()
-            val showInUiDate=DateUtils.convertDateFormat(currentDate,DateUtils.serverDateFormat,DateUtils.targetDateFormat)
+            currentDate= DateUtilss.getCurrentDateInServerFormat()
+            val showInUiDate=DateUtilss.convertDateFormat(currentDate,DateUtilss.serverDateFormat,DateUtilss.targetDateFormat)
             tvJoiningDate.text= showInUiDate
 
     }
@@ -183,11 +182,11 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
 
     /* set package recyclerview here*/
     private fun setPackageList(packageList: List<Packages>) {
-        rbPackage.isChecked=true
-        val mLayout = LinearLayoutManager(currActivity, LinearLayoutManager.HORIZONTAL, false)
-        rvPackages.layoutManager = mLayout
+         rbPackage.isChecked=true
+         val mLayout = LinearLayoutManager(currActivity, LinearLayoutManager.HORIZONTAL, false)
+         rvPackages.layoutManager = mLayout
          packageAdapter = PackagesAdapter(currActivity, packageList, this)
-        rvPackages.adapter = packageAdapter
+         rvPackages.adapter = packageAdapter
     }
 
 
@@ -222,8 +221,8 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
                 date.set(Calendar.YEAR, year)
                 date.set(year, monthOfYear, dayOfMonth)
                 startDate = date.time
-                currentDate=DateUtils.targetDateFormat.format(startDate)
-                tvJoiningDate.text = (DateUtils.targetDateFormat.format(startDate))
+                currentDate=DateUtilss.targetDateFormat.format(startDate)
+                tvJoiningDate.text = (DateUtilss.targetDateFormat.format(startDate))
 
             },
             currentDate1.get(Calendar.YEAR),

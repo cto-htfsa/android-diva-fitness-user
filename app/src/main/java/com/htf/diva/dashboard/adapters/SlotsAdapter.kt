@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
 import com.htf.diva.models.Slot
-import com.htf.diva.utils.DateUtils
+import com.htf.diva.utils.DateUtilss
 import com.htf.diva.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.row_slots.view.*
 import kotlinx.android.synthetic.main.row_slots.view.ivSelected
@@ -43,8 +43,8 @@ class SlotsAdapter (
     override fun onBindViewHolder(holder: SlotsAdapter.MyViewHolder, position: Int) {
         val model=arrSlots[position]
       /*  rowFitnessCenterBinding!!.slotsModel =model*/
-        val startDate= DateUtils.convertDateFormat(model.startAt, DateUtils.serverTimeFormat, DateUtils.targetTimeFormat)
-        val endDate= DateUtils.convertDateFormat(model.endAt, DateUtils.serverTimeFormat, DateUtils.targetTimeFormat)
+        val startDate= DateUtilss.convertDateFormat(model.startAt, DateUtilss.serverTimeFormat, DateUtilss.targetTimeFormat)
+        val endDate= DateUtilss.convertDateFormat(model.endAt, DateUtilss.serverTimeFormat, DateUtilss.targetTimeFormat)
         holder.itemView.tvTime.text=startDate+"-"+endDate
         if (position==rowIndex){
             holder.itemView.rltSlots.setBackgroundResource(R.drawable.package_bg)

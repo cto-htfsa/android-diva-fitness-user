@@ -20,7 +20,7 @@ import com.htf.diva.dashboard.adapters.SlotsAdapter
 import com.htf.diva.dashboard.viewModel.PersonalTrainerViewModel
 import com.htf.diva.databinding.ActivitySlotBookBinding
 import com.htf.diva.models.*
-import com.htf.diva.utils.DateUtils
+import com.htf.diva.utils.DateUtilss
 import com.htf.diva.utils.content.DummyContent
 import com.htf.diva.utils.showToast
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -36,7 +36,7 @@ class TrainerCenterSlotsActivity : BaseActivity<ActivitySlotBookBinding, Persona
 
     private var selectedDate: String=""
     private var itemSelectedSlot= Slot()
-    private var selectedDay= DateUtils.getCurrentWeekDay()
+    private var selectedDay= DateUtilss.getCurrentWeekDay()
     private var selectedDayType=0
     private var arrBookingSlots=ArrayList<Slot>()
     private var currActivity: Activity = this
@@ -113,7 +113,7 @@ class TrainerCenterSlotsActivity : BaseActivity<ActivitySlotBookBinding, Persona
         getExtra()
         setListener()
         val cDay= CalendarDay.from(
-            DateUtils.getCurrentYearC().toInt(), DateUtils.getCurrentMonthC().toInt(), DateUtils.getCurrentDateC()
+            DateUtilss.getCurrentYearC().toInt(), DateUtilss.getCurrentMonthC().toInt(), DateUtilss.getCurrentDateC()
                 .toInt())
 
         binding.calendarView.selectionMode = MaterialCalendarView.SELECTION_MODE_SINGLE
@@ -182,7 +182,7 @@ class TrainerCenterSlotsActivity : BaseActivity<ActivitySlotBookBinding, Persona
     override fun onDateSelected(widget: MaterialCalendarView, date: CalendarDay, selected: Boolean) {
         selectedDate=date.date.toString()
         arrBookingSlots.clear()
-        val weekDay= DateUtils.convertDateFormat(selectedDate, DateUtils.serverDateFormat, DateUtils.weekdaysFormat)
+        val weekDay= DateUtilss.convertDateFormat(selectedDate, DateUtilss.serverDateFormat, DateUtilss.weekdaysFormat)
         selectedDayType= DummyContent.getWeekDays().single { it.weekDay==weekDay }.type
         arrBookingSlots.addAll(intent.getSerializableExtra("arrBookingSlots") as ArrayList<Slot>)
         val filterArrBookingSlots=arrBookingSlots.filter { it.weekdayId==selectedDayType }
