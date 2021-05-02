@@ -1,4 +1,4 @@
-package com.htf.diva.dashboard.ui
+package com.htf.diva.dashboard.homeDiet
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -14,6 +14,7 @@ import com.htf.diva.models.DietWeekdayModel
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.dashboard.ui.MealTypesActivity
 import kotlinx.android.synthetic.main.layout_recycler_view.*
 import kotlinx.android.synthetic.main.layout_recycler_view.view.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -22,9 +23,10 @@ class DietWeekDaysActivity : BaseDarkActivity<ActivityDietWeekDaysBinding, DitPl
     DitPlanViewModel::class.java), View.OnClickListener , IListItemClickListener<Any>, SwipeRefreshLayout.OnRefreshListener {
     private var currActivity: Activity = this
     private lateinit var dietWeekDaysAdapter: DietWeekDaysAdapter
+    private var comeFrom:String?=null
 
     companion object {
-        fun open(currActivity: Activity) {
+        fun open(currActivity: Activity, comeFrom: String) {
             val intent = Intent(currActivity, DietWeekDaysActivity::class.java)
             currActivity.startActivity(intent)
         }
@@ -33,14 +35,25 @@ class DietWeekDaysActivity : BaseDarkActivity<ActivityDietWeekDaysBinding, DitPl
     override var layout = R.layout.activity_diet_week_days
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        tvTitle.text=getString(R.string.create_diet_plan)
         binding.root.refresh.setOnRefreshListener(this)
         binding.dietWeekDayViewModel = viewModel
         setListener()
+        getExtra()
         viewModel.dietWeekdaysList()
         viewModelInitialize()
 
     }
+
+    private fun getExtra() {
+        comeFrom = intent.getStringExtra("comeFrom")
+        if (comeFrom=="noDietPlan"){
+            tvTitle.text=getString(R.string.create_diet_plan)
+        }else{
+            tvTitle.text=getString(R.string.edit_diet_plan)
+        }
+    }
+
+
     private fun setListener() {
 
     }
@@ -81,7 +94,7 @@ class DietWeekDaysActivity : BaseDarkActivity<ActivityDietWeekDaysBinding, DitPl
 
     override fun onItemClickListener(data: Any) {
         if (data is DietWeekdayModel)
-            MealTypesActivity.open(currActivity,data)
+            MealTypesActivity.open(currActivity, data)
     }
 
     override fun onRefresh() {

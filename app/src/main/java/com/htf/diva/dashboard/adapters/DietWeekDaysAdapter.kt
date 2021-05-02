@@ -2,12 +2,13 @@ package com.htf.diva.dashboard.adapters
 
 import android.app.Activity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
-import com.htf.diva.databinding.RowDietWeekdaysBinding
-import com.htf.diva.models.DietWeekdayModel
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.models.DietWeekdayModel
+import kotlinx.android.synthetic.main.row_diet_weekdays.view.*
 
 class DietWeekDaysAdapter(
     private var currActivity: Activity,
@@ -15,13 +16,10 @@ class DietWeekDaysAdapter(
     private var iListItemClickListener: IListItemClickListener<Any>
 ): RecyclerView.Adapter<DietWeekDaysAdapter.MyViewHolder>(){
 
-    var rowDietWeekDayBinding: RowDietWeekdaysBinding?=null
-
-    inner class MyViewHolder(itemView: RowDietWeekdaysBinding): RecyclerView.ViewHolder(itemView.root){
+    inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         init {
 
-            rowDietWeekDayBinding=itemView
-            itemView.root.setOnClickListener {
+            itemView.setOnClickListener {
                 iListItemClickListener.onItemClickListener(arrDietWeekDays[adapterPosition])
             }
         }
@@ -30,8 +28,7 @@ class DietWeekDaysAdapter(
         val itemView= LayoutInflater.from(parent.context).inflate(
             R.layout.row_diet_weekdays
             ,parent,false)
-        val bindingUtil= RowDietWeekdaysBinding.bind(itemView);
-        return MyViewHolder(bindingUtil)
+        return MyViewHolder(itemView)
 
 
     }
@@ -42,7 +39,8 @@ class DietWeekDaysAdapter(
 
     override fun onBindViewHolder(holder: DietWeekDaysAdapter.MyViewHolder, position: Int) {
         val model=arrDietWeekDays[position]
-        rowDietWeekDayBinding!!.dietWeekDays =model
+        holder.itemView.tvDietWeekday_name.text=model.name
+
     }
 
 }

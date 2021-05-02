@@ -3,10 +3,8 @@ package com.htf.diva.dashboard.viewModel
 import androidx.lifecycle.MutableLiveData
 import com.htf.diva.BuildConfig
 import com.htf.diva.base.BaseViewModel
-import com.htf.diva.models.AppDashBoard
 import com.htf.diva.models.DietWeekdayModel
 import com.htf.diva.models.MyDietModel
-import com.htf.diva.models.Notifications
 import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.DialogUtils
 import com.htf.eyenakhr.dashboard.ApiRepo.DashboardApiRepo
@@ -48,7 +46,7 @@ class DitPlanViewModel : BaseViewModel() {
     }
 
 
-    fun myDietList(){
+    fun myDietList(selectedDate: String) {
         if (!DialogUtils.isInternetOn()){
             isInternetOn.postValue(false)
             return
@@ -57,7 +55,7 @@ class DitPlanViewModel : BaseViewModel() {
         scope.launch {
             val result = try {
                 DashboardApiRepo.myDietPlan(AppSession.locale, AppSession.deviceId,
-                    AppSession.deviceType, BuildConfig.VERSION_NAME)
+                    AppSession.deviceType, BuildConfig.VERSION_NAME,selectedDate)
             } catch (e: Exception) {
                 errorResult.postValue(e.localizedMessage)
                 isApiCalling.postValue(false)

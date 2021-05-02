@@ -46,9 +46,9 @@ object DashboardApiRepo : BaseRepository() {
     }
 
 
-    suspend fun myDietPlan(locale: String,deviceId: String, deviceType: String, versionName: String): Any? {
+    suspend fun myDietPlan(locale: String, deviceId: String, deviceType: String, versionName: String, selectedDate: String): Any? {
         return safeApiCall(
-            call ={ retrofitAuthClient.myDietPlanAsync(locale,deviceId,deviceType,versionName,"2021-02-25").await()}
+            call ={ retrofitAuthClient.myDietPlanAsync(locale,deviceId,deviceType,versionName,selectedDate).await()}
         )
     }
 

@@ -2,23 +2,26 @@ package com.htf.diva.dashboard.adapters
 
 import android.app.Activity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.htf.diva.R
-import com.htf.diva.databinding.RowMyMealTypeDietBinding
-import com.htf.diva.models.MealType
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.models.MealType
+import com.htf.diva.netUtils.Constants
+import kotlinx.android.synthetic.main.row_my_meal_type_diet.view.*
+import kotlinx.android.synthetic.main.row_my_workout.view.*
+import kotlinx.android.synthetic.main.row_my_workout.view.tvWorkoutName
 
 class MyMealTypeDietAdapter(private var currActivity: Activity,
                             private var arrMealType:ArrayList<MealType>,
                             private var iListItemClickListener: IListItemClickListener<Any>
 ): RecyclerView.Adapter<MyMealTypeDietAdapter.MyViewHolder>(){
-    var rowDietWeekDayBinding: RowMyMealTypeDietBinding?=null
 
-    inner class MyViewHolder(itemView: RowMyMealTypeDietBinding): RecyclerView.ViewHolder(itemView.root){
+    inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         init {
-            rowDietWeekDayBinding=itemView
-            itemView.root.setOnClickListener {
+            itemView.setOnClickListener {
                 iListItemClickListener.onItemClickListener(arrMealType[adapterPosition])
             }
         }
@@ -27,8 +30,7 @@ class MyMealTypeDietAdapter(private var currActivity: Activity,
         val itemView= LayoutInflater.from(parent.context).inflate(
             R.layout.row_my_meal_type_diet
             ,parent,false)
-        val bindingUtil= RowMyMealTypeDietBinding.bind(itemView);
-        return MyViewHolder(bindingUtil)
+        return MyViewHolder(itemView)
     }
 
     override fun getItemCount(): Int {
@@ -37,7 +39,11 @@ class MyMealTypeDietAdapter(private var currActivity: Activity,
 
     override fun onBindViewHolder(holder: MyMealTypeDietAdapter.MyViewHolder, position: Int) {
         val model=arrMealType[position]
-        rowDietWeekDayBinding!!.myDietModel =model
+        Glide.with(currActivity).load(Constants.Urls.MEALTYPE_IMAGE_URL + model.image)
+                .placeholder(R.drawable.user).into(holder.itemView.ivMealType)
+
+        holder.itemView.tvDietName.text=model.name
+
     }
 
 }

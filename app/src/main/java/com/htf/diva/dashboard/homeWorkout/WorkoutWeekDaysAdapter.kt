@@ -38,7 +38,7 @@ class WorkoutWeekDaysAdapter(
                 }
             }
             itemView.llWorkoutAddWeekDay.setOnClickListener{
-                WorkoutDayActivity.open(currActivity,arrWorkoutWeekDays[adapterPosition])
+                WorkoutDayActivity.open(currActivity,arrWorkoutWeekDays[adapterPosition],comeFrom)
             }
 
         }

@@ -1,4 +1,4 @@
-package com.htf.diva.dashboard.ui
+package com.htf.diva.dashboard.homeDiet
 
 import android.app.Activity
 import android.content.Intent

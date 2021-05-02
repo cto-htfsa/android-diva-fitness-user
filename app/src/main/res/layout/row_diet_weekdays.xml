@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <data>
-        <variable
-            name="dietWeekDays"
-            type="com.htf.diva.models.DietWeekdayModel" />
-        <import type="android.view.View"/>
-    </data>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_16dp"
-        android:layout_marginEnd="@dimen/margin_16dp"
-        android:layout_marginTop="@dimen/margin_12dp"
-        android:layout_marginBottom="@dimen/margin_4dp"
-        android:padding="@dimen/dimen_7"
-        android:elevation="@dimen/dimen_1"
-        android:orientation="vertical"
-        android:background="@drawable/diet_weekdays_stroke_bg">
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_16dp"
+    android:layout_marginEnd="@dimen/margin_16dp"
+    android:layout_marginTop="@dimen/margin_12dp"
+    android:layout_marginBottom="@dimen/margin_4dp"
+    android:padding="@dimen/dimen_7"
+    android:elevation="@dimen/dimen_1"
+    android:orientation="vertical"
+    android:background="@drawable/diet_weekdays_stroke_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
         <RelativeLayout
             android:id="@+id/rltToolbar"
@@ -37,11 +29,11 @@
                 android:visibility="visible">
 
                 <TextView
+                    android:id="@+id/tvDietWeekday_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="@dimen/font_16sp"
                     android:textColor="@color/black"
-                    userName="@{dietWeekDays.name}"
                     android:padding="@dimen/font_10sp"
                     android:fontFamily="@font/avenir_light"
                     android:text="@string/my_diet_plan" />
@@ -95,5 +87,4 @@
     </LinearLayout>
 
 
-</layout>
 

@@ -12,12 +12,13 @@ import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.models.Workout
 import com.htf.diva.netUtils.Constants
 import kotlinx.android.synthetic.main.row_workout_days.view.*
+import kotlinx.android.synthetic.main.row_workout_weekdays.view.*
 
 class WorkoutDaysAdapter(
-    private var currActivity: Activity,
-    private var arrWorkoutDays: ArrayList<Workout>,
-    private var iListItemClickListener: IListItemClickListener<Any>
-): RecyclerView.Adapter<WorkoutDaysAdapter.MyViewHolder>(){
+        private var currActivity: Activity,
+        private var arrWorkoutDays: ArrayList<Workout>,
+        private var iListItemClickListener: IListItemClickListener<Any>,
+        private var comeFrom: String?): RecyclerView.Adapter<WorkoutDaysAdapter.MyViewHolder>(){
 
 
     inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -50,17 +51,28 @@ class WorkoutDaysAdapter(
                     model.image)
             .placeholder(R.drawable.user).into(holder.itemView.ivWorkoutDay)
 
+        if (comeFrom=="comeFromNoWorkout"){
+            holder.itemView.tvRepetition.text=model.repetitions.toString()
+            holder.itemView.tvSets.text=model.sets.toString()
+        }else{
+            if(model.userWorkouts!=null){
+                holder.itemView.tvRepetition.text=model.userWorkouts!!.repetitions.toString()
+                holder.itemView.tvSets.text=model.userWorkouts!!.sets.toString()
+            }else{
+                holder.itemView.tvRepetition.text=model.repetitions.toString()
+                holder.itemView.tvSets.text=model.sets.toString()
+            }
+        }
+
         holder.itemView.tvWorkoutName.text=model.name
 
-        holder.itemView.tvRepetition.text=model.repetitions.toString()
-        holder.itemView.tvSets.text=model.sets.toString()
-
-        val array = intArrayOf(2, 5, 6, 8, 0, 7, 9, 4)
+        val arrayRepetition = intArrayOf(5, 10, 20, 25, 30, 50, 75, 100, 150, 200, 500, 100)
+        val arraySet = intArrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13,14,15)
 
         holder.itemView.lnrReps.setOnClickListener {
             holder.itemView.rcvRepQty.visibility= View.VISIBLE
             holder.itemView.rcvSetQty.visibility= View.GONE
-            val adapter = RepQuantityAdapter(currActivity, array, position,model)
+            val adapter = RepQuantityAdapter(currActivity, arrayRepetition, position,model)
             holder.itemView.rcvRepQty.layoutManager = LinearLayoutManager(currActivity, LinearLayoutManager.HORIZONTAL, false)
             holder.itemView.rcvRepQty.adapter = adapter
         }
@@ -68,7 +80,7 @@ class WorkoutDaysAdapter(
         holder.itemView.lnrSet.setOnClickListener {
             holder.itemView.rcvSetQty.visibility= View.VISIBLE
             holder.itemView.rcvRepQty.visibility= View.GONE
-            val adapter = SetWorkoutQtyAdapter(currActivity, array, position,model)
+            val adapter = SetWorkoutQtyAdapter(currActivity, arraySet, position,model)
             holder.itemView.rcvSetQty.layoutManager = LinearLayoutManager(currActivity, LinearLayoutManager.HORIZONTAL, false)
             holder.itemView.rcvSetQty.adapter = adapter
         }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,10 +33,13 @@ import kotlinx.android.synthetic.main.calendar_item.view.*
 import kotlinx.android.synthetic.main.fragment_diet.view.lnrEdit
 import kotlinx.android.synthetic.main.fragment_workout.*
 import kotlinx.android.synthetic.main.fragment_workout.view.*
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 
 class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel::class.java) , View.OnClickListener{
     private var selectedDate :String?=""
+    private var selectedDateCalender :String?=""
     private lateinit var currActivity: Activity
     lateinit var binding: FragmentWorkoutBinding
     private val calendar = Calendar.getInstance()
@@ -97,8 +101,14 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
                     isSelected: Boolean) {
                 // using this method we can bind data to calendar view
                 // good practice is if all views in layout have same IDs in all item views
-                holder.itemView.tv_date_calendar_item.text = DateUtils.getDayNumber(date)
-                holder.itemView.tv_day_calendar_item.text = DateUtils.getDay3LettersName(date)
+                if (AppSession.locale=="ar"){
+                    holder.itemView.tv_date_calendar_item.text = DateUtils.getDayNumber(date)
+                    holder.itemView.tv_day_calendar_item.text = DateUtils.getDay3LettersName(date)
+                }else{
+                    holder.itemView.tv_date_calendar_item.text = DateUtils.getDayNumber(date)
+                    holder.itemView.tv_day_calendar_item.text = DateUtils.getDay3LettersName(date)
+                }
+
 
             }
         }
@@ -106,12 +116,13 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
         // using calendar changes observer we can track changes in calendar
         val myCalendarChangesObserver = object : CalendarChangesObserver {
             // you can override more methods, in this example we need only this one
+            @SuppressLint("SetTextI18n")
             override fun whenSelectionChanged(isSelected: Boolean, position: Int, date: Date) {
+
                 tvWorkoutDate.text = "${DateUtils.getDayNumber(date)},${DateUtils.getMonth3LettersName(date)},${DateUtils.getYear(date)}"
-                 selectedDate="${DateUtils.getYear(date)}-${DateUtils.getMonthNumber(date)}-${DateUtils.getDayNumber(date)}"
+              //  selectedDate="${DateUtils.getYear(date)}-${DateUtils.getMonthNumber(date)}-${DateUtils.getDayNumber(date)}"
                 super.whenSelectionChanged(isSelected, position, date)
 
-                 viewModel.myWorkoutPlan(selectedDate)
             }
 
         }
@@ -122,13 +133,21 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
                 // set date to calendar according to position
                 val cal = Calendar.getInstance()
                 cal.time = date
+
+                val formateDate = SimpleDateFormat("yyyy-MM-dd").format(date)
+                selectedDate=formateDate
+                Log.e("formateDate date ", formateDate + "")
+                viewModel.myWorkoutPlan(selectedDate)
+
                 // in this example sunday and saturday can't be selected, others can
                 return when (cal[Calendar.DAY_OF_WEEK]) {
                     Calendar.SATURDAY -> true
                     Calendar.SUNDAY -> true
                     else -> true
                 }
+
             }
+
         }
 
         // here we init our calendar, also you can set more properties if you haven't specified in XML layout
@@ -150,16 +169,21 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
     private fun setOnClickListner() {
         binding.root.btn_create_workout.setOnClickListener(this)
         binding.root.btnEditWorkoutPlan.setOnClickListener(this)
+        binding.root.btn_create_rest_workout.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.btn_create_workout -> {
-                CreateWorkoutPlanActivity.open(currActivity,"comeFromNoWorkout")
+                CreateWorkoutPlanActivity.open(currActivity, "comeFromNoWorkout")
+            }
+
+            R.id.btn_create_rest_workout -> {
+                CreateWorkoutPlanActivity.open(currActivity, "comeFromNoWorkout")
             }
 
             R.id.btnEditWorkoutPlan -> {
-                CreateWorkoutPlanActivity.open(currActivity,"comeFromEditWorkout")
+                CreateWorkoutPlanActivity.open(currActivity, "comeFromEditWorkout")
             }
         }
     }
@@ -182,26 +206,36 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
 
     private fun onHandleMyWorkoutPlanSuccessResponse(myWorkoutPLan: MyWorkoutPlanModel?) {
         myWorkoutPLan?.let {
-            if(myWorkoutPLan.userWorkouts!!.isNotEmpty()){
-                workPlanData=myWorkoutPLan
-                arrWorkout=myWorkoutPLan.userWorkouts!!
-              /*  lnrMyWorkoutSchedule.visibility=View.VISIBLE*/
-                binding.root.workoutRecycler.visibility=View.VISIBLE
-                binding.root.lnrMyWorkout.visibility=View.VISIBLE
-                binding.root.lnrNoWorkoutPlanAvailable.visibility=View.GONE
-
-                val mLayout= LinearLayoutManager(currActivity)
-                workoutRecycler.layoutManager=mLayout
-                myWorkoutAdapter= MyWorkoutAdapter(currActivity, myWorkoutPLan.userWorkouts!!, this)
-                workoutRecycler.adapter=myWorkoutAdapter
-                binding.root.lnrEdit.visibility=View.VISIBLE
-                setDietPlanWorkout(myWorkoutPLan)
-
-            }else{
+            if (myWorkoutPLan.isDayRest==1){
                 binding.root.workoutRecycler.visibility=View.GONE
                 binding.root.lnrMyWorkout.visibility=View.GONE
-                binding.root.lnrNoWorkoutPlanAvailable.visibility=View.VISIBLE
-                binding.root.lnrEdit.visibility=View.GONE
+                binding.root.lnrNoWorkoutPlanAvailable.visibility=View.GONE
+                binding.root.lnrOnRest.visibility=View.VISIBLE
+            }else{
+                if(myWorkoutPLan.userWorkouts!!.isNotEmpty()){
+                    workPlanData=myWorkoutPLan
+                    arrWorkout=myWorkoutPLan.userWorkouts!!
+                    /*  lnrMyWorkoutSchedule.visibility=View.VISIBLE*/
+                    binding.root.lnrOnRest.visibility=View.GONE
+                    binding.root.workoutRecycler.visibility=View.VISIBLE
+                    binding.root.lnrMyWorkout.visibility=View.VISIBLE
+                    binding.root.lnrNoWorkoutPlanAvailable.visibility=View.GONE
+
+                    val mLayout= LinearLayoutManager(currActivity)
+                    workoutRecycler.layoutManager=mLayout
+                    myWorkoutAdapter= MyWorkoutAdapter(currActivity, myWorkoutPLan.userWorkouts!!, this)
+                    workoutRecycler.adapter=myWorkoutAdapter
+                    binding.root.lnrEdit.visibility=View.VISIBLE
+                    setDietPlanWorkout(myWorkoutPLan)
+
+                }else{
+                    binding.root.workoutRecycler.visibility=View.GONE
+                    binding.root.lnrMyWorkout.visibility=View.GONE
+                    binding.root.lnrNoWorkoutPlanAvailable.visibility=View.VISIBLE
+                    binding.root.lnrEdit.visibility=View.GONE
+                    binding.root.lnrOnRest.visibility=View.GONE
+
+                }
             }
         }
     }
@@ -284,16 +318,6 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
     }
 
 
-    private fun getDatesOfNextMonth(): List<Date> {
-        currentMonth++ // + because we want next month
-        if (currentMonth == 12) {
-            // we will switch to january of next year, when we reach last month of year
-            calendar.set(Calendar.YEAR, calendar[Calendar.YEAR] + 1)
-            currentMonth = 0 // 0 == january
-        }
-        return getDates(mutableListOf())
-    }
-
     private fun getDatesOfPreviousMonth(): List<Date> {
         currentMonth-- // - because we want previous month
         if (currentMonth == -1) {
@@ -329,11 +353,11 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
       fun updateCompletedWorkout(model: UserWorkout, adapterPosition: Int) {
           userWorkout=model
           viewModel.updateCompletedWorkout(AppSession.locale, AppSession.deviceId, AppSession.deviceType,
-                BuildConfig.VERSION_NAME, model.workoutId.toString())
+                  BuildConfig.VERSION_NAME, model.workoutId.toString())
       }
 
 
-    private fun onHandleupdateCompletedWorkoutSuccessResponse(updateCompletedWorkout :Any) {
+    private fun onHandleupdateCompletedWorkoutSuccessResponse(updateCompletedWorkout: Any) {
         arrWorkout.filter { it.workoutId==userWorkout.workoutId }.map { it.workoutCompleted=1 }
         binding.root.workoutRecycler.post {myWorkoutAdapter.notifyDataSetChanged()}
     }
@@ -345,7 +369,7 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
                 requestAddressCode -> {
                     when (resultCode) {
                         Activity.RESULT_OK -> {
-                       //     callNewCustomizationReq()
+                            //     callNewCustomizationReq()
                         }
                     }
                 }

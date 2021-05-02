@@ -14,7 +14,7 @@
          android:layout_width="match_parent"
          android:background="@color/white"
          android:layout_height="match_parent"
-         tools:context=".dashboard.fragments.DietFragment">
+         tools:context=".dashboard.homeDiet.DietFragment">
 
          <LinearLayout
              android:layout_above="@+id/lnrEdit"
@@ -69,7 +69,7 @@
 
 
                          <TextView
-                             android:id="@+id/tvDate"
+                             android:id="@+id/tvDietPlanDate"
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:textSize="@dimen/font_14sp"
@@ -91,7 +91,7 @@
                  </RelativeLayout>
 
                  <com.michalsvec.singlerowcalendar.calendar.SingleRowCalendar
-                     android:id="@+id/main_single_row_calendar"
+                     android:id="@+id/dietPlanCalenderView"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
                      android:layout_marginStart="16dp"
@@ -430,12 +430,13 @@
              android:orientation="horizontal">
 
              <TextView
-                 android:id="@+id/btnEditWorkoutPlan"
+                 android:id="@+id/btnEditDietPlan"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:background="@drawable/btn_edit_diet"
                  android:fontFamily="@font/avenir_roman"
                  android:text="@string/edit_diet_plan"
+                 android:visibility="gone"
                  android:gravity="center"
                  android:paddingTop="@dimen/margin_16dp"
                  android:paddingBottom="@dimen/margin_16dp"

@@ -47,9 +47,9 @@
         </provider>
 
         <activity android:name=".dashboard.ui.NotificationActivity"/>
-        <activity android:name=".dashboard.ui.DietWeekDaysActivity"/>
+        <activity android:name=".dashboard.homeDiet.DietWeekDaysActivity"/>
         <activity android:name=".dashboard.ui.MealTypesActivity"/>
-        <activity android:name=".dashboard.ui.DietPlanActivity"/>
+        <activity android:name=".dashboard.homeDiet.DietPlanActivity"/>
         <activity android:name=".dashboard.ui.PersonalTrainersActivity"/>
         <activity android:name=".dashboard.ui.FilterActivity"/>
         <activity android:name=".dashboard.ui.CustomerSupportActivity"/>

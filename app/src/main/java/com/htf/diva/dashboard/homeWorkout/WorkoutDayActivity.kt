@@ -5,16 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.htf.diva.BuildConfig
 import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.dashboard.adapters.WorkoutDaysAdapter
-import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.dashboard.viewModel.WorkoutPlanViewModel
 import com.htf.diva.databinding.ActivityWorkoutDayBinding
-import com.htf.diva.models.BookCenterTrainerModel
 import com.htf.diva.models.Workout
 import com.htf.diva.models.WorkoutWeekDaysModel
 import com.htf.diva.utils.AppSession
@@ -22,9 +19,7 @@ import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import kotlinx.android.synthetic.main.activity_workout_day.*
 import kotlinx.android.synthetic.main.activity_workout_day.view.*
-import kotlinx.android.synthetic.main.layout_recycler_view.*
 import kotlinx.android.synthetic.main.layout_recycler_view.view.*
-import kotlinx.android.synthetic.main.layout_recycler_view.view.recycler
 import kotlinx.android.synthetic.main.toolbar.*
 
 class WorkoutDayActivity : BaseDarkActivity<ActivityWorkoutDayBinding, WorkoutPlanViewModel>(
@@ -34,11 +29,13 @@ class WorkoutDayActivity : BaseDarkActivity<ActivityWorkoutDayBinding, WorkoutPl
    private lateinit var mWorkoutDaysAdapter: WorkoutDaysAdapter
     var arrayWorkoutList: ArrayList<Workout>? = null
     private var weekDayId :Int?=null
+    private var comeFrom:String?=null
 
     companion object {
-        fun open(currActivity: Activity, workoutModel: WorkoutWeekDaysModel) {
+        fun open(currActivity: Activity, workoutModel: WorkoutWeekDaysModel, comeFrom: String?) {
             val intent = Intent(currActivity, WorkoutDayActivity::class.java)
             intent.putExtra("workoutWeekDay",workoutModel)
+            intent.putExtra("comeFrom",comeFrom)
             currActivity.startActivity(intent)
         }
     }
@@ -59,6 +56,8 @@ class WorkoutDayActivity : BaseDarkActivity<ActivityWorkoutDayBinding, WorkoutPl
 
     private fun getExtra() {
         val workoutWeekDay = intent.getSerializableExtra("workoutWeekDay") as WorkoutWeekDaysModel?
+        comeFrom = intent.getStringExtra("comeFrom")
+
         if(workoutWeekDay!=null){
             arrayWorkoutList=workoutWeekDay.workouts
             weekDayId=workoutWeekDay.id
@@ -72,7 +71,7 @@ class WorkoutDayActivity : BaseDarkActivity<ActivityWorkoutDayBinding, WorkoutPl
         if(arrayWorkoutList!!.size>0){
             val mLayout= LinearLayoutManager(currActivity)
             binding.root.recycler_workout_day.layoutManager=mLayout
-            mWorkoutDaysAdapter= WorkoutDaysAdapter(currActivity,arrayWorkoutList!!,this)
+            mWorkoutDaysAdapter= WorkoutDaysAdapter(currActivity,arrayWorkoutList!!,this,comeFrom)
             binding.root.recycler_workout_day.adapter=mWorkoutDaysAdapter
         }else{
             tvClearAll.visibility= View.GONE

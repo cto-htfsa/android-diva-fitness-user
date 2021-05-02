@@ -62,8 +62,7 @@ class WorkoutPlanViewModel: BaseViewModel() {
             val result = try {
                 DashboardApiRepo.workoutWeekdaysAsync(
                         AppSession.locale, AppSession.deviceId,
-                        AppSession.deviceType, BuildConfig.VERSION_NAME
-                )
+                        AppSession.deviceType, BuildConfig.VERSION_NAME)
             } catch (e: Exception) {
                 errorResult.postValue(e.localizedMessage)
                 isApiCalling.postValue(false)
@@ -163,7 +162,7 @@ class WorkoutPlanViewModel: BaseViewModel() {
             withContext(Dispatchers.Main) {
                 isApiCalling.postValue(false)
                 if (result is Any)
-                    mUpdateCompletedWorkoutData.postValue(result)
+                    mRemoveDayRestData.postValue(result)
                 else
                     errorResult.postValue(result.toString())
             }
