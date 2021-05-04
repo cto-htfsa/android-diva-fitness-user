@@ -47,9 +47,9 @@
         </provider>
 
         <activity android:name=".dashboard.ui.NotificationActivity"/>
-        <activity android:name=".dashboard.homeDiet.DietWeekDaysActivity"/>
-        <activity android:name=".dashboard.ui.MealTypesActivity"/>
-        <activity android:name=".dashboard.homeDiet.DietPlanActivity"/>
+        <activity android:name=".dashboard.homeDietPlan.DietWeekDaysActivity"/>
+        <activity android:name=".dashboard.homeDietPlan.MealTypesActivity"/>
+        <activity android:name=".dashboard.homeDietPlan.DietPlanActivity"/>
         <activity android:name=".dashboard.ui.PersonalTrainersActivity"/>
         <activity android:name=".dashboard.ui.FilterActivity"/>
         <activity android:name=".dashboard.ui.CustomerSupportActivity"/>
@@ -66,8 +66,8 @@
         <activity android:name=".dashboard.bookTrainerWithCenter.TrainerCenterSlotsActivity"/>
         <activity android:name=".dashboard.bookTrainerWithCenter.BookingSummaryTrainerCenterActivity"/>
         <activity android:name=".dashboard.payment.PaymentHistoryActivity"/>
-        <activity android:name=".dashboard.homeWorkout.CreateWorkoutPlanActivity"/>
-        <activity android:name=".dashboard.homeWorkout.WorkoutDayActivity"/>
+        <activity android:name=".dashboard.homeWorkoutPlan.CreateWorkoutPlanActivity"/>
+        <activity android:name=".dashboard.homeWorkoutPlan.WorkoutDayActivity"/>
 
         <activity
             android:name="com.oppwa.mobile.connect.checkout.dialog.CheckoutActivity"

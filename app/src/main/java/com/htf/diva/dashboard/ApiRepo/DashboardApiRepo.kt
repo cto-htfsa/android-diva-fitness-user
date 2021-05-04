@@ -295,6 +295,21 @@ object DashboardApiRepo : BaseRepository() {
     }
 
 
+
+    suspend fun updateDietPlan(locale: String?,
+                                     deviceId: String?,
+                                     deviceType: String?,
+                                     versionName: String?,
+                                     weekDayId: String?,
+                                     workouts: HashMap<String, String?>): Any? {
+        return safeApiCall(
+                call ={ retrofitAuthClient.updateWorkoutAsync(locale, deviceId, deviceType,
+                        versionName, weekDayId,workouts).await()}
+        )
+    }
+
+
+
 }
 
 

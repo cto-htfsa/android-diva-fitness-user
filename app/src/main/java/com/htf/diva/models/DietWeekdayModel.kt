@@ -80,6 +80,8 @@ class DietPlan :Serializable{
     @Expose
     var userDietPlans: UserDietPlans? = null
 
+    var quantity:Int?=0
+
 }
 
 class UserDietPlans: Serializable{

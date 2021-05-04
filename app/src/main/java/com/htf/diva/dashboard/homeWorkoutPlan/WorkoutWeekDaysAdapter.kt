@@ -1,4 +1,4 @@
-package com.htf.diva.dashboard.homeWorkout
+package com.htf.diva.dashboard.homeWorkoutPlan
 
 import android.app.Activity
 import android.view.LayoutInflater

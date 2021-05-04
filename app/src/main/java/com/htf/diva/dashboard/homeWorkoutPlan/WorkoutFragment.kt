@@ -1,4 +1,4 @@
-package com.htf.diva.dashboard.homeWorkout
+package com.htf.diva.dashboard.homeWorkoutPlan
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -33,7 +33,6 @@ import kotlinx.android.synthetic.main.calendar_item.view.*
 import kotlinx.android.synthetic.main.fragment_diet.view.lnrEdit
 import kotlinx.android.synthetic.main.fragment_workout.*
 import kotlinx.android.synthetic.main.fragment_workout.view.*
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 

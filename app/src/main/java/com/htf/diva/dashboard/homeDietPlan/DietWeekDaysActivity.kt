@@ -1,4 +1,4 @@
-package com.htf.diva.dashboard.homeDiet
+package com.htf.diva.dashboard.homeDietPlan
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -14,7 +14,6 @@ import com.htf.diva.models.DietWeekdayModel
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import com.htf.diva.callBack.IListItemClickListener
-import com.htf.diva.dashboard.ui.MealTypesActivity
 import kotlinx.android.synthetic.main.layout_recycler_view.*
 import kotlinx.android.synthetic.main.layout_recycler_view.view.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -28,6 +27,7 @@ class DietWeekDaysActivity : BaseDarkActivity<ActivityDietWeekDaysBinding, DitPl
     companion object {
         fun open(currActivity: Activity, comeFrom: String) {
             val intent = Intent(currActivity, DietWeekDaysActivity::class.java)
+            intent.putExtra("comeFrom",comeFrom)
             currActivity.startActivity(intent)
         }
     }

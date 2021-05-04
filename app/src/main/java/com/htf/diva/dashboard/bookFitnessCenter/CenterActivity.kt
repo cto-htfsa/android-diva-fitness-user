@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.htf.diva.R
+import com.htf.diva.auth.ui.LoginActivity
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.dashboard.adapters.CenterAdapter
 import com.htf.diva.dashboard.viewModel.FitnessCenterDetailBookingViewModel
@@ -12,6 +13,7 @@ import com.htf.diva.databinding.ActivityCenterBinding
 import com.htf.diva.models.*
 import com.htf.diva.utils.AppSession
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.utils.AppPreferences
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -54,7 +56,12 @@ class CenterActivity  : BaseDarkActivity<ActivityCenterBinding, FitnessCenterDet
 
     override fun onItemClickListener(data: Any) {
         if (data is AppDashBoard.FitnessCenter){
-            CenterDetailBookingActivity.open(currActivity,data)
+            val currUser= AppPreferences.getInstance(currActivity).getUserDetails()
+            if (currUser!=null){
+                CenterDetailBookingActivity.open(currActivity,data)
+            }else{
+                LoginActivity.open(currActivity, "ComeFromCenter")
+            }
         }
     }
 

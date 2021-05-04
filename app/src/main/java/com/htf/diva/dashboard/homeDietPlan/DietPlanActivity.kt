@@ -1,4 +1,4 @@
-package com.htf.diva.dashboard.homeDiet
+package com.htf.diva.dashboard.homeDietPlan
 
 import android.app.Activity
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.htf.diva.BuildConfig
 import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.dashboard.adapters.DietPlanAdapter
@@ -14,16 +15,25 @@ import com.htf.diva.databinding.ActivityDietPlanBinding
 import com.htf.diva.models.DietPlan
 import com.htf.diva.models.MealDietType
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.models.Workout
+import com.htf.diva.models.WorkoutWeekDaysModel
+import com.htf.diva.utils.AppSession
+import kotlinx.android.synthetic.main.activity_diet_plan.*
+import kotlinx.android.synthetic.main.activity_workout_day.*
 import kotlinx.android.synthetic.main.layout_recycler_view.*
 import kotlinx.android.synthetic.main.layout_recycler_view.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 class DietPlanActivity: BaseDarkActivity<ActivityDietPlanBinding,
-        DitPlanViewModel>(DitPlanViewModel::class.java), IListItemClickListener<Any>,SwipeRefreshLayout.OnRefreshListener{
+        DitPlanViewModel>(DitPlanViewModel::class.java),
+        IListItemClickListener<Any>,SwipeRefreshLayout.OnRefreshListener, View.OnClickListener{
 
     private var currActivity: Activity = this
     private var weekDayName:String?=null
     private lateinit var dietPlanAdapter: DietPlanAdapter
+    private var dietPlan = DietPlan()
+    var arrDietPlanList: ArrayList<DietPlan>? = null
+
 
     companion object {
         fun open(currActivity: Activity, mealDietType: MealDietType?, weekDayName: String?) {
@@ -39,6 +49,7 @@ class DietPlanActivity: BaseDarkActivity<ActivityDietPlanBinding,
         super.onCreate(savedInstanceState)
         binding.dietWeekDayViewModel = viewModel
         refresh.setOnRefreshListener(this)
+        setListener()
         getExtra()
     }
 
@@ -52,6 +63,7 @@ class DietPlanActivity: BaseDarkActivity<ActivityDietPlanBinding,
 
     private fun setDietPlan(arrDietPlan: ArrayList<DietPlan>?) {
         if(arrDietPlan!!.size>0){
+            arrDietPlanList=arrDietPlan
             val mLayout= LinearLayoutManager(currActivity)
             recycler.layoutManager=mLayout
              dietPlanAdapter= DietPlanAdapter(currActivity,arrDietPlan,this)
@@ -68,10 +80,53 @@ class DietPlanActivity: BaseDarkActivity<ActivityDietPlanBinding,
         if (data is DietPlan){
         }
     }
+    private fun setListener() {
+        btnSaveDietPlan.setOnClickListener(this)
+    }
+
 
     override fun onRefresh() {
        refresh.isRefreshing = false
     }
+
+    fun dietPlanSelect(model: DietPlan, adapterPosition: Int) {
+        dietPlan=model
+        arrDietPlanList!!.filter { it.id==model.id}.map { it.quantity=1}
+        dietPlanAdapter.notifyDataSetChanged()
+    }
+
+    fun dietPlanAddQty(model: DietPlan, adapterPosition: Int) {
+        dietPlan=model
+        arrDietPlanList!!.filter { it.id==model.id}.map { it.quantity=dietPlan.quantity!!+1}
+        dietPlanAdapter.notifyDataSetChanged()
+    }
+
+    fun dietPlanRemoveQty(model: DietPlan, adapterPosition: Int) {
+        dietPlan=model
+        arrDietPlanList!!.filter { it.id==model.id}.map { it.quantity=dietPlan.quantity!!-1}
+        dietPlanAdapter.notifyDataSetChanged()
+    }
+
+    override fun onClick(p0: View?) {
+        when (p0!!.id) {
+            R.id.btnSaveDietPlan -> {
+           /*     val slots = HashMap<String, String?>()
+                for (i in 0.until(arrayWorkoutList!!.size)) {
+                    if(arrayWorkoutList!![i].repetitions != null) {
+                        slots["workouts[$i][workout_id]"] = arrayWorkoutList!![i].id.toString()
+                        slots["workouts[$i][repetitions]"] = arrayWorkoutList!![i].repetitions.toString()
+                        slots["workouts[$i][sets]"] = arrayWorkoutList!![i].sets.toString()
+                    }
+                }
+                viewModel.onUpdateWorkoutClick(AppSession.locale, AppSession.deviceId, AppSession.deviceType,
+                        BuildConfig.VERSION_NAME, weekDayId.toString(),slots)
+
+            }*/
+        }
+
+    }
+
+
 
 
 }

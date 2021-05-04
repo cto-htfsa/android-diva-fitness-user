@@ -6,7 +6,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.htf.diva.R
+import com.htf.diva.auth.ui.LoginActivity
 import com.htf.diva.base.BaseDarkActivity
+import com.htf.diva.base.MyApplication
 import com.htf.diva.dashboard.viewModel.BookingSummaryViewModel
 import com.htf.diva.databinding.ActivityFitnessCenterBookingSummaryBinding
 import com.htf.diva.models.*
@@ -76,6 +78,7 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
         getExtra()
         setOnClickListener()
         viewModelInitialize()
+
     }
 
     private fun getExtra() {
@@ -97,11 +100,17 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.btnPayableAmount->{
+            /*    val currUser= AppPreferences.getInstance(MyApplication.getAppContext()).getUserDetails()
+                if (currUser!=null){
+                    LoginActivity.open(currActivity, "fromFitnessCenterBooking")
+                }else{
+
+                }*/
                 viewModel.onBookFitnessCenterClick(selectedFitnessCenter.id,tenureSelected.id,
-                    DateUtilss.convertDateFormat(currentDate,DateUtilss.targetDateFormat,DateUtilss.serverDateFormat),
-                    packageSelected.id,numberOfPeoplePerSession,baseAmount,totalAmt,
-                    vatPercentage,afterCalculateTax,offers.id,calculatedAmtAfterDiscount.toString(),
-                    amount_after_discount,totalPayableAmt)
+                        DateUtilss.convertDateFormat(currentDate,DateUtilss.targetDateFormat,DateUtilss.serverDateFormat),
+                        packageSelected.id,numberOfPeoplePerSession,baseAmount,totalAmt,
+                        vatPercentage,afterCalculateTax,offers.id,calculatedAmtAfterDiscount.toString(),
+                        amount_after_discount,totalPayableAmt)
             }
         }
     }

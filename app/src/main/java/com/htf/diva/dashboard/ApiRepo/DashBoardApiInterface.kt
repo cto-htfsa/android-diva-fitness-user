@@ -353,5 +353,19 @@ interface DashBoardApiInterface {
                          @Field("workout_id[0]") workoutId: String?):
             Deferred<Response<BaseResponse<Any>>>
 
+
+    @FormUrlEncoded
+    @POST("api/v1/update/my/workout")
+    fun updateDietPlanAsync(@Field("locale") locale: String?,
+                           @Field("device_id") device_id: String?,
+                           @Field("device_type") device_type: String?,
+                           @Field("current_version") current_version: String?,
+                           @Field("weekday_id") trainer_id: String?,
+                           @Field("meal_type_id") meal_type_id: String?,
+                           @FieldMap workoutsHashMap: HashMap<String, String?>):
+            Deferred<Response<BaseResponse<Any>>>
+
+
+
 }
 

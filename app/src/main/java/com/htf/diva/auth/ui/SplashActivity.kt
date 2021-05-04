@@ -62,7 +62,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding,SplashViewModel>(Splas
                 showForceUpdateDialog(appVersion)
             }else{
                 Handler(Looper.getMainLooper()).postDelayed({
-                    LoginActivity.open(currActivity)
+                    LoginActivity.open(currActivity,"fromSplash")
                     finish()
                 },2000)
             }

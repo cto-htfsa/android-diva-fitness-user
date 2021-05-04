@@ -18,6 +18,8 @@ class DitPlanViewModel : BaseViewModel() {
     val errorResult= MutableLiveData<String>()
     val mDietWeekDaysResponse= MutableLiveData<ArrayList<DietWeekdayModel>>()
     val mMyDietData= MutableLiveData<MyDietModel>()
+    val mWorkoutWeekDaysData= MutableLiveData<Any>()
+
 
     fun dietWeekdaysList() {
         if (!DialogUtils.isInternetOn()) {
@@ -73,6 +75,37 @@ class DitPlanViewModel : BaseViewModel() {
     }
 
 
+
+    fun onUpdateWorkoutClick(
+            locale: String?,
+            deviceId: String?,
+            deviceType: String?,
+            versionName: String?,
+            weekDayId: String?,
+            workoutWeekDay: HashMap<String, String?>) {
+        if (!DialogUtils.isInternetOn()){
+            isInternetOn.postValue(false)
+            return
+        }
+        isApiCalling.postValue(true)
+        scope.launch {
+            val result = try {
+                DashboardApiRepo.updateWorkoutWeekDay( locale, deviceId, deviceType,
+                        versionName, weekDayId,workoutWeekDay)
+            } catch (e: Exception) {
+                errorResult.postValue(e.localizedMessage)
+                isApiCalling.postValue(false)
+            }
+            withContext(Dispatchers.Main) {
+                isApiCalling.postValue(false)
+                if (result is Any)
+                    mWorkoutWeekDaysData.postValue(result)
+                else
+                    errorResult.postValue(result.toString())
+            }
+
+        }
+    }
 
 
 

@@ -30,7 +30,6 @@ class DietWeekDaysAdapter(
             ,parent,false)
         return MyViewHolder(itemView)
 
-
     }
 
     override fun getItemCount(): Int {

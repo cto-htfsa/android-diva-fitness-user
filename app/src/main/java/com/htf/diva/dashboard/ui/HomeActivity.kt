@@ -15,10 +15,10 @@ import com.htf.diva.auth.ui.LoginActivity
 import com.htf.diva.auth.ui.MyProfileActivity
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.base.MyApplication
-import com.htf.diva.dashboard.homeDiet.DietFragment
+import com.htf.diva.dashboard.homeDietPlan.DietFragment
 import com.htf.diva.dashboard.fragments.HomeFragment
 import com.htf.diva.dashboard.fragments.MembershipFragment
-import com.htf.diva.dashboard.homeWorkout.WorkoutFragment
+import com.htf.diva.dashboard.homeWorkoutPlan.WorkoutFragment
 import com.htf.diva.dashboard.payment.PaymentHistoryActivity
 import com.htf.diva.dashboard.viewModel.HomeViewModel
 import com.htf.diva.databinding.ActivityHomeBinding
@@ -116,7 +116,7 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
         AppSession.userToken=""
         AppPreferences.getInstance(MyApplication.getAppContext()).clearFromPref(KEY_TOKEN)
         AppPreferences.getInstance(MyApplication.getAppContext()).clearUserDetails()
-        LoginActivity.open(currActivity)
+        LoginActivity.open(currActivity, "fromSplash")
         finish()
     }
 
@@ -147,7 +147,7 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
                         MyProfileActivity.open(currActivity)
                     }
                     else -> {
-                        LoginActivity.open(currActivity)
+                        LoginActivity.open(currActivity, "fromSplash")
                     }
                 }
             }

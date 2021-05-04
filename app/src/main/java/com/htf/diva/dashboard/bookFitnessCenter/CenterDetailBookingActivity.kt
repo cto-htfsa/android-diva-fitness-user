@@ -226,6 +226,7 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
     private fun onHandleAppDashBoardSuccessResponse(fitnessCenterDetailResponse: FitnessCenterDetailForBookModel?){
         fitnessCenterDetailResponse?.let {
             rltCenterDetail.visibility=View.VISIBLE
+            lnrBookSlots.visibility=View.VISIBLE
             vatPercentage=fitnessCenterDetailResponse.vatPercentage.toString()
             if (fitnessCenterDetailResponse.offers!=null){
                 offer=fitnessCenterDetailResponse.offers!!

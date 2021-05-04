@@ -28,8 +28,7 @@ class MyMealTypeDietAdapter(private var currActivity: Activity,
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyMealTypeDietAdapter.MyViewHolder {
         val itemView= LayoutInflater.from(parent.context).inflate(
-            R.layout.row_my_meal_type_diet
-            ,parent,false)
+            R.layout.row_my_meal_type_diet,parent,false)
         return MyViewHolder(itemView)
     }
 

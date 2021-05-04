@@ -14,7 +14,7 @@
          android:layout_width="match_parent"
          android:background="@color/white"
          android:layout_height="match_parent"
-         tools:context=".dashboard.homeDiet.DietFragment">
+         tools:context=".dashboard.homeDietPlan.DietFragment">
 
          <LinearLayout
              android:layout_above="@+id/lnrEdit"
@@ -359,6 +359,7 @@
                      android:orientation="vertical"
                      android:layout_gravity="center"
                      android:visibility="gone"
+                     android:layout_marginTop="@dimen/dimen_100"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content">
 

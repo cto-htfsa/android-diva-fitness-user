@@ -8,21 +8,25 @@ import com.htf.diva.R
 import com.htf.diva.auth.viewModel.AboutViewModel
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.base.MyApplication
+import com.htf.diva.dashboard.bookFitnessCenter.CenterActivity
 import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.databinding.ActivityAboutYouBinding
 import com.htf.diva.models.AboutModel
 import com.htf.diva.utils.*
 import com.jem.rubberpicker.RubberSeekBar
 import kotlinx.android.synthetic.main.activity_about_you.*
+import kotlinx.android.synthetic.main.activity_otp.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 class AboutYouActivity : BaseDarkActivity<ActivityAboutYouBinding,AboutViewModel>(AboutViewModel::class.java) {
     private var currActivity: Activity =this
     private val mAboutUsViewModel by lazy { getViewModel<AboutViewModel>() }
+    private var comeFrom: String?=""
 
     companion object{
-        fun open(currActivity: Activity){
+        fun open(currActivity: Activity, comeFrom: String?){
             val intent= Intent(currActivity,AboutYouActivity::class.java)
+            intent.putExtra("comeFrom",comeFrom)
             currActivity.startActivity(intent)
         }
     }
@@ -32,6 +36,7 @@ class AboutYouActivity : BaseDarkActivity<ActivityAboutYouBinding,AboutViewModel
         super.onCreate(savedInstanceState)
         binding.aboutViewModel=viewModel
         tvTitle.text=getString(R.string.about_you)
+        getExtra()
         viewModelInitialize()
 
           if (AppSession.locale=="ar"){
@@ -102,6 +107,12 @@ class AboutYouActivity : BaseDarkActivity<ActivityAboutYouBinding,AboutViewModel
 
 
     }
+    private fun getExtra() {
+        comeFrom=intent.getStringExtra("comeFrom")
+    }
+
+
+
     private fun viewModelInitialize() {
         observerViewModel(viewModel.errorValidateRes,this::onHandleValidationErrorResponse)
         observerViewModel(viewModel.isApiCalling,this::onHandleShowProgress)
@@ -131,8 +142,22 @@ class AboutYouActivity : BaseDarkActivity<ActivityAboutYouBinding,AboutViewModel
             currUser.user!!.dialCode=userAboutUs.dialCode
             currUser.user!!.isReturner=userAboutUs.isReturner
             AppPreferences.getInstance(MyApplication.getAppContext()).saveUserDetails(currUser)
-            HomeActivity.open(currActivity, null)
-            finish()
+            when (comeFrom) {
+                "fromSplash" -> {
+                    HomeActivity.open(currActivity, null)
+                    finish()
+                }
+                "fromBuyMembership" -> {
+                    HomeActivity.open(currActivity, null)
+                    finish()
+                }
+                "ComeFromCenter" -> {
+                    CenterActivity.open(currActivity)
+                    finish()
+                }
+            }
+
+
         }
     }
 

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.htf.diva.BuildConfig
 import com.htf.diva.R
+import com.htf.diva.auth.ui.LoginActivity
 import com.htf.diva.base.BaseFragment
 import com.htf.diva.dashboard.adapters.BannerAdapter
 import com.htf.diva.dashboard.adapters.CenterAdapter
@@ -35,6 +36,7 @@ import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.utils.AppPreferences
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
 import kotlinx.android.synthetic.main.dialog_buy_membership.view.*
@@ -80,7 +82,13 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
                 PersonalTrainersActivity.open(currActivity,Constants.FROM_HOME)
             }
             R.id.llBuyMembership->{
-                CenterActivity.open(currActivity)
+                val currUser= AppPreferences.getInstance(currActivity).getUserDetails()
+                if (currUser!=null){
+                    CenterActivity.open(currActivity)
+                }else{
+                    LoginActivity.open(currActivity, "fromBuyMembership")
+                }
+
             }
         }
     }
@@ -186,8 +194,15 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
             } else{
                 openBuyMemberShipDialog()
             }
-        if (data is AppDashBoard.FitnessCenter)
-            CenterDetailBookingActivity.open(currActivity,data)
+        if (data is AppDashBoard.FitnessCenter){
+            val currUser= AppPreferences.getInstance(currActivity).getUserDetails()
+            if (currUser!=null){
+                CenterDetailBookingActivity.open(currActivity,data)
+            }else{
+                LoginActivity.open(currActivity, "fromBuyMembership")
+            }
+        }
+
       }
 
 

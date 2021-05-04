@@ -33,7 +33,6 @@
                 android:layout_height="@dimen/dimen_60"
                 android:src="@drawable/user"
                 android:layout_alignParentStart="true"
-                dietPlan="@{dietPlan.image}"
                 app:siRadius="@dimen/dimen_10" />
 
             <LinearLayout
@@ -47,9 +46,9 @@
                 android:padding="@dimen/dimen_5">
 
                 <TextView
+                    android:id="@+id/tvDietName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    userName="@{dietPlan.name}"
                     android:textSize="@dimen/font_14sp"
                     android:textColor="@color/colorHeadingText"
                     android:fontFamily="@font/avenir_black" />
@@ -78,7 +77,7 @@
 
                 <LinearLayout
                     android:visibility="gone"
-                    android:id="@+id/lnradd_diet_plan"
+                    android:id="@+id/llAdd_diet_plan"
                     android:background="@drawable/add_diet_plan"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
@@ -99,7 +98,7 @@
 
                 <LinearLayout
                         android:id="@+id/llQuantity"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">

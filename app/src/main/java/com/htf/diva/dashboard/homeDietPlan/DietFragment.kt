@@ -1,4 +1,4 @@
-package com.htf.diva.dashboard.homeDiet
+package com.htf.diva.dashboard.homeDietPlan
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -138,9 +138,7 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
                     Calendar.SUNDAY -> true
                     else -> true
                 }
-
             }
-
         }
 
         // here we init our calendar, also you can set more properties if you haven't specified in XML layout
@@ -194,26 +192,29 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
 
     private fun onHandleDietPLanSuccessResponse(myDiet: MyDietModel?) {
         myDiet?.let {
-            if(myDiet.mealTypes!!.size>0){
-                btnEditDietPlan.visibility=View.VISIBLE
-                lnrMySchedule.visibility=View.VISIBLE
-                dietRecycler.visibility=View.VISIBLE
-                lnrNoDietPlanAvailable.visibility=View.GONE
-                val mLayout= LinearLayoutManager(currActivity)
-                dietRecycler.layoutManager=mLayout
-                myDietAdapter= MyMealTypeDietAdapter(currActivity,myDiet.mealTypes!!,this)
-                dietRecycler.adapter=myDietAdapter
-                binding.root.lnrEdit.visibility=View.VISIBLE
 
-             /*   binding.root.lnrMySchedule.visibility=View.GONE
-                binding.root.lnrNoDietPlanAvailable.visibility=View.VISIBLE
-                binding.root.lnrEdit.visibility=View.GONE*/
+            if (myDiet.myScheduled!!.dietPlans!!.calories!=null){
+                if(myDiet.mealTypes!!.size>0){
+                    btnEditDietPlan.visibility=View.VISIBLE
+                    lnrMySchedule.visibility=View.VISIBLE
+                    dietRecycler.visibility=View.VISIBLE
+                    lnrNoDietPlanAvailable.visibility=View.GONE
+                    val mLayout= LinearLayoutManager(currActivity)
+                    dietRecycler.layoutManager=mLayout
+                    myDietAdapter= MyMealTypeDietAdapter(currActivity,myDiet.mealTypes!!,this)
+                    dietRecycler.adapter=myDietAdapter
+                    binding.root.lnrEdit.visibility=View.VISIBLE
 
+                }else{
+                    binding.root.lnrMySchedule.visibility=View.GONE
+                    binding.root.lnrNoDietPlanAvailable.visibility=View.VISIBLE
+                    binding.root.lnrEdit.visibility=View.GONE
+                }
             }else{
                 binding.root.lnrMySchedule.visibility=View.GONE
+                binding.root.dietRecycler.visibility=View.GONE
                 binding.root.lnrNoDietPlanAvailable.visibility=View.VISIBLE
                 binding.root.lnrEdit.visibility=View.GONE
-
             }
         }
     }

@@ -13,6 +13,7 @@ import com.htf.diva.R
 import com.htf.diva.auth.viewModel.OtpViewModel
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.base.MyApplication
+import com.htf.diva.dashboard.bookFitnessCenter.CenterActivity
 import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.databinding.ActivityOtpBinding
 import com.htf.diva.models.UserData
@@ -28,15 +29,17 @@ class OtpActivity : BaseDarkActivity<ActivityOtpBinding,OtpViewModel>(OtpViewMod
     private var userId:String?=null
     private var fcmId:String?=null
     private var mobileNumber:String?=null
+    private var comeFrom: String?=""
 
 
     companion object{
-        fun open(currActivity: Activity, userId: String?,token: String?,fcmId:String?,mobileNumber:String?){
+        fun open(currActivity: Activity, userId: String?,token: String?,fcmId:String?,mobileNumber:String?,comeFrom:String){
             val intent= Intent(currActivity,OtpActivity::class.java)
             intent.putExtra("userId",userId)
             intent.putExtra("token",token)
             intent.putExtra("fcmId",fcmId)
             intent.putExtra("mobileNumber",mobileNumber)
+            intent.putExtra("comeFrom",comeFrom)
             currActivity.startActivity(intent)
         }
     }
@@ -88,7 +91,7 @@ class OtpActivity : BaseDarkActivity<ActivityOtpBinding,OtpViewModel>(OtpViewMod
                 resendOtp.user!!.mobile=resendOtp.user!!.mobile
                 resendOtp.user!!.dialCode=resendOtp.user!!.dialCode
                 AppPreferences.getInstance(MyApplication.getAppContext()).saveUserDetails(resendOtp)
-                AboutYouActivity.open(currActivity)
+                AboutYouActivity.open(currActivity,comeFrom)
                 finish()
             } else{
                 AppPreferences.getInstance(MyApplication.getAppContext()).saveInPreference(KEY_TOKEN,resendOtp.accessToken!!)
@@ -101,8 +104,21 @@ class OtpActivity : BaseDarkActivity<ActivityOtpBinding,OtpViewModel>(OtpViewMod
                 resendOtp.user!!.mobile=resendOtp.user!!.mobile
                 resendOtp.user!!.dialCode=resendOtp.user!!.dialCode
                 AppPreferences.getInstance(MyApplication.getAppContext()).saveUserDetails(resendOtp)
-                HomeActivity.open(currActivity, null)
-                finish()
+                when (comeFrom) {
+                    "fromSplash" -> {
+                        HomeActivity.open(currActivity, null)
+                        finish()
+                    }
+                    "fromBuyMembership" -> {
+                        HomeActivity.open(currActivity, null)
+                        finish()
+                    }
+                    "ComeFromCenter" -> {
+                        CenterActivity.open(currActivity)
+                        finish()
+                    }
+                }
+
             }
 
         }
@@ -113,6 +129,7 @@ class OtpActivity : BaseDarkActivity<ActivityOtpBinding,OtpViewModel>(OtpViewMod
     }
 
     private fun getExtra() {
+        comeFrom=intent.getStringExtra("comeFrom")
         mHashToken=intent.getStringExtra("token")
         userId=intent.getStringExtra("userId")
         fcmId=intent.getStringExtra("fcmId")

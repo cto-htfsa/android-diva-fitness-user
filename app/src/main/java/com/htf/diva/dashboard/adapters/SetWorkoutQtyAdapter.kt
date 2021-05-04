@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
-import com.htf.diva.dashboard.homeWorkout.WorkoutDayActivity
+import com.htf.diva.dashboard.homeWorkoutPlan.WorkoutDayActivity
 import com.htf.diva.models.Workout
 import kotlinx.android.synthetic.main.row_reps_qty.view.*
 
