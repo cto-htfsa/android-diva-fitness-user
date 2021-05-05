@@ -55,14 +55,22 @@ class DietPlanAdapter(private var currActivity: Activity,
                 .placeholder(R.drawable.user).into(holder.itemView.ivDiet)
 
 
-        if (model.quantity==0){
-            holder.itemView.llAdd_diet_plan.visibility=View.VISIBLE
-            holder.itemView.llAdd_diet_plan.setOnClickListener {
+        if (model.userDietPlans!=null){
+            if (model.userDietPlans!!.quantity==0){
+                holder.itemView.llAdd_diet_plan.visibility=View.VISIBLE
+                holder.itemView.llAdd_diet_plan.setOnClickListener {
+                }
+            }else{
+                holder.itemView.llAdd_diet_plan.visibility=View.GONE
+                holder.itemView.llQuantity.visibility=View.VISIBLE
+                holder.itemView.tvNumberOfItems.text=model.userDietPlans!!.quantity.toString()
             }
+
         }else{
-            holder.itemView.llAdd_diet_plan.visibility=View.GONE
-            holder.itemView.llQuantity.visibility=View.VISIBLE
+            holder.itemView.llQuantity.visibility=View.GONE
+            holder.itemView.llAdd_diet_plan.visibility=View.VISIBLE
         }
+
         holder.itemView.llAdd_diet_plan.setOnClickListener {
             when (currActivity) {
                 is DietPlanActivity -> {

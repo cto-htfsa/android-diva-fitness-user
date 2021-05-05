@@ -22,6 +22,7 @@ class MealTypesActivity : BaseDarkActivity<ActivityDietDayBinding, DitPlanViewMo
     private var currActivity: Activity = this
     private lateinit var mealTypesAdapter: MealTypesAdapter
     private var weekDayName:String?=null
+    private var weekDayId:String?=null
 
     companion object {
         fun open(currActivity: Activity, dietWeekPlan: DietWeekdayModel?) {
@@ -43,7 +44,8 @@ class MealTypesActivity : BaseDarkActivity<ActivityDietDayBinding, DitPlanViewMo
     private fun getExtra() {
         val dietWeekDay = intent.getSerializableExtra("dietWeekDay") as DietWeekdayModel?
         tvTitle.text = dietWeekDay!!.name
-        weekDayName=dietWeekDay!!.name
+        weekDayName= dietWeekDay.name
+        weekDayId=dietWeekDay.id.toString()
         mealTypes(dietWeekDay.mealTypes)
     }
 
@@ -65,7 +67,7 @@ class MealTypesActivity : BaseDarkActivity<ActivityDietDayBinding, DitPlanViewMo
 
     override fun onItemClickListener(data: Any) {
         if (data is MealDietType){
-            DietPlanActivity.open(currActivity,data,weekDayName)
+            DietPlanActivity.open(currActivity,data,weekDayName,weekDayId)
         }
     }
 

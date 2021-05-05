@@ -10,8 +10,8 @@ import com.htf.diva.models.MealDietType
 import com.htf.diva.callBack.IListItemClickListener
 
 class MealTypesAdapter(private var currActivity: Activity,
-                        private var arrDietWeekDays:ArrayList<MealDietType>,
-                        private var iListItemClickListener: IListItemClickListener<Any>
+                       private var arrDietWeekDays:ArrayList<MealDietType>,
+                       private var iListItemClickListener: IListItemClickListener<Any>
 ): RecyclerView.Adapter<MealTypesAdapter.MyViewHolder>(){
 
     var rowDietWeekDayBinding: RowMealTypesBinding?=null

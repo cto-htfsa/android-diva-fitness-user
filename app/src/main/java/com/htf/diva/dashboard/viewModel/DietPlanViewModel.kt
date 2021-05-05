@@ -18,7 +18,7 @@ class DitPlanViewModel : BaseViewModel() {
     val errorResult= MutableLiveData<String>()
     val mDietWeekDaysResponse= MutableLiveData<ArrayList<DietWeekdayModel>>()
     val mMyDietData= MutableLiveData<MyDietModel>()
-    val mWorkoutWeekDaysData= MutableLiveData<Any>()
+    val mDietPlanResponseData= MutableLiveData<Any>()
 
 
     fun dietWeekdaysList() {
@@ -75,14 +75,13 @@ class DitPlanViewModel : BaseViewModel() {
     }
 
 
-
-    fun onUpdateWorkoutClick(
-            locale: String?,
-            deviceId: String?,
-            deviceType: String?,
-            versionName: String?,
-            weekDayId: String?,
-            workoutWeekDay: HashMap<String, String?>) {
+    fun onUpdateDietPlanClick(
+        locale: String?,
+        deviceId: String?,
+        deviceType: String?,
+        versionName: String?,
+        weekDayId: String?,meal_type_id:String?,
+        dietPlan: HashMap<String, String?>) {
         if (!DialogUtils.isInternetOn()){
             isInternetOn.postValue(false)
             return
@@ -90,8 +89,8 @@ class DitPlanViewModel : BaseViewModel() {
         isApiCalling.postValue(true)
         scope.launch {
             val result = try {
-                DashboardApiRepo.updateWorkoutWeekDay( locale, deviceId, deviceType,
-                        versionName, weekDayId,workoutWeekDay)
+                DashboardApiRepo.updateDietPlan( locale, deviceId, deviceType,
+                    versionName, weekDayId,meal_type_id,dietPlan)
             } catch (e: Exception) {
                 errorResult.postValue(e.localizedMessage)
                 isApiCalling.postValue(false)
@@ -99,14 +98,13 @@ class DitPlanViewModel : BaseViewModel() {
             withContext(Dispatchers.Main) {
                 isApiCalling.postValue(false)
                 if (result is Any)
-                    mWorkoutWeekDaysData.postValue(result)
+                    mDietPlanResponseData.postValue(result)
                 else
                     errorResult.postValue(result.toString())
             }
 
         }
     }
-
 
 
 }

@@ -296,19 +296,18 @@ object DashboardApiRepo : BaseRepository() {
 
 
 
+
     suspend fun updateDietPlan(locale: String?,
-                                     deviceId: String?,
-                                     deviceType: String?,
-                                     versionName: String?,
-                                     weekDayId: String?,
-                                     workouts: HashMap<String, String?>): Any? {
+                               deviceId: String?,
+                               deviceType: String?,
+                               versionName: String?,
+                               weekDayId: String?,meal_type_id:String?,
+                               workouts: HashMap<String, String?>): Any? {
         return safeApiCall(
-                call ={ retrofitAuthClient.updateWorkoutAsync(locale, deviceId, deviceType,
-                        versionName, weekDayId,workouts).await()}
+            call ={ retrofitAuthClient.updateDietPlanAsync(locale, deviceId, deviceType,
+                versionName, weekDayId,meal_type_id,workouts).await()}
         )
     }
-
-
 
 }
 
