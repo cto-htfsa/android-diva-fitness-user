@@ -105,17 +105,17 @@
                      tools:ignore="MissingConstraints" />
 
                  <LinearLayout
-                     android:id="@+id/lnrMySchedule"
+                     android:id="@+id/lnrMyWorkout"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
                      android:orientation="vertical"
-                     android:visibility="gone"
+                     android:visibility="visible"
                      android:layout_marginStart="@dimen/margin_16dp"
                      android:layout_marginEnd="@dimen/margin_16dp"
                      android:background="@drawable/rating_bg"
                      android:backgroundTint="@color/colorPrimary"
                      android:padding="@dimen/dimen_10"
-                     android:layout_marginTop="@dimen/dimen_7">
+                     android:layout_marginTop="@dimen/dimen_12">
 
                      <LinearLayout
                          android:layout_width="match_parent"
@@ -123,7 +123,7 @@
                          android:orientation="horizontal">
 
                          <com.dinuscxj.progressbar.CircleProgressBar
-                             android:id="@+id/line_progress"
+                             android:id="@+id/workoutProgress"
                              android:layout_width="@dimen/dimen_50"
                              android:layout_height="@dimen/dimen_50"
                              android:layout_gravity="center"
@@ -156,7 +156,7 @@
                                      android:id="@+id/tvCalsLeft"
                                      android:layout_width="wrap_content"
                                      android:layout_height="wrap_content"
-                                     android:text="56656"
+                                     android:text="0"
                                      android:maxLines="1"
                                      android:textColor="@color/white"
                                      android:textSize="@dimen/font_11sp"
@@ -184,7 +184,7 @@
                                      android:id="@+id/tvConsumed"
                                      android:layout_width="wrap_content"
                                      android:layout_height="wrap_content"
-                                     android:text="56656"
+                                     android:text="0"
                                      android:maxLines="1"
                                      android:textColor="@color/white"
                                      android:textSize="@dimen/font_11sp"
@@ -212,7 +212,7 @@
                                      android:id="@+id/tvBurned"
                                      android:layout_width="wrap_content"
                                      android:layout_height="wrap_content"
-                                     android:text="56656"
+                                     android:text="0"
                                      android:maxLines="1"
                                      android:textColor="@color/white"
                                      android:textSize="@dimen/font_11sp"
@@ -221,7 +221,7 @@
                                  <me.grantland.widget.AutofitTextView
                                      android:layout_width="wrap_content"
                                      android:layout_height="wrap_content"
-                                     android:text="@string/consumed"
+                                     android:text="@string/burns"
                                      android:textColor="@color/white"
                                      android:maxLines="1"
                                      android:textSize="@dimen/font_9sp"
@@ -257,14 +257,43 @@
                                  android:textSize="@dimen/font_9sp"
                                  android:fontFamily="@font/avenir_light"/>
 
-                             <me.grantland.widget.AutofitTextView
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="60kg"
-                                 android:textColor="@color/white"
-                                 android:maxLines="1"
-                                 android:textSize="@dimen/font_9sp"
-                                 android:fontFamily="@font/avenir_black"/>
+                             <LinearLayout
+                                 android:orientation="horizontal"
+                                 android:gravity="center"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content">
+
+
+                                 <me.grantland.widget.AutofitTextView
+                                     android:id="@+id/tvDietConsumedProtien"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:text="60kg"
+                                     android:textColor="@color/white"
+                                     android:maxLines="1"
+                                     android:textSize="@dimen/font_9sp"
+                                     android:fontFamily="@font/avenir_black"/>
+
+                                 <TextView
+                                     android:text="/"
+                                     android:textColor="@color/white"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content">
+                                 </TextView>
+
+                                 <me.grantland.widget.AutofitTextView
+                                     android:id="@+id/tvPlanProtien"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:text="60kg"
+                                     android:textColor="@color/white"
+                                     android:maxLines="1"
+                                     android:textSize="@dimen/font_12sp"
+                                     android:fontFamily="@font/avenir_black"/>
+
+                             </LinearLayout>
+
+
 
                          </LinearLayout>
 
@@ -284,14 +313,41 @@
                                  android:textSize="@dimen/font_9sp"
                                  android:fontFamily="@font/avenir_light"/>
 
-                             <me.grantland.widget.AutofitTextView
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="60kg"
-                                 android:textColor="@color/white"
-                                 android:maxLines="1"
-                                 android:textSize="@dimen/font_9sp"
-                                 android:fontFamily="@font/avenir_black"/>
+                             <LinearLayout
+                                 android:orientation="horizontal"
+                                 android:gravity="center"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content">
+
+
+                                 <me.grantland.widget.AutofitTextView
+                                     android:id="@+id/tvDietConsumedCabs"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:text="60kg"
+                                     android:textColor="@color/white"
+                                     android:maxLines="1"
+                                     android:textSize="@dimen/font_9sp"
+                                     android:fontFamily="@font/avenir_black"/>
+
+                                 <TextView
+                                     android:text="/"
+                                     android:textColor="@color/white"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content">
+                                 </TextView>
+
+                                 <me.grantland.widget.AutofitTextView
+                                     android:id="@+id/tvPlanCabs"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:text="60kg"
+                                     android:textColor="@color/white"
+                                     android:maxLines="1"
+                                     android:textSize="@dimen/font_12sp"
+                                     android:fontFamily="@font/avenir_black"/>
+
+                             </LinearLayout>
 
                          </LinearLayout>
 
@@ -311,14 +367,41 @@
                                  android:textSize="@dimen/font_9sp"
                                  android:fontFamily="@font/avenir_light"/>
 
-                             <me.grantland.widget.AutofitTextView
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="60kg"
-                                 android:textColor="@color/white"
-                                 android:maxLines="1"
-                                 android:textSize="@dimen/font_9sp"
-                                 android:fontFamily="@font/avenir_black"/>
+                             <LinearLayout
+                                 android:orientation="horizontal"
+                                 android:gravity="center"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content">
+
+
+                                 <me.grantland.widget.AutofitTextView
+                                     android:id="@+id/tvDietConsumedFat"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:text="60kg"
+                                     android:textColor="@color/white"
+                                     android:maxLines="1"
+                                     android:textSize="@dimen/font_9sp"
+                                     android:fontFamily="@font/avenir_black"/>
+
+                                 <TextView
+                                     android:text="/"
+                                     android:textColor="@color/white"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content">
+                                 </TextView>
+
+                                 <me.grantland.widget.AutofitTextView
+                                     android:id="@+id/tvPlanFat"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:text="60kg"
+                                     android:textColor="@color/white"
+                                     android:maxLines="1"
+                                     android:textSize="@dimen/font_12sp"
+                                     android:fontFamily="@font/avenir_black"/>
+
+                             </LinearLayout>
 
                          </LinearLayout>
 
@@ -338,20 +421,48 @@
                                  android:textSize="@dimen/font_9sp"
                                  android:fontFamily="@font/avenir_light"/>
 
-                             <me.grantland.widget.AutofitTextView
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="60kg"
-                                 android:textColor="@color/white"
-                                 android:maxLines="1"
-                                 android:textSize="@dimen/font_9sp"
-                                 android:fontFamily="@font/avenir_black"/>
+                             <LinearLayout
+                                 android:orientation="horizontal"
+                                 android:gravity="center"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content">
+
+
+                                 <me.grantland.widget.AutofitTextView
+                                     android:id="@+id/tvDietConsumedCalories"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:text="60kg"
+                                     android:textColor="@color/white"
+                                     android:maxLines="1"
+                                     android:textSize="@dimen/font_9sp"
+                                     android:fontFamily="@font/avenir_black"/>
+
+                                 <TextView
+                                     android:text="/"
+                                     android:textColor="@color/white"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content">
+                                 </TextView>
+
+                                 <me.grantland.widget.AutofitTextView
+                                     android:id="@+id/tvPlanCalories"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:text="60kg"
+                                     android:textColor="@color/white"
+                                     android:maxLines="1"
+                                     android:textSize="@dimen/font_12sp"
+                                     android:fontFamily="@font/avenir_black"/>
+
+                             </LinearLayout>
 
                          </LinearLayout>
 
                      </LinearLayout>
 
                  </LinearLayout>
+
 
 
                  <LinearLayout

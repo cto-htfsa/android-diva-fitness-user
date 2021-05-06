@@ -18,6 +18,7 @@ import com.htf.diva.models.MyDietModel
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.models.MyWorkoutPlanModel
 import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.DateUtilss
 import com.michalsvec.singlerowcalendar.calendar.CalendarChangesObserver
@@ -28,8 +29,22 @@ import com.michalsvec.singlerowcalendar.utils.DateUtils
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.fragment_diet.*
 import kotlinx.android.synthetic.main.calendar_item.view.*
+import kotlinx.android.synthetic.main.fragment_diet.lnrMyWorkout
+import kotlinx.android.synthetic.main.fragment_diet.tvBurned
+import kotlinx.android.synthetic.main.fragment_diet.tvCalsLeft
+import kotlinx.android.synthetic.main.fragment_diet.tvConsumed
+import kotlinx.android.synthetic.main.fragment_diet.tvDietConsumedCabs
+import kotlinx.android.synthetic.main.fragment_diet.tvDietConsumedCalories
+import kotlinx.android.synthetic.main.fragment_diet.tvDietConsumedFat
+import kotlinx.android.synthetic.main.fragment_diet.tvDietConsumedProtien
+import kotlinx.android.synthetic.main.fragment_diet.tvPlanCabs
+import kotlinx.android.synthetic.main.fragment_diet.tvPlanCalories
+import kotlinx.android.synthetic.main.fragment_diet.tvPlanFat
+import kotlinx.android.synthetic.main.fragment_diet.tvPlanProtien
 import kotlinx.android.synthetic.main.fragment_diet.view.*
 import kotlinx.android.synthetic.main.fragment_diet.view.lnrEdit
+import kotlinx.android.synthetic.main.fragment_diet.workoutProgress
+import kotlinx.android.synthetic.main.fragment_workout.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -196,7 +211,7 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
             if (myDiet.myScheduled!!.dietPlans!!.calories!=null){
                 if(myDiet.mealTypes!!.size>0){
                     btnEditDietPlan.visibility=View.VISIBLE
-                    lnrMySchedule.visibility=View.VISIBLE
+                    lnrMyWorkout.visibility=View.VISIBLE
                     dietRecycler.visibility=View.VISIBLE
                     lnrNoDietPlanAvailable.visibility=View.GONE
                     val mLayout= LinearLayoutManager(currActivity)
@@ -204,14 +219,14 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
                     myDietAdapter= MyMealTypeDietAdapter(currActivity,myDiet.mealTypes!!,this)
                     dietRecycler.adapter=myDietAdapter
                     binding.root.lnrEdit.visibility=View.VISIBLE
-
+                    setDietPlanWorkout(myDiet)
                 }else{
-                    binding.root.lnrMySchedule.visibility=View.GONE
+                    binding.root.lnrMyWorkout.visibility=View.GONE
                     binding.root.lnrNoDietPlanAvailable.visibility=View.VISIBLE
                     binding.root.lnrEdit.visibility=View.GONE
                 }
             }else{
-                binding.root.lnrMySchedule.visibility=View.GONE
+                binding.root.lnrMyWorkout.visibility=View.GONE
                 binding.root.dietRecycler.visibility=View.GONE
                 binding.root.lnrNoDietPlanAvailable.visibility=View.VISIBLE
                 binding.root.lnrEdit.visibility=View.GONE
@@ -250,4 +265,89 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
         calendar.add(Calendar.DATE, -1)
         return list
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.myDietList(selectedDate!!)
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setDietPlanWorkout(myWorkoutPLan: MyDietModel) {
+        if (myWorkoutPLan.myScheduled!!.workouts!!.caloriesBurn!=null){
+            tvBurned.text=myWorkoutPLan.myScheduled!!.workouts!!.caloriesBurn.toString()
+        }
+        if (myWorkoutPLan.myScheduled!!.workoutCompleted!!.caloriesBurn==null){
+        /*    val calBurn=myWorkoutPLan.myScheduled!!.workouts!!.caloriesBurn!!.toDouble()- 0
+            tvCalsLeft.text=calBurn.toString()*/
+        }else{
+            val calBurn=myWorkoutPLan.myScheduled!!.workouts!!.caloriesBurn!!.toDouble()- myWorkoutPLan.myScheduled!!.workoutCompleted!!.caloriesBurn!!.toDouble()
+            tvCalsLeft.text=calBurn.toString()
+        }
+        if (myWorkoutPLan.myScheduled!!.dietConsumed!!.calories!=null){
+            tvConsumed.text=myWorkoutPLan.myScheduled!!.workoutCompleted!!.caloriesBurn.toString()
+        }
+
+        if(myWorkoutPLan.myScheduled!!.dietConsumed!!.calories!=null &&myWorkoutPLan.myScheduled!!.dietPlans!!.calories!=null){
+            val progress=(myWorkoutPLan.myScheduled!!.dietConsumed!!.calories!!.toDouble())/(myWorkoutPLan.myScheduled!!.dietPlans!!.calories!!.toDouble())
+            workoutProgress.progress = progress.toInt()
+        }else{
+            workoutProgress.progress=0
+        }
+
+        /* Diet plan and diet consumed */
+        if (myWorkoutPLan.myScheduled!!.dietPlans!!.proteins!=null){
+            tvPlanProtien.text=myWorkoutPLan.myScheduled!!.dietPlans!!.proteins+currActivity.getString(R.string.g)
+        } else{
+            tvPlanProtien.text="0"+currActivity.getString(R.string.g)
+        }
+
+        if (myWorkoutPLan.myScheduled!!.dietPlans!!.carbs!=null){
+            tvPlanCabs.text=myWorkoutPLan.myScheduled!!.dietPlans!!.carbs+currActivity.getString(R.string.g)
+        } else{
+            tvPlanCabs.text="0"+currActivity.getString(R.string.g)
+        }
+
+        if (myWorkoutPLan.myScheduled!!.dietPlans!!.fats!=null){
+            tvPlanFat.text=myWorkoutPLan.myScheduled!!.dietPlans!!.fats+currActivity.getString(R.string.g)
+        } else{
+            tvPlanFat.text="0"+currActivity.getString(R.string.g)
+        }
+
+        if (myWorkoutPLan.myScheduled!!.dietPlans!!.calories!=null){
+            tvPlanCalories.text=myWorkoutPLan.myScheduled!!.dietPlans!!.calories+currActivity.getString(R.string.g)
+        } else{
+            tvPlanCalories.text="0"+currActivity.getString(R.string.g)
+        }
+
+
+        /* diet consumed */
+        if (myWorkoutPLan.myScheduled!!.dietConsumed!!.proteins!=null){
+            tvDietConsumedProtien.text=myWorkoutPLan.myScheduled!!.dietConsumed!!.proteins+currActivity.getString(R.string.g)
+        } else{
+            tvDietConsumedProtien.text="0"+currActivity.getString(R.string.g)
+        }
+
+        if (myWorkoutPLan.myScheduled!!.dietPlans!!.carbs!=null){
+            tvDietConsumedCabs.text=myWorkoutPLan.myScheduled!!.dietConsumed!!.carbs+currActivity.getString(R.string.g)
+        } else{
+            tvDietConsumedCabs.text="0"+currActivity.getString(R.string.g)
+        }
+
+        if (myWorkoutPLan.myScheduled!!.dietConsumed!!.fats!=null){
+            tvDietConsumedFat.text=myWorkoutPLan.myScheduled!!.dietConsumed!!.fats+currActivity.getString(R.string.g)
+        } else{
+            tvDietConsumedFat.text="0"+currActivity.getString(R.string.g)
+        }
+
+        if (myWorkoutPLan.myScheduled!!.dietConsumed!!.calories!=null){
+            tvDietConsumedCalories.text=myWorkoutPLan.myScheduled!!.dietConsumed!!.calories+currActivity.getString(R.string.g)
+        } else{
+            tvDietConsumedCalories.text="0"+currActivity.getString(R.string.g)
+        }
+
+
+    }
+
+
+
 }

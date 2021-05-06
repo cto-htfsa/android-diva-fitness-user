@@ -177,6 +177,7 @@
     <string name="g">g</string>
     <string name="on_rest">On Rest</string>
     <string name="am_on_rest">I am on rest!</string>
+    <string name="please_add_diet">Please add Diet</string>
 
 
 </resources>

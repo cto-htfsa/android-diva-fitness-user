@@ -4,6 +4,9 @@ package com.htf.diva.utils
 import android.provider.Settings
 import com.htf.diva.base.MyApplication
 import com.htf.diva.models.AppDashBoard
+import com.htf.diva.models.DietPlan
+import com.htf.diva.models.UserDietPlan
+import com.htf.diva.models.UserDietPlans
 
 import java.net.Socket
 
@@ -34,6 +37,7 @@ object AppSession {
     var trainerBookingId:String?=""
     var arrRepsMax=ArrayList<Int>()
     var arrSetMax=ArrayList<Int>()
-
+    var userDietPlan= UserDietPlans()
+    var arrDietPlan= ArrayList<DietPlan>()
 
 }

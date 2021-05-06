@@ -88,25 +88,25 @@ class UserDietPlans: Serializable{
 
     @SerializedName("id")
     @Expose
-    var id: Int? = null
+    var id: Int? = 0
 
     @SerializedName("quantity")
     @Expose
-    var quantity: Int? = null
+    var quantity: Int? = 0
 
     @SerializedName("proteins")
     @Expose
-    var proteins: String? = null
+    var proteins: String? = "0.0"
 
     @SerializedName("carbs")
     @Expose
-    var carbs: String? = null
+    var carbs: String? = "0.0"
 
     @SerializedName("fats")
     @Expose
-    var fats: String? = null
+    var fats: String? = "0.0"
 
     @SerializedName("calories")
     @Expose
-    var calories: String? = null
+    var calories: String? = "0.0"
 }
