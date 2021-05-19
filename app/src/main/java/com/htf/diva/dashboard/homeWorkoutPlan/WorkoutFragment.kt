@@ -3,7 +3,9 @@ package com.htf.diva.dashboard.homeWorkoutPlan
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,23 +20,18 @@ import com.htf.diva.databinding.FragmentWorkoutBinding
 import com.htf.diva.models.MyWorkoutPlanModel
 import com.htf.diva.models.UserWorkout
 import com.htf.diva.utils.AppSession
-import com.htf.diva.utils.DateUtilss.getCurrentDateC
-import com.htf.diva.utils.DateUtilss.getCurrentMonthC
-import com.htf.diva.utils.DateUtilss.getCurrentYearC
+import com.htf.diva.utils.DateUtilss
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
-import com.michalsvec.singlerowcalendar.calendar.CalendarChangesObserver
-import com.michalsvec.singlerowcalendar.calendar.CalendarViewManager
-import com.michalsvec.singlerowcalendar.calendar.SingleRowCalendarAdapter
-import com.michalsvec.singlerowcalendar.selection.CalendarSelectionManager
-import com.michalsvec.singlerowcalendar.utils.DateUtils
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import kotlinx.android.synthetic.main.calendar_item.view.*
+import devs.mulham.horizontalcalendar.HorizontalCalendar
+import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener
 import kotlinx.android.synthetic.main.fragment_diet.view.lnrEdit
 import kotlinx.android.synthetic.main.fragment_workout.*
 import kotlinx.android.synthetic.main.fragment_workout.view.*
-import java.text.SimpleDateFormat
+import kotlinx.android.synthetic.main.fragment_workout.view.lnrMyWorkout
 import java.util.*
+
 
 class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel::class.java) , View.OnClickListener{
     private var selectedDate :String?=""
@@ -49,6 +46,7 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
     private var userWorkout =UserWorkout()
     private var workPlanData =MyWorkoutPlanModel()
     private var requestAddressCode = 101
+    private var horizontalCalendar: HorizontalCalendar? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -57,109 +55,61 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_workout, container, false)
 
 
-        val cDay= CalendarDay.from(getCurrentYearC().toInt(), getCurrentMonthC().toInt(), getCurrentDateC().toInt())
-
-        selectedDate=cDay.date.toString()
         binding.myWorkoutPlan = viewModel
-        viewModel.myWorkoutPlan(selectedDate)
+       // viewModel.myWorkoutPlan(selectedDate)
         viewModelInitialize()
         setOnClickListner()
-        // set current date to calendar and current month to currentMonth variable
-        calendar.time = Date()
-        currentMonth = calendar[Calendar.MONTH]
-        currentDate=calendar[Calendar.DATE]
 
-        // calendar view manager is responsible for our displaying logic
-        val myCalendarViewManager = object : CalendarViewManager {
-            override fun setCalendarViewResourceId(position: Int, date: Date, isSelected: Boolean): Int {
-                // set date to calendar according to position where we are
-                val cal = Calendar.getInstance()
-                cal.time = date
-                // if item is selected we return this layout items
-                // in this example. monday, wednesday and friday will have special item views and other days
-                // will be using basic item view
-                return if (isSelected)
-                    when (cal[Calendar.DAY_OF_MONTH]) {
-                        else -> R.layout.selected_calendar_item
+        /* start 2 months ago from now */
 
-                    }
-                else
-                // here we return items which are not selected
-                    when (cal[Calendar.DAY_OF_MONTH]) {
-                        else -> R.layout.calendar_item
-                    }
+        /* start 2 months ago from now */
+        val startDate = Calendar.getInstance()
+        startDate.add(Calendar.MONTH, -2)
 
-                // NOTE: if we don't want to do it this way, we can simply change color of background
-                // in bindDataToCalendarView method
-            }
+        /* end after 2 months from now */
 
-            override fun bindDataToCalendarView(
-                    holder: SingleRowCalendarAdapter.CalendarViewHolder,
-                    date: Date,
-                    position: Int,
-                    isSelected: Boolean) {
-                // using this method we can bind data to calendar view
-                // good practice is if all views in layout have same IDs in all item views
-                if (AppSession.locale=="ar"){
-                    holder.itemView.tv_date_calendar_item.text = DateUtils.getDayNumber(date)
-                    holder.itemView.tv_day_calendar_item.text = DateUtils.getDay3LettersName(date)
-                }else{
-                    holder.itemView.tv_date_calendar_item.text = DateUtils.getDayNumber(date)
-                    holder.itemView.tv_day_calendar_item.text = DateUtils.getDay3LettersName(date)
-                }
+        /* end after 2 months from now */
+        val endDate = Calendar.getInstance()
+        endDate.add(Calendar.MONTH, 2)
 
+        // Default Date set to Today.
 
-            }
-        }
+        // Default Date set to Today.
+        val defaultSelectedDate = Calendar.getInstance()
 
-        // using calendar changes observer we can track changes in calendar
-        val myCalendarChangesObserver = object : CalendarChangesObserver {
-            // you can override more methods, in this example we need only this one
-            @SuppressLint("SetTextI18n")
-            override fun whenSelectionChanged(isSelected: Boolean, position: Int, date: Date) {
+        horizontalCalendar = HorizontalCalendar.Builder(binding.root, R.id.calendarView)
+            .range(startDate, endDate)
+            .datesNumberOnScreen(5)
+            .configure()
+            .formatTopText("MMM")
+            .formatMiddleText("dd")
+            .formatBottomText("EEE")
+            .showTopText(true)
+            .showBottomText(true)
+            .textColor(Color.LTGRAY, Color.BLACK)
+            .colorTextMiddle(Color.LTGRAY, Color.parseColor("#371257"))
+            .end()
+            .defaultSelectedDate(defaultSelectedDate)
+            .build()
 
-                tvWorkoutDate.text = "${DateUtils.getDayNumber(date)},${DateUtils.getMonth3LettersName(date)},${DateUtils.getYear(date)}"
-              //  selectedDate="${DateUtils.getYear(date)}-${DateUtils.getMonthNumber(date)}-${DateUtils.getDayNumber(date)}"
-                super.whenSelectionChanged(isSelected, position, date)
+        Log.i("Default Date", DateFormat.format("EEE, MMM d, yyyy", defaultSelectedDate).toString())
+        selectedDate= DateFormat.format("yyyy-MM-dd", defaultSelectedDate).toString()
+        binding.root.tvWorkoutDate.text=DateFormat.format("EEE, MMM d, yyyy", defaultSelectedDate).toString()
+        viewModel.myWorkoutPlan(selectedDate)
 
-            }
-
-        }
-
-        // selection manager is responsible for managing selection
-        val mySelectionManager = object : CalendarSelectionManager {
-            override fun canBeItemSelected(position: Int, date: Date): Boolean {
-                // set date to calendar according to position
-                val cal = Calendar.getInstance()
-                cal.time = date
-
-                val formateDate = SimpleDateFormat("yyyy-MM-dd").format(date)
-                selectedDate=formateDate
-                Log.e("formateDate date ", formateDate + "")
+        horizontalCalendar?.calendarListener = object : HorizontalCalendarListener() {
+            override fun onDateSelected(date: Calendar, position: Int) {
+                val selectedDateStr = DateFormat.format("EEE, MMM d, yyyy", date).toString()
+                binding.root.tvWorkoutDate.text=selectedDateStr
+              /*  Toast.makeText(currActivity, "$selectedDateStr selected!", Toast.LENGTH_SHORT)
+                    .show()
+                Log.i("onDateSelected", "$selectedDateStr - Position = $position")*/
+                val selectedDateFormat = DateFormat.format("yyyy-MM-dd", date).toString()
+                selectedDate=selectedDateFormat
                 viewModel.myWorkoutPlan(selectedDate)
 
-                // in this example sunday and saturday can't be selected, others can
-                return when (cal[Calendar.DAY_OF_WEEK]) {
-                    Calendar.SATURDAY -> true
-                    Calendar.SUNDAY -> true
-                    else -> true
-                }
-
             }
-
         }
-
-        // here we init our calendar, also you can set more properties if you haven't specified in XML layout
-        val singleRowCalendar = binding.root.main_workout_single_row_calendar.apply {
-            binding.root.main_workout_single_row_calendar.
-            calendarViewManager = myCalendarViewManager
-            calendarChangesObserver = myCalendarChangesObserver
-            calendarSelectionManager = mySelectionManager
-            includeCurrentDate = true
-            setDates(getFutureDatesOfCurrentMonth())
-            init()
-        }
-
 
 
         return binding.root
@@ -295,7 +245,7 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
             tvDietConsumedProtien.text="0"+currActivity.getString(R.string.g)
         }
 
-        if (myWorkoutPLan.myScheduled!!.dietPlans!!.carbs!=null){
+        if (myWorkoutPLan.myScheduled!!.dietConsumed!!.carbs!=null){
             tvDietConsumedCabs.text=myWorkoutPLan.myScheduled!!.dietConsumed!!.carbs+currActivity.getString(R.string.g)
         } else{
             tvDietConsumedCabs.text="0"+currActivity.getString(R.string.g)
@@ -314,38 +264,6 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
         }
 
 
-    }
-
-
-    private fun getDatesOfPreviousMonth(): List<Date> {
-        currentMonth-- // - because we want previous month
-        if (currentMonth == -1) {
-            // we will switch to december of previous year, when we reach first month of year
-            calendar.set(Calendar.YEAR, calendar[Calendar.YEAR] - 1)
-            currentMonth = 11 // 11 == december
-        }
-        return getDates(mutableListOf())
-    }
-
-    private fun getFutureDatesOfCurrentMonth(): List<Date> {
-        // get all next dates of current month
-        currentMonth = calendar[Calendar.MONTH]
-        return getDates(mutableListOf())
-    }
-
-
-    private fun getDates(list: MutableList<Date>): List<Date> {
-        // load dates of whole month
-        calendar.set(Calendar.MONTH, currentMonth)
-        calendar.set(Calendar.DAY_OF_MONTH, 1)
-        list.add(calendar.time)
-        while (currentMonth == calendar[Calendar.MONTH]) {
-            calendar.add(Calendar.DATE, +1)
-            if (calendar[Calendar.MONTH] == currentMonth)
-                list.add(calendar.time)
-        }
-        calendar.add(Calendar.DATE, -1)
-        return list
     }
 
     /* when user click on workout completed button*/

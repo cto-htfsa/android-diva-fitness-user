@@ -10,6 +10,7 @@ import com.htf.diva.BuildConfig
 import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.dashboard.homeDietPlan.DietPlanActivity
 import com.htf.diva.dashboard.viewModel.WorkoutPlanViewModel
 import com.htf.diva.databinding.ActivityWorkoutPlanBinding
 import com.htf.diva.models.*
@@ -27,7 +28,7 @@ class CreateWorkoutPlanActivity :BaseDarkActivity<ActivityWorkoutPlanBinding, Wo
     private var currActivity: Activity = this
     private lateinit var workoutWeekDaysAdapter: WorkoutWeekDaysAdapter
     private var comeFrom:String?=null
-
+    private var workoutWeekDayNew = WorkoutWeekDaysModel()
 
     companion object {
         fun open(currActivity: Activity, comeFrom: String) {
@@ -60,8 +61,6 @@ class CreateWorkoutPlanActivity :BaseDarkActivity<ActivityWorkoutPlanBinding, Wo
             tvTitle.text=getString(R.string.edit_workout_plan)
         }
     }
-
-
 
 
     override fun onRefresh() {
@@ -144,5 +143,28 @@ class CreateWorkoutPlanActivity :BaseDarkActivity<ActivityWorkoutPlanBinding, Wo
         //    MealTypesActivity.open(currActivity,data)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode){
+            WorkoutDayActivity.WORkOUT_REQUEST_CODE->{
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        if (data != null) {
+                            workoutWeekDayNew = data.getSerializableExtra("workoutWeekDayNew") as WorkoutWeekDaysModel
+                            if(workoutWeekDayNew!==null){
+                                for (i in 0.until(arrWorkoutWeekdays.size)) {
+                                    if (workoutWeekDayNew.id==arrWorkoutWeekdays[i].id){
+                                        arrWorkoutWeekdays[i].workouts=workoutWeekDayNew.workouts
+                                        workoutWeekDaysAdapter.notifyDataSetChanged()
 
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
 }

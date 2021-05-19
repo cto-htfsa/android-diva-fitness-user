@@ -47,16 +47,19 @@
     <color name="colorPaymentHistoryRowBg">#F8F5FA</color>
     <color name="skip_solid">#F4F4F8</color>
     <color name="colorBackground">#EFF0F1</color>
-
-
+    <color name="colorGrey">#EAEAEA</color>
+    <color name="color_Open">#01A462</color>
     <color name="gray1">#E5E5E5</color>
     <color name="gray2">#DFDFDF</color>
     <color name="gray3">#B5B5B5</color>
     <color name="gray4">#666666</color>
     <color name="gray5">#8C8C8C</color>
     <color name="trainerDetails">#FEF5ED</color>
-
+    <color name="colorDark">#12123A</color>
+    <color name="colorDarkGrey">#A6A6A6</color>
     <!-- Text Color-->
     <color name="colorTextHeading">#333333</color>
     <color name="colorTextLightDark">#666666</color>
+    <color name="colorTransparent">#AA000000</color>
+
 </resources>

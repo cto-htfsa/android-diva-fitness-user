@@ -10,8 +10,11 @@ import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.dashboard.adapters.WorkoutDaysAdapter
+import com.htf.diva.dashboard.homeDietPlan.DietPlanActivity
 import com.htf.diva.dashboard.viewModel.WorkoutPlanViewModel
 import com.htf.diva.databinding.ActivityWorkoutDayBinding
+import com.htf.diva.models.MealDietType
+import com.htf.diva.models.UserWorkouts
 import com.htf.diva.models.Workout
 import com.htf.diva.models.WorkoutWeekDaysModel
 import com.htf.diva.utils.AppSession
@@ -30,13 +33,15 @@ class WorkoutDayActivity : BaseDarkActivity<ActivityWorkoutDayBinding, WorkoutPl
     var arrayWorkoutList: ArrayList<Workout>? = null
     private var weekDayId :Int?=null
     private var comeFrom:String?=null
+    private var workoutWeekDayNew = WorkoutWeekDaysModel()
 
     companion object {
+        val WORkOUT_REQUEST_CODE = 1234
         fun open(currActivity: Activity, workoutModel: WorkoutWeekDaysModel, comeFrom: String?) {
             val intent = Intent(currActivity, WorkoutDayActivity::class.java)
             intent.putExtra("workoutWeekDay",workoutModel)
             intent.putExtra("comeFrom",comeFrom)
-            currActivity.startActivity(intent)
+            currActivity.startActivityForResult(intent, WORkOUT_REQUEST_CODE)
         }
     }
 
@@ -57,7 +62,7 @@ class WorkoutDayActivity : BaseDarkActivity<ActivityWorkoutDayBinding, WorkoutPl
     private fun getExtra() {
         val workoutWeekDay = intent.getSerializableExtra("workoutWeekDay") as WorkoutWeekDaysModel?
         comeFrom = intent.getStringExtra("comeFrom")
-
+        workoutWeekDayNew=workoutWeekDay!!
         if(workoutWeekDay!=null){
             arrayWorkoutList=workoutWeekDay.workouts
             weekDayId=workoutWeekDay.id
@@ -81,21 +86,19 @@ class WorkoutDayActivity : BaseDarkActivity<ActivityWorkoutDayBinding, WorkoutPl
         }
     }
 
-    fun selectedReps(selectedRepetitionsQty: Int, adapterPosition: Int, cartItemPosition: Int, workoutModel: Workout) {
-        arrayWorkoutList!!.filter { it.id==workoutModel.id}.map { it.repetitions=selectedRepetitionsQty}
+    fun selectedReps(selectedRepetitionsQty: Int, adapterPosition: Int, cartItemPosition: Int, workoutModel: UserWorkouts) {
+   /*     arrayWorkoutList!!.filter { it.id==workoutModel.id}.map { it.repetitions=selectedRepetitionsQty}*/
+        arrayWorkoutList!![cartItemPosition].userWorkouts!!.repetitions= selectedRepetitionsQty
         workout()
         mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)
-    /*    binding.root.recycler.mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)*/
-       // binding.root.recycler_workout_day.post { mWorkoutDaysAdapter.notifyDataSetChanged()}
 
     }
 
-    fun selectedWorkoutSet(selectedRepetitionsQty: Int, adapterPosition: Int, cartItemPosition: Int, workoutModel: Workout) {
-        arrayWorkoutList!!.filter { it.id==workoutModel.id}.map { it.sets=selectedRepetitionsQty}
-        workout()
-          mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)
-      //  binding.root.recycler_workout_day.post { mWorkoutDaysAdapter.notifyDataSetChanged()}
-
+    fun selectedWorkoutSet(selectedSetsQty: Int, adapterPosition: Int, cartItemPosition: Int, workoutModel: UserWorkouts) {
+      //   arrayWorkoutList!!.filter { it.id==workoutModel.id}.map { it.sets=selectedRepetitionsQty}
+         arrayWorkoutList!![cartItemPosition].userWorkouts!!.sets= selectedSetsQty
+         workout()
+         mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)
     }
 
 
@@ -113,12 +116,13 @@ class WorkoutDayActivity : BaseDarkActivity<ActivityWorkoutDayBinding, WorkoutPl
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.btnSaveDayWorkout -> {
+                workoutWeekDayNew.workouts=arrayWorkoutList!!
                 val slots = HashMap<String, String?>()
                 for (i in 0.until(arrayWorkoutList!!.size)) {
                     if(arrayWorkoutList!![i].repetitions != null) {
                         slots["workouts[$i][workout_id]"] = arrayWorkoutList!![i].id.toString()
-                        slots["workouts[$i][repetitions]"] = arrayWorkoutList!![i].repetitions.toString()
-                        slots["workouts[$i][sets]"] = arrayWorkoutList!![i].sets.toString()
+                        slots["workouts[$i][repetitions]"] = arrayWorkoutList!![i].userWorkouts!!.repetitions.toString()
+                        slots["workouts[$i][sets]"] = arrayWorkoutList!![i].userWorkouts!!.sets.toString()
                     }
                 }
                 viewModel.onUpdateWorkoutClick(AppSession.locale, AppSession.deviceId, AppSession.deviceType,
@@ -148,7 +152,10 @@ class WorkoutDayActivity : BaseDarkActivity<ActivityWorkoutDayBinding, WorkoutPl
 
     private fun onHandleBookTrainerCenterSuccessResponse(workoutWeekDay: Any?){
         workoutWeekDay?.let {
-           currActivity.finish()
+            val returnIntent = Intent()
+            returnIntent.putExtra("workoutWeekDayNew", workoutWeekDayNew)
+            setResult(Activity.RESULT_OK, returnIntent)
+            finish()
 
         }
     }

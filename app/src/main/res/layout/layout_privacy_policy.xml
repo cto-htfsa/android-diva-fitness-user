@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_main"
+    android:layout_width="match_parent"
+    android:background="@color/colorTransparent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:id="@+id/llContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:layout_marginBottom="@dimen/margin_16dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        android:gravity="center"
+        android:layout_centerInParent="false"
+        android:orientation="vertical">
+
+        <ImageView
+            android:src="@drawable/ic_close"
+            android:layout_gravity="end"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/margin_20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ImageView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:cardBackgroundColor="@color/colorWhite"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/df"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/privacy_policy"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorDark"
+                    android:fontFamily="@font/avenir_black"
+                    android:textSize="14sp"
+                    android:layout_gravity="center" />
+
+                <View
+                    android:id="@+id/view1"
+                    android:background="@color/colorGrey"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp">
+                </View>
+
+                <ScrollView
+                    android:id="@+id/ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:paddingBottom="@dimen/margin_8dp"
+                    android:paddingStart="@dimen/margin_8dp"
+                    android:paddingEnd="@dimen/margin_8dp"
+                    android:paddingTop="@dimen/margin_8dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tv_return_policy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:gravity="start"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/colorDark"
+                        android:fontFamily="@font/avenir_light"
+                        android:textSize="14sp"
+                        android:layout_gravity="center" />
+
+                </ScrollView>
+
+                <View
+                    android:id="@+id/view2"
+                    android:background="@color/colorGrey"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp">
+                </View>
+
+                <TextView
+                    android:id="@+id/tvOkay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ok"
+                    android:textAllCaps="true"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginBottom="@dimen/margin_16dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/color_Open"
+                    android:fontFamily="@font/avenir_light"
+                    android:textSize="14sp"
+                    android:layout_gravity="center" />
+
+
+            </LinearLayout>
+
+
+
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

@@ -92,7 +92,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:background="@color/colorAgeBg"
+                    android:background="@color/colorBackground"
                     android:orientation="vertical"
                     android:paddingBottom="@dimen/margin_20dp"
                     android:paddingTop="@dimen/dimen_20"
@@ -312,7 +312,7 @@
             <RelativeLayout
                 android:paddingTop="@dimen/margin_16dp"
                 android:paddingBottom="@dimen/margin_16dp"
-                android:background="@color/colorAgeBg"
+                android:background="@color/colorBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

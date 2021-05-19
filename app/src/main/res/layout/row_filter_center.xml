@@ -27,8 +27,6 @@
             android:id="@+id/filterCenter"
             android:layout_marginStart="@dimen/dimen_1"
             android:layout_marginEnd="@dimen/dimen_1"
-            android:backgroundTint="@color/colorBranchBg1"
-            android:background="@drawable/rating_bg"
             android:orientation="horizontal"
             android:gravity="start">
 
@@ -48,7 +46,7 @@
                 userName="@{fitnessCenter.name}"
                 android:textSize="@dimen/font_12sp"
                 android:fontFamily="@font/avenir_black"
-                android:textColor="@color/colorBranchText1"/>
+                android:textColor="@color/colorTextHeading"/>
 
         </LinearLayout>
 

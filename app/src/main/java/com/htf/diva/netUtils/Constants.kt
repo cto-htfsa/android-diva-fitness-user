@@ -26,7 +26,7 @@ object Constants {
     val COME_FROM="comeFrom"
     val FROM_HOME="fromHome"
     val FROM_CENTER="fromCenter"
-
+    const val KEY_FCM_TOKEN = "fcm_token"
 
     object Auth{
         val KEY_TOKEN = "token"

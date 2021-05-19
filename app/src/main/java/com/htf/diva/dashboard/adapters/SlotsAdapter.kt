@@ -1,5 +1,6 @@
 package com.htf.diva.dashboard.adapters
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
@@ -40,18 +41,19 @@ class SlotsAdapter (
         return arrSlots.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: SlotsAdapter.MyViewHolder, position: Int) {
         val model=arrSlots[position]
       /*  rowFitnessCenterBinding!!.slotsModel =model*/
         val startDate= DateUtilss.convertDateFormat(model.startAt, DateUtilss.serverTimeFormat, DateUtilss.targetTimeFormat)
         val endDate= DateUtilss.convertDateFormat(model.endAt, DateUtilss.serverTimeFormat, DateUtilss.targetTimeFormat)
-        holder.itemView.tvTime.text=startDate+"-"+endDate
+        holder.itemView.tvTime.text= "$startDate-$endDate"
         if (position==rowIndex){
             holder.itemView.rltSlots.setBackgroundResource(R.drawable.package_bg)
             holder.itemView.tvTime.setTextColor(ContextCompat.getColor(currActivity, R.color.colorPrimary))
             holder.itemView.ivSelected.setBackgroundResource(R.drawable.cancel)
         }else{
-            holder.itemView.rltSlots.setBackgroundResource(R.drawable.package_bg_unselected)
+            holder.itemView.rltSlots.setBackgroundResource(R.drawable.slots_unselected)
             holder.itemView.tvTime.setTextColor(ContextCompat.getColor(currActivity, R.color.colorText))
         }
 

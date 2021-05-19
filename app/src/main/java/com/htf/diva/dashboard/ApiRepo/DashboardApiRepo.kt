@@ -104,6 +104,12 @@ object DashboardApiRepo : BaseRepository() {
         )
     }
 
+    suspend fun privacyPolicy(locale: String?,deviceId: String?, deviceType: String?,versionName: String?): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.privacyPolicyAsync(locale,deviceId,deviceType,versionName).await()}
+        )
+    }
+
 
     suspend fun fitnessCenterDetail(locale: String?,deviceId: String?, deviceType: String?,versionName: String?): Any? {
         return safeApiCall(
@@ -308,6 +314,16 @@ object DashboardApiRepo : BaseRepository() {
                 versionName, weekDayId,meal_type_id,workouts).await()}
         )
     }
+
+    suspend fun bookingReviewAsync(locale: String,deviceId: String, deviceType: String,
+                                         versionName: String,booking_id:String, rating:String,title:String,message:String): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.bookingReviewAsync(locale,deviceId,deviceType,versionName,booking_id,
+                rating,title,message).await()})
+    }
+
+
+
 
 }
 

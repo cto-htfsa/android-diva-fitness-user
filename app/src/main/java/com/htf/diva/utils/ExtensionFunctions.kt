@@ -227,3 +227,34 @@ fun Activity?.showForceUpdateDialog(appSetting: AppSetting) {
 }
 
 
+fun Activity?.showForceUpdateHomeDialog(appSetting: String) {
+    val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(
+        ContextThemeWrapper(this!!, theme)
+    )
+    alertDialogBuilder.setTitle(this.getString(R.string.youAreNotUpdatedTitle))
+    var str=getString(R.string.youAreNotUpdatedMessage)
+    val versionCode="${appSetting}"
+    str=str.replace("[x]",versionCode)
+    alertDialogBuilder.setMessage(str)
+
+    alertDialogBuilder.setCancelable(false)
+    alertDialogBuilder.setPositiveButton(
+        R.string.update, DialogInterface.OnClickListener { dialog, id ->
+            try {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("http://play.google.com/store/apps/details?id=" + this.packageName)
+                    )
+                )
+                finish()
+            } catch (e: ActivityNotFoundException) {
+
+            }
+            dialog.cancel()
+        })
+    alertDialogBuilder.show()
+
+}
+
+

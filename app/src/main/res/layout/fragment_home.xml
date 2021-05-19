@@ -156,9 +156,10 @@
                                 android:textAlignment="viewStart"/>
 
                             <TextView
+                                android:id="@+id/tvPlanExpireDate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="on 20 november 2020"
+                                android:text=""
                                 android:textColor="@color/white"
                                 android:fontFamily="@font/avenir_light"
                                 android:textSize="@dimen/font_11sp"
@@ -187,12 +188,12 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:visibility="gone"
-                        android:layout_marginStart="@dimen/dimen_10"
-                        android:layout_marginEnd="@dimen/dimen_10"
+                        android:layout_marginStart="@dimen/margin_16dp"
+                        android:layout_marginEnd="@dimen/margin_16dp"
                         android:background="@drawable/rating_bg"
                         android:backgroundTint="@color/colorPrimary"
                         android:padding="@dimen/dimen_10"
-                        android:layout_marginTop="@dimen/dimen_10">
+                        android:layout_marginTop="@dimen/dimen_12">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -345,7 +346,7 @@
                                         android:id="@+id/tvDietConsumedProtien"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="60kg"
+                                        android:text=""
                                         android:textColor="@color/white"
                                         android:maxLines="1"
                                         android:textSize="@dimen/font_9sp"
@@ -362,10 +363,10 @@
                                         android:id="@+id/tvPlanProtien"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="60kg"
+                                        android:text=""
                                         android:textColor="@color/white"
                                         android:maxLines="1"
-                                        android:textSize="@dimen/font_9sp"
+                                        android:textSize="@dimen/font_12sp"
                                         android:fontFamily="@font/avenir_black"/>
 
                                 </LinearLayout>
@@ -401,7 +402,7 @@
                                         android:id="@+id/tvDietConsumedCabs"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="60kg"
+                                        android:text=""
                                         android:textColor="@color/white"
                                         android:maxLines="1"
                                         android:textSize="@dimen/font_9sp"
@@ -418,10 +419,10 @@
                                         android:id="@+id/tvPlanCabs"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="60kg"
+                                        android:text=""
                                         android:textColor="@color/white"
                                         android:maxLines="1"
-                                        android:textSize="@dimen/font_9sp"
+                                        android:textSize="@dimen/font_12sp"
                                         android:fontFamily="@font/avenir_black"/>
 
                                 </LinearLayout>
@@ -455,7 +456,7 @@
                                         android:id="@+id/tvDietConsumedFat"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="60kg"
+                                        android:text=""
                                         android:textColor="@color/white"
                                         android:maxLines="1"
                                         android:textSize="@dimen/font_9sp"
@@ -472,10 +473,10 @@
                                         android:id="@+id/tvPlanFat"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="60kg"
+                                        android:text=""
                                         android:textColor="@color/white"
                                         android:maxLines="1"
-                                        android:textSize="@dimen/font_9sp"
+                                        android:textSize="@dimen/font_12sp"
                                         android:fontFamily="@font/avenir_black"/>
 
                                 </LinearLayout>
@@ -509,7 +510,7 @@
                                         android:id="@+id/tvDietConsumedCalories"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="60kg"
+                                        android:text=""
                                         android:textColor="@color/white"
                                         android:maxLines="1"
                                         android:textSize="@dimen/font_9sp"
@@ -526,10 +527,10 @@
                                         android:id="@+id/tvPlanCalories"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="60kg"
+                                        android:text=""
                                         android:textColor="@color/white"
                                         android:maxLines="1"
-                                        android:textSize="@dimen/font_9sp"
+                                        android:textSize="@dimen/font_12sp"
                                         android:fontFamily="@font/avenir_black"/>
 
                                 </LinearLayout>
@@ -539,6 +540,62 @@
                         </LinearLayout>
 
                     </LinearLayout>
+
+                     <LinearLayout
+                         android:id="@+id/llCheckWork_today_dietPlan"
+                         android:orientation="horizontal"
+                         android:visibility="gone"
+                         android:layout_width="match_parent"
+                         android:layout_marginTop="@dimen/margin_8dp"
+                         android:layout_height="wrap_content">
+
+                         <TextView
+                             android:id="@+id/tvTodaysDiet"
+                             android:layout_width="0dp"
+                             android:layout_weight="1"
+                             android:layout_height="wrap_content"
+                             android:background="@drawable/btn_bg"
+                             android:layout_gravity="center"
+                             android:gravity="center"
+                             android:layout_marginStart="@dimen/dimen_24"
+                             android:layout_marginEnd="@dimen/dimen_12"
+                             android:layout_marginTop="@dimen/margin_8dp"
+                             android:backgroundTint="@color/colorBranchBg3"
+                             android:layout_marginBottom="@dimen/margin_8dp"
+                             android:fontFamily="@font/avenir_black"
+                             android:paddingStart="@dimen/margin_4dp"
+                             android:paddingTop="@dimen/margin_12dp"
+                             android:paddingEnd="@dimen/margin_4dp"
+                             android:paddingBottom="@dimen/margin_12dp"
+                             android:text="@string/today_diet_plan"
+                             android:textColor="@color/colorRatingBg"
+                             android:textSize="12sp"
+                             android:textAllCaps="false"/>
+
+
+                         <TextView
+                             android:id="@+id/tvTodaysWorkout"
+                             android:layout_width="0dp"
+                             android:layout_weight="1"
+                             android:layout_height="wrap_content"
+                             android:layout_marginTop="@dimen/margin_8dp"
+                             android:background="@drawable/btn_bg"
+                             android:layout_gravity="center"
+                             android:gravity="center"
+                             android:backgroundTint="@color/colorBranchBg4"
+                             android:layout_marginEnd="@dimen/dimen_24"
+                             android:layout_marginBottom="@dimen/margin_8dp"
+                             android:fontFamily="@font/avenir_roman"
+                             android:paddingStart="@dimen/margin_4dp"
+                             android:paddingTop="@dimen/margin_12dp"
+                             android:paddingEnd="@dimen/margin_4dp"
+                             android:paddingBottom="@dimen/margin_12dp"
+                             android:text="@string/today_workout"
+                             android:textColor="@color/colorPrimary"
+                             android:textSize="12sp"
+                             android:textAllCaps="false"/>
+                     </LinearLayout>
+
                     <LinearLayout
                         android:id="@+id/llTopPersonalTrainers"
                         android:layout_width="match_parent"

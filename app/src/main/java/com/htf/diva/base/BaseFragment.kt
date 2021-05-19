@@ -1,12 +1,20 @@
 package com.htf.diva.base
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.app.Dialog
+import android.content.ActivityNotFoundException
+import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.htf.diva.R
 import com.htf.diva.utils.AppPreferences
 import com.htf.diva.utils.DialogUtils
 import com.htf.diva.utils.observerViewModel
@@ -49,4 +57,33 @@ abstract class BaseFragment<V : BaseViewModel>(private val viewModelClass: Class
             ViewModelProvider(this, BaseViewModelFactory(creator)).get(T::class.java)
     }
 
+    fun Activity?.showForceUpdateHomeDialog(appSetting: String) {
+        val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(
+            ContextThemeWrapper(this!!, theme)
+        )
+        alertDialogBuilder.setTitle(this.getString(R.string.youAreNotUpdatedTitle))
+        var str=getString(R.string.youAreNotUpdatedMessage)
+        val versionCode="${appSetting}"
+        str=str.replace("[x]",versionCode)
+        alertDialogBuilder.setMessage(str)
+
+        alertDialogBuilder.setCancelable(false)
+        alertDialogBuilder.setPositiveButton(
+            R.string.update, DialogInterface.OnClickListener { dialog, id ->
+                try {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("http://play.google.com/store/apps/details?id=" + this.packageName)
+                        )
+                    )
+                    finish()
+                } catch (e: ActivityNotFoundException) {
+
+                }
+                dialog.cancel()
+            })
+        alertDialogBuilder.show()
+
+    }
 }

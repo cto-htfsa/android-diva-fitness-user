@@ -123,20 +123,18 @@ class DietPlanActivity: BaseDarkActivity<ActivityDietPlanBinding,
                     mealDietTypeNew.dietPlans=arrDietPlanList!!
                     val dietPlan = HashMap<String, String?>()
                     for (i in 0.until(arrDietPlanList!!.size)) {
-                        if(arrDietPlanList!![i].mealId != null) {
+                        if(arrDietPlanList!![i].userDietPlans!= null) {
                             dietPlan["meals[$i][meal_id]"] = arrDietPlanList!![i].mealId.toString()
-                            dietPlan["meals[$i][quantity]"] = arrDietPlanList!![i].quantity.toString()
+                            dietPlan["meals[$i][quantity]"] = arrDietPlanList!![i].userDietPlans!!.quantity.toString()
                         }
                     }
                     viewModel.onUpdateDietPlanClick(AppSession.locale, AppSession.deviceId, AppSession.deviceType,
                         BuildConfig.VERSION_NAME, weekDayId.toString(),mealTypeId.toString(),dietPlan)
-                }else{
-                    showToast(currActivity.getString(R.string.please_add_diet),true)
+                }else {
+                    showToast(currActivity.getString(R.string.please_add_diet), true)
                 }
-
             }
         }
-
     }
 
 

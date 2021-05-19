@@ -23,7 +23,7 @@ class OtpViewModel:BaseViewModel() {
 
 
 
-    fun verifyOtp(hashToken: String, otp: String, userId: String?){
+    fun verifyOtp(hashToken: String, otp: String, userId: String?,fcmId:String?){
         if (!DialogUtils.isInternetOn()){
             isInternetOn.postValue(false)
             return
@@ -32,7 +32,7 @@ class OtpViewModel:BaseViewModel() {
         scope.launch {
             val result=try {
                 AuthApiRepo.userVerifyOtpAsync(AppSession.deviceId, AppSession.deviceType,AppSession.locale,
-                    BuildConfig.VERSION_NAME,userId!! ,hashToken,otp,  mFcmId.value.toString())
+                    BuildConfig.VERSION_NAME,userId!! ,hashToken,otp,  fcmId!!)
             }catch (e:Exception){
                 isApiCalling.postValue(false)
                 errorResult.postValue(e.localizedMessage)

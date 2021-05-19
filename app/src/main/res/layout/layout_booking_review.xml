@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:background="@drawable/dialog_rect_bg"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:padding="7dp">
+
+            <com.github.siyamed.shapeimageview.RoundedImageView
+                android:id="@+id/ivTrainerImage"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_width="@dimen/dimen_50"
+                android:layout_height="@dimen/dimen_50"
+                app:siBorderColor="@color/white"
+                android:layout_gravity="center"
+                android:src="@drawable/user"
+                app:siRadius="@dimen/dimen_30" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/font_14sp"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:text="@string/personal_trainer"
+                android:textColor="@color/colorTextLightDark"
+                android:fontFamily="@font/avenir_black">
+            </TextView>
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                android:layout_gravity="center"
+                android:numStars="5"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:saveEnabled="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </RatingBar>
+
+
+            <EditText
+                android:id="@+id/ed_title"
+                android:hint="@string/title"
+                android:padding="10dp"
+                android:layout_marginTop="5dp"
+                android:singleLine="true"
+                android:paddingBottom="@dimen/margin_16dp"
+                android:layout_marginStart="@dimen/dimen_24"
+                android:layout_marginEnd="@dimen/dimen_24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:layout_gravity="start"
+                android:textAlignment="viewStart"
+                android:fontFamily="@font/avenir_light"
+                android:textColor="@color/colorTextHeading"
+                android:textSize="@dimen/font_12sp" />
+
+            <View
+                android:background="@color/colorTextLightDark"
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginEnd="@dimen/dimen_30"
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp">
+            </View>
+
+
+            <EditText
+                android:id="@+id/edtMessage"
+                android:hint="@string/message"
+                android:layout_marginTop="16dp"
+                android:singleLine="true"
+                android:paddingBottom="@dimen/dimen_20"
+                android:layout_marginStart="@dimen/dimen_24"
+                android:layout_marginEnd="@dimen/dimen_24"
+                android:paddingStart="@dimen/margin_8dp"
+                android:background="@color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_gravity="start"
+                android:textAlignment="viewStart"
+                android:fontFamily="@font/avenir_light"
+                android:textColor="@color/colorTextHeading"
+                android:textSize="@dimen/font_12sp" />
+
+            <View
+                android:background="@color/colorTextLightDark"
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginEnd="@dimen/dimen_30"
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp">
+            </View>
+
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@color/colorWhite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <Button
+                android:id="@+id/btnBookingReview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_40"
+                android:background="@drawable/btn_bg"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:fontFamily="@font/avenir_roman"
+                android:paddingStart="@dimen/margin_4dp"
+                android:layout_marginBottom="@dimen/margin_16dp"
+                android:paddingTop="@dimen/margin_12dp"
+                android:paddingEnd="@dimen/margin_4dp"
+                android:paddingBottom="@dimen/margin_12dp"
+                android:layout_marginStart="@dimen/dimen_50"
+                android:layout_marginEnd="@dimen/dimen_50"
+                android:text="@string/submit_review"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"
+                android:textAllCaps="false">
+
+            </Button>
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

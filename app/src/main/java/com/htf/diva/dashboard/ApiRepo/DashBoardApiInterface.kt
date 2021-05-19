@@ -123,6 +123,14 @@ interface DashBoardApiInterface {
         @Field("current_version") current_version: String?,
         @Field("trainer_id") trainer_id: String?): Deferred<Response<BaseResponse<TrainerDetailsModel>>>
 
+  @FormUrlEncoded
+    @POST("api/v1/privacy-policy")
+    fun privacyPolicyAsync(
+        @Field("locale") locale: String?,
+        @Field("device_id") device_id: String?,
+        @Field("device_type") device_type: String?,
+        @Field("current_version") current_version: String?): Deferred<Response<BaseResponse<PrivacyPolicyModel>>>
+
 
 
 
@@ -365,6 +373,19 @@ interface DashBoardApiInterface {
                             @Field("meal_type_id") meal_type_id: String?,
                             @FieldMap dietPlanHashMap: HashMap<String, String?>):
             Deferred<Response<BaseResponse<Any>>>
+
+    @FormUrlEncoded
+    @POST("api/v1/submit/booking/review")
+    fun  bookingReviewAsync(
+        @Field("locale") locale: String,
+        @Field("device_id") device_id: String,
+        @Field("device_type") device_type: String,
+        @Field("current_version") current_version: String,
+        @Field("booking_id")booking_id:String,
+        @Field("rating")rating:String,
+        @Field("title")title:String,
+        @Field("feedback")feedback:String):Deferred<Response<BaseResponse<Any>>>
+
 
 
 

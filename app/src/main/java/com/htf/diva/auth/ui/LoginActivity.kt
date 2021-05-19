@@ -3,12 +3,13 @@ package com.htf.diva.auth.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.htf.diva.R
 import com.htf.diva.auth.viewModel.LoginViewModel
 import com.htf.diva.base.BaseDarkActivity
-import com.htf.diva.dashboard.fragments.HomeFragment
-import com.htf.diva.dashboard.fragments.MembershipFragment
 import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.databinding.ActivityLoginBinding
 import com.htf.diva.models.UserData
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : BaseDarkActivity<ActivityLoginBinding,LoginViewModel>(LoginViewModel::class.java) {
     private var currActivity:Activity=this
     private var comeFrom: String?=""
-
+    private var fcmID = ""
 
     companion object{
         fun open(currActivity: Activity, comeFrom: String){
@@ -36,6 +37,7 @@ class LoginActivity : BaseDarkActivity<ActivityLoginBinding,LoginViewModel>(Logi
         binding.loginViewModel=viewModel
         if (AppSession.locale=="en")  tvLang.text=getString(R.string.arabic) else tvLang.text=getString(R.string.english)
         getExtra()
+        getFcmToken()
         viewModelInitialize()
 
     }
@@ -66,7 +68,7 @@ class LoginActivity : BaseDarkActivity<ActivityLoginBinding,LoginViewModel>(Logi
 
     private fun onHandleLoginSuccessResponse(userData: UserData?){
         userData?.let {
-            OtpActivity.open(currActivity,userData.id,userData.token,fcmId = null,
+            OtpActivity.open(currActivity,userData.id,userData.token,fcmID,
                 mobileNumber = viewModel.mMobile.value.toString(), comeFrom = comeFrom!!)
                 finish()
         }
@@ -95,5 +97,20 @@ class LoginActivity : BaseDarkActivity<ActivityLoginBinding,LoginViewModel>(Logi
         }
     }
 
+    private fun getFcmToken(){
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                //Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+            val token = task.result
+            if (!token.isNullOrEmpty()) {
+                fcmID = token
+                Log.d("fcm_token", token)
+                AppPreferences.getInstance(currActivity)
+                    .saveInPreference(Constants.KEY_FCM_TOKEN, token)
+            }
 
+        })
+    }
 }

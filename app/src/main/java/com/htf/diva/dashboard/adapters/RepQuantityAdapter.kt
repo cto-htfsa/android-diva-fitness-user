@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
 import com.htf.diva.dashboard.homeWorkoutPlan.WorkoutDayActivity
+import com.htf.diva.models.UserWorkouts
 import com.htf.diva.models.Workout
 import kotlinx.android.synthetic.main.row_reps_qty.view.*
 
@@ -15,7 +16,8 @@ class RepQuantityAdapter(
     private var currActivity: Activity,
     private var arrMaxQty: IntArray,
     private var selectRepsItemPosition: Int,
-    private var workoutModel: Workout) :
+    private var workoutModel: UserWorkouts
+) :
     RecyclerView.Adapter<RepQuantityAdapter.MyViewHolder>() {
     private var rowIndex = -1
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

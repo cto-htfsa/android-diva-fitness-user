@@ -2,7 +2,9 @@ package com.htf.diva.dashboard.homeDietPlan
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,17 +20,9 @@ import com.htf.diva.models.MyDietModel
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import com.htf.diva.callBack.IListItemClickListener
-import com.htf.diva.models.MyWorkoutPlanModel
-import com.htf.diva.utils.AppSession
-import com.htf.diva.utils.DateUtilss
-import com.michalsvec.singlerowcalendar.calendar.CalendarChangesObserver
-import com.michalsvec.singlerowcalendar.calendar.CalendarViewManager
-import com.michalsvec.singlerowcalendar.calendar.SingleRowCalendarAdapter
-import com.michalsvec.singlerowcalendar.selection.CalendarSelectionManager
-import com.michalsvec.singlerowcalendar.utils.DateUtils
-import com.prolificinteractive.materialcalendarview.CalendarDay
+import devs.mulham.horizontalcalendar.HorizontalCalendar
+import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener
 import kotlinx.android.synthetic.main.fragment_diet.*
-import kotlinx.android.synthetic.main.calendar_item.view.*
 import kotlinx.android.synthetic.main.fragment_diet.lnrMyWorkout
 import kotlinx.android.synthetic.main.fragment_diet.tvBurned
 import kotlinx.android.synthetic.main.fragment_diet.tvCalsLeft
@@ -43,9 +37,9 @@ import kotlinx.android.synthetic.main.fragment_diet.tvPlanFat
 import kotlinx.android.synthetic.main.fragment_diet.tvPlanProtien
 import kotlinx.android.synthetic.main.fragment_diet.view.*
 import kotlinx.android.synthetic.main.fragment_diet.view.lnrEdit
+import kotlinx.android.synthetic.main.fragment_diet.view.lnrMyWorkout
 import kotlinx.android.synthetic.main.fragment_diet.workoutProgress
-import kotlinx.android.synthetic.main.fragment_workout.*
-import java.text.SimpleDateFormat
+
 import java.util.*
 
 
@@ -58,6 +52,8 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
     private var currentDate=0
     private lateinit var myDietAdapter: MyMealTypeDietAdapter
     private var selectedDate :String?=""
+    private var horizontalCalendar: HorizontalCalendar? = null
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -66,105 +62,59 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_diet, container, false)
         setListener()
 
-        val cDay= CalendarDay.from(DateUtilss.getCurrentYearC().toInt(), DateUtilss.getCurrentMonthC().toInt(), DateUtilss.getCurrentDateC().toInt())
-        selectedDate=cDay.date.toString()
-
         binding.myDietPlan = viewModel
-        viewModel.myDietList(selectedDate!!)
+   /*     viewModel.myDietList(selectedDate!!)*/
         viewModelInitialize()
 
-        // set current date to calendar and current month to currentMonth variable
-        calendar.time = Date()
-        currentMonth = calendar[Calendar.MONTH]
-        currentDate=calendar[Calendar.DATE]
+        /* start 2 months ago from now */
 
-        // calendar view manager is responsible for our displaying logic
-        val myCalendarViewManager = object : CalendarViewManager {
-            override fun setCalendarViewResourceId(position: Int, date: Date, isSelected: Boolean): Int {
-                // set date to calendar according to position where we are
-                val cal = Calendar.getInstance()
-                cal.time = date
-                // if item is selected we return this layout items
-                // in this example. monday, wednesday and friday will have special item views and other days
-                // will be using basic item view
-                return if (isSelected)
-                    when (cal[Calendar.DAY_OF_MONTH]) {
-                        else -> R.layout.selected_calendar_item
+        /* start 2 months ago from now */
+        val startDate = Calendar.getInstance()
+        startDate.add(Calendar.MONTH, -2)
 
-                    }
-                else
-                // here we return items which are not selected
-                    when (cal[Calendar.DAY_OF_MONTH]) {
-                        else -> R.layout.calendar_item
-                    }
+        /* end after 2 months from now */
 
-                // NOTE: if we don't want to do it this way, we can simply change color of background
-                // in bindDataToCalendarView method
-            }
+        /* end after 2 months from now */
+        val endDate = Calendar.getInstance()
+        endDate.add(Calendar.MONTH, 2)
 
-            override fun bindDataToCalendarView(
-                    holder: SingleRowCalendarAdapter.CalendarViewHolder,
-                    date: Date,
-                    position: Int,
-                    isSelected: Boolean) {
-                // using this method we can bind data to calendar view
-                // good practice is if all views in layout have same IDs in all item views
-                if (AppSession.locale=="ar"){
-                    holder.itemView.tv_date_calendar_item.text = DateUtils.getDayNumber(date)
-                    holder.itemView.tv_day_calendar_item.text = DateUtils.getDay3LettersName(date)
-                }else{
-                    holder.itemView.tv_date_calendar_item.text = DateUtils.getDayNumber(date)
-                    holder.itemView.tv_day_calendar_item.text = DateUtils.getDay3LettersName(date)
-                }
+        // Default Date set to Today.
 
+        // Default Date set to Today.
+        val defaultSelectedDate = Calendar.getInstance()
 
-            }
-        }
+        horizontalCalendar = HorizontalCalendar.Builder(binding.root, R.id.calendarView)
+            .range(startDate, endDate)
+            .datesNumberOnScreen(5)
+            .configure()
+            .formatTopText("MMM")
+            .formatMiddleText("dd")
+            .formatBottomText("EEE")
+            .showTopText(true)
+            .showBottomText(true)
+            .textColor(Color.LTGRAY, Color.BLACK)
+            .colorTextMiddle(Color.LTGRAY, Color.parseColor("#371257"))
+            .end()
+            .defaultSelectedDate(defaultSelectedDate)
+            .build()
 
-        // using calendar changes observer we can track changes in calendar
-        val myCalendarChangesObserver = object : CalendarChangesObserver {
-            // you can override more methods, in this example we need only this one
-            @SuppressLint("SetTextI18n")
-            override fun whenSelectionChanged(isSelected: Boolean, position: Int, date: Date) {
+        Log.i("Default Date", DateFormat.format("EEE, MMM d, yyyy", defaultSelectedDate).toString())
+        selectedDate= DateFormat.format("yyyy-MM-dd", defaultSelectedDate).toString()
+        binding.root.tvDietPlanDate.text= DateFormat.format("EEE, MMM d, yyyy", defaultSelectedDate).toString()
+        viewModel.myDietList(selectedDate!!)
 
-                tvDietPlanDate.text = "${DateUtils.getDayNumber(date)},${DateUtils.getMonth3LettersName(date)},${DateUtils.getYear(date)}"
-                //  selectedDate="${DateUtils.getYear(date)}-${DateUtils.getMonthNumber(date)}-${DateUtils.getDayNumber(date)}"
-                super.whenSelectionChanged(isSelected, position, date)
-
-            }
-
-        }
-
-        // selection manager is responsible for managing selection
-        val mySelectionManager = object : CalendarSelectionManager {
-            override fun canBeItemSelected(position: Int, date: Date): Boolean {
-                // set date to calendar according to position
-                val cal = Calendar.getInstance()
-                cal.time = date
-
-                val formateDate = SimpleDateFormat("yyyy-MM-dd").format(date)
-                selectedDate=formateDate
-                Log.e("formateDate date ", formateDate + "")
+        horizontalCalendar?.calendarListener = object : HorizontalCalendarListener() {
+            override fun onDateSelected(date: Calendar, position: Int) {
+                val selectedDateStr = DateFormat.format("EEE, MMM d, yyyy", date).toString()
+                binding.root.tvDietPlanDate.text=selectedDateStr
+                /*  Toast.makeText(currActivity, "$selectedDateStr selected!", Toast.LENGTH_SHORT)
+                      .show()
+                  Log.i("onDateSelected", "$selectedDateStr - Position = $position")*/
+                val selectedDateFormat = DateFormat.format("yyyy-MM-dd", date).toString()
+                selectedDate=selectedDateFormat
                 viewModel.myDietList(selectedDate!!)
 
-                // in this example sunday and saturday can't be selected, others can
-                return when (cal[Calendar.DAY_OF_WEEK]) {
-                    Calendar.SATURDAY -> true
-                    Calendar.SUNDAY -> true
-                    else -> true
-                }
             }
-        }
-
-        // here we init our calendar, also you can set more properties if you haven't specified in XML layout
-        val singleRowCalendar = binding.root.dietPlanCalenderView.apply {
-            binding.root.dietPlanCalenderView.
-            calendarViewManager = myCalendarViewManager
-            calendarChangesObserver = myCalendarChangesObserver
-            calendarSelectionManager = mySelectionManager
-            includeCurrentDate = true
-            setDates(getFutureDatesOfCurrentMonth())
-            init()
         }
 
 
@@ -327,7 +277,7 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
             tvDietConsumedProtien.text="0"+currActivity.getString(R.string.g)
         }
 
-        if (myWorkoutPLan.myScheduled!!.dietPlans!!.carbs!=null){
+        if (myWorkoutPLan.myScheduled!!.dietConsumed!!.carbs!=null){
             tvDietConsumedCabs.text=myWorkoutPLan.myScheduled!!.dietConsumed!!.carbs+currActivity.getString(R.string.g)
         } else{
             tvDietConsumedCabs.text="0"+currActivity.getString(R.string.g)

@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
 import com.htf.diva.dashboard.homeWorkoutPlan.WorkoutDayActivity
+import com.htf.diva.models.UserWorkouts
 import com.htf.diva.models.Workout
 import kotlinx.android.synthetic.main.row_reps_qty.view.*
 
@@ -15,7 +16,7 @@ class SetWorkoutQtyAdapter (
     private var currActivity: Activity,
     private var arrMaxQty: IntArray,
     private var selectSetItemPosition: Int,
-    private var workoutModel: Workout) :
+    private var userWorkoutModel: UserWorkouts) :
     RecyclerView.Adapter<SetWorkoutQtyAdapter.MyViewHolder>() {
     private var rowIndex = -1
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -26,7 +27,7 @@ class SetWorkoutQtyAdapter (
                 notifyDataSetChanged()
                 when (currActivity) {
                     is WorkoutDayActivity -> {
-                        (currActivity as WorkoutDayActivity).selectedWorkoutSet(model, adapterPosition,selectSetItemPosition,workoutModel)
+                        (currActivity as WorkoutDayActivity).selectedWorkoutSet(model, adapterPosition,selectSetItemPosition,userWorkoutModel)
                     }
                 }
             }
@@ -47,12 +48,7 @@ class SetWorkoutQtyAdapter (
             holder.itemView.lnr_rect_max_qty.setBackgroundResource(R.drawable.rect_select_cart_qty)
             if(currActivity is WorkoutDayActivity){
                 holder.itemView.tvQty.setTextColor(ContextCompat.getColor(currActivity, R.color.white))
-                (currActivity as WorkoutDayActivity).selectedWorkoutSet(
-                    model,
-                    position,
-                    selectSetItemPosition,
-                    workoutModel
-                )
+                (currActivity as WorkoutDayActivity).selectedWorkoutSet(model, position, selectSetItemPosition, userWorkoutModel)
             }
         }else{
             holder.itemView.tvQty.setTextColor(ContextCompat.getColor(currActivity, R.color.black))

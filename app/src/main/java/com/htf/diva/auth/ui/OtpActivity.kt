@@ -49,16 +49,15 @@ class OtpActivity : BaseDarkActivity<ActivityOtpBinding,OtpViewModel>(OtpViewMod
         super.onCreate(savedInstanceState)
         binding.otpViewModel=viewModel
         startCountdownTimer()
-       // getFcmToken()
+        getFcmToken()
         getExtra()
         viewModelInitialize()
-
         otp_view.otpListener = object : OTPListener {
             override fun onInteractionListener() {
             }
             override fun onOTPComplete(otp: String) {
                 // fired when user has entered the OTP fully.
-                viewModel.verifyOtp(mHashToken!!,otp,userId)
+                viewModel.verifyOtp(mHashToken!!,otp,userId,fcmId)
             }
         }
     }
@@ -159,7 +158,8 @@ class OtpActivity : BaseDarkActivity<ActivityOtpBinding,OtpViewModel>(OtpViewMod
                 return@OnCompleteListener
             }
             val token = task.result
-            viewModel.mFcmId.value=token
+            fcmId = token!!
+           /* viewModel.mFcmId.value=token*/
         })
     }
 

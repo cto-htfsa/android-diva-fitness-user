@@ -15,8 +15,8 @@
     <string name="invalid_mobile">Invalid Mobile number</string>
     <string name="enter_code_sent_to_your_number">Enter code sent \nto your number</string>
     <string name="we_sent_it_to_the_number">We sent it to the number [x]</string>
-    <string name="dint_receive_the_otp">Didn\'t receive the otp?</string>
-    <string name="resend_otp">Resend Otp</string>
+    <string name="dint_receive_the_otp">Didn\'t receive the OTP?</string>
+    <string name="resend_otp">Resend OTP</string>
     <string name="enter_your_name">Enter your name</string>
     <string name="age">Age</string>
     <string name="height">Height</string>
@@ -33,20 +33,20 @@
     <string name="workout">Workout</string>
     <string name="diet">Diet</string>
     <string name="enable_your_location">Enable Your Location</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="youAreNotUpdatedMessage">A new version is available .Please update to version <b><u><i>[x]</i></u></b>.</string>
     <string name="youAreNotUpdatedTitle">Update Available</string>
     <string name="update">Update</string>
 
-    <string name="min_age">18 years</string>
+    <string name="min_age">16 years</string>
     <string name="max_age">65 years</string>
 
     <string name="min_height">50cm</string>
-    <string name="max_height">150cm</string>
+    <string name="max_height">250cm</string>
 
-    <string name="min_weight">30kg</string>
+    <string name="min_weight">20kg</string>
     <string name="max_weight">200kg</string>
 
     <string name="years">years</string>
@@ -65,7 +65,7 @@
     <string name="calories">Calories</string>
     <string name="today_diet_plan">Today\'s Diet Plan</string>
     <string name="today_workout">Today\'s Workout</string>
-    <string name="your_membership_has_been_expired">Your Membership has been expired.</string>
+    <string name="your_membership_has_been_expired">Your Membership has been expired on.</string>
     <string name="renew_plan">Renew Plan</string>
     <string name="my_profile">My Profile</string>
     <string name="change_diet_plan">Change Diet Plan</string>
@@ -178,6 +178,14 @@
     <string name="on_rest">On Rest</string>
     <string name="am_on_rest">I am on rest!</string>
     <string name="please_add_diet">Please add Diet</string>
+    <string name="submit_review">Submit Review</string>
+    <string name="title">Title</string>
+    <string name="message">Message</string>
+    <string name="poweredby_htf">Powered by</string>
+
+    <string name="please_enter_title">Please enter title</string>
+    <string name="please_enter_msg">Please enter message</string>
+    <string name="privacy_policy">Privacy Policy</string>
 
 
 </resources>

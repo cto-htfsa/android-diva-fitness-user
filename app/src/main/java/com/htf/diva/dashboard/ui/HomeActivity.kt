@@ -18,6 +18,8 @@ import com.htf.diva.base.MyApplication
 import com.htf.diva.dashboard.homeDietPlan.DietFragment
 import com.htf.diva.dashboard.fragments.HomeFragment
 import com.htf.diva.dashboard.fragments.MembershipFragment
+import com.htf.diva.dashboard.homeDietPlan.DietWeekDaysActivity
+import com.htf.diva.dashboard.homeWorkoutPlan.CreateWorkoutPlanActivity
 import com.htf.diva.dashboard.homeWorkoutPlan.WorkoutFragment
 import com.htf.diva.dashboard.payment.PaymentHistoryActivity
 import com.htf.diva.dashboard.viewModel.HomeViewModel
@@ -92,7 +94,13 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
         if(comeFrom=="memberShipTab"){
             bottomNavigation.itemActiveIndex=1
             changeFragment("",MembershipFragment())
-         }else{
+         } else if(comeFrom=="TodayWorkout"){
+            bottomNavigation.itemActiveIndex=2
+            changeFragment("",WorkoutFragment())
+        } else if(comeFrom=="TodayDietPLan"){
+            bottomNavigation.itemActiveIndex=3
+            changeFragment("",DietFragment())
+        } else{
             changeFragment("",HomeFragment())
         }
     }
@@ -183,6 +191,16 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
             dialogView.tvUserName.text= currUser.user!!.name
             Glide.with(currActivity).load(Constants.Urls.USER_IMAGE_URL + currUser.user!!.profileImage).centerCrop()
                 .placeholder(R.drawable.user).into(dialogView.ivUser)
+        }
+
+        dialogView.llChangeDietPlan.setOnClickListener {
+            DietWeekDaysActivity.open(currActivity,"editDietPlan")
+            builder.dismiss()
+        }
+
+        dialogView.llChangeWorkoutPlan.setOnClickListener {
+            CreateWorkoutPlanActivity.open(currActivity, "comeFromEditWorkout")
+            builder.dismiss()
         }
 
         dialogView.llPaymentHistory.setOnClickListener {

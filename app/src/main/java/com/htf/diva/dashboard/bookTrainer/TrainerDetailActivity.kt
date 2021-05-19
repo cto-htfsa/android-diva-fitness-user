@@ -1,10 +1,17 @@
 package com.htf.diva.dashboard.bookTrainer
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Html
+import android.view.Gravity
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.htf.diva.BuildConfig
@@ -22,6 +29,7 @@ import com.htf.diva.utils.*
 import kotlinx.android.synthetic.main.activity_trainer_details.*
 import kotlinx.android.synthetic.main.activity_trainer_details.rbPackage
 import kotlinx.android.synthetic.main.activity_trainer_details.rvSelectTenure
+import kotlinx.android.synthetic.main.layout_privacy_policy.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -45,9 +53,10 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
     private var booking_type:String?=null
     private var gymBookingWith:String?=null
     private var numberOfPeoplePerSession:String?="1"
+    private var privacyPolicyData:String?=""
     private var withMyFriendsGym:String?="1"
     private  var startDate= Date()
-
+    private lateinit var dialog: AlertDialog
 
     companion object{
         fun open(currActivity: Activity, topTrainer: AppDashBoard.TopTrainer){
@@ -85,10 +94,7 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
 
     private fun getExtra() {
         val topTrainer = intent.getSerializableExtra("topTrainer") as AppDashBoard.TopTrainer?
-            viewModel.trainerDetails(
-                AppSession.locale, AppSession.deviceId,
-                AppSession.deviceType, BuildConfig.VERSION_NAME, topTrainer!!.id.toString())
-
+            viewModel.trainerDetails(AppSession.locale, AppSession.deviceId, AppSession.deviceType, BuildConfig.VERSION_NAME, topTrainer!!.id.toString())
             currentDate= DateUtilss.getCurrentDateInServerFormat()
             val showInUiDate=DateUtilss.convertDateFormat(currentDate,DateUtilss.serverDateFormat,DateUtilss.targetDateFormat)
             tvJoiningDate.text= showInUiDate
@@ -98,10 +104,9 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
     private fun viewModelInitialize() {
         observerViewModel(viewModel.isApiCalling, this::onHandleShowProgress)
         observerViewModel(viewModel.errorResult, this::onHandleApiErrorResponse)
-        observerViewModel(
-            viewModel.mTrainerDetailResponse,
-            this::onHandleTrainerDetailsSuccessResponse
-        )
+        observerViewModel(viewModel.mTrainerDetailResponse, this::onHandleTrainerDetailsSuccessResponse)
+        observerViewModel(viewModel.mPrivacyPolicyResponse, this::privacyPolicyResponse)
+
     }
 
     private fun onHandleShowProgress(isNotShow: Boolean) {
@@ -123,6 +128,15 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
             bookingSlots=trainerDetailsModel.slots!!
             lnrWith_my_frnd.visibility=View.GONE
             rbOnlyMe.isChecked=true
+
+        }
+    }
+
+
+    private fun privacyPolicyResponse(privacyPolicyModel: PrivacyPolicyModel?){
+        privacyPolicyModel?.let {
+           privacyPolicyData=privacyPolicyModel.privacyPolicy
+            openPrivacyPolicy(privacyPolicyData)
         }
     }
 
@@ -193,6 +207,7 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
     private fun setListener() {
         btnSelectSlots.setOnClickListener(this)
         tvJoiningDate.setOnClickListener(this)
+        tvPrivacy_policy.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
@@ -206,6 +221,10 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
             }
             R.id.tvJoiningDate -> {
                 datePickerStart()
+            }
+            R.id.tvPrivacy_policy->{
+                viewModel.privacyPolicy(AppSession.locale, AppSession.deviceId, AppSession.deviceType, BuildConfig.VERSION_NAME)
+
             }
         }
     }
@@ -314,6 +333,41 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
 
         }
 
+    private fun openPrivacyPolicy(privacyPolicyData: String?) {
+        val builder = AlertDialog.Builder(currActivity)
+        val dialogView = currActivity.layoutInflater.inflate(R.layout.layout_privacy_policy,
+            null
+        )
+        builder.setView(dialogView)
+        builder.setCancelable(true)
+         dialog = builder.show()
+
+        val myAnim = AnimationUtils.loadAnimation(currActivity, R.anim.slide_up)
+        dialogView.startAnimation(myAnim)
+
+
+
+        dialogView.tv_return_policy.text= Html.fromHtml(privacyPolicyData)
+
+
+        dialogView.rl_main.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialogView.tvOkay.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        val window = dialog.window
+        window!!.setLayout(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
+        window.setGravity(Gravity.BOTTOM)
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+
+    }
 
 
 

@@ -49,8 +49,8 @@ class FilterCenterAdapter (
     override fun onBindViewHolder(holder: FilterCenterAdapter.MyViewHolder, position: Int) {
         val model=arrFitnessCenter[position]
         rowFitnessCenterBinding!!.fitnessCenter =model
-        holder.itemView.filterCenter.backgroundTintList = ColorStateList.valueOf(Color.parseColor(model.background_color))
-        holder.itemView.tvBranchName.setTextColor(ColorStateList.valueOf(Color.parseColor(model.text_color)))
+       // holder.itemView.filterCenter.backgroundTintList = ColorStateList.valueOf(Color.parseColor(model.background_color))
+     //   holder.itemView.tvBranchName.setTextColor(ColorStateList.valueOf(Color.parseColor(model.text_color)))
 
         if (rowIndex == position) {
             holder.itemView.lnr_selected_item.setBackgroundResource(R.drawable.rect_gym_center_selected)

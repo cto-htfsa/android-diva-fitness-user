@@ -36,9 +36,10 @@ class SplashActivity : BaseActivity<ActivitySplashBinding,SplashViewModel>(Splas
             },3000)
         }
         else{
-            viewModel.onGetAppVersion(false)
+           // viewModel.onGetAppVersion(false)
+            LoginActivity.open(currActivity,"fromSplash")
         }
-        viewModelInitialize()
+        //viewModelInitialize()
     }
 
     private fun viewModelInitialize() {
