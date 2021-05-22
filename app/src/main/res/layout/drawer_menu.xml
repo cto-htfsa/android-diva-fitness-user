@@ -13,6 +13,8 @@
         android:layout_marginTop="@dimen/dimen_30">
 
         <LinearLayout
+            android:id="@+id/llnrLogin"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -40,15 +42,16 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
                     android:layout_marginStart="@dimen/dimen_10"
-                    android:text="Rehab"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_16sp"
                     android:fontFamily="@font/avenir_black"/>
 
                 <TextView
+                    android:id="@+id/tvMobileVersion"
                     android:layout_gravity="center"
                     android:fontFamily="@font/avenir_light"
-                    android:text="App Version 1.2"
+                    android:text=""
                     android:textSize="@dimen/font_12sp"
                     android:textAlignment="center"
                     android:gravity="center"
@@ -58,6 +61,19 @@
 
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:text="@string/login"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_16sp"
+            android:fontFamily="@font/avenir_black"/>
 
         <ImageView
             android:id="@+id/btnCancel"

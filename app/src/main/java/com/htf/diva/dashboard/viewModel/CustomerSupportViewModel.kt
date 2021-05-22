@@ -24,6 +24,9 @@ class CustomerSupportViewModel : BaseViewModel() {
     val isApiCalling= MutableLiveData<Boolean>()
     val errorResult= MutableLiveData<String>()
     val mCustomerSupport= MutableLiveData<Any>()
+    val mName = MutableLiveData<String>("")
+    val mDialCode = MutableLiveData<String>("")
+    val mNumber = MutableLiveData<String>("")
     val mMessage = MutableLiveData<String>("")
     val errorValidateRes = MutableLiveData<String>()
     val currUser= AppPreferences.getInstance(MyApplication.getAppContext()).getUserDetails()
@@ -33,6 +36,18 @@ class CustomerSupportViewModel : BaseViewModel() {
     private fun checkValidation(): Boolean {
         var isValid = true
         when {
+            RegExp.chkEmpty(mName.value!!) -> {
+                isValid = false
+                val msg = MyApplication.getAppContext().getString(R.string.enter_your_name)
+                errorValidateRes.postValue(msg)
+            }
+
+            RegExp.chkEmpty(mNumber.value!!) -> {
+                isValid = false
+                val msg = MyApplication.getAppContext().getString(R.string.mobile_no_required)
+                errorValidateRes.postValue(msg)
+            }
+
             RegExp.chkEmpty(mMessage.value!!) -> {
                 isValid = false
                 val msg = MyApplication.getAppContext().getString(R.string.type_message)
@@ -58,9 +73,9 @@ class CustomerSupportViewModel : BaseViewModel() {
                         AppSession.deviceId,
                         AppSession.deviceType,
                         BuildConfig.VERSION_NAME,
-                        currUser!!.user!!.name!!,
-                        currUser.user!!.dialCode!!,
-                        currUser.user!!.mobile!!,
+                        mName.value.toString(),
+                        "966",
+                        mNumber.value.toString(),
                         mMessage.value.toString()
                     )
                 } catch (e: Exception) {

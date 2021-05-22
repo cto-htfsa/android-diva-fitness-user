@@ -3,6 +3,7 @@ package com.htf.diva.dashboard.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.view.View
 import com.htf.diva.BuildConfig
 import com.htf.diva.R
@@ -54,7 +55,7 @@ class AboutUsActivity : BaseActivity<ActivityAboutUsBinding, CustomerSupportView
 
     private fun onHandleAppDashBoardSuccessResponse(appAboutUs: AboutModel?){
         appAboutUs?.let {
-            tvAboutUs.text=appAboutUs.about_us
+            tvAboutUs.text= Html.fromHtml(appAboutUs.about_us)
         }
     }
 

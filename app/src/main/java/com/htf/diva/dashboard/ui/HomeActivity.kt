@@ -11,6 +11,7 @@ import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.htf.diva.BuildConfig
 import com.htf.diva.R
 import com.htf.diva.auth.ui.LoginActivity
 import com.htf.diva.auth.ui.MyProfileActivity
@@ -72,13 +73,26 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
                     changeFragment("",HomeFragment())
                 }
                 1->{
-                    changeFragment("",MembershipFragment())
+                    if (currUser!=null){
+                        changeFragment("",MembershipFragment())
+                    }else{
+                        LoginActivity.open(currActivity, "fromSplash")
+                    }
                 }
                 2->{
-                    changeFragment("", WorkoutFragment())
+                    if (currUser!=null){
+                        changeFragment("", WorkoutFragment())
+                    }else{
+                        LoginActivity.open(currActivity, "fromSplash")
+                    }
                 }
                 3->{
-                    changeFragment("", DietFragment())
+                    if (currUser!=null){
+                        changeFragment("", DietFragment())
+                    }else{
+                        LoginActivity.open(currActivity, "fromSplash")
+                    }
+
                 }
             }
         }
@@ -162,7 +176,12 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
             }
 
             R.id.ivNotification->{
-                NotificationActivity.open(currActivity)
+                if (currUser!=null){
+                    NotificationActivity.open(currActivity)
+                }else{
+                    LoginActivity.open(currActivity, "fromSplash")
+                }
+
            }
         }
     }
@@ -192,6 +211,28 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
             dialogView.tvUserName.text= currUser.user!!.name
             Glide.with(currActivity).load(Constants.Urls.USER_IMAGE_URL + currUser.user!!.profileImage).centerCrop()
                 .placeholder(R.drawable.user).into(dialogView.ivUser)
+        }
+
+        if(currUser==null){
+            dialogView.tvLogin.visibility=View.VISIBLE
+            dialogView.llnrLogin.visibility=View.GONE
+            dialogView.llProfileInfo.isEnabled=false
+            dialogView.llChangeDietPlan.isEnabled=false
+            dialogView.llChangeWorkoutPlan.isEnabled=false
+            dialogView.llPaymentHistory.isEnabled=false
+
+            dialogView.tvLogin.setOnClickListener {
+                LoginActivity.open(currActivity,"fromSplash")
+            }
+        }else{
+            val versionName: String = BuildConfig.VERSION_NAME
+            dialogView.tvMobileVersion.text=versionName
+            dialogView.tvLogin.visibility=View.GONE
+            dialogView.llnrLogin.visibility=View.VISIBLE
+            dialogView.llProfileInfo.isEnabled=true
+            dialogView.llChangeDietPlan.isEnabled=true
+            dialogView.llChangeWorkoutPlan.isEnabled=true
+            dialogView.llPaymentHistory.isEnabled=true
         }
 
         dialogView.llChangeDietPlan.setOnClickListener {

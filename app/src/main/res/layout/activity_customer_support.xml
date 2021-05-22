@@ -10,15 +10,16 @@
 
     </data>
 
-    <LinearLayout
-        android:background="@color/colorPrimary"
+    <RelativeLayout
+        android:background="@color/colorWhite"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:id="@+id/rltToolbar"
             android:layout_width="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorWhite"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/dimen_20">
 
@@ -36,16 +37,16 @@
                     android:src="@drawable/ic_back"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    app:tint="@color/white" />
+                    />
 
 
                 <TextView
                     android:id="@+id/tvTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/customer_support"
+                    android:text="@string/contact_us"
                     android:fontFamily="@font/avenir_black"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/font_18sp"
                     android:layout_centerInParent="true"/>
 
@@ -58,26 +59,137 @@
 
         </RelativeLayout>
 
-        <ImageView
-            android:src="@drawable/chat_support"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
         <EditText
+            android:layout_below="@+id/rltToolbar"
+            android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="start"
+            android:layout_marginTop="@dimen/dimen_30"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/avenir_light"
+            android:gravity="start"
+            android:paddingStart="@dimen/margin_16dp"
+            android:paddingEnd="@dimen/margin_16dp"
+            android:paddingTop="@dimen/margin_16dp"
+            android:paddingBottom="@dimen/margin_16dp"
+            android:hint="@string/name"
+            android:text="@={customerSupportViewModel.mName}"
+            android:textColorHint="@color/gray5"
+            android:imeOptions="actionDone"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_14sp" />
+
+        <View
+            android:id="@+id/viewName"
+            android:layout_below="@+id/etName"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="@dimen/dimen_30"
+            android:layout_marginEnd="@dimen/dimen_24"
+            android:background="@color/gray3"
+            android:layout_height="0.5dp">
+        </View>
+
+        <LinearLayout
+            android:id="@+id/llNumber"
+            android:layout_below="@+id/viewName"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layoutDirection="ltr"
+            android:layout_marginTop="@dimen/margin_8dp">
+
+            <TextView
+                android:id="@+id/tvDialCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+966"
+                android:paddingStart="@dimen/margin_16dp"
+                android:paddingEnd="@dimen/margin_16dp"
+                android:paddingTop="@dimen/margin_16dp"
+                android:paddingBottom="@dimen/margin_16dp"
+                android:textColor="@color/colorHeadingText"
+                android:fontFamily="@font/avenir_black"
+                android:textSize="@dimen/font_14sp"
+                android:layout_gravity="start"
+                android:textAlignment="viewStart"/>
+
+            <TextView
+                android:text="-"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <EditText
+                android:id="@+id/etMobileNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_8dp"
+                android:textSize="@dimen/font_14sp"
+                android:inputType="number"
+                android:imeOptions="actionDone"
+                android:text="@={customerSupportViewModel.mNumber}"
+                android:paddingStart="@dimen/margin_8dp"
+                android:paddingEnd="@dimen/margin_16dp"
+                android:paddingTop="@dimen/margin_16dp"
+                android:paddingBottom="@dimen/margin_16dp"
+                android:fontFamily="@font/avenir_roman"
+                android:hint="@string/mobile_number"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@android:color/transparent"/>
+
+        </LinearLayout>
+<!--
+        android:text="@={customerSupportViewModel.mMobile}"-->
+
+        <View
+            android:id="@+id/viewNumber"
+            android:layout_below="@+id/llNumber"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="@dimen/dimen_30"
+            android:layout_marginEnd="@dimen/dimen_24"
+            android:background="@color/gray3"
+            android:layout_height="0.5dp">
+        </View>
+
+
+        <EditText
+            android:id="@+id/etMessage"
+            android:layout_below="@+id/llNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
             android:layout_marginTop="@dimen/dimen_30"
             android:background="@android:color/transparent"
             android:fontFamily="@font/avenir_light"
-            android:gravity="center_horizontal"
+            android:gravity="start"
+            android:paddingStart="@dimen/dimen_30"
+            android:paddingEnd="@dimen/dimen_30"
+            android:paddingBottom="@dimen/dimen_30"
             android:hint="@string/type_message"
             android:text="@={customerSupportViewModel.mMessage}"
-            android:textColorHint="@color/gray1"
+            android:textColorHint="@color/gray5"
             android:imeOptions="actionDone"
             android:inputType="textPersonName"
-            android:textColor="@color/white"
-            android:textSize="@dimen/font_16sp" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_14sp" />
+
+        <View
+            android:id="@+id/viewComments"
+            android:layout_below="@+id/etMessage"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="@dimen/dimen_30"
+            android:layout_marginEnd="@dimen/dimen_24"
+            android:background="@color/gray3"
+            android:layout_height="0.5dp">
+        </View>
+
 
         <TextView
             android:id="@+id/tvCustomerSupportError"
@@ -97,7 +209,8 @@
             android:layout_marginTop="@dimen/dimen_80"
             android:background="@drawable/btn_bg"
             android:layout_gravity="center"
-            android:backgroundTint="@color/white"
+            android:layout_marginBottom="@dimen/margin_16dp"
+            android:layout_alignParentBottom="true"
             android:gravity="center"
             android:fontFamily="@font/avenir_roman"
             android:paddingStart="@dimen/margin_4dp"
@@ -105,15 +218,15 @@
             android:paddingEnd="@dimen/margin_4dp"
             android:onClick="@{()->customerSupportViewModel.onCustomerSupportClick()}"
             android:paddingBottom="@dimen/margin_12dp"
-            android:layout_marginStart="@dimen/dimen_50"
-            android:layout_marginEnd="@dimen/dimen_50"
-            android:text="@string/continue_"
-            android:textColor="@color/colorPrimary"
+            android:layout_marginStart="@dimen/dimen_30"
+            android:layout_marginEnd="@dimen/dimen_30"
+            android:text="@string/submit"
+            android:textColor="@color/colorWhite"
             android:textSize="14sp"
             android:textAllCaps="false">
 
         </Button>
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </layout>
