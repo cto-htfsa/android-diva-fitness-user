@@ -11,6 +11,8 @@
     </data>
 
     <RelativeLayout
+        android:id="@+id/rltBookDetail"
+        android:visibility="gone"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:orientation="vertical"
@@ -79,7 +81,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="@dimen/font_13sp"
-                                android:text="Badr Branch"
+                                android:text=""
                                 android:textColor="@color/colorPrimaryDark"
                                 android:fontFamily="@font/avenir_black" />
 
@@ -177,6 +179,7 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tvCenterDirection"
                             android:layout_alignParentEnd="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -405,7 +408,7 @@
 
 
                 <LinearLayout
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:id="@+id/llPersonalTrainer"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -723,9 +726,113 @@
                     </RelativeLayout>
 
 
-                 </LinearLayout>
 
 
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/cardViewRating"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_4dp"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_7"
+                    android:background="@drawable/rating_bg"
+                    android:layout_marginEnd="@dimen/dimen_10">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/dimen_10">
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_centerVertical="true"
+                                    android:orientation="vertical"
+                                    android:paddingStart="5dp">
+
+                                    <LinearLayout
+                                        android:background="@drawable/rating_bg_yellow"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <ImageView
+                                            android:src="@drawable/rating"
+                                            android:layout_width="10dp"
+                                            android:layout_gravity="center"
+                                            android:layout_marginStart="@dimen/margin_4dp"
+                                            android:layout_height="@dimen/margin_10dp">
+                                        </ImageView>
+
+                                        <TextView
+                                            android:id="@+id/tvRating"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="start"
+                                            android:text=""
+                                            android:layout_marginEnd="@dimen/margin_8dp"
+                                            android:layout_marginStart="@dimen/margin_4dp"
+                                            android:fontFamily="@font/avenir_black"
+                                            android:textAlignment="viewStart"
+                                            android:textColor="@color/colorPrimaryDark"
+                                            android:textSize="@dimen/font_12sp" />
+
+
+                                    </LinearLayout>
+
+
+                               <TextView
+                                        android:id="@+id/tvRatingTitle"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="start"
+                                        android:layout_marginTop="@dimen/margin_4dp"
+                                        android:layout_marginStart="@dimen/margin_4dp"
+                                        android:fontFamily="@font/avenir_black"
+                                        android:textAlignment="viewStart"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="@dimen/font_12sp" />
+
+                              <TextView
+                                        android:id="@+id/tvRatingMessage"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="start"
+                                        android:layout_marginTop="@dimen/margin_4dp"
+                                        android:layout_marginStart="@dimen/margin_4dp"
+                                        android:fontFamily="@font/avenir_light"
+                                        android:textAlignment="viewStart"
+                                        android:textColor="@color/colorTextLightDark"
+                                        android:textSize="@dimen/font_12sp" />
+
+
+                                </LinearLayout>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
 
             </LinearLayout>

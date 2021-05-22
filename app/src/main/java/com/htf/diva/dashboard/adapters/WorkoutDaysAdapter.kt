@@ -48,6 +48,12 @@ class WorkoutDaysAdapter(
 
     override fun onBindViewHolder(holder: WorkoutDaysAdapter.MyViewHolder, position: Int) {
         val model=arrWorkoutDays[position]
+        if (model.userWorkouts==null){
+            val userModel= UserWorkouts()
+            userModel.repetitions=1
+            userModel.sets=1
+            model.userWorkouts=userModel
+        }
         Glide.with(currActivity).load(
             Constants.Urls.WORKOUT_DAY_IMAGE_URL +
                     model.image)
@@ -76,6 +82,7 @@ class WorkoutDaysAdapter(
 
         val arrayRepetition = intArrayOf(5, 10, 20, 25, 30, 50, 75, 100, 150, 200, 500, 100)
         val arraySet = intArrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13,14,15)
+
 
         holder.itemView.lnrReps.setOnClickListener {
             holder.itemView.rcvRepQty.visibility= View.VISIBLE

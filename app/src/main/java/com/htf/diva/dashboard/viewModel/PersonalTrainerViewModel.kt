@@ -16,6 +16,7 @@ class PersonalTrainerViewModel :BaseViewModel() {
     val isApiCalling = MutableLiveData<Boolean>()
     val errorResult = MutableLiveData<String>()
     val mNotificationData= MutableLiveData<Listing<AppDashBoard.TopTrainer>>()
+    val mReviewRatingData= MutableLiveData<Listing<ReviewRatingModel>>()
     val mTrainerDetailResponse= MutableLiveData<TrainerDetailsModel>()
     val mPrivacyPolicyResponse= MutableLiveData<PrivacyPolicyModel>()
 
@@ -98,6 +99,32 @@ class PersonalTrainerViewModel :BaseViewModel() {
         }
     }
 
+    fun onGetTrainerReviewRating(page:Int,isProgressBar:Boolean,trainer_id:String) {
+        if (!DialogUtils.isInternetOn()){
+            isInternetOn.postValue(false)
+            return
+        }
+        isApiCalling.postValue(isProgressBar)
+        scope.launch {
+            val result = try {
+                DashboardApiRepo.reviewRatingList(
+                    AppSession.locale, AppSession.deviceId,
+                    AppSession.deviceType, BuildConfig.VERSION_NAME,trainer_id,page)
+            } catch (e: Exception) {
+                errorResult.postValue(e.localizedMessage)
+                isApiCalling.postValue(false)
+            }
+            withContext(Dispatchers.Main) {
+                isApiCalling.postValue(false)
+                if (result is Listing<*>)
+                    mReviewRatingData.postValue(result as Listing<ReviewRatingModel>)
+                else
+                    errorResult.postValue(result.toString())
+            }
+
+        }
+
+    }
 
 
 }

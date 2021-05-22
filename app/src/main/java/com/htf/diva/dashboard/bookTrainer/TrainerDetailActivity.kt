@@ -25,6 +25,7 @@ import com.htf.diva.databinding.ActivityTrainerDetailsBinding
 import com.htf.diva.models.*
 import com.htf.diva.netUtils.Constants
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.dashboard.ui.ReviewRatingActivity
 import com.htf.diva.utils.*
 import kotlinx.android.synthetic.main.activity_trainer_details.*
 import kotlinx.android.synthetic.main.activity_trainer_details.rbPackage
@@ -175,6 +176,7 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
          tvAboutUs.text=trainerDetails.aboutUs
          Glide.with(currActivity).load(Constants.Urls.TRAINER_IMAGE_URL + trainerDetails.image).
          override(250, 250).placeholder(R.drawable.trainer_placeholder).into(ivTrainerImage)
+
      }
 
     /* set Specialising recyclerview here*/
@@ -208,14 +210,13 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
         btnSelectSlots.setOnClickListener(this)
         tvJoiningDate.setOnClickListener(this)
         tvPrivacy_policy.setOnClickListener(this)
+        ll_rating_review.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.btnSelectSlots -> {
-                SelectSlotsActivity.open(
-                    currActivity, bookingSlots, trainerDetail,
-                    tenureSelected, packageSelected, booking_type, currentDate,
+                SelectSlotsActivity.open(currActivity, bookingSlots, trainerDetail, tenureSelected, packageSelected, booking_type, currentDate,
                     numberOfPeoplePerSession, withMyFriendsGym, gymBookingWith
                 )
             }
@@ -226,6 +227,11 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
                 viewModel.privacyPolicy(AppSession.locale, AppSession.deviceId, AppSession.deviceType, BuildConfig.VERSION_NAME)
 
             }
+
+            R.id.ll_rating_review->{
+                ReviewRatingActivity.open(currActivity,trainerDetail)
+              }
+
         }
     }
 

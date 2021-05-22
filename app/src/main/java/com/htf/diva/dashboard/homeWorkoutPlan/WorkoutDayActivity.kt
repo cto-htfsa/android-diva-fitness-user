@@ -13,10 +13,7 @@ import com.htf.diva.dashboard.adapters.WorkoutDaysAdapter
 import com.htf.diva.dashboard.homeDietPlan.DietPlanActivity
 import com.htf.diva.dashboard.viewModel.WorkoutPlanViewModel
 import com.htf.diva.databinding.ActivityWorkoutDayBinding
-import com.htf.diva.models.MealDietType
-import com.htf.diva.models.UserWorkouts
-import com.htf.diva.models.Workout
-import com.htf.diva.models.WorkoutWeekDaysModel
+import com.htf.diva.models.*
 import com.htf.diva.utils.AppSession
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
@@ -88,17 +85,31 @@ class WorkoutDayActivity : BaseDarkActivity<ActivityWorkoutDayBinding, WorkoutPl
 
     fun selectedReps(selectedRepetitionsQty: Int, adapterPosition: Int, cartItemPosition: Int, workoutModel: UserWorkouts) {
    /*     arrayWorkoutList!!.filter { it.id==workoutModel.id}.map { it.repetitions=selectedRepetitionsQty}*/
-        arrayWorkoutList!![cartItemPosition].userWorkouts!!.repetitions= selectedRepetitionsQty
-        workout()
-        mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)
+        if (workoutModel==null){
+            arrayWorkoutList!![cartItemPosition].userWorkouts!!.repetitions=1
+            workout()
+            mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)
+        }else{
+            arrayWorkoutList!![cartItemPosition].userWorkouts!!.repetitions= selectedRepetitionsQty
+            workout()
+            mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)
+        }
+
 
     }
 
     fun selectedWorkoutSet(selectedSetsQty: Int, adapterPosition: Int, cartItemPosition: Int, workoutModel: UserWorkouts) {
       //   arrayWorkoutList!!.filter { it.id==workoutModel.id}.map { it.sets=selectedRepetitionsQty}
-         arrayWorkoutList!![cartItemPosition].userWorkouts!!.sets= selectedSetsQty
-         workout()
-         mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)
+        if (workoutModel==null){
+            arrayWorkoutList!![cartItemPosition].userWorkouts!!.sets= 1
+            workout()
+            mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)
+        }else{
+            arrayWorkoutList!![cartItemPosition].userWorkouts!!.sets= selectedSetsQty
+            workout()
+            mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)
+        }
+
     }
 
 
@@ -119,7 +130,7 @@ class WorkoutDayActivity : BaseDarkActivity<ActivityWorkoutDayBinding, WorkoutPl
                 workoutWeekDayNew.workouts=arrayWorkoutList!!
                 val slots = HashMap<String, String?>()
                 for (i in 0.until(arrayWorkoutList!!.size)) {
-                    if(arrayWorkoutList!![i].repetitions != null) {
+                    if(arrayWorkoutList!![i].userWorkouts != null) {
                         slots["workouts[$i][workout_id]"] = arrayWorkoutList!![i].id.toString()
                         slots["workouts[$i][repetitions]"] = arrayWorkoutList!![i].userWorkouts!!.repetitions.toString()
                         slots["workouts[$i][sets]"] = arrayWorkoutList!![i].userWorkouts!!.sets.toString()

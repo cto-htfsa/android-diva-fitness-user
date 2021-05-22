@@ -66,6 +66,13 @@ object DashboardApiRepo : BaseRepository() {
         )
     }
 
+    suspend fun reviewRatingList(locale: String,deviceId: String,
+                                 deviceType: String, versionName: String,trainer_id:String ,page:Int): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.reviewRatingAsync(locale,deviceId,deviceType,versionName,trainer_id,page).await()}
+        )
+    }
+
     suspend fun upComingBooking(locale: String,deviceId: String,
                                  deviceType: String, versionName: String,page:Int): Any? {
         return safeApiCall(

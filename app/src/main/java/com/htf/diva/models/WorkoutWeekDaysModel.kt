@@ -56,17 +56,20 @@ class Workout :Serializable{
 class UserWorkouts:Serializable{
     @SerializedName("id")
     @Expose
-    var id: Int? = null
+    var id: Int? =  0
 
     @SerializedName("calories_burn")
     @Expose
-    var caloriesBurn: String? = null
+    var caloriesBurn: String? = "0.0"
 
     @SerializedName("repetitions")
     @Expose
-    var repetitions: Int? = null
+    var repetitions: Int? = 0
 
     @SerializedName("sets")
     @Expose
-    var sets: Int? = null
+    var sets: Int? = 0
+
+
+
 }

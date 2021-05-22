@@ -3,6 +3,7 @@ package com.htf.diva.dashboard.ui
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -232,6 +233,26 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
             builder.dismiss()
         }
 
+        dialogView.llShareApp.setOnClickListener {
+            try {
+                val i = Intent(Intent.ACTION_SEND)
+                i.type = "text/plain"
+                i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name))
+                val sAux = "http://play.google.com/store/apps/details?id=$packageName"
+                i.putExtra(Intent.EXTRA_TEXT, sAux)
+                i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_NEW_DOCUMENT or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+                startActivity(Intent.createChooser(i, currActivity.getString(R.string.share_app)))
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            builder.dismiss()
+        }
+
+        dialogView.llRateApp.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${packageName}"))
+            startActivity(intent)
+            builder.dismiss()
+        }
 
         builder.window!!.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,

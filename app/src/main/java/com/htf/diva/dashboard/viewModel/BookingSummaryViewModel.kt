@@ -17,7 +17,7 @@ class BookingSummaryViewModel : BaseViewModel() {
     val isApiCalling= MutableLiveData<Boolean>()
     val errorResult= MutableLiveData<String>()
     val mUpComingBookingResponse= MutableLiveData<Listing<UpComingBookingModel>>()
-    val mCompletedBookingResponse= MutableLiveData<Listing<CompletedBookingModel>>()
+    val mCompletedBookingResponse= MutableLiveData<Listing<UpComingBookingModel>>()
     val mBookFitnessCenterData= MutableLiveData<BookFitnessCenterModel>()
     val mBookTrainerFitnessCenterData= MutableLiveData<BookCenterTrainerModel>()
     val mCheckOutIdGenerateData= MutableLiveData<BookingDetailModel>()
@@ -71,7 +71,7 @@ class BookingSummaryViewModel : BaseViewModel() {
             withContext(Dispatchers.Main) {
                 isApiCalling.postValue(false)
                 if (result is Listing<*>)
-                    mCompletedBookingResponse.postValue(result as Listing<CompletedBookingModel>)
+                    mCompletedBookingResponse.postValue(result as Listing<UpComingBookingModel>)
                 else
                     errorResult.postValue(result.toString())
             }

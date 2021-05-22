@@ -10,14 +10,15 @@ import com.htf.diva.R
 import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.databinding.RowCompletedBookingBinding
 import com.htf.diva.models.CompletedBookingModel
+import com.htf.diva.models.UpComingBookingModel
 import com.htf.diva.netUtils.Constants
 import com.htf.diva.utils.DateUtilss
 import kotlinx.android.synthetic.main.row_completed_booking.view.*
 
 class CompletedBookingAdapter(
         private var currActivity: Activity,
-        private var arrTopTrainer:ArrayList<CompletedBookingModel>,
-        private var iListItemClickListener: IListItemClickListener<CompletedBookingModel>):
+        private var arrTopTrainer:ArrayList<UpComingBookingModel>,
+        private var iListItemClickListener: IListItemClickListener<UpComingBookingModel>):
         RecyclerView.Adapter<CompletedBookingAdapter.MyViewHolder>(){
 
     var rowPersonalTrainerBinding: RowCompletedBookingBinding?=null

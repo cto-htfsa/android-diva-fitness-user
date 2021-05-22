@@ -1,10 +1,17 @@
 package com.htf.diva.dashboard.bookFitnessCenter
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Html
+import android.view.Gravity
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.htf.diva.BuildConfig
 import com.htf.diva.R
@@ -16,13 +23,11 @@ import com.htf.diva.dashboard.adapters.TenureAdapter
 import com.htf.diva.dashboard.bookTrainerWithCenter.TrainerListActivity
 import com.htf.diva.dashboard.viewModel.FitnessCenterDetailBookingViewModel
 import com.htf.diva.databinding.ActivityCenterDetailBookingBinding
-import com.htf.diva.models.AppDashBoard
-import com.htf.diva.models.FitnessCenterDetailForBookModel
-import com.htf.diva.models.Packages
-import com.htf.diva.models.Tenure
+import com.htf.diva.models.*
 import com.htf.diva.netUtils.Constants
 import com.htf.diva.utils.*
 import kotlinx.android.synthetic.main.activity_center_detail_booking.*
+import kotlinx.android.synthetic.main.layout_privacy_policy.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -50,7 +55,8 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
     private var sessionPriceCalculate:String=""
     private var vatPercentage:String=""
     private var selectedDate:String=""
-
+    private var privacyPolicyData:String?=""
+    private lateinit var dialog: AlertDialog
 
     companion object{
         fun open(currActivity: Activity, selectedFitnessCenter: AppDashBoard.FitnessCenter?){
@@ -63,14 +69,8 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
     override var layout = R.layout.activity_center_detail_booking
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding.centerDetailBookingViewModel = viewModel
-        viewModel.fitnessCenterDetailBooking(
-            AppSession.locale,
-            AppSession.deviceId,
-            AppSession.deviceType,
-            BuildConfig.VERSION_NAME
-        )
+        viewModel.fitnessCenterDetailBooking(AppSession.locale, AppSession.deviceId, AppSession.deviceType, BuildConfig.VERSION_NAME)
         viewModelInitialize()
         getExtra()
         selectGroup()
@@ -82,6 +82,7 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
         switchNeedPersonalTrainer.setOnClickListener(this)
         btnBookCenter.setOnClickListener(this)
         tvCenterJoiningDate.setOnClickListener(this)
+        tvPrivacy_policy.setOnClickListener(this)
     }
 
     override fun onResume() {
@@ -118,6 +119,12 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
             R.id.tvCenterJoiningDate -> {
                 datePickerStart()
             }
+
+            R.id.tvPrivacy_policy->{
+                viewModel.privacyPolicy(AppSession.locale, AppSession.deviceId, AppSession.deviceType, BuildConfig.VERSION_NAME)
+
+            }
+
         }
 
     }
@@ -213,6 +220,8 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
             viewModel.mFitnessCenterDetailData,
             this::onHandleAppDashBoardSuccessResponse
         )
+        observerViewModel(viewModel.mPrivacyPolicyResponse, this::privacyPolicyResponse)
+
     }
 
     private fun onHandleShowProgress(isNotShow: Boolean) {
@@ -236,6 +245,14 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
             setTenureList(fitnessCenterDetailResponse.tenures)
         }
     }
+
+    private fun privacyPolicyResponse(privacyPolicyModel: PrivacyPolicyModel?){
+        privacyPolicyModel?.let {
+            privacyPolicyData=privacyPolicyModel.privacyPolicy
+            openPrivacyPolicy(privacyPolicyData)
+        }
+    }
+
 
     /* set fitness center recyclerview here*/
     private fun setOutFitnessCenter(arrFitnessCenters: ArrayList<AppDashBoard.FitnessCenter>?) {
@@ -307,6 +324,43 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
             )
             btnBookCenter.text=payAmount
         }
+
+    }
+
+
+    private fun openPrivacyPolicy(privacyPolicyData: String?) {
+        val builder = AlertDialog.Builder(currActivity)
+        val dialogView = currActivity.layoutInflater.inflate(R.layout.layout_privacy_policy,
+            null
+        )
+        builder.setView(dialogView)
+        builder.setCancelable(true)
+        dialog = builder.show()
+
+        val myAnim = AnimationUtils.loadAnimation(currActivity, R.anim.slide_up)
+        dialogView.startAnimation(myAnim)
+
+
+
+        dialogView.tv_return_policy.text= Html.fromHtml(privacyPolicyData)
+
+
+        dialogView.rl_main.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialogView.tvOkay.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        val window = dialog.window
+        window!!.setLayout(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
+        window.setGravity(Gravity.BOTTOM)
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
 
     }
 

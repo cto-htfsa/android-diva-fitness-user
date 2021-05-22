@@ -59,9 +59,9 @@
     <string name="my_schedules">My Schedules</string>
     <string name="cals_left">Cals Left</string>
     <string name="consumed">Consumed</string>
-    <string name="proteins">Proteins</string>
+    <string name="proteins">Protein</string>
     <string name="carbs">Carbs</string>
-    <string name="fats">Fats</string>
+    <string name="fats">Fat</string>
     <string name="calories">Calories</string>
     <string name="today_diet_plan">Today\'s Diet Plan</string>
     <string name="today_workout">Today\'s Workout</string>
@@ -186,6 +186,8 @@
     <string name="please_enter_title">Please enter title</string>
     <string name="please_enter_msg">Please enter message</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="please_rate_this_booking">Please rate the booking</string>
+    <string name="quantity">Quantity:</string>
 
 
 </resources>

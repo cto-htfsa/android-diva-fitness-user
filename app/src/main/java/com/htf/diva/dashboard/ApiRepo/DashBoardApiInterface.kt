@@ -90,6 +90,15 @@ interface DashBoardApiInterface {
                              @Field("query") query: String,
                              @Field("page") page: Int): Deferred<Response<BaseResponse<Listing<AppDashBoard.TopTrainer>>>>
 
+    @FormUrlEncoded
+    @POST("api/v1/trainer/reviewss")
+    fun reviewRatingAsync(@Field("locale") locale: String,
+                             @Field("device_id") device_id: String,
+                             @Field("device_type") device_type: String,
+                             @Field("current_version") current_version: String,
+                             @Field("trainer_id") fitness_center_id: String,
+                             @Field("page") page: Int): Deferred<Response<BaseResponse<Listing<ReviewRatingModel>>>>
+
 
 
         @FormUrlEncoded
@@ -168,7 +177,7 @@ interface DashBoardApiInterface {
                              @Field("device_id") device_id: String,
                              @Field("device_type") device_type: String,
                              @Field("current_version") current_version: String,
-                             @Field("page") page: Int): Deferred<Response<BaseResponse<Listing<CompletedBookingModel>>>>
+                             @Field("page") page: Int): Deferred<Response<BaseResponse<Listing<UpComingBookingModel>>>>
 
 
     /* Booking with Center*/

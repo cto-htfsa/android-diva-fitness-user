@@ -76,6 +76,7 @@
         <activity android:name=".dashboard.payment.PaymentHistoryActivity"/>
         <activity android:name=".dashboard.homeWorkoutPlan.CreateWorkoutPlanActivity"/>
         <activity android:name=".dashboard.homeWorkoutPlan.WorkoutDayActivity"/>
+        <activity android:name=".dashboard.ui.ReviewRatingActivity"/>
 
         <activity
             android:name="com.oppwa.mobile.connect.checkout.dialog.CheckoutActivity"

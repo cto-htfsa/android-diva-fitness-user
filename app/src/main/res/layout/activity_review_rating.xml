@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="personalTrainerViewModel"
+            type="com.htf.diva.dashboard.viewModel.PersonalTrainerViewModel" />
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/llTop"
+            layout="@layout/toolbar" />
+
+        <include
+            layout="@layout/layout_recycler_view"/>
+
+
+
+    </LinearLayout>
+
+</layout>
+

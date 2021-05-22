@@ -22,7 +22,7 @@ import com.htf.diva.utils.showToast
 import kotlinx.android.synthetic.main.fragment_upcoming_booking.view.*
 
 class CompletedBookingFragment : BaseFragment<BookingSummaryViewModel>(BookingSummaryViewModel::class.java) ,
-        IListItemClickListener<CompletedBookingModel>  {
+        IListItemClickListener<UpComingBookingModel>  {
     private lateinit var currActivity: Activity
     lateinit var binding: FragmentCompletedBookingBinding
     private var page=1
@@ -54,7 +54,7 @@ class CompletedBookingFragment : BaseFragment<BookingSummaryViewModel>(BookingSu
     }
 
 
-    private fun onHandleCompletedBookingSuccessResponse(upComingBooking: Listing<CompletedBookingModel>?) {
+    private fun onHandleCompletedBookingSuccessResponse(upComingBooking: Listing<UpComingBookingModel>?) {
         upComingBooking?.let {
             if(upComingBooking.data!!.size>0){
                 binding.root.llRecyclerView.visibility = View.VISIBLE
@@ -71,8 +71,8 @@ class CompletedBookingFragment : BaseFragment<BookingSummaryViewModel>(BookingSu
     }
 
 
-    override fun onItemClickListener(data: CompletedBookingModel) {
-        /*CenterBookingDetailsActivity.open(currActivity,data)*/
+    override fun onItemClickListener(data: UpComingBookingModel) {
+        CenterBookingDetailsActivity.open(currActivity,data)
     }
 
 }

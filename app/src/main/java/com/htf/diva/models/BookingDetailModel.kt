@@ -189,7 +189,7 @@ class BookingDetailModel :Serializable{
 
     @SerializedName("reviews")
     @Expose
-     val reviews: String? = null
+     val reviews: RatingReview? = null
 
     @SerializedName("invoice")
     @Expose
@@ -200,6 +200,22 @@ class BookingDetailModel :Serializable{
      val subBookings: SubBookings? = null
 
 }
+
+  class RatingReview:Serializable{
+
+      @SerializedName("title")
+      @Expose
+      val title: String? = null
+
+      @SerializedName("feedback")
+      @Expose
+      val message: String? = null
+
+      @SerializedName("rating")
+      @Expose
+      val rating: String? = null
+
+    }
 
 class SubBookings:Serializable{
     @SerializedName("id")

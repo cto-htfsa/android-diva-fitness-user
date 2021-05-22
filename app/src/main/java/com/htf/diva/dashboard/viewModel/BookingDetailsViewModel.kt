@@ -67,7 +67,7 @@ class BookingDetailsViewModel :BaseViewModel(){
                         AppSession.locale,
                         AppSession.deviceId,
                         AppSession.deviceType,
-                        BuildConfig.VERSION_NAME,bookingId!!,"",title,message!!)
+                        BuildConfig.VERSION_NAME,bookingId!!,rating!!,title,message!!)
                 } catch (e: Exception) {
                     errorResult.postValue(e.localizedMessage)
                     isApiCalling.postValue(false)

@@ -1,10 +1,17 @@
 package com.htf.diva.dashboard.bookTrainerWithCenter
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Html
+import android.view.Gravity
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.htf.diva.BuildConfig
@@ -14,6 +21,7 @@ import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.dashboard.adapters.PackagesAdapter
 import com.htf.diva.dashboard.adapters.SpecialisingInAdapter
 import com.htf.diva.dashboard.adapters.TenureAdapter
+import com.htf.diva.dashboard.ui.ReviewRatingActivity
 import com.htf.diva.dashboard.viewModel.PersonalTrainerViewModel
 import com.htf.diva.databinding.ActivityBookTrainerCenterDetailsBinding
 import com.htf.diva.models.*
@@ -22,6 +30,7 @@ import com.htf.diva.utils.*
 import kotlinx.android.synthetic.main.activity_trainer_details.*
 import kotlinx.android.synthetic.main.activity_trainer_details.rbPackage
 import kotlinx.android.synthetic.main.activity_trainer_details.rvSelectTenure
+import kotlinx.android.synthetic.main.layout_privacy_policy.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -56,6 +65,9 @@ class BookTrainerCenterDetailActivity : BaseDarkActivity<ActivityBookTrainerCent
     private var selectedFitnessCenter= AppDashBoard.FitnessCenter()
     private var currentCenterDate:String?=null
     private  var startDate= Date()
+    private var privacyPolicyData:String?=""
+    private lateinit var dialog: AlertDialog
+
 
     companion object{
         fun open(
@@ -132,6 +144,7 @@ class BookTrainerCenterDetailActivity : BaseDarkActivity<ActivityBookTrainerCent
             viewModel.mTrainerDetailResponse,
             this::onHandleTrainerDetailsSuccessResponse
         )
+        observerViewModel(viewModel.mPrivacyPolicyResponse, this::privacyPolicyResponse)
     }
 
     private fun onHandleShowProgress(isNotShow: Boolean) {
@@ -153,6 +166,13 @@ class BookTrainerCenterDetailActivity : BaseDarkActivity<ActivityBookTrainerCent
             bookingSlots=trainerDetailsModel.slots!!
             lnrWith_my_frnd.visibility=View.GONE
             rbOnlyMe.isChecked=true
+        }
+    }
+
+    private fun privacyPolicyResponse(privacyPolicyModel: PrivacyPolicyModel?){
+        privacyPolicyModel?.let {
+            privacyPolicyData=privacyPolicyModel.privacyPolicy
+            openPrivacyPolicy(privacyPolicyData)
         }
     }
 
@@ -210,6 +230,8 @@ class BookTrainerCenterDetailActivity : BaseDarkActivity<ActivityBookTrainerCent
     private fun setListener() {
         btnSelectSlots.setOnClickListener(this)
         tvJoiningDate.setOnClickListener(this)
+        tvPrivacy_policy.setOnClickListener(this)
+        ll_rating_review.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
@@ -223,6 +245,14 @@ class BookTrainerCenterDetailActivity : BaseDarkActivity<ActivityBookTrainerCent
             }
             R.id.tvJoiningDate -> {
                 datePickerStart()
+            }
+            R.id.tvPrivacy_policy->{
+                viewModel.privacyPolicy(AppSession.locale, AppSession.deviceId, AppSession.deviceType, BuildConfig.VERSION_NAME)
+
+            }
+            R.id.ll_rating_review->{
+                ReviewRatingActivity.open(currActivity,trainerDetail)
+
             }
         }
     }
@@ -333,6 +363,40 @@ class BookTrainerCenterDetailActivity : BaseDarkActivity<ActivityBookTrainerCent
 
     }
 
+    private fun openPrivacyPolicy(privacyPolicyData: String?) {
+        val builder = AlertDialog.Builder(currActivity)
+        val dialogView = currActivity.layoutInflater.inflate(R.layout.layout_privacy_policy,
+            null
+        )
+        builder.setView(dialogView)
+        builder.setCancelable(true)
+        dialog = builder.show()
 
+        val myAnim = AnimationUtils.loadAnimation(currActivity, R.anim.slide_up)
+        dialogView.startAnimation(myAnim)
+
+
+
+        dialogView.tv_return_policy.text= Html.fromHtml(privacyPolicyData)
+
+
+        dialogView.rl_main.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialogView.tvOkay.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        val window = dialog.window
+        window!!.setLayout(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
+        window.setGravity(Gravity.BOTTOM)
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+
+    }
 
 }
