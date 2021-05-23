@@ -5,30 +5,26 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.htf.diva.R
-import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.models.MealType
 import com.htf.diva.netUtils.Constants
-import kotlinx.android.synthetic.main.fragment_diet.*
-import kotlinx.android.synthetic.main.row_diet_plan.view.*
 import kotlinx.android.synthetic.main.row_home_diet_plan.view.*
 import kotlinx.android.synthetic.main.row_home_diet_plan.view.tvDietName
 
 
 class MyMealTypeDietAdapter(private var currActivity: Activity,
                             private var arrMealType:ArrayList<MealType>,
-                            private var iListItemClickListener: IListItemClickListener<Any>
-
-): RecyclerView.Adapter<MyMealTypeDietAdapter.MyViewHolder>(){
+                            var currentFragment: Fragment
+                            ): RecyclerView.Adapter<MyMealTypeDietAdapter.MyViewHolder>(){
     private lateinit var mUserDietPLanAdapter: DietPlanCreatedAdapter
     var selectedPosition=-1
     inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         init {
             itemView.setOnClickListener {
-                iListItemClickListener.onItemClickListener(arrMealType[adapterPosition])
             }
         }
     }
@@ -59,7 +55,7 @@ class MyMealTypeDietAdapter(private var currActivity: Activity,
 
             val mLayout= LinearLayoutManager(currActivity)
             holder.itemView.diet_Created_recylerView.layoutManager=mLayout
-            mUserDietPLanAdapter= DietPlanCreatedAdapter(currActivity,model.userDietPlans!!)
+            mUserDietPLanAdapter= DietPlanCreatedAdapter(currActivity,model.userDietPlans!!,currentFragment,model,position)
             holder.itemView.diet_Created_recylerView.adapter=mUserDietPLanAdapter
 
             holder.itemView.ivDropDown.setOnClickListener {

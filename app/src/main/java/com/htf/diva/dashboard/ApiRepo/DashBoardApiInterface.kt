@@ -371,6 +371,16 @@ interface DashBoardApiInterface {
             Deferred<Response<BaseResponse<Any>>>
 
 
+    @FormUrlEncoded
+    @POST("api/v1/update/consumed/diet")
+    fun updateConsumeDietAsync(@Field("locale") locale: String?,
+                         @Field("device_id") device_id: String?,
+                         @Field("device_type") device_type: String?,
+                         @Field("current_version") current_version: String?,
+                         @FieldMap mealTypeIdHashMap: HashMap<String, String?>):
+            Deferred<Response<BaseResponse<Any>>>
+
+
 
     @FormUrlEncoded
     @POST("api/v1/update/my/diet")

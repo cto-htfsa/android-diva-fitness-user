@@ -1,5 +1,6 @@
 package com.htf.diva.dashboard.adapters
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import com.htf.diva.R
 import com.htf.diva.databinding.RowMealTypesBinding
 import com.htf.diva.models.MealDietType
 import com.htf.diva.callBack.IListItemClickListener
+import kotlinx.android.synthetic.main.row_home_diet_plan.view.*
 
 class MealTypesAdapter(private var currActivity: Activity,
                        private var arrDietWeekDays:ArrayList<MealDietType>,
@@ -39,8 +41,17 @@ class MealTypesAdapter(private var currActivity: Activity,
         return arrDietWeekDays.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MealTypesAdapter.MyViewHolder, position: Int) {
         val model=arrDietWeekDays[position]
+
+        if (model.dietPlans!=null){
+            holder.itemView.tvSetDietPlan.text= model.dietPlans?.get(position)!!.carbs+" "+currActivity.getString(R.string.carbs)+
+                    ", "+model.dietPlans?.get(position)!!.proteins+" "+currActivity.getString(R.string.proteins)+", "+
+                    model.dietPlans?.get(position)!!.fats+" "+currActivity.getString(R.string.fats)+", "+model.dietPlans?.get(position)!!.calories+
+                    " "+currActivity.getString(R.string.calories)
+        }
+
         rowDietWeekDayBinding!!.mealTypes =model
     }
 

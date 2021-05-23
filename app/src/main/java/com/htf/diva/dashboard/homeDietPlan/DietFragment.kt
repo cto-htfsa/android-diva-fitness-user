@@ -11,15 +11,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.htf.diva.BuildConfig
 import com.htf.diva.R
 import com.htf.diva.base.BaseFragment
 import com.htf.diva.dashboard.adapters.MyMealTypeDietAdapter
 import com.htf.diva.dashboard.viewModel.DitPlanViewModel
 import com.htf.diva.databinding.FragmentDietBinding
+import com.htf.diva.models.MealType
 import com.htf.diva.models.MyDietModel
 import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
-import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.models.UserDietPlan
+import com.htf.diva.utils.AppSession
 import devs.mulham.horizontalcalendar.HorizontalCalendar
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener
 import kotlinx.android.synthetic.main.fragment_diet.*
@@ -39,12 +42,14 @@ import kotlinx.android.synthetic.main.fragment_diet.view.*
 import kotlinx.android.synthetic.main.fragment_diet.view.lnrEdit
 import kotlinx.android.synthetic.main.fragment_diet.view.lnrMyWorkout
 import kotlinx.android.synthetic.main.fragment_diet.workoutProgress
+import kotlinx.android.synthetic.main.fragment_workout.view.*
 
 import java.util.*
 
 
 class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java) ,
-    View.OnClickListener, IListItemClickListener<Any> {
+    View.OnClickListener{
+
     private lateinit var currActivity: Activity
     lateinit var binding: FragmentDietBinding
     private val calendar = Calendar.getInstance()
@@ -54,6 +59,11 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
     private var selectedDate :String?=""
     private var horizontalCalendar: HorizontalCalendar? = null
 
+    var arrMealType: MealType? = null
+    var userDietPlan: UserDietPlan? = null
+    var arrMealLisType: ArrayList<MealType>? = null
+    var arrMealId: ArrayList<UserDietPlan>? = null
+    private var userDietPlanPosition: Int?=null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -145,6 +155,7 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
         observerViewModel(viewModel.isApiCalling,this::onHandleShowProgress)
         observerViewModel(viewModel.errorResult,this::onHandleApiErrorResponse)
         observerViewModel(viewModel.mMyDietData, this::onHandleDietPLanSuccessResponse)
+        observerViewModel(viewModel.mConsumedDietPlanData, this::updateConsumeDietSuccessResponse)
     }
 
     private fun onHandleShowProgress(isNotShow:Boolean) {
@@ -160,6 +171,7 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
 
             if (myDiet.myScheduled!!.dietPlans!!.calories!=null){
                 if(myDiet.mealTypes!!.size>0){
+                    arrMealLisType=myDiet.mealTypes!!
                     btnEditDietPlan.visibility=View.VISIBLE
                     lnrMyWorkout.visibility=View.VISIBLE
                     dietRecycler.visibility=View.VISIBLE
@@ -184,37 +196,28 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
         }
     }
 
-
-    private fun getDatesOfPreviousMonth(): List<Date> {
-        currentMonth-- // - because we want previous month
-        if (currentMonth == -1) {
-            // we will switch to december of previous year, when we reach first month of year
-            calendar.set(Calendar.YEAR, calendar[Calendar.YEAR] - 1)
-            currentMonth = 11 // 11 == december
+    /* when user click on workout completed button*/
+    fun updateConsumedWorkout(model: UserDietPlan, adapterPosition: Int, mealType: MealType, mealTypePosition: Int) {
+       // arrMealType=mealType
+        userDietPlan=model
+        userDietPlanPosition=adapterPosition
+       // arrMealId!![adapterPosition]=model
+        val consumedDiet = HashMap<String, String?>()
+     /*   for (i in 0.until(arrMealId!!.size)) {
+            if(arrMealId!= null) {
+                consumedDiet["meals[$i][meal_type_id]"] = mealType.id.toString()
+                consumedDiet["meals[$i][meal_id]"] = model.id.toString()
+            }
+        }*/
+        if(arrMealId!= null) {
+            consumedDiet["meals[$mealTypePosition][meal_type_id]"] = mealType.id.toString()
+            consumedDiet["meals[$adapterPosition][meal_id]"] = model.mealId.toString()
         }
-        return getDates(mutableListOf())
+        viewModel.onUpdateConsumedDietClick(
+            AppSession.locale,AppSession.deviceId, AppSession.deviceType,
+            BuildConfig.VERSION_NAME,consumedDiet)
     }
 
-    private fun getFutureDatesOfCurrentMonth(): List<Date> {
-        // get all next dates of current month
-        currentMonth = calendar[Calendar.MONTH]
-        return getDates(mutableListOf())
-    }
-
-
-    private fun getDates(list: MutableList<Date>): List<Date> {
-        // load dates of whole month
-        calendar.set(Calendar.MONTH, currentMonth)
-        calendar.set(Calendar.DAY_OF_MONTH, 1)
-        list.add(calendar.time)
-        while (currentMonth == calendar[Calendar.MONTH]) {
-            calendar.add(Calendar.DATE, +1)
-            if (calendar[Calendar.MONTH] == currentMonth)
-                list.add(calendar.time)
-        }
-        calendar.add(Calendar.DATE, -1)
-        return list
-    }
 
     override fun onResume() {
         super.onResume()
@@ -296,6 +299,11 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
         }
 
 
+    }
+
+    private fun updateConsumeDietSuccessResponse(updateCompletedWorkout: Any) {
+        arrMealLisType!!.filter { it.userDietPlans?.get(userDietPlanPosition!!)!!.id==userDietPlan!!.id }.map { it.userDietPlans!![userDietPlanPosition!!].dietConsumed=1 }
+        binding.root.dietRecycler.post {myDietAdapter.notifyDataSetChanged()}
     }
 
 

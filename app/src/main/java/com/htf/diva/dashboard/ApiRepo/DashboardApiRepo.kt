@@ -229,6 +229,18 @@ object DashboardApiRepo : BaseRepository() {
         )
     }
 
+    suspend fun updateConsumeDietPLan(locale: String?,
+                                     deviceId: String?,
+                                     deviceType: String?,
+                                     versionName: String?,
+                                     mealTypeId: HashMap<String, String?>): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.updateConsumeDietAsync(locale, deviceId, deviceType,
+                versionName,mealTypeId).await()}
+        )
+    }
+
+
 
     suspend fun checkOutIdGenerate(locale: String?,deviceId: String?, deviceType: String?,versionName: String?,
                                    bookingCenterId:String?,bookingTrainerId:String?,
