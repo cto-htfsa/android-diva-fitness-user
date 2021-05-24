@@ -220,7 +220,8 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
             dialogView.llChangeDietPlan.isEnabled=false
             dialogView.llChangeWorkoutPlan.isEnabled=false
             dialogView.llPaymentHistory.isEnabled=false
-
+            dialogView.btnLogout.isEnabled=false
+            dialogView.btnLogout.visibility=View.GONE
             dialogView.tvLogin.setOnClickListener {
                 LoginActivity.open(currActivity,"fromSplash")
             }
@@ -233,6 +234,8 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
             dialogView.llChangeDietPlan.isEnabled=true
             dialogView.llChangeWorkoutPlan.isEnabled=true
             dialogView.llPaymentHistory.isEnabled=true
+            dialogView.btnLogout.isEnabled=true
+            dialogView.btnLogout.visibility=View.VISIBLE
         }
 
         dialogView.llChangeDietPlan.setOnClickListener {

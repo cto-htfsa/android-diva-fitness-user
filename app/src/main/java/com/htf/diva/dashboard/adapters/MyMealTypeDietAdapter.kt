@@ -47,16 +47,20 @@ class MyMealTypeDietAdapter(private var currActivity: Activity,
         holder.itemView.tvDietName.text=model.name
 
         if (model.userDietPlans!=null){
-            holder.itemView.diet_Created_recylerView.visibility=View.VISIBLE
-            holder.itemView.tvSetDietPlan.text= model.userDietPlans?.get(position)!!.carbs+" "+currActivity.getString(R.string.carbs)+
-                    ", "+model.userDietPlans?.get(position)!!.proteins+" "+currActivity.getString(R.string.proteins)+", "+
-                    model.userDietPlans?.get(position)!!.fats+" "+currActivity.getString(R.string.fats)+", "+model.userDietPlans?.get(position)!!.calories+
-                    " "+currActivity.getString(R.string.calories)
+            try {
+                holder.itemView.diet_Created_recylerView.visibility=View.VISIBLE
+                holder.itemView.tvSetDietPlan.text= model.userDietPlans?.get(position)!!.carbs+" "+currActivity.getString(R.string.carbs)+
+                        ", "+model.userDietPlans?.get(position)!!.proteins+" "+currActivity.getString(R.string.proteins)+", "+
+                        model.userDietPlans?.get(position)!!.fats+" "+currActivity.getString(R.string.fats)+", "+model.userDietPlans?.get(position)!!.calories+
+                        " "+currActivity.getString(R.string.calories)
 
-            val mLayout= LinearLayoutManager(currActivity)
-            holder.itemView.diet_Created_recylerView.layoutManager=mLayout
-            mUserDietPLanAdapter= DietPlanCreatedAdapter(currActivity,model.userDietPlans!!,currentFragment,model,position)
-            holder.itemView.diet_Created_recylerView.adapter=mUserDietPLanAdapter
+                val mLayout= LinearLayoutManager(currActivity)
+                holder.itemView.diet_Created_recylerView.layoutManager=mLayout
+                mUserDietPLanAdapter= DietPlanCreatedAdapter(currActivity,model.userDietPlans!!,currentFragment,model,position)
+                holder.itemView.diet_Created_recylerView.adapter=mUserDietPLanAdapter
+            }catch (e:Exception){
+
+            }
 
             holder.itemView.ivDropDown.setOnClickListener {
                 selectedPosition = position
@@ -70,17 +74,22 @@ class MyMealTypeDietAdapter(private var currActivity: Activity,
                 holder.itemView.diet_Created_recylerView.visibility=View.GONE
             }
 
-            if (selectedPosition==position){
-                holder.itemView.ivDropDown.setImageResource(R.drawable.ic_drop_down)
-                holder.itemView.ivDropUp.visibility=View.VISIBLE
-                holder.itemView.diet_Created_recylerView.visibility=View.VISIBLE
+            if (model.userDietPlans!!.size>0){
+                if (selectedPosition==position){
+                    holder.itemView.ivDropDown.setImageResource(R.drawable.ic_drop_down)
+                    holder.itemView.ivDropUp.visibility=View.VISIBLE
+                    holder.itemView.diet_Created_recylerView.visibility=View.VISIBLE
 
-            } else{
-                holder.itemView.ivDropDown.setImageResource(R.drawable.ic_drop_down)
-                holder.itemView.diet_Created_recylerView.visibility=View.GONE
-                holder.itemView.ivDropUp.visibility=View.GONE
+                } else{
+                    holder.itemView.ivDropDown.setImageResource(R.drawable.ic_drop_down)
+                    holder.itemView.diet_Created_recylerView.visibility=View.GONE
+                    holder.itemView.ivDropUp.visibility=View.GONE
 
+                }
+            }else{
+                holder.itemView.ivDropDown.visibility=View.GONE
             }
+
 
         }
     }
