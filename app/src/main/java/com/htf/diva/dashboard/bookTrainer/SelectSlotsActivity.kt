@@ -31,6 +31,7 @@ import com.htf.diva.utils.DateUtilss.getCurrentYearC
 import com.htf.diva.utils.content.DummyContent
 import com.htf.diva.utils.showToast
 import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.dashboard.bookTrainerWithCenter.BookingSummaryTrainerCenterActivity
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
@@ -96,9 +97,9 @@ class SelectSlotsActivity : BaseActivity<ActivitySlotBookBinding, PersonalTraine
         getExtra()
         setListener()
         val cDay=CalendarDay.from(getCurrentYearC().toInt(), getCurrentMonthC().toInt(), getCurrentDateC().toInt())
-        binding.calendarView.selectionMode = MaterialCalendarView.SELECTION_MODE_SINGLE
-        binding.calendarView.state().edit().setMinimumDate(cDay).commit()
-        binding.calendarView.selectedDate = cDay
+        calendarView.selectionMode = MaterialCalendarView.SELECTION_MODE_SINGLE
+        calendarView.state().edit().setMinimumDate(cDay).commit()
+        calendarView.selectedDate = cDay
         selectedDate=cDay.date.toString()
 
     }
@@ -107,6 +108,7 @@ class SelectSlotsActivity : BaseActivity<ActivitySlotBookBinding, PersonalTraine
         calendarView.setOnDateChangedListener(this)
         viewSelectedSlots.setOnClickListener(this)
         btnConfirmSlot.setOnClickListener(this)
+        tv_book_slot_later.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
@@ -138,6 +140,22 @@ class SelectSlotsActivity : BaseActivity<ActivitySlotBookBinding, PersonalTraine
                     showToast(currActivity.getString(R.string.please_select_slots), true)
                 }
             }
+
+            R.id.tv_book_slot_later->{
+                arrSelectedSlots.clear()
+                TrainerBookingSummaryActivity.open(
+                    currActivity,
+                    arrSelectedSlots,
+                    trainerDetail,
+                    tenureSelected,
+                    packageSelected,
+                    booking_type,
+                    currentDate,
+                    numberOfPeoplePerSession,
+                    withMyFriendsGym,
+                    gymBookingWith)
+            }
+
         }
     }
 
@@ -167,7 +185,7 @@ class SelectSlotsActivity : BaseActivity<ActivitySlotBookBinding, PersonalTraine
            selectedDayType=DummyContent.getWeekDays().single { it.weekDay==weekDay }.type
            arrBookingSlots.addAll(intent.getSerializableExtra("arrBookingSlots") as ArrayList<Slot>)
            val filterArrBookingSlots=arrBookingSlots.filter { it.weekdayId==selectedDayType }
-         setSlotsList(filterArrBookingSlots)
+           setSlotsList(filterArrBookingSlots)
     }
 
     /* set slots recyclerview here*/

@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.htf.diva.R
 import com.htf.diva.base.BaseActivity
+import com.htf.diva.base.MyApplication
 import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.dashboard.adapters.SelectedSlotAdapter
 import com.htf.diva.dashboard.adapters.SlotsAdapter
+import com.htf.diva.dashboard.bookTrainer.TrainerBookingSummaryActivity
 import com.htf.diva.dashboard.viewModel.PersonalTrainerViewModel
 import com.htf.diva.databinding.ActivitySlotBookBinding
 import com.htf.diva.models.*
@@ -127,6 +129,7 @@ class TrainerCenterSlotsActivity : BaseActivity<ActivitySlotBookBinding, Persona
         calendarView.setOnDateChangedListener(this)
         viewSelectedSlots.setOnClickListener(this)
         btnConfirmSlot.setOnClickListener(this)
+        tv_book_slot_later.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
@@ -137,6 +140,23 @@ class TrainerCenterSlotsActivity : BaseActivity<ActivitySlotBookBinding, Persona
                 }
             }
             R.id.btnConfirmSlot->{
+                if(arrSelectedSlots.isNotEmpty()) {
+                    if (arrSelectedSlots.size==packageSelected.sessions){
+                        BookingSummaryTrainerCenterActivity.open(currActivity,arrSelectedSlots,trainerDetail,
+                            tenureSelected,packageSelected,booking_type,currentDate,
+                            numberOfPeoplePerSession,withMyFriendsGym,gymBookingWith,offers,
+                            selectedFitnessCenter,tenureCenterSelected,packageCenterSelected,
+                            currentCenterDate,joinCenterWithFriends,
+                            sessionPriceCalculate,vatPercentage)
+                    }else{
+                        val str= MyApplication.getAppContext().getString(R.string.select_slot).replace("[X]",packageSelected.sessions.toString())
+                        showToast(str, true)
+                    }
+                } else {
+                    showToast(currActivity.getString(R.string.please_select_slots), true)
+                }
+
+           /*
                 if(arrSelectedSlots.isNotEmpty()){
                     BookingSummaryTrainerCenterActivity.open(currActivity,arrSelectedSlots,trainerDetail,
                         tenureSelected,packageSelected,booking_type,currentDate,
@@ -144,11 +164,20 @@ class TrainerCenterSlotsActivity : BaseActivity<ActivitySlotBookBinding, Persona
                         selectedFitnessCenter,tenureCenterSelected,packageCenterSelected,
                         currentCenterDate,joinCenterWithFriends,
                         sessionPriceCalculate,vatPercentage)
-
-
-                } else{
-                    showToast(currActivity.getString(R.string.please_select_slots), true)
                 }
+                else{
+                    showToast(currActivity.getString(R.string.please_select_slots), true)
+                }*/
+            }
+
+            R.id.tv_book_slot_later->{
+                arrSelectedSlots.clear()
+                BookingSummaryTrainerCenterActivity.open(currActivity,arrSelectedSlots,trainerDetail,
+                    tenureSelected,packageSelected,booking_type,currentDate,
+                    numberOfPeoplePerSession,withMyFriendsGym,gymBookingWith,offers,
+                    selectedFitnessCenter,tenureCenterSelected,packageCenterSelected,
+                    currentCenterDate,joinCenterWithFriends,
+                    sessionPriceCalculate,vatPercentage)
             }
         }
     }

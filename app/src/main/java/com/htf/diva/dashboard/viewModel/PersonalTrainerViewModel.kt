@@ -18,7 +18,9 @@ class PersonalTrainerViewModel :BaseViewModel() {
     val mNotificationData= MutableLiveData<Listing<AppDashBoard.TopTrainer>>()
     val mReviewRatingData= MutableLiveData<Listing<ReviewRatingModel>>()
     val mTrainerDetailResponse= MutableLiveData<TrainerDetailsModel>()
+    val mManageSessionResponse= MutableLiveData<ManageSessionModel>()
     val mPrivacyPolicyResponse= MutableLiveData<PrivacyPolicyModel>()
+    val mBookSlotResponse= MutableLiveData<BookSessionSlotModel>()
 
     fun onGetTrainerListing(page:Int,isProgressBar:Boolean,fitnessId:String,query:String) {
         if (!DialogUtils.isInternetOn()){
@@ -126,5 +128,61 @@ class PersonalTrainerViewModel :BaseViewModel() {
 
     }
 
+    fun  manageSessionSlots(locale: String?, deviceId: String?, deviceType: String?,
+                            versionName: String?,
+                            trainerId:String?){
+        if (!DialogUtils.isInternetOn()){
+            isInternetOn.postValue(false)
+            return
+        }
+        isApiCalling.postValue(true)
+        scope.launch {
+            val result = try {
+                DashboardApiRepo.manageSlotsAsync(locale,deviceId,deviceType,versionName,trainerId)
+            } catch (e: Exception) {
+                errorResult.postValue(e.localizedMessage)
+                isApiCalling.postValue(false)
+                e.printStackTrace()
+            }
+            withContext(Dispatchers.Main) {
+                isApiCalling.postValue(false)
+                if (result is ManageSessionModel)
+                    mManageSessionResponse.postValue(result)
+                else
+                    errorResult.postValue(result.toString())
+            }
 
+        }
+    }
+
+
+    fun  bookSessionApiCall(locale: String?, deviceId: String?, deviceType: String?,
+                            versionName: String?,
+                            trainerId:String?,bookingId:String?,
+                            bookingDate:String?,bookingStartDate:String?,
+                            bookingEndDate:String?){
+        if (!DialogUtils.isInternetOn()){
+            isInternetOn.postValue(false)
+            return
+        }
+        isApiCalling.postValue(true)
+        scope.launch {
+            val result = try {
+                DashboardApiRepo.bookManageSessionSlotAsync(locale,deviceId,deviceType,versionName,
+                    trainerId,bookingId,bookingDate,bookingStartDate,bookingEndDate)
+            } catch (e: Exception) {
+                errorResult.postValue(e.localizedMessage)
+                isApiCalling.postValue(false)
+                e.printStackTrace()
+            }
+            withContext(Dispatchers.Main) {
+                isApiCalling.postValue(false)
+                if (result is BookSessionSlotModel)
+                    mBookSlotResponse.postValue(result)
+                else
+                    errorResult.postValue(result.toString())
+            }
+
+        }
+    }
 }

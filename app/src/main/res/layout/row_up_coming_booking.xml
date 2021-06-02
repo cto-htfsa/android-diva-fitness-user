@@ -163,7 +163,7 @@
 
         <LinearLayout
             android:id="@+id/lnrTrainerDeatil"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:background="@color/white"
             android:layout_marginStart="@dimen/dimen_5"
@@ -211,7 +211,7 @@
                         android:layout_marginTop="@dimen/margin_4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ala Alkhateeb"
+                        android:text=""
                         android:textSize="@dimen/font_14sp"
                         android:textColor="@color/colorTextHeading"
                         android:fontFamily="@font/avenir_black" />
@@ -247,7 +247,7 @@
             <RelativeLayout
                 android:id="@+id/rltBookingDate"
                 android:layout_marginStart="@dimen/margin_16dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -261,19 +261,25 @@
                     android:textAlignment="viewStart" />
 
                 <TextView
+                    android:id="@+id/tvBookingStatus"
                     android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/paid"
-                    android:layout_marginEnd="@dimen/margin_36dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
                     android:textColor="@color/colorTextHeading"
                     android:fontFamily="@font/avenir_light"
                     android:textSize="12sp"
                     android:textAlignment="viewStart" />
+
+
             </RelativeLayout>
 
 
+
+
             <RelativeLayout
+                android:id="@+id/rltBookingAmt"
                 android:layout_below="@+id/rltBookingDate"
                 android:layout_marginTop="@dimen/margin_8dp"
                 android:layout_marginStart="@dimen/margin_16dp"
@@ -303,6 +309,26 @@
                     android:textSize="12sp"
                     android:textAlignment="viewStart" />
             </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvPayNow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pay_now"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:layout_below="@+id/rltBookingAmt"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dimen_12"
+                android:paddingTop="@dimen/margin_4dp"
+                android:paddingBottom="@dimen/margin_4dp"
+                android:paddingStart="@dimen/dimen_12"
+                android:paddingEnd="@dimen/dimen_12"
+                android:textColor="@color/white"
+                android:fontFamily="@font/avenir_light"
+                android:textSize="12sp"
+                android:background="@drawable/btn_bg"
+                android:textAlignment="viewStart" />
 
 
         </RelativeLayout>

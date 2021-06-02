@@ -18,7 +18,7 @@ class FitnessCenterDetailBookingViewModel :BaseViewModel() {
     val mFitnessCenterDetailData= MutableLiveData<FitnessCenterDetailForBookModel>()
     val mPrivacyPolicyResponse= MutableLiveData<PrivacyPolicyModel>()
 
-    fun fitnessCenterDetailBooking(locale: String?, deviceId: String?, deviceType: String?, versionName: String?){
+    fun fitnessCenterDetailBooking(locale: String?, deviceId: String?, deviceType: String?, versionName: String?,fitness_center_id:String?){
         if (!DialogUtils.isInternetOn()){
             isInternetOn.postValue(false)
             return
@@ -26,9 +26,7 @@ class FitnessCenterDetailBookingViewModel :BaseViewModel() {
         isApiCalling.postValue(true)
         scope.launch {
             val result = try {
-                DashboardApiRepo.fitnessCenterDetail(
-                    locale,deviceId,deviceType,versionName
-                )
+                DashboardApiRepo.fitnessCenterDetail(locale,deviceId,deviceType,versionName,fitness_center_id)
             } catch (e: Exception) {
                 errorResult.postValue(e.localizedMessage)
                 isApiCalling.postValue(false)

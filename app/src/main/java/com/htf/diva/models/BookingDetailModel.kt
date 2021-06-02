@@ -13,7 +13,7 @@ class BookingDetailModel :Serializable{
 
     @SerializedName("booking_review_id")
     @Expose
-     val bookingReviewId: Any? = null
+     val bookingReviewId: String? = null
 
     @SerializedName("invoice_id")
     @Expose
@@ -33,7 +33,7 @@ class BookingDetailModel :Serializable{
 
     @SerializedName("trainer_id")
     @Expose
-     val trainerId: Any? = null
+     val trainerId: String? = null
 
     @SerializedName("booking_for")
     @Expose
@@ -185,7 +185,7 @@ class BookingDetailModel :Serializable{
 
     @SerializedName("slots")
     @Expose
-     val slots: List<Slot>? = null
+     val slots: ArrayList<Slot>? = null
 
     @SerializedName("reviews")
     @Expose
@@ -217,14 +217,14 @@ class BookingDetailModel :Serializable{
 
     }
 
-class SubBookings:Serializable{
+  class SubBookings:Serializable{
     @SerializedName("id")
     @Expose
      val id: Int? = null
 
     @SerializedName("booking_review_id")
     @Expose
-     val bookingReviewId: Any? = null
+     val bookingReviewId: String? = null
 
     @SerializedName("invoice_id")
     @Expose
@@ -276,7 +276,7 @@ class SubBookings:Serializable{
 
     @SerializedName("package_id")
     @Expose
-     val packageId: Any? = null
+     val packageId: String? = null
 
     @SerializedName("base_sessions")
     @Expose
@@ -384,7 +384,7 @@ class SubBookings:Serializable{
 
     @SerializedName("package_name")
     @Expose
-     val packageName: Any? = null
+     val packageName: String? = null
 
     @SerializedName("trainer_name")
     @Expose
@@ -400,7 +400,7 @@ class SubBookings:Serializable{
 
     @SerializedName("reviews")
     @Expose
-     val reviews: Any? = null
+     val reviews: String? = null
 
     @SerializedName("invoice")
     @Expose
@@ -415,7 +415,7 @@ class SubBookings:Serializable{
 
     @SerializedName("invoice_no")
     @Expose
-     val invoiceNo: Any? = null
+     val invoiceNo: String? = null
 
     @SerializedName("payable_amount")
     @Expose
@@ -423,7 +423,7 @@ class SubBookings:Serializable{
 
     @SerializedName("pdf_file")
     @Expose
-     val pdfFile: Any? = null
+     val pdfFile: String? = null
 
     @SerializedName("status")
     @Expose

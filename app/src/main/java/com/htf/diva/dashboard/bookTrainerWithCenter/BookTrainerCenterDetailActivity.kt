@@ -1,5 +1,6 @@
 package com.htf.diva.dashboard.bookTrainerWithCenter
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -188,13 +189,14 @@ class BookTrainerCenterDetailActivity : BaseDarkActivity<ActivityBookTrainerCent
 
 
 
+    @SuppressLint("SetTextI18n")
     private fun setTrainerDetail(trainerDetails: Trainer){
         val perSessionPrice= MathUtils.convertDoubleToString(trainerDetails.perSessionPrice!!.toDouble())
         val str= currActivity.getString(R.string.sar_amount).replace("[X]",perSessionPrice)
         tvPerSession.text=str
         tvLocation.text=trainerDetails.location
         tvRating.text=trainerDetails.rating
-        tvReview.text=trainerDetails.totalReviews.toString()
+        tvReview.text=trainerDetails.totalReviews.toString()+" "+currActivity.getString(R.string.review)
         tvAboutUs.text=trainerDetails.aboutUs
         Glide.with(currActivity).load(Constants.Urls.TRAINER_IMAGE_URL + trainerDetails.image).
         override(250, 250).placeholder(R.drawable.trainer_placeholder).into(ivTrainerImage)

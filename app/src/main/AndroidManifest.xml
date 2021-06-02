@@ -34,7 +34,7 @@
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:theme="@style/Theme.Diva" />
 
         <service
@@ -77,6 +77,8 @@
         <activity android:name=".dashboard.homeWorkoutPlan.CreateWorkoutPlanActivity"/>
         <activity android:name=".dashboard.homeWorkoutPlan.WorkoutDayActivity"/>
         <activity android:name=".dashboard.ui.ReviewRatingActivity"/>
+        <activity android:name=".dashboard.manageSession.ManageSessionActivity"/>
+        <activity android:name=".dashboard.manageSession.ScheduleSessionActivity"/>
 
         <activity
             android:name="com.oppwa.mobile.connect.checkout.dialog.CheckoutActivity"
@@ -87,7 +89,7 @@
             tools:replace="android:windowSoftInputMode,theme" />
 
         <activity android:name=".dashboard.ui.BookingSuccessfullyActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

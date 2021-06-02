@@ -21,6 +21,33 @@ import com.oppwa.mobile.connect.checkout.dialog.CheckoutActivity
 import com.oppwa.mobile.connect.checkout.meta.CheckoutSettings
 import com.oppwa.mobile.connect.provider.Connect
 import kotlinx.android.synthetic.main.activity_booking_summary.*
+import kotlinx.android.synthetic.main.activity_booking_summary.ivTrainerImage
+import kotlinx.android.synthetic.main.activity_booking_summary.llBookingWithPackage
+import kotlinx.android.synthetic.main.activity_booking_summary.llBookingWithPerSession
+import kotlinx.android.synthetic.main.activity_booking_summary.llContent
+import kotlinx.android.synthetic.main.activity_booking_summary.rltPackageOfferDiscount
+import kotlinx.android.synthetic.main.activity_booking_summary.rltTrainerOfferDiscount
+import kotlinx.android.synthetic.main.activity_booking_summary.rvSelectedSlots
+import kotlinx.android.synthetic.main.activity_booking_summary.switchAutoRenewMembership
+import kotlinx.android.synthetic.main.activity_booking_summary.tvFitnessCenter
+import kotlinx.android.synthetic.main.activity_booking_summary.tvFitnessCenterAddress
+import kotlinx.android.synthetic.main.activity_booking_summary.tvJoining_from
+import kotlinx.android.synthetic.main.activity_booking_summary.tvNo_ofPeopleTraining
+import kotlinx.android.synthetic.main.activity_booking_summary.tvPackageName
+import kotlinx.android.synthetic.main.activity_booking_summary.tvPackageOfferPercentage
+import kotlinx.android.synthetic.main.activity_booking_summary.tvPackageOfferPrice
+import kotlinx.android.synthetic.main.activity_booking_summary.tvPackageTainerTaxCharges
+import kotlinx.android.synthetic.main.activity_booking_summary.tvPackageTax
+import kotlinx.android.synthetic.main.activity_booking_summary.tvPackage_price
+import kotlinx.android.synthetic.main.activity_booking_summary.tvPackages
+import kotlinx.android.synthetic.main.activity_booking_summary.tvPersonal_trainer_price
+import kotlinx.android.synthetic.main.activity_booking_summary.tvTax
+import kotlinx.android.synthetic.main.activity_booking_summary.tvTaxCharges
+import kotlinx.android.synthetic.main.activity_booking_summary.tvTenure
+import kotlinx.android.synthetic.main.activity_booking_summary.tvTrainerName
+import kotlinx.android.synthetic.main.activity_booking_summary.tvTrainerOfferPercentage
+import kotlinx.android.synthetic.main.activity_booking_summary.tvTrainerOfferPrice
+import kotlinx.android.synthetic.main.activity_center_trainer_booking_summary.*
 import kotlinx.android.synthetic.main.toolbar.*
 import java.util.LinkedHashSet
 
@@ -122,10 +149,15 @@ class TrainerBookingSummaryActivity : BaseDarkActivity<ActivityBookingSummaryBin
 
 
         /* Selected slots rv*/
-        val mLayout = LinearLayoutManager(currActivity, LinearLayoutManager.VERTICAL, false)
-        rvSelectedSlots.layoutManager = mLayout
-        selectedSlotsAdapter = SelectedSlotAdapter(currActivity, arrSelectedSlots, this)
-        rvSelectedSlots.adapter = selectedSlotsAdapter
+        if (arrSelectedSlots.size>0){
+            llContent.visibility=View.VISIBLE
+            val mLayout = LinearLayoutManager(currActivity, LinearLayoutManager.VERTICAL, false)
+            rvSelectedSlots.layoutManager = mLayout
+            selectedSlotsAdapter = SelectedSlotAdapter(currActivity, arrSelectedSlots, this)
+            rvSelectedSlots.adapter = selectedSlotsAdapter
+        }else{
+            llContent.visibility=View.GONE
+        }
 
         calculateAmount()
 

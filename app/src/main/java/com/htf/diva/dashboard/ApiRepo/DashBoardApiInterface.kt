@@ -149,7 +149,8 @@ interface DashBoardApiInterface {
         @Field("locale") locale: String?,
         @Field("device_id") device_id: String?,
         @Field("device_type") device_type: String?,
-        @Field("current_version") current_version: String?): Deferred<Response<BaseResponse<FitnessCenterDetailForBookModel>>>
+        @Field("current_version") current_version: String?,
+        @Field("fitness_center_id") fitness_center_id: String?): Deferred<Response<BaseResponse<FitnessCenterDetailForBookModel>>>
 
 
     @FormUrlEncoded
@@ -407,6 +408,39 @@ interface DashBoardApiInterface {
 
 
 
+
+    @FormUrlEncoded
+    @POST("api/v1/trainer/slots")
+    fun manageSlotsAsync(@Field("locale") locale: String?,
+                          @Field("device_id") device_id: String?,
+                          @Field("device_type") device_type: String?,
+                          @Field("current_version")current_version: String?,
+                          @Field("trainer_id") fitness_center_id: String?):
+                          Deferred<Response<BaseResponse<ManageSessionModel>>>
+
+
+    @FormUrlEncoded
+    @POST("api/v1/book/slot")
+    fun bookSessionSlotAsync(@Field("locale") locale: String?,
+                          @Field("device_id") device_id: String?,
+                          @Field("device_type") device_type: String?,
+                          @Field("current_version")current_version: String?,
+                          @Field("trainer_id") fitness_center_id: String?,
+                          @Field("booking_id") booking_id: String?,
+                          @Field("date") date: String?,
+                          @Field("start_at") start_at: String?,
+                          @Field("end_at") end_at: String?):
+                          Deferred<Response<BaseResponse<BookSessionSlotModel>>>
+
+
+
+    @DELETE("api/v1/delete/booked/slot")
+    fun deleteBookedSlotAsync(@Query("locale") locale: String?,
+                            @Query("device_id") device_id: String?,
+                            @Query("device_type") device_type: String?,
+                            @Query("current_version") current_version: String?,
+                            @Query("slot_id") slot_id: String?):
+            Deferred<Response<BaseResponse<Any>>>
 
 }
 

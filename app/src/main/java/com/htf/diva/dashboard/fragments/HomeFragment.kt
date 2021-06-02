@@ -28,12 +28,14 @@ import com.htf.diva.dashboard.adapters.TrainerAdapter
 import com.htf.diva.dashboard.bookFitnessCenter.CenterActivity
 import com.htf.diva.dashboard.bookFitnessCenter.CenterDetailBookingActivity
 import com.htf.diva.dashboard.bookTrainer.TrainerDetailActivity
+import com.htf.diva.dashboard.manageSession.ManageSlotAdapter
 import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.dashboard.ui.PersonalTrainersActivity
 import com.htf.diva.dashboard.viewModel.HomeViewModel
 import com.htf.diva.databinding.FragmentHomeBinding
 import com.htf.diva.models.AppDashBoard
 import com.htf.diva.models.Banner
+import com.htf.diva.models.BookingDetailModel
 import com.htf.diva.models.MyDietModel
 import com.htf.diva.netUtils.Constants
 import com.htf.diva.utils.*
@@ -64,6 +66,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
     lateinit var binding: FragmentHomeBinding
     private lateinit var personalTrainerAdapter: TrainerAdapter
     private lateinit var mFitnessCenterAdapter: CenterAdapter
+    private lateinit var manageSlotAdapter: ManageSlotAdapter
     private lateinit var mAdapter: BannerAdapter
     var noMembershipAvlDialog:AlertDialog?=null
 
@@ -145,6 +148,16 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
                 setOutFitnessCenter(appDashBoard.fitnessCenters)
                 AppSession.appDashBoard=appDashBoard
 
+                if (appDashBoard.bookings!=null){
+                    for (booking in appDashBoard.bookings!!){
+                       /* if(booking.slots!!.isEmpty()){
+                            binding.root.rv_manage_slots.visibility=View.VISIBLE
+                            setManageSlot(appDashBoard.bookings)
+                        }*/
+                        binding.root.rv_manage_slots.visibility=View.VISIBLE
+                        setManageSlot(appDashBoard.bookings)
+                    }
+                }
 
                // force update
                val currVersion = BuildConfig.VERSION_NAME
@@ -155,7 +168,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
 
                  // Schedule workout and diet plan data
 
-               if (appDashBoard.myScheduled!!.dietPlans!=null){
+               if (appDashBoard.myScheduled!!.workoutCompleted!!.caloriesBurn!=null){
                    binding.root.lnrMyWorkout.visibility=View.VISIBLE
                    setDietPlanWorkout(appDashBoard.myScheduled!!)
                    binding.root.llCheckWork_today_dietPlan.visibility=View.VISIBLE
@@ -251,6 +264,19 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
         mFitnessCenterAdapter = CenterAdapter(currActivity, fitnessCenters!!, this)
         rvFitnessCenter.adapter = mFitnessCenterAdapter
     }
+
+
+
+    /* set manage slot recyclerview here*/
+    private fun setManageSlot(bookingDetailModel: ArrayList<BookingDetailModel>?) {
+        val mLayout = LinearLayoutManager(currActivity, LinearLayoutManager.HORIZONTAL, false)
+        rv_manage_slots.layoutManager = mLayout
+        manageSlotAdapter = ManageSlotAdapter(currActivity, bookingDetailModel!!)
+        rv_manage_slots.adapter = manageSlotAdapter
+    }
+
+
+
 
     override fun onItemClickListener(data: Any) {
         if (data is AppDashBoard.TopTrainer)

@@ -496,6 +496,7 @@
 
                     <LinearLayout
                         android:id="@+id/llSlots"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorAgeBg"
@@ -522,6 +523,52 @@
 
                     </LinearLayout>
 
+                    <RelativeLayout
+                        android:id="@+id/llManageSlots"
+                        android:visibility="visible"
+                        android:background="@color/colorAgeBg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/avenir_black"
+                            android:padding="10dp"
+                            android:layout_marginTop="@dimen/margin_8dp"
+                            android:layout_alignParentStart="true"
+                            android:textAlignment="textStart"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:text="@string/selected_slots"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="12sp" />
+
+
+
+                        <TextView
+                            android:id="@+id/btnManageSession"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_8dp"
+                            android:background="@drawable/btn_bg"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginBottom="@dimen/margin_8dp"
+                            android:fontFamily="@font/avenir_black"
+                            android:paddingStart="@dimen/margin_12dp"
+                            android:paddingTop="@dimen/margin_12dp"
+                            android:paddingEnd="@dimen/margin_12dp"
+                            android:paddingBottom="@dimen/margin_12dp"
+                            android:layout_marginStart="@dimen/margin_16dp"
+                            android:layout_marginEnd="@dimen/margin_16dp"
+                            android:text="@string/manage_session"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textAllCaps="false"/>
+
+
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="wrap_content"

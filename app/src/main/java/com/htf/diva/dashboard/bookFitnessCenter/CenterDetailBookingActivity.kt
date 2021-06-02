@@ -69,12 +69,16 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
     override var layout = R.layout.activity_center_detail_booking
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.centerDetailBookingViewModel = viewModel
-        viewModel.fitnessCenterDetailBooking(AppSession.locale, AppSession.deviceId, AppSession.deviceType, BuildConfig.VERSION_NAME)
-        viewModelInitialize()
         getExtra()
-        selectGroup()
-        setListener()
+        binding.centerDetailBookingViewModel = viewModel
+        viewModel.fitnessCenterDetailBooking(AppSession.locale,
+            AppSession.deviceId,
+            AppSession.deviceType,
+            BuildConfig.VERSION_NAME,
+            selectedFitnessCenter.id.toString())
+            viewModelInitialize()
+            selectGroup()
+            setListener()
 
     }
 

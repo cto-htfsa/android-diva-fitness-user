@@ -66,8 +66,23 @@ class UpComingBookingAdapter(
                 model.fitnessCenterImage)
             .placeholder(R.drawable.user).into(holder.itemView.ivCenterImage)
 
+          if (model.bookingStatus=="Completed"){
+              holder.itemView.tvBookingStatus.text=model.bookingStatus
+              holder.itemView.tvPayNow.visibility=View.GONE
+          }else if (model.bookingStatus=="Pending"){
+              holder.itemView.tvPayNow.visibility=View.VISIBLE
+              holder.itemView.tvBookingStatus.text=model.bookingStatus
+              holder.itemView.tvPayNow.setOnClickListener {
+
+              }
+          }
+
          if (model.trainerId!=null){
              holder.itemView.lnrTrainerDeatil.visibility=View.VISIBLE
+             Glide.with(currActivity).load(Constants.Urls.TRAINER_IMAGE_URL +
+                     model.trainerImage)
+                 .placeholder(R.drawable.user).into(holder.itemView.ivTrainerImage)
+             holder.itemView.tvTrainerName.text=model.trainerName
          }else{
              holder.itemView.lnrTrainerDeatil.visibility=View.GONE
          }

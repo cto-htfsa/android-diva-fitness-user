@@ -193,6 +193,17 @@
     <string name="name">Name</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="login">Login</string>
+    <string name="i_will_do_later">I will do it Later</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="manage_session">Manage Session</string>
+    <string name="you_have_a_booking_with_personal_trainer">You have a booking with Personal Trainer</string>
+    <string name="did_not_have_booking_schedule_session">But,you didn\'t schedule sessions</string>
+    <string name="available_session">Available Session</string>
+    <string name="remaining_session">Remaining Session</string>
+    <string name="Schedule_more_sessions">Schedule more Sessions</string>
+    <string name="you_havenot_schedule_any_session">You haven\'t schedule any session</string>
+    <string name="schedule_session">Schedule Session</string>
+    <string name="review">Review</string>
 
 
 </resources>

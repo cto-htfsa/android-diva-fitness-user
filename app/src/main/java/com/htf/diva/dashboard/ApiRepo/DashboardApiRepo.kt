@@ -118,10 +118,10 @@ object DashboardApiRepo : BaseRepository() {
     }
 
 
-    suspend fun fitnessCenterDetail(locale: String?,deviceId: String?, deviceType: String?,versionName: String?): Any? {
+    suspend fun fitnessCenterDetail(locale: String?,deviceId: String?, deviceType: String?,versionName: String?,fitness_center_id :String?): Any? {
         return safeApiCall(
             call ={ retrofitAuthClient.fitnessCenterDetailForBookingAsync(
-                locale,deviceId,deviceType,versionName).await()}
+                locale,deviceId,deviceType,versionName,fitness_center_id).await()}
         )
     }
 
@@ -342,6 +342,35 @@ object DashboardApiRepo : BaseRepository() {
     }
 
 
+
+    suspend fun manageSlotsAsync(locale: String?, deviceId: String?, deviceType: String?, versionName: String?, trainerId: String?): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.manageSlotsAsync(locale, deviceId, deviceType,
+                versionName, trainerId).await()}
+        )
+    }
+
+    suspend fun bookManageSessionSlotAsync(locale: String?, deviceId: String?, deviceType: String?, versionName: String?,
+                                            trainerId: String?, bookingId: String?,
+                                           bookingDate: String?, startDate: String?, endDate: String?): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.bookSessionSlotAsync(locale, deviceId, deviceType,
+                versionName, trainerId,bookingId,bookingDate,startDate,endDate).await()}
+        )
+    }
+
+
+
+    suspend fun deleteBookedSession(locale: String?,
+                               deviceId: String?,
+                               deviceType: String?,
+                               versionName: String?,
+                                slot_id: String?): Any? {
+        return safeApiCall(
+            call ={ retrofitAuthClient.deleteBookedSlotAsync(locale, deviceId, deviceType,
+                versionName, slot_id).await()}
+        )
+    }
 
 
 }

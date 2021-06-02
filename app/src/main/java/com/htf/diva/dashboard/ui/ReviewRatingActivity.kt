@@ -13,6 +13,7 @@ import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.dashboard.adapters.ReviewRatingAdapter
 import com.htf.diva.dashboard.viewModel.PersonalTrainerViewModel
 import com.htf.diva.databinding.ActivityPersonalTrainersBinding
+import com.htf.diva.databinding.ActivityReviewRatingBinding
 import com.htf.diva.models.Listing
 import com.htf.diva.models.ReviewRatingModel
 import com.htf.diva.models.TrainerDetailsModel
@@ -26,7 +27,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ReviewRatingActivity : BaseDarkActivity<ActivityPersonalTrainersBinding, PersonalTrainerViewModel>(
+class ReviewRatingActivity : BaseDarkActivity<ActivityReviewRatingBinding, PersonalTrainerViewModel>(
     PersonalTrainerViewModel::class.java), View.OnClickListener, SwipeRefreshLayout.OnRefreshListener{
 
     private var currActivity: Activity = this

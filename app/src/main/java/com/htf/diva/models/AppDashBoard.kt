@@ -43,6 +43,11 @@ class AppDashBoard :Serializable {
     @Expose
     var version: String? = null
 
+    @SerializedName("bookings")
+    @Expose
+
+    var bookings:  ArrayList<BookingDetailModel>? = null
+
 
 
     class Offers:Serializable{

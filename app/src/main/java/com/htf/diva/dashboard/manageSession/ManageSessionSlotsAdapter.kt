@@ -1,4 +1,4 @@
-package com.htf.diva.dashboard.adapters
+package com.htf.diva.dashboard.manageSession
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -8,19 +8,19 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.htf.diva.R
+import com.htf.diva.callBack.IListItemClickListener
+import com.htf.diva.dashboard.adapters.SlotsAdapter
 import com.htf.diva.models.Slot
 import com.htf.diva.utils.DateUtilss
-import com.htf.diva.callBack.IListItemClickListener
 import kotlinx.android.synthetic.main.row_slots.view.*
-import kotlinx.android.synthetic.main.row_slots.view.ivSelected
 
-class SlotsAdapter (
+class ManageSessionSlotsAdapter  (
     private var currActivity: Activity,
     private var arrSlots: List<Slot>,
     private var iListItemClickListener: IListItemClickListener<Any>
-  ): RecyclerView.Adapter<SlotsAdapter.MyViewHolder>(){
-    var rowIndex = -1
-    inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+     ): RecyclerView.Adapter<ManageSessionSlotsAdapter.MyViewHolder>(){
+     var rowIndex = -1
+     inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         init {
             itemView.rltSlots.setOnClickListener {
                 val model = arrSlots[adapterPosition]
@@ -31,7 +31,7 @@ class SlotsAdapter (
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SlotsAdapter.MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManageSessionSlotsAdapter.MyViewHolder {
         val itemView= LayoutInflater.from(parent.context).inflate(
             R.layout.row_slots, parent, false)
         return MyViewHolder(itemView)
@@ -42,9 +42,9 @@ class SlotsAdapter (
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: SlotsAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ManageSessionSlotsAdapter.MyViewHolder, position: Int) {
         val model=arrSlots[position]
-      /*  rowFitnessCenterBinding!!.slotsModel =model*/
+        /*  rowFitnessCenterBinding!!.slotsModel =model*/
         val startDate= DateUtilss.convertDateFormat(model.startAt, DateUtilss.serverTimeFormat, DateUtilss.targetTimeFormat)
         val endDate= DateUtilss.convertDateFormat(model.endAt, DateUtilss.serverTimeFormat, DateUtilss.targetTimeFormat)
         holder.itemView.tvTime.text= "$startDate-$endDate"

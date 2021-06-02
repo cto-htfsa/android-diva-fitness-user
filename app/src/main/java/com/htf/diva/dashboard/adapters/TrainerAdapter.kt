@@ -1,5 +1,6 @@
 package com.htf.diva.dashboard.adapters
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
@@ -36,6 +37,7 @@ class TrainerAdapter (
         return arrTopTrainer.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TrainerAdapter.MyViewHolder, position: Int) {
         val model=arrTopTrainer[position]
         rowPersonalTrainerBinding!!.topTrainer =model
@@ -43,6 +45,11 @@ class TrainerAdapter (
             holder.itemView.llRating.visibility= View.GONE
         }else{
             holder.itemView.llRating.visibility= View.VISIBLE
+        }
+
+        if(model.totalReviews!=0){
+            holder.itemView.tvReview.visibility=View.VISIBLE
+            holder.itemView.tvReview.text=model.totalReviews.toString()+" "+currActivity.getString(R.string.review)
         }
     }
 

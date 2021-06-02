@@ -189,10 +189,15 @@ class BookingSummaryTrainerCenterActivity : BaseDarkActivity<ActivityCenterTrain
 
 
         /* Selected slots rv*/
-        val mLayout = LinearLayoutManager(currActivity, LinearLayoutManager.VERTICAL, false)
-        rvSelectedSlots.layoutManager = mLayout
-        selectedSlotsAdapter = SelectedSlotAdapter(currActivity, arrSelectedSlots, this)
-        rvSelectedSlots.adapter = selectedSlotsAdapter
+        if (arrSelectedSlots.size>0){
+            llContent.visibility=View.VISIBLE
+            val mLayout = LinearLayoutManager(currActivity, LinearLayoutManager.VERTICAL, false)
+            rvSelectedSlots.layoutManager = mLayout
+            selectedSlotsAdapter = SelectedSlotAdapter(currActivity, arrSelectedSlots, this)
+            rvSelectedSlots.adapter = selectedSlotsAdapter
+        }else{
+            llContent.visibility=View.GONE
+        }
 
         calculateAmount()
 

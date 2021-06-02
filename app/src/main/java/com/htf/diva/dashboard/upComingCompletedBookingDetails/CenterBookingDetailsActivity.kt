@@ -23,6 +23,7 @@ import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.dashboard.adapters.SelectedSlotAdapter
+import com.htf.diva.dashboard.manageSession.ManageSessionActivity
 import com.htf.diva.dashboard.viewModel.BookingDetailsViewModel
 import com.htf.diva.databinding.ActivityBookingDetailsBinding
 import com.htf.diva.models.BookingDetailModel
@@ -33,7 +34,10 @@ import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import kotlinx.android.synthetic.main.activity_booking_details.*
 import kotlinx.android.synthetic.main.layout_booking_review.view.*
+import kotlinx.android.synthetic.main.layout_booking_review.view.ivTrainerImage
+import kotlinx.android.synthetic.main.layout_booking_review.view.tvTrainerName
 import kotlinx.android.synthetic.main.row_home_diet_plan.view.*
+import kotlinx.android.synthetic.main.row_up_coming_booking.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
 
@@ -103,6 +107,7 @@ class CenterBookingDetailsActivity : BaseDarkActivity<ActivityBookingDetailsBind
     private fun setOnClickListener(){
         btnBookingReview.setOnClickListener(this)
         tvCenterDirection.setOnClickListener(this)
+        btnManageSession.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
@@ -115,6 +120,10 @@ class CenterBookingDetailsActivity : BaseDarkActivity<ActivityBookingDetailsBind
               val addresses=  "http://maps.google.com/maps?daddr="+bookingDetailModel.latitude+","+bookingDetailModel.longitude
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(addresses))
                 startActivity(intent)
+            }
+
+            R.id.btnManageSession->{
+                ManageSessionActivity.open(currActivity,bookingDetailModel)
             }
         }
     }
@@ -145,23 +154,30 @@ class CenterBookingDetailsActivity : BaseDarkActivity<ActivityBookingDetailsBind
         }
 
         /* Selected slots rv*/
-        if(bookingDetail.trainerId!=null){
+        if(bookingDetail.slots!!.isNotEmpty()){
             llPersonalTrainer.visibility=View.VISIBLE
+            llSlots.visibility=View.VISIBLE
             val mLayout = LinearLayoutManager(currActivity, LinearLayoutManager.VERTICAL, false)
             rvSelectedSlots.layoutManager = mLayout
-            selectedSlotsAdapter = SelectedSlotAdapter(currActivity, bookingDetail.slots!!, this)
+            selectedSlotsAdapter = SelectedSlotAdapter(currActivity, bookingDetail.slots, this)
             rvSelectedSlots.adapter = selectedSlotsAdapter
         }else{
-            llPersonalTrainer.visibility=View.GONE
+            llPersonalTrainer.visibility=View.VISIBLE
+            llManageSlots.visibility=View.VISIBLE
+            llSlots.visibility=View.GONE
         }
+
 
         if(bookingDetail.trackingId!=null){
             lnrTrainer.visibility=View.VISIBLE
             tvTrainerName.text=bookingDetail.trainerName
+            Glide.with(currActivity).load(Constants.Urls.TRAINER_IMAGE_URL +
+                    bookingDetail.trainerImage)
+                .placeholder(R.drawable.user).into(ivTrainerImage)
+            tvTrainerName.text=bookingDetail.trainerName
         } else{
             lnrTrainer.visibility=View.GONE
         }
-
 
     }
 

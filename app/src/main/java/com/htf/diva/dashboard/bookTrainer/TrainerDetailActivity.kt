@@ -1,5 +1,6 @@
 package com.htf.diva.dashboard.bookTrainer
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -31,6 +32,7 @@ import kotlinx.android.synthetic.main.activity_trainer_details.*
 import kotlinx.android.synthetic.main.activity_trainer_details.rbPackage
 import kotlinx.android.synthetic.main.activity_trainer_details.rvSelectTenure
 import kotlinx.android.synthetic.main.layout_privacy_policy.view.*
+import kotlinx.android.synthetic.main.row_personal_trainers.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -153,6 +155,7 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
 
 
 
+     @SuppressLint("SetTextI18n")
      private fun setTrainerDetail(trainerDetails: Trainer){
          val perSessionPrice= MathUtils.convertDoubleToString(trainerDetails.perSessionPrice!!.toDouble())
          val str= currActivity.getString(R.string.sar_amount).replace("[X]",perSessionPrice)
@@ -170,7 +173,7 @@ class TrainerDetailActivity : BaseDarkActivity<ActivityTrainerDetailsBinding, Pe
              tvReview.visibility=View.GONE
          }else{
              tvReview.visibility=View.VISIBLE
-             tvReview.text=trainerDetails.totalReviews.toString()
+             tvReview.text=trainerDetails.totalReviews.toString()+" "+currActivity.getString(R.string.review)
          }
 
          tvAboutUs.text=trainerDetails.aboutUs
