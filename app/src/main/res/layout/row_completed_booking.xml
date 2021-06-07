@@ -92,9 +92,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/font_13sp"
-                    android:text="Badr Branch"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:fontFamily="@font/avenir_black" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/avenir_light"
+                    android:textColor="@color/colorPrimaryDark" />
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -120,7 +120,8 @@
                         android:layout_marginStart="@dimen/margin_8dp"
                         android:textSize="@dimen/font_12sp"
                         android:textColor="@color/colorTextHeading"
-                        android:fontFamily="@font/avenir_black" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/avenir_light"/>
 
                 </LinearLayout>
 
@@ -151,7 +152,8 @@
                         android:gravity="center_vertical"
                         android:text=""
                         android:textColor="@color/colorPrimaryDark"
-                        android:fontFamily="@font/avenir_black" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/avenir_light" />
 
 
 
@@ -171,7 +173,6 @@
             android:layout_marginEnd="@dimen/dimen_5"
             android:padding="@dimen/dimen_7"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16dp"
             android:layout_marginBottom="@dimen/margin_8dp"
             android:orientation="vertical">
 
@@ -215,7 +216,8 @@
                         android:text="Ala Alkhateeb"
                         android:textSize="@dimen/font_14sp"
                         android:textColor="@color/colorTextHeading"
-                        android:fontFamily="@font/avenir_black" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/avenir_light" />
 
                 </LinearLayout>
 

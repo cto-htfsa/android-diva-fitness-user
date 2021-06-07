@@ -40,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/font_13sp"
                 android:textColor="@color/colorPrimaryDark"
-                android:fontFamily="@font/avenir_black" />
+                android:textStyle="bold"
+                android:fontFamily="@font/avenir_light" />
 
             <RelativeLayout
                 android:layout_marginStart="8dp"

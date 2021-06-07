@@ -40,7 +40,8 @@
                     android:layout_marginStart="8dp"
                     android:textSize="@dimen/font_14sp"
                     android:textColor="@color/colorPrimaryDark"
-                    android:fontFamily="@font/avenir_black" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/avenir_light" />
 
 
                     <RelativeLayout
@@ -57,7 +58,8 @@
                             android:text=""
                             android:textSize="@dimen/font_12sp"
                             android:textColor="@color/colorPrimaryDark"
-                            android:fontFamily="@font/avenir_black" />
+                            android:textStyle="bold"
+                            android:fontFamily="@font/avenir_light" />
 
                         <ImageView
                             android:layout_alignParentEnd="true"

@@ -168,7 +168,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
 
                  // Schedule workout and diet plan data
 
-               if (appDashBoard.myScheduled!!.workoutCompleted!!.caloriesBurn!=null){
+               if (appDashBoard.myScheduled!!.workoutCompleted!=null){
                    binding.root.lnrMyWorkout.visibility=View.VISIBLE
                    setDietPlanWorkout(appDashBoard.myScheduled!!)
                    binding.root.llCheckWork_today_dietPlan.visibility=View.VISIBLE
