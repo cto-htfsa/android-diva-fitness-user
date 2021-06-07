@@ -315,10 +315,7 @@ class CenterDetailBookingActivity : BaseDarkActivity<ActivityCenterDetailBooking
     private fun calculatePrice(joinCenterWithFriends: String?) {
         if (joinCenterWithFriends!="1"){
           joiningPrice= joinCenterWithFriends!!.toDouble()*packageSelected.price!!.toDouble()
-            val payAmount= currActivity.getString(R.string.pay_sar).replace(
-                "[X]",
-                joiningPrice.toString()
-            )
+            val payAmount= currActivity.getString(R.string.pay_sar).replace("[X]", joiningPrice.toString())
             btnBookCenter.text=payAmount
         }else{
             sessionPriceCalculate=packageSelected.price.toString()
