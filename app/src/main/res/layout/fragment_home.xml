@@ -540,6 +540,71 @@
                         </LinearLayout>
 
                     </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/lnrOnRest"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_marginEnd="@dimen/margin_8dp"
+                        android:layout_marginStart="@dimen/margin_4dp"
+                        android:background="@drawable/btn_bg"
+                        android:visibility="gone"
+                        android:backgroundTint="@color/colorBranchBg4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_marginTop="@dimen/margin_8dp"
+                            android:src="@drawable/rest"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/dimen_20"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dimen_100">
+                        </ImageView>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_no_onRest_workout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:textAlignment="center"
+                                android:text="@string/am_on_rest"
+                                android:textStyle="bold"
+                                android:layout_marginTop="@dimen/margin_16dp"
+                                android:fontFamily="@font/avenir_light"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="@dimen/font_20sp" />
+
+                            <TextView
+                                android:id="@+id/btn_create_rest_workout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_16dp"
+                                android:background="@drawable/btn_bg"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="@dimen/dimen_20"
+                                android:fontFamily="@font/avenir_roman"
+                                android:paddingStart="@dimen/margin_16dp"
+                                android:paddingTop="@dimen/dimen_10"
+                                android:paddingEnd="@dimen/margin_16dp"
+                                android:paddingBottom="@dimen/dimen_10"
+                                android:text="@string/create_workout"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/font_12sp"
+                                android:textAllCaps="false"/>
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+
 
                      <LinearLayout
                          android:id="@+id/llCheckWork_today_dietPlan"

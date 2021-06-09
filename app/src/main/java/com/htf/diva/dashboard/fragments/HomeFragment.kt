@@ -28,6 +28,7 @@ import com.htf.diva.dashboard.adapters.TrainerAdapter
 import com.htf.diva.dashboard.bookFitnessCenter.CenterActivity
 import com.htf.diva.dashboard.bookFitnessCenter.CenterDetailBookingActivity
 import com.htf.diva.dashboard.bookTrainer.TrainerDetailActivity
+import com.htf.diva.dashboard.homeWorkoutPlan.CreateWorkoutPlanActivity
 import com.htf.diva.dashboard.manageSession.ManageSlotAdapter
 import com.htf.diva.dashboard.ui.HomeActivity
 import com.htf.diva.dashboard.ui.PersonalTrainersActivity
@@ -56,6 +57,8 @@ import kotlinx.android.synthetic.main.fragment_home.tvPlanCalories
 import kotlinx.android.synthetic.main.fragment_home.tvPlanFat
 import kotlinx.android.synthetic.main.fragment_home.tvPlanProtien
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.fragment_home.view.lnrMyWorkout
+import kotlinx.android.synthetic.main.fragment_home.view.lnrOnRest
 import kotlinx.android.synthetic.main.fragment_home.workoutProgress
 import java.text.SimpleDateFormat
 import java.util.*
@@ -85,8 +88,10 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
         viewModelInitialize()
         if(currUser==null){
         } else{
-            val nameStr=getString(R.string.hey_name)
-            binding.root.tvHeyMsg.text=nameStr.replace("[x]", currUser.user!!.name!!)
+            if(currUser.user!!.name!=null){
+                val nameStr=getString(R.string.hey_name)
+                binding.root.tvHeyMsg.text=nameStr.replace("[x]", currUser.user!!.name!!)
+            }
         }
         return binding.root
     }
@@ -96,6 +101,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
         binding.root.llBuyMembership.setOnClickListener(this)
         binding.root.tvTodaysDiet.setOnClickListener(this)
         binding.root.tvTodaysWorkout.setOnClickListener(this)
+        binding.root.btn_create_rest_workout.setOnClickListener(this)
 
     }
 
@@ -111,7 +117,9 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
              R.id.tvTodaysWorkout -> {
                  HomeActivity.open(currActivity, "TodayWorkout")
             }
-
+            R.id.btn_create_rest_workout -> {
+                CreateWorkoutPlanActivity.open(currActivity, "comeFromNoWorkout")
+            }
 
             R.id.llBuyMembership->{
                 val currUser= AppPreferences.getInstance(currActivity).getUserDetails()
@@ -150,10 +158,6 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
 
                 if (appDashBoard.bookings!=null){
                     for (booking in appDashBoard.bookings!!){
-                       /* if(booking.slots!!.isEmpty()){
-                            binding.root.rv_manage_slots.visibility=View.VISIBLE
-                            setManageSlot(appDashBoard.bookings)
-                        }*/
                         binding.root.rv_manage_slots.visibility=View.VISIBLE
                         setManageSlot(appDashBoard.bookings)
                     }
@@ -168,6 +172,10 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
 
                  // Schedule workout and diet plan data
 
+            if (appDashBoard.isDayRest==1){
+                binding.root.lnrMyWorkout.visibility=View.GONE
+                binding.root.lnrOnRest.visibility=View.VISIBLE
+            }else{
                if (appDashBoard.myScheduled!!.workoutCompleted!=null){
                    binding.root.lnrMyWorkout.visibility=View.VISIBLE
                    setDietPlanWorkout(appDashBoard.myScheduled!!)
@@ -176,6 +184,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
                    binding.root.lnrMyWorkout.visibility=View.GONE
                    binding.root.llCheckWork_today_dietPlan.visibility=View.GONE
                }
+            }
 
 
                   //Plan Expire Date

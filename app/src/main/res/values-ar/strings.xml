@@ -41,14 +41,14 @@
     <string name="youAreNotUpdatedTitle">تحديث جديد</string>
     <string name="update">تحديث</string>
 
-    <string name="min_age">16 سنة</string>
-    <string name="max_age">65 سنة</string>
+    <string name="min_age">12 سنة</string>
+    <string name="max_age">90 سنة</string>
 
-    <string name="min_height">50 سم</string>
-    <string name="max_height">250 سم</string>
+    <string name="min_height">1 سم</string>
+    <string name="max_height">10 سم</string>
 
     <string name="min_weight">20 كجم</string>
-    <string name="max_weight">200 كجم</string>
+    <string name="max_weight">300 كجم</string>
 
     <string name="years">سنة</string>
     <string name="cm">سم</string>
@@ -204,6 +204,7 @@
     <string name="you_havenot_schedule_any_session">You haven\'t schedule any session</string>
     <string name="schedule_session">Schedule Session</string>
     <string name="review">Review</string>
+    <string name="feets">Feets</string>
 
 
 </resources>

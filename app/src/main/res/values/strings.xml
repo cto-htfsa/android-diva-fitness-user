@@ -40,14 +40,14 @@
     <string name="youAreNotUpdatedTitle">Update Available</string>
     <string name="update">Update</string>
 
-    <string name="min_age">16 years</string>
-    <string name="max_age">65 years</string>
+    <string name="min_age">12 years</string>
+    <string name="max_age">90 years</string>
 
-    <string name="min_height">50cm</string>
-    <string name="max_height">250cm</string>
+    <string name="min_height">1 Feet</string>
+    <string name="max_height">10 Feet</string>
 
     <string name="min_weight">20kg</string>
-    <string name="max_weight">200kg</string>
+    <string name="max_weight">300kg</string>
 
     <string name="years">years</string>
     <string name="cm">cm</string>
@@ -204,6 +204,7 @@
     <string name="you_havenot_schedule_any_session">You haven\'t schedule any session</string>
     <string name="schedule_session">Schedule Session</string>
     <string name="review">Review</string>
+    <string name="feets">Feets</string>
 
 
 </resources>
