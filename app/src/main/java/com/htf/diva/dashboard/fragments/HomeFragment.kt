@@ -294,10 +294,15 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
             } else{
                 openBuyMemberShipDialog()
             }
-        if (data is AppDashBoard.FitnessCenter){
+          if (data is AppDashBoard.FitnessCenter){
             val currUser= AppPreferences.getInstance(currActivity).getUserDetails()
             if (currUser!=null){
-                CenterDetailBookingActivity.open(currActivity,data)
+                if (AppSession.appDashBoard!!.fitnessCenterSubscription==null){
+                    CenterDetailBookingActivity.open(currActivity,data)
+                }else{
+                    AppUtils.showSnackBar(currActivity,tvError,getString(R.string.you_already_have_membership))
+                }
+
             }else{
                 LoginActivity.open(currActivity, "fromBuyMembership")
             }

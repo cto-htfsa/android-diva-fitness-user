@@ -69,7 +69,7 @@
                         android:fontFamily="@font/avenir_light" />
 
                     <TextView
-                        android:id="@+id/tvManageSession"
+                        android:id="@+id/tvAvlSession"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rect_white_manage_session"
@@ -129,6 +129,7 @@
                         android:fontFamily="@font/avenir_light" />
 
                     <TextView
+                        android:id="@+id/tvRemaining_session"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rect_white_manage_session"

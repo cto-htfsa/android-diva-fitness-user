@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Diva</string>
+    <string name="app_name">Diva Fitness</string>
     <string name="noConnection">No Internet Connection available.</string>
     <string name="turnOnInternet">Turn On your Internet !!</string>
     <string name="mobileData">Mobile data</string>
@@ -205,6 +205,7 @@
     <string name="schedule_session">Schedule Session</string>
     <string name="review">Review</string>
     <string name="feets">Feets</string>
+    <string name="you_already_have_membership">You already have a membership</string>
 
 
 </resources>

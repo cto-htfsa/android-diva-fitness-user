@@ -205,6 +205,7 @@
     <string name="schedule_session">Schedule Session</string>
     <string name="review">Review</string>
     <string name="feets">Feets</string>
+    <string name="you_already_have_membership">You already have a membership</string>
 
 
 </resources>

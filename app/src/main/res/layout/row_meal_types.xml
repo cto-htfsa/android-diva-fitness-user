@@ -15,8 +15,7 @@
         android:layout_marginEnd="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_12dp"
         android:layout_marginBottom="@dimen/margin_4dp"
-        android:padding="@dimen/dimen_7"
-        android:elevation="@dimen/dimen_1"
+        android:padding="@dimen/dimen_5"
         android:orientation="vertical"
         android:background="@drawable/meal_type_rect_bg">
 

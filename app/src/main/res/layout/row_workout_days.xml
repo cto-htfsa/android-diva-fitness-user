@@ -39,122 +39,191 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:textSize="@dimen/font_16sp"
+                    android:textStyle="bold"
                     android:textColor="@color/colorPrimaryDark"
-                    android:fontFamily="@font/avenir_black" />
+                    android:fontFamily="@font/avenir_light" />
 
-                   <LinearLayout
-                       android:orientation="horizontal"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:text="@string/reps"
-                           android:textColor="@color/colorPrimaryDark"
-                           android:textSize="@dimen/font_13sp"
-                           android:fontFamily="@font/avenir_light"
-                           android:padding="@dimen/dimen_7"
-                           android:layout_marginTop="@dimen/dimen_5"
-                           android:layout_marginStart="@dimen/dimen_7"
-                           android:layout_gravity="center_vertical" />
+                    <LinearLayout
+                        android:layout_alignParentStart="true"
+                        android:id="@+id/ll_reps_sats"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                       <LinearLayout
-                           android:id="@+id/lnrReps"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:orientation="horizontal"
-                           android:visibility="visible"
-                           android:layout_marginStart="@dimen/dimen_7"
-                           android:layout_marginTop="@dimen/dimen_10">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/reps"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/font_13sp"
+                            android:fontFamily="@font/avenir_light"
+                            android:padding="@dimen/dimen_7"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:layout_marginStart="@dimen/dimen_2"
+                            android:layout_gravity="center_vertical" />
 
-                           <LinearLayout
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:orientation="horizontal"
-                               android:layout_marginStart="@dimen/dimen_7"
-                               android:background="@drawable/workout_day">
+                        <LinearLayout
+                            android:id="@+id/lnrReps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:visibility="visible"
+                            android:layout_marginTop="@dimen/dimen_10">
 
-                               <TextView
-                                   android:id="@+id/tvRepetition"
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:text="1"
-                                   android:textColor="@color/colorPrimaryDark"
-                                   android:textSize="@dimen/font_13sp"
-                                   android:fontFamily="@font/avenir_light"
-                                   android:layout_marginStart="@dimen/dimen_7"
-                                   android:layout_gravity="center_vertical" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:background="@drawable/workout_day">
 
-                               <ImageView
-                                   android:id="@+id/ivReps"
-                                   android:layout_width="@dimen/dimen_25"
-                                   android:layout_height="@dimen/dimen_25"
-                                   android:padding="@dimen/dimen_10"
-                                   android:src="@drawable/dropdown"
-                                   app:tint="@color/colorTextLightDark"
-                                   android:layout_gravity="center"/>
+                                <TextView
+                                    android:id="@+id/tvRepetition"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="@dimen/font_13sp"
+                                    android:fontFamily="@font/avenir_light"
+                                    android:layout_marginStart="@dimen/dimen_7"
+                                    android:layout_gravity="center_vertical" />
 
-                           </LinearLayout>
+                                <ImageView
+                                    android:id="@+id/ivReps"
+                                    android:layout_width="@dimen/dimen_25"
+                                    android:layout_height="@dimen/dimen_25"
+                                    android:padding="@dimen/dimen_10"
+                                    android:src="@drawable/dropdown"
+                                    app:tint="@color/colorTextLightDark"
+                                    android:layout_gravity="center"/>
 
-
-                       </LinearLayout>
-
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:text="@string/set"
-                           android:gravity="center_horizontal"
-                           android:layout_marginTop="@dimen/dimen_5"
-                           android:textColor="@color/colorPrimaryDark"
-                           android:textSize="@dimen/font_13sp"
-                           android:fontFamily="@font/avenir_light"
-                           android:layout_marginStart="@dimen/dimen_7"
-                           android:layout_gravity="center_vertical" />
-
-                       <LinearLayout
-                           android:id="@+id/lnrSet"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:orientation="horizontal"
-                           android:visibility="visible"
-                           android:layout_marginStart="@dimen/dimen_7"
-                           android:layout_marginTop="@dimen/dimen_10">
-
-                           <LinearLayout
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:orientation="horizontal"
-                               android:layout_marginStart="@dimen/dimen_7"
-                               android:background="@drawable/workout_day">
-
-                               <TextView
-                                   android:id="@+id/tvSets"
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:text="1"
-                                   android:textColor="@color/colorPrimaryDark"
-                                   android:textSize="@dimen/font_13sp"
-                                   android:fontFamily="@font/avenir_light"
-                                   android:layout_marginStart="@dimen/dimen_7"
-                                   android:layout_gravity="center_vertical" />
-
-                               <ImageView
-                                   android:id="@+id/ivSet"
-                                   android:layout_width="@dimen/dimen_25"
-                                   android:layout_height="@dimen/dimen_25"
-                                   android:padding="@dimen/dimen_10"
-                                   android:src="@drawable/dropdown"
-                                   app:tint="@color/colorTextLightDark"
-                                   android:layout_gravity="center"/>
-
-                           </LinearLayout>
+                            </LinearLayout>
 
 
-                       </LinearLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/set"
+                            android:gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/font_13sp"
+                            android:fontFamily="@font/avenir_light"
+                            android:layout_marginStart="@dimen/dimen_7"
+                            android:layout_gravity="center_vertical" />
+
+                        <LinearLayout
+                            android:id="@+id/lnrSet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:visibility="visible"
+                            android:layout_marginTop="@dimen/dimen_10">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginStart="@dimen/dimen_7"
+                                android:background="@drawable/workout_day">
+
+                                <TextView
+                                    android:id="@+id/tvSets"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="@dimen/font_13sp"
+                                    android:fontFamily="@font/avenir_light"
+                                    android:layout_marginStart="@dimen/dimen_7"
+                                    android:layout_gravity="center_vertical" />
+
+                                <ImageView
+                                    android:id="@+id/ivSet"
+                                    android:layout_width="@dimen/dimen_25"
+                                    android:layout_height="@dimen/dimen_25"
+                                    android:padding="@dimen/dimen_10"
+                                    android:src="@drawable/dropdown"
+                                    app:tint="@color/colorTextLightDark"
+                                    android:layout_gravity="center"/>
+
+                            </LinearLayout>
 
 
-                   </LinearLayout>
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lnrAdd"
+                        android:orientation="horizontal"
+                        android:visibility="visible"
+                        android:layout_gravity="end"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/llAdd_workout_plan"
+                            android:layout_marginTop="@dimen/dimen_7"
+                            android:layout_marginStart="@dimen/margin_16dp"
+                            android:background="@drawable/add_diet_plan"
+                            android:layout_width="wrap_content"
+                            android:gravity="end"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textSize="@dimen/font_14sp"
+                                android:textColor="@color/colorPrimary"
+                                android:paddingTop="@dimen/dimen_5"
+                                android:paddingStart="@dimen/dimen_10"
+                                android:paddingEnd="@dimen/dimen_10"
+                                android:paddingBottom="@dimen/dimen_5"
+                                android:fontFamily="@font/avenir_light"
+                                android:text="@string/add" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/ll_remove_workout_plan"
+                            android:background="@drawable/add_diet_plan"
+                            android:layout_width="wrap_content"
+                            android:layout_marginTop="@dimen/dimen_7"
+                            android:layout_marginStart="@dimen/margin_16dp"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textSize="@dimen/font_10sp"
+                                android:textColor="@color/colorPrimary"
+                                android:paddingTop="@dimen/dimen_5"
+                                android:paddingStart="@dimen/dimen_5"
+                                android:paddingEnd="@dimen/dimen_5"
+                                android:paddingBottom="@dimen/dimen_5"
+                                android:fontFamily="@font/avenir_light"
+                                android:text="@string/remove" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcvRepQty"

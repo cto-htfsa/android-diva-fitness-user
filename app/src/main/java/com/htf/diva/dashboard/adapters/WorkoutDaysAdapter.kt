@@ -4,32 +4,32 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.htf.diva.R
 import com.htf.diva.callBack.IListItemClickListener
-import com.htf.diva.models.UserDietPlans
+import com.htf.diva.dashboard.homeWorkoutPlan.WorkoutDayActivity
 import com.htf.diva.models.UserWorkouts
 import com.htf.diva.models.Workout
 import com.htf.diva.netUtils.Constants
+import kotlinx.android.synthetic.main.row_reps_qty.view.*
 import kotlinx.android.synthetic.main.row_workout_days.view.*
-import kotlinx.android.synthetic.main.row_workout_weekdays.view.*
 
 class WorkoutDaysAdapter(
         private var currActivity: Activity,
         private var arrWorkoutDays: ArrayList<Workout>,
         private var iListItemClickListener: IListItemClickListener<Any>,
+
         private var comeFrom: String?): RecyclerView.Adapter<WorkoutDaysAdapter.MyViewHolder>(){
 
-
+      /*var rowAddIndex = -1
+      var rowRemoveIndex = -1
+*/
     inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         init {
 
-      /*      itemView.root.setOnClickListener {
-                iListItemClickListener.onItemClickListener(arrWorkoutDays[adapterPosition])
-            }
-*/
+
 
         }
     }
@@ -48,12 +48,7 @@ class WorkoutDaysAdapter(
 
     override fun onBindViewHolder(holder: WorkoutDaysAdapter.MyViewHolder, position: Int) {
         val model=arrWorkoutDays[position]
-        if (model.userWorkouts==null){
-            val userModel= UserWorkouts()
-            userModel.repetitions=1
-            userModel.sets=1
-            model.userWorkouts=userModel
-        }
+
         Glide.with(currActivity).load(
             Constants.Urls.WORKOUT_DAY_IMAGE_URL +
                     model.image)
@@ -61,29 +56,70 @@ class WorkoutDaysAdapter(
 
         if (comeFrom=="comeFromNoWorkout"){
             if (model.userWorkouts!=null){
+                holder.itemView.ll_remove_workout_plan.visibility=View.VISIBLE
+                holder.itemView.llAdd_workout_plan.visibility=View.GONE
+                holder.itemView.ll_reps_sats.visibility=View.VISIBLE
                 holder.itemView.tvRepetition.text=model.userWorkouts!!.repetitions.toString()
                 holder.itemView.tvSets.text=model.userWorkouts!!.sets.toString()
             }else{
+                holder.itemView.ll_remove_workout_plan.visibility=View.GONE
+                holder.itemView.llAdd_workout_plan.visibility=View.VISIBLE
+                holder.itemView.ll_reps_sats.visibility=View.GONE
                 holder.itemView.tvRepetition.text=model.repetitions.toString()
                 holder.itemView.tvSets.text=model.sets.toString()
             }
 
         }else{
             if(model.userWorkouts!=null){
+                holder.itemView.ll_remove_workout_plan.visibility=View.VISIBLE
+                holder.itemView.llAdd_workout_plan.visibility=View.GONE
+                holder.itemView.ll_reps_sats.visibility=View.VISIBLE
                 holder.itemView.tvRepetition.text=model.userWorkouts!!.repetitions.toString()
                 holder.itemView.tvSets.text=model.userWorkouts!!.sets.toString()
             }else{
+                holder.itemView.ll_remove_workout_plan.visibility=View.GONE
+                holder.itemView.llAdd_workout_plan.visibility=View.VISIBLE
+                holder.itemView.ll_reps_sats.visibility=View.GONE
                 holder.itemView.tvRepetition.text=model.repetitions.toString()
                 holder.itemView.tvSets.text=model.sets.toString()
             }
         }
+
 
         holder.itemView.tvWorkoutName.text=model.name
 
         val arrayRepetition = intArrayOf(5, 10, 20, 25, 30, 50, 75, 100, 150, 200, 500, 100)
         val arraySet = intArrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13,14,15)
 
+        holder.itemView.llAdd_workout_plan.setOnClickListener {
+            val model=arrWorkoutDays[position]
+            val userModel= UserWorkouts()
+            userModel.repetitions=5
+            userModel.sets=1
+            model.userWorkouts=userModel
+            notifyDataSetChanged()
+            if(currActivity is WorkoutDayActivity){
+                (currActivity as WorkoutDayActivity).addWorkout(model,position)
+            }
+            holder.itemView.ll_reps_sats.visibility=View.VISIBLE
+            holder.itemView.ll_remove_workout_plan.visibility=View.VISIBLE
+            holder.itemView.llAdd_workout_plan.visibility=View.GONE
+        }
 
+        holder.itemView.ll_remove_workout_plan.setOnClickListener {
+            val model=arrWorkoutDays[position]
+            model.userWorkouts=null
+            notifyDataSetChanged()
+            if(currActivity is WorkoutDayActivity){
+                (currActivity as WorkoutDayActivity).removeWorkout(model,position)
+            }
+            holder.itemView.ll_reps_sats.visibility=View.GONE
+            holder.itemView.llAdd_workout_plan.visibility=View.VISIBLE
+            holder.itemView.ll_remove_workout_plan.visibility=View.GONE
+        }
+
+
+ /*
         holder.itemView.lnrReps.setOnClickListener {
             holder.itemView.rcvRepQty.visibility= View.VISIBLE
             holder.itemView.rcvSetQty.visibility= View.GONE
@@ -119,8 +155,13 @@ class WorkoutDaysAdapter(
                 holder.itemView.rcvSetQty.layoutManager = LinearLayoutManager(currActivity, LinearLayoutManager.HORIZONTAL, false)
                 holder.itemView.rcvSetQty.adapter = adapter
             }
-        }
+        }*/
 
+    }
+
+
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
     }
 
 }

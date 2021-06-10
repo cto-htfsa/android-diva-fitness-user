@@ -10,7 +10,6 @@ import com.htf.diva.R
 import com.htf.diva.base.BaseDarkActivity
 import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.dashboard.adapters.WorkoutDaysAdapter
-import com.htf.diva.dashboard.homeDietPlan.DietPlanActivity
 import com.htf.diva.dashboard.viewModel.WorkoutPlanViewModel
 import com.htf.diva.databinding.ActivityWorkoutDayBinding
 import com.htf.diva.models.*
@@ -83,34 +82,49 @@ class WorkoutDayActivity : BaseDarkActivity<ActivityWorkoutDayBinding, WorkoutPl
         }
     }
 
+     fun removeWorkout(model: Workout, position: Int) {
+         arrayWorkoutList!!.filter { it.id==model.id}.map { it.repetitions=model.repetitions
+         it.sets=model.sets }
+         recycler_workout_day.post { mWorkoutDaysAdapter.notifyDataSetChanged() }
+     }
+
+    fun addWorkout(model: Workout, position: Int) {
+         arrayWorkoutList!!.filter { it.id==model.id}.map { it.repetitions=model.repetitions
+         it.sets=model.sets }
+         recycler_workout_day.post { mWorkoutDaysAdapter.notifyDataSetChanged() }
+
+    }
+
+
     fun selectedReps(selectedRepetitionsQty: Int, adapterPosition: Int, cartItemPosition: Int, workoutModel: UserWorkouts) {
-   /*     arrayWorkoutList!!.filter { it.id==workoutModel.id}.map { it.repetitions=selectedRepetitionsQty}*/
+        arrayWorkoutList!!.filter { it.id==workoutModel.id}.map { it.repetitions=selectedRepetitionsQty}
         if (workoutModel==null){
             arrayWorkoutList!![cartItemPosition].userWorkouts!!.repetitions=1
-            workout()
-            mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)
+          //  workout()
+            binding.root.recycler_workout_day.post { mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition) }
         }else{
             arrayWorkoutList!![cartItemPosition].userWorkouts!!.repetitions= selectedRepetitionsQty
-            workout()
-            mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)
+           // workout()
+            binding.root.recycler_workout_day.post { mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition) }
         }
-
-
     }
 
     fun selectedWorkoutSet(selectedSetsQty: Int, adapterPosition: Int, cartItemPosition: Int, workoutModel: UserWorkouts) {
       //   arrayWorkoutList!!.filter { it.id==workoutModel.id}.map { it.sets=selectedRepetitionsQty}
         if (workoutModel==null){
             arrayWorkoutList!![cartItemPosition].userWorkouts!!.sets= 1
-            workout()
-            mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)
+            //workout()
+            binding.root.recycler_workout_day.post { mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition) }
+
         }else{
             arrayWorkoutList!![cartItemPosition].userWorkouts!!.sets= selectedSetsQty
-            workout()
-            mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition)
+          //  workout()
+            binding.root.recycler_workout_day.post { mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition) }
+
         }
 
     }
+
 
 
     override fun onItemClickListener(data: Any) {

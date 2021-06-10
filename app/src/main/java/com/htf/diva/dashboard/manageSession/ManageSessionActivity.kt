@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.toolbar.tvTitle
 
 class ManageSessionActivity : BaseDarkActivity<ActivityManageSessionBinding, ManageSessionViewModel>(
     ManageSessionViewModel::class.java), IListItemClickListener<Any>, View.OnClickListener {
+    private var arrSelectedSlots= ArrayList<Slot>()
     private var position: Int?=null
     private var currActivity: Activity = this
     private var bookingDetail=BookingDetailModel()
@@ -80,8 +81,13 @@ class ManageSessionActivity : BaseDarkActivity<ActivityManageSessionBinding, Man
             reschedule_session.visibility=View.VISIBLE
             llNoSessionAvl.visibility=View.GONE
             llRecyclerView_session.visibility=View.VISIBLE
-            selectedSlot(bookingDetail.slots!!)
+            arrSelectedSlots=bookingDetail.slots!!
+            selectedSlot(arrSelectedSlots)
+            tvAvlSession.text=bookingDetail.baseSessions.toString()
+            val remainingSession=bookingDetail.baseSessions!!-arrSelectedSlots.size
+            tvRemaining_session.text=remainingSession.toString()
         }
+
 
     }
 
@@ -118,6 +124,7 @@ class ManageSessionActivity : BaseDarkActivity<ActivityManageSessionBinding, Man
 
 
     fun selectedSlot(slots: ArrayList<Slot>) {
+        llRecyclerView_session.visibility=View.VISIBLE
         val mLayout = LinearLayoutManager(currActivity, LinearLayoutManager.VERTICAL, false)
         llRecyclerView_session.layoutManager = mLayout
         selctedSlotsAdapter = ManageSelectedSlotAdapter(currActivity, slots)
@@ -131,8 +138,10 @@ class ManageSessionActivity : BaseDarkActivity<ActivityManageSessionBinding, Man
             REQUEST_CODE_MANAGE_SESSION -> {
                 if (resultCode == Activity.RESULT_OK) {
                     if (data != null) {
-                        val arrSelectedSlots = data.getStringArrayListExtra("arrSelectedSlots") as ArrayList<Slot>
-                        selectedSlot(arrSelectedSlots)
+                         arrSelectedSlots = data.getStringArrayListExtra("arrSelectedSlots") as ArrayList<Slot>
+                         arrSelectedSlots.addAll(arrSelectedSlots)
+                         selectedSlot(arrSelectedSlots)
+                       /* tvRemaining_session.text= (bookingDetail.baseSessions!!.toDouble()-arrSelectedSlots.size.toDouble()).toString()*/
                     }
                 }
             }

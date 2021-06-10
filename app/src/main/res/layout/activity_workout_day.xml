@@ -22,8 +22,7 @@
             android:layout_below="@+id/llTop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:context=".auth.ui.NotificationActivity">
+            android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_workout_day"
