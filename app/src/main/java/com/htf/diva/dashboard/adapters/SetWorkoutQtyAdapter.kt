@@ -27,7 +27,7 @@ class SetWorkoutQtyAdapter (
                 notifyDataSetChanged()
                 when (currActivity) {
                     is WorkoutDayActivity -> {
-                        (currActivity as WorkoutDayActivity).selectedWorkoutSet(model, adapterPosition,selectSetItemPosition,userWorkoutModel)
+                       // (currActivity as WorkoutDayActivity).selectedWorkoutSet(model, adapterPosition,selectSetItemPosition,userWorkoutModel)
                     }
                 }
             }
@@ -48,7 +48,7 @@ class SetWorkoutQtyAdapter (
             holder.itemView.lnr_rect_max_qty.setBackgroundResource(R.drawable.rect_select_cart_qty)
             if(currActivity is WorkoutDayActivity){
                 holder.itemView.tvQty.setTextColor(ContextCompat.getColor(currActivity, R.color.white))
-                (currActivity as WorkoutDayActivity).selectedWorkoutSet(model, position, selectSetItemPosition, userWorkoutModel)
+                //(currActivity as WorkoutDayActivity).selectedWorkoutSet(model, position, selectSetItemPosition, userWorkoutModel)
             }
         }else{
             holder.itemView.tvQty.setTextColor(ContextCompat.getColor(currActivity, R.color.black))

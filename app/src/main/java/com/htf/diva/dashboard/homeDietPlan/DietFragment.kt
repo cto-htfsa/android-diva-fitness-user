@@ -2,6 +2,7 @@ package com.htf.diva.dashboard.homeDietPlan
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.text.format.DateFormat
@@ -23,8 +24,10 @@ import com.htf.diva.utils.observerViewModel
 import com.htf.diva.utils.showToast
 import com.htf.diva.models.UserDietPlan
 import com.htf.diva.utils.AppSession
+import com.htf.diva.utils.DateUtilss
 import devs.mulham.horizontalcalendar.HorizontalCalendar
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener
+import kotlinx.android.synthetic.main.activity_trainer_details.*
 import kotlinx.android.synthetic.main.fragment_diet.*
 import kotlinx.android.synthetic.main.fragment_diet.lnrMyWorkout
 import kotlinx.android.synthetic.main.fragment_diet.tvBurned
@@ -50,15 +53,16 @@ import java.util.*
 class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java) ,
     View.OnClickListener{
 
+    private  var defaultSelectedDate= Calendar.getInstance()
     private lateinit var currActivity: Activity
     lateinit var binding: FragmentDietBinding
     private val calendar = Calendar.getInstance()
     private var currentMonth = 0
-    private var currentDate=0
     private lateinit var myDietAdapter: MyMealTypeDietAdapter
     private var selectedDate :String?=""
     private var horizontalCalendar: HorizontalCalendar? = null
-
+    private var currentDate:String?=null
+    private  var startDate= Date()
     var arrMealType: MealType? = null
     var userDietPlan: UserDietPlan? = null
     var arrMealLisType: ArrayList<MealType>? = null
@@ -91,16 +95,16 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
         // Default Date set to Today.
 
         // Default Date set to Today.
-        val defaultSelectedDate = Calendar.getInstance()
+         defaultSelectedDate = Calendar.getInstance()
 
         horizontalCalendar = HorizontalCalendar.Builder(binding.root, R.id.calendarView)
             .range(startDate, endDate)
-            .datesNumberOnScreen(5)
+            .datesNumberOnScreen(7)
             .configure()
             .formatTopText("MMM")
             .formatMiddleText("dd")
             .formatBottomText("EEE")
-            .showTopText(true)
+            .showTopText(false)
             .showBottomText(true)
             .textColor(Color.LTGRAY, Color.BLACK)
             .colorTextMiddle(Color.LTGRAY, Color.parseColor("#371257"))
@@ -137,6 +141,7 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
     private fun setListener() {
         binding.root.btn_create_diet.setOnClickListener(this)
         binding.root.btnEditDietPlan.setOnClickListener(this)
+        binding.root.ivSelectDietDate.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
@@ -147,6 +152,12 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
             R.id.btnEditDietPlan->{
                 DietWeekDaysActivity.open(currActivity,"editDietPlan")
             }
+
+            R.id.ivSelectDietDate->{
+                datePickerStart()
+            }
+
+
         }
     }
 
@@ -306,6 +317,28 @@ class DietFragment : BaseFragment<DitPlanViewModel>(DitPlanViewModel::class.java
         binding.root.dietRecycler.post {myDietAdapter.notifyDataSetChanged()}
     }
 
+    private fun datePickerStart() {
+        val currentDate1 = Calendar.getInstance()
+        val date = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(
+            currActivity,
+            DatePickerDialog.OnDateSetListener { datePicker, year, monthOfYear, dayOfMonth ->
+                date.set(Calendar.MONTH, monthOfYear)
+                date.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                date.set(Calendar.YEAR, year)
+                date.set(year, monthOfYear, dayOfMonth)
+                startDate = date.time
+                currentDate= DateUtilss.targetDateFormat.format(startDate)
+                tvDietPlanDate.text = (DateUtilss.targetDateFormat.format(startDate))
+
+            },
+            currentDate1.get(Calendar.YEAR),
+            currentDate1.get(Calendar.MONTH),
+            currentDate1.get(Calendar.DATE)
+        )
+        datePickerDialog.datePicker.minDate=System.currentTimeMillis()
+        datePickerDialog.show()
+    }
 
 
 }

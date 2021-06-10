@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_centerInParent="true"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardCornerRadius="10dp"
+        android:layout_margin="15dp"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/avenir_light"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/number_picker"
+                android:layout_marginTop="@dimen/dimen_24"
+                android:layout_width="@dimen/dimen_180"
+                android:layout_height="@dimen/dimen_60"
+                app:np_width="@dimen/dimen_180"
+                app:np_height="@dimen/dimen_60"
+                android:layout_centerHorizontal="true"
+                app:np_orientation="horizontal"
+                app:np_dividerColor="@color/colorPrimary"
+                app:np_formatter="@string/number_picker_formatter"
+                app:np_max="59"
+                app:np_min="0"
+                app:np_selectedTextColor="@color/colorPrimary"
+                app:np_selectedTextSize="@dimen/font_16sp"
+                app:np_textColor="@color/colorPrimary"
+                app:np_textSize="@dimen/font_16sp"
+                app:np_value="3" />
+
+
+            <TextView
+                android:id="@+id/btnConfirmReps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:background="@drawable/btn_bg"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/avenir_roman"
+                android:paddingStart="@dimen/dimen_24"
+                android:paddingTop="@dimen/margin_8dp"
+                android:layout_alignParentBottom="true"
+                android:paddingEnd="@dimen/dimen_24"
+                android:paddingBottom="@dimen/margin_8dp"
+                android:text="@string/confirm"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textAllCaps="false"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

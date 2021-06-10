@@ -95,34 +95,18 @@ class WorkoutDayActivity : BaseDarkActivity<ActivityWorkoutDayBinding, WorkoutPl
 
     }
 
+     // Set repetition for workout
 
-    fun selectedReps(selectedRepetitionsQty: Int, adapterPosition: Int, cartItemPosition: Int, workoutModel: UserWorkouts) {
-        arrayWorkoutList!!.filter { it.id==workoutModel.id}.map { it.repetitions=selectedRepetitionsQty}
-        if (workoutModel==null){
-            arrayWorkoutList!![cartItemPosition].userWorkouts!!.repetitions=1
-          //  workout()
-            binding.root.recycler_workout_day.post { mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition) }
-        }else{
-            arrayWorkoutList!![cartItemPosition].userWorkouts!!.repetitions= selectedRepetitionsQty
-           // workout()
-            binding.root.recycler_workout_day.post { mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition) }
-        }
+    fun selectedReps(selectedRepetitionsQty: Int, workoutModel: Workout, position: Int) {
+        arrayWorkoutList!![position].userWorkouts!!.repetitions=selectedRepetitionsQty
+        recycler_workout_day.post { mWorkoutDaysAdapter.notifyDataSetChanged() }
+
     }
+    // Set workoutSets for workout
 
-    fun selectedWorkoutSet(selectedSetsQty: Int, adapterPosition: Int, cartItemPosition: Int, workoutModel: UserWorkouts) {
-      //   arrayWorkoutList!!.filter { it.id==workoutModel.id}.map { it.sets=selectedRepetitionsQty}
-        if (workoutModel==null){
-            arrayWorkoutList!![cartItemPosition].userWorkouts!!.sets= 1
-            //workout()
-            binding.root.recycler_workout_day.post { mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition) }
-
-        }else{
-            arrayWorkoutList!![cartItemPosition].userWorkouts!!.sets= selectedSetsQty
-          //  workout()
-            binding.root.recycler_workout_day.post { mWorkoutDaysAdapter.notifyItemChanged(cartItemPosition) }
-
-        }
-
+    fun selectedWorkoutSet(selectedSetsQty: Int, workoutModel: Workout, position: Int) {
+        arrayWorkoutList!![position].userWorkouts!!.sets= selectedSetsQty
+        recycler_workout_day.post { mWorkoutDaysAdapter.notifyDataSetChanged() }
     }
 
 

@@ -1,10 +1,16 @@
 package com.htf.diva.dashboard.adapters
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import android.widget.LinearLayout
+import android.widget.NumberPicker
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.htf.diva.R
@@ -13,23 +19,20 @@ import com.htf.diva.dashboard.homeWorkoutPlan.WorkoutDayActivity
 import com.htf.diva.models.UserWorkouts
 import com.htf.diva.models.Workout
 import com.htf.diva.netUtils.Constants
-import kotlinx.android.synthetic.main.row_reps_qty.view.*
+import kotlinx.android.synthetic.main.dialog_reps_sets.view.*
 import kotlinx.android.synthetic.main.row_workout_days.view.*
 
 class WorkoutDaysAdapter(
         private var currActivity: Activity,
         private var arrWorkoutDays: ArrayList<Workout>,
         private var iListItemClickListener: IListItemClickListener<Any>,
-
         private var comeFrom: String?): RecyclerView.Adapter<WorkoutDaysAdapter.MyViewHolder>(){
+        var setRepsDialog:AlertDialog?=null
+        private val TAG = "NumberPicker"
+        var numberPicker=""
 
-      /*var rowAddIndex = -1
-      var rowRemoveIndex = -1
-*/
-    inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+       inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         init {
-
-
 
         }
     }
@@ -119,6 +122,22 @@ class WorkoutDaysAdapter(
         }
 
 
+     holder.itemView.lnrReps.setOnClickListener {
+         setWorkoutRepetitions(model,position,"Reps")
+      }
+
+
+    holder.itemView.lnrSet.setOnClickListener {
+         setWorkoutRepetitions(model,position,"sets")
+      }
+
+    /*holder.itemView.lnrReps.setOnClickListener {
+       setWorkoutRepetitions()
+    }*/
+
+
+
+
  /*
         holder.itemView.lnrReps.setOnClickListener {
             holder.itemView.rcvRepQty.visibility= View.VISIBLE
@@ -163,5 +182,59 @@ class WorkoutDaysAdapter(
     override fun getItemViewType(position: Int): Int {
         return super.getItemViewType(position)
     }
+
+
+    private fun setWorkoutRepetitions(workoutModel: Workout?, position: Int, come_from: String) {
+
+        val builder = AlertDialog.Builder(currActivity)
+        val dialogView = currActivity.layoutInflater.inflate(R.layout.dialog_reps_sets, null)
+
+        builder.setView(dialogView)
+        builder.setCancelable(true)
+        setRepsDialog = builder.create()
+        setRepsDialog!!.show()
+
+        numberPicker= dialogView.number_picker.value.toString()
+        dialogView.btnConfirmReps.setOnClickListener {
+            if (come_from=="Reps"){
+                Log.d(TAG, numberPicker)
+                if (numberPicker!=""){
+                    dialogView.tv_title.text=currActivity.getString(R.string.select_repetition)
+                    if(currActivity is WorkoutDayActivity){
+                        (currActivity as WorkoutDayActivity).selectedReps(numberPicker.toInt(),workoutModel!!,position) }
+                    setRepsDialog!!.dismiss()
+                }
+            }else{
+                if (numberPicker!=""){
+                    Log.d(TAG, numberPicker)
+                    dialogView.tv_title.text=currActivity.getString(R.string.select_sets)
+                    if(currActivity is WorkoutDayActivity){
+                        (currActivity as WorkoutDayActivity).selectedWorkoutSet(numberPicker.toInt(),workoutModel!!,position)
+                    }
+                    setRepsDialog!!.dismiss()
+                }
+            }
+
+        }
+
+
+        dialogView.number_picker.setOnScrollListener { picker, scrollState ->
+            if (scrollState == NumberPicker.OnScrollListener.SCROLL_STATE_IDLE) {
+                numberPicker = picker.value.toString()
+            }
+        }
+
+
+        val window = setRepsDialog!!.window
+        window!!.setLayout(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        window.setGravity(Gravity.CENTER)
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+    }
+
+
 
 }

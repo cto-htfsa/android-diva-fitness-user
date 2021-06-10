@@ -28,7 +28,7 @@ class RepQuantityAdapter(
                 notifyDataSetChanged()
                 when (currActivity) {
                     is WorkoutDayActivity -> {
-                        (currActivity as WorkoutDayActivity).selectedReps(model, adapterPosition,selectRepsItemPosition,workoutModel)
+                      //  (currActivity as WorkoutDayActivity).selectedReps(model, adapterPosition,selectRepsItemPosition,workoutModel)
                     }
                 }
             }
@@ -49,12 +49,7 @@ class RepQuantityAdapter(
             holder.itemView.lnr_rect_max_qty.setBackgroundResource(R.drawable.rect_select_cart_qty)
             if(currActivity is WorkoutDayActivity){
                 holder.itemView.tvQty.setTextColor(ContextCompat.getColor(currActivity, R.color.white))
-                (currActivity as WorkoutDayActivity).selectedReps(
-                    model,
-                    position,
-                    selectRepsItemPosition,
-                    workoutModel
-                )
+               // (currActivity as WorkoutDayActivity).selectedReps(model, position, selectRepsItemPosition, workoutModel)
             }
         }else{
             holder.itemView.tvQty.setTextColor(ContextCompat.getColor(currActivity, R.color.black))

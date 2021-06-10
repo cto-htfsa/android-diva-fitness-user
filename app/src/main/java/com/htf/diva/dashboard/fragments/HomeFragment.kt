@@ -176,14 +176,16 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
                 binding.root.lnrMyWorkout.visibility=View.GONE
                 binding.root.lnrOnRest.visibility=View.VISIBLE
             }else{
-               if (appDashBoard.myScheduled!!.workoutCompleted!=null){
+               if (currUser!=null){
+                     if (appDashBoard.myScheduled!!.workoutCompleted!=null){
                    binding.root.lnrMyWorkout.visibility=View.VISIBLE
                    setDietPlanWorkout(appDashBoard.myScheduled!!)
                    binding.root.llCheckWork_today_dietPlan.visibility=View.VISIBLE
                }else{
                    binding.root.lnrMyWorkout.visibility=View.GONE
                    binding.root.llCheckWork_today_dietPlan.visibility=View.GONE
-               }
+                    }
+                }
             }
 
 

@@ -2,6 +2,7 @@ package com.htf.diva.dashboard.homeWorkoutPlan
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -26,10 +27,23 @@ import com.htf.diva.utils.showToast
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import devs.mulham.horizontalcalendar.HorizontalCalendar
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener
+import kotlinx.android.synthetic.main.fragment_diet.*
 import kotlinx.android.synthetic.main.fragment_diet.view.lnrEdit
 import kotlinx.android.synthetic.main.fragment_workout.*
+import kotlinx.android.synthetic.main.fragment_workout.tvBurned
+import kotlinx.android.synthetic.main.fragment_workout.tvCalsLeft
+import kotlinx.android.synthetic.main.fragment_workout.tvConsumed
+import kotlinx.android.synthetic.main.fragment_workout.tvDietConsumedCabs
+import kotlinx.android.synthetic.main.fragment_workout.tvDietConsumedCalories
+import kotlinx.android.synthetic.main.fragment_workout.tvDietConsumedFat
+import kotlinx.android.synthetic.main.fragment_workout.tvDietConsumedProtien
+import kotlinx.android.synthetic.main.fragment_workout.tvPlanCabs
+import kotlinx.android.synthetic.main.fragment_workout.tvPlanCalories
+import kotlinx.android.synthetic.main.fragment_workout.tvPlanFat
+import kotlinx.android.synthetic.main.fragment_workout.tvPlanProtien
 import kotlinx.android.synthetic.main.fragment_workout.view.*
 import kotlinx.android.synthetic.main.fragment_workout.view.lnrMyWorkout
+import kotlinx.android.synthetic.main.fragment_workout.workoutProgress
 import java.util.*
 
 
@@ -39,15 +53,14 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
     private lateinit var currActivity: Activity
     lateinit var binding: FragmentWorkoutBinding
     private val calendar = Calendar.getInstance()
-    private var currentMonth = 0
-    private var currentDate=0
     private lateinit var myWorkoutAdapter: MyWorkoutAdapter
     private lateinit var arrWorkout: ArrayList<UserWorkout>
     private var userWorkout =UserWorkout()
     private var workPlanData =MyWorkoutPlanModel()
     private var requestAddressCode = 101
     private var horizontalCalendar: HorizontalCalendar? = null
-
+    private var currentDate:String?=null
+    private  var startDate= Date()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -79,12 +92,12 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
 
         horizontalCalendar = HorizontalCalendar.Builder(binding.root, R.id.calendarView)
             .range(startDate, endDate)
-            .datesNumberOnScreen(5)
+            .datesNumberOnScreen(7)
             .configure()
             .formatTopText("MMM")
             .formatMiddleText("dd")
             .formatBottomText("EEE")
-            .showTopText(true)
+            .showTopText(false)
             .showBottomText(true)
             .textColor(Color.LTGRAY, Color.BLACK)
             .colorTextMiddle(Color.LTGRAY, Color.parseColor("#371257"))
@@ -119,6 +132,7 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
         binding.root.btn_create_workout.setOnClickListener(this)
         binding.root.btnEditWorkoutPlan.setOnClickListener(this)
         binding.root.btn_create_rest_workout.setOnClickListener(this)
+        binding.root.ivSelectDate.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
@@ -134,6 +148,12 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
             R.id.btnEditWorkoutPlan -> {
                 CreateWorkoutPlanActivity.open(currActivity, "comeFromEditWorkout")
             }
+
+
+            R.id.ivSelectDate->{
+                datePickerStart()
+            }
+
         }
     }
 
@@ -296,5 +316,31 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.myWorkoutPlan(selectedDate)
+    }
 
+    private fun datePickerStart() {
+        val currentDate1 = Calendar.getInstance()
+        val date = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(
+            currActivity,
+            DatePickerDialog.OnDateSetListener { datePicker, year, monthOfYear, dayOfMonth ->
+                date.set(Calendar.MONTH, monthOfYear)
+                date.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                date.set(Calendar.YEAR, year)
+                date.set(year, monthOfYear, dayOfMonth)
+                startDate = date.time
+                currentDate= DateUtilss.targetDateFormat.format(startDate)
+                tvWorkoutDate.text = (DateUtilss.targetDateFormat.format(startDate))
+
+            },
+            currentDate1.get(Calendar.YEAR),
+            currentDate1.get(Calendar.MONTH),
+            currentDate1.get(Calendar.DATE)
+        )
+        datePickerDialog.datePicker.minDate=System.currentTimeMillis()
+        datePickerDialog.show()
+    }
 }

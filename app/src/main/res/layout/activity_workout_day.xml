@@ -18,18 +18,13 @@
             android:id="@+id/llTop"
             layout="@layout/toolbar" />
 
-        <LinearLayout
+
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_below="@+id/llTop"
+            android:layout_above="@+id/lnrbtnSave"
+            android:id="@+id/recycler_workout_day"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_workout_day"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_marginStart="@dimen/margin_16dp"
