@@ -198,7 +198,7 @@ class Invoice :Serializable{
 
     @SerializedName("invoice_no")
     @Expose
-    var invoiceNo: Any? = null
+    var invoiceNo: String? = null
 
     @SerializedName("payable_amount")
     @Expose
@@ -206,7 +206,7 @@ class Invoice :Serializable{
 
     @SerializedName("pdf_file")
     @Expose
-    var pdfFile: Any? = null
+    var pdfFile: String? = null
 
     @SerializedName("status")
     @Expose

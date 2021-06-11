@@ -18,7 +18,7 @@
         <RelativeLayout
             android:id="@+id/rltSelected_slot"
             android:layout_marginStart="10dp"
-            android:background="@color/colorBackground"
+            android:background="@drawable/rect_white_manage_session"
             android:layout_width="match_parent"
             android:layout_marginEnd="@dimen/margin_8dp"
             android:paddingBottom="@dimen/dimen_10"

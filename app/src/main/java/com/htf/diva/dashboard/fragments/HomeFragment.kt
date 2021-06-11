@@ -150,7 +150,11 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
 
     private fun onHandleAppDashBoardSuccessResponse(appDashBoard: AppDashBoard?){
         appDashBoard?.let {
+            /*   binding.root.shimmerFrameLayout.stopShimmerAnimation()
+               binding.root.shimmerFrameLayout.visibility = View.GONE
+*/
                 llMain.visibility=View.VISIBLE
+                 nested.visibility=View.VISIBLE
                 setUpBanner(appDashBoard.banners!!)
                 setTopPersonalTrainer(appDashBoard.topTrainers)
                 setOutFitnessCenter(appDashBoard.fitnessCenters)
@@ -421,6 +425,5 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class.java),
 
 
     }
-
 
 }

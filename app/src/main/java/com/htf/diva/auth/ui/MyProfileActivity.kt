@@ -30,6 +30,7 @@ import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import kotlinx.android.synthetic.main.activity_my_profile.view.*
 import kotlinx.android.synthetic.main.dialog_pick_image.view.*
+import kotlinx.android.synthetic.main.toolbar.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -60,6 +61,7 @@ class MyProfileActivity : BaseDarkActivity<ActivityMyProfileBinding, ProfileView
     override var layout = R.layout.activity_my_profile
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        tvTitle.text=currActivity.getString(R.string.my_profile)
         binding.profileViewModel = viewModel
         setListener()
         viewModelInitialize()
@@ -85,7 +87,7 @@ class MyProfileActivity : BaseDarkActivity<ActivityMyProfileBinding, ProfileView
             tvUserName.text=appUserProfile.name
             tvUserMobile.text="+"+appUserProfile.dialCode+""+appUserProfile.mobile
             tvAge.text=appUserProfile.age+" "+currActivity.getString(R.string.years)
-            tvHeight.text=appUserProfile.height+" "+currActivity.getString(R.string.cm)
+            tvHeight.text=appUserProfile.height+" "+currActivity.getString(R.string.feets)
             tvWeight.text=appUserProfile.weight+" "+currActivity.getString(R.string.kg)
             Glide.with(currActivity).load(Constants.Urls.USER_IMAGE_URL + appUserProfile.profileImage).centerCrop()
                 .placeholder(R.drawable.user).into(ivUser)

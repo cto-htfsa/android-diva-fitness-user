@@ -63,7 +63,7 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
         getExtra()
         if (currUser!=null){
             Glide.with(currActivity).load(Constants.Urls.USER_IMAGE_URL + currUser.user!!.profileImage).centerCrop()
-                .placeholder(R.drawable.user).into(ivUser)
+                .placeholder(R.drawable.female).into(ivUser)
         }
 
         bottomNavigation.onItemSelected = {
@@ -210,7 +210,7 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
         if (currUser!=null){
             dialogView.tvUserName.text= currUser.user!!.name
             Glide.with(currActivity).load(Constants.Urls.USER_IMAGE_URL + currUser.user!!.profileImage).centerCrop()
-                .placeholder(R.drawable.user).into(dialogView.ivUser)
+                .placeholder(R.drawable.female).into(dialogView.ivUser)
         }
 
         if(currUser==null){
@@ -257,6 +257,13 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
             viewModel.logoutUser()
             builder.dismiss()
         }
+
+        dialogView.llnrLogin.setOnClickListener {
+            MyProfileActivity.open(currActivity)
+            builder.dismiss()
+        }
+
+
 
         dialogView.llCustomerSupport.setOnClickListener {
             CustomerSupportActivity.open(currActivity)

@@ -176,7 +176,7 @@ class WorkoutPlanViewModel: BaseViewModel() {
         deviceId: String?,
         deviceType: String?,
         versionName: String?,
-        workoutId: String?) {
+        workOutId: HashMap<String, String?>) {
         if (!DialogUtils.isInternetOn()){
             isInternetOn.postValue(false)
             return
@@ -185,7 +185,7 @@ class WorkoutPlanViewModel: BaseViewModel() {
         scope.launch {
             val result = try {
                 DashboardApiRepo.updateCompletedWorkoutAsync(locale,deviceId,deviceType,
-                    versionName, workoutId)
+                    versionName, workOutId)
             } catch (e: Exception) {
                 errorResult.postValue(e.localizedMessage)
                 isApiCalling.postValue(false)

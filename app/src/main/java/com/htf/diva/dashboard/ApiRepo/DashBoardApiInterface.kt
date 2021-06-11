@@ -368,8 +368,18 @@ interface DashBoardApiInterface {
                          @Field("device_id") device_id: String?,
                          @Field("device_type") device_type: String?,
                          @Field("current_version") current_version: String?,
-                         @Field("workout_id[0]") workoutId: String?):
+                        @FieldMap mealTypeIdHashMap: HashMap<String, String?>):
             Deferred<Response<BaseResponse<Any>>>
+
+
+
+    /*"device_id:31d4c3bd6f1fe287
+    device_type:ios
+    locale:en
+    current_version:1.0
+    workout_id[0]:1
+    workout_id[1]:2
+    workout_id[2]:3"*/
 
 
     @FormUrlEncoded

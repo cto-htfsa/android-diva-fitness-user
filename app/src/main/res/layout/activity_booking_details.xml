@@ -52,9 +52,9 @@
 
                         <LinearLayout
                             android:background="@drawable/rating_bg"
-                            android:layout_width="@dimen/dimen_120"
+                            android:layout_width="@dimen/dimen_100"
                             android:id="@+id/lnrCenter"
-                            android:layout_height="@dimen/dimen_120"
+                            android:layout_height="@dimen/dimen_100"
                             android:gravity="center"
                             android:orientation="vertical"
                             android:padding="@dimen/dimen_7"
@@ -80,7 +80,7 @@
                                 android:id="@+id/tvFitnessCenterName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="@dimen/font_13sp"
+                                android:textSize="@dimen/font_14sp"
                                 android:text=""
                                 android:textColor="@color/colorPrimaryDark"
                                 android:fontFamily="@font/avenir_black" />
@@ -101,6 +101,7 @@
                                     android:fontFamily="@font/avenir_black" />
 
                                 <TextView
+                                    android:id="@+id/tvBookingDate"
                                     android:layout_marginTop="@dimen/margin_4dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -117,18 +118,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
-
-
-                                <TextView
-                                    android:id="@+id/tvBookingDate"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="@dimen/font_12sp"
-                                    android:text=""
-                                    android:layout_gravity="center_vertical"
-                                    android:gravity="center_vertical"
-                                    android:textColor="@color/colorPrimaryDark"
-                                    android:fontFamily="@font/avenir_light" />
 
                                 <TextView
                                     android:id="@+id/tvPackage"
@@ -200,7 +189,7 @@
 
 
                     <LinearLayout
-                        android:layout_marginTop="@dimen/margin_16dp"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:layout_width="wrap_content"
                         android:layout_marginStart="@dimen/margin_16dp"
                         android:layout_height="wrap_content">
@@ -307,8 +296,8 @@
                     <LinearLayout
                         android:id="@+id/llPackage"
                         android:layout_width="wrap_content"
-                        android:layout_marginTop="@dimen/margin_24dp"
-                        android:layout_marginBottom="@dimen/margin_16dp"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_marginBottom="@dimen/margin_8dp"
                         android:layout_marginStart="@dimen/margin_16dp"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -356,8 +345,7 @@
                     <LinearLayout
                         android:id="@+id/llPeople"
                         android:layout_width="wrap_content"
-                        android:layout_marginTop="@dimen/margin_24dp"
-                        android:layout_marginBottom="@dimen/margin_16dp"
+                        android:layout_marginBottom="@dimen/margin_8dp"
                         android:layout_marginStart="@dimen/margin_16dp"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -420,7 +408,7 @@
                         android:layout_width="match_parent"
                         android:background="@color/colorAgeBg"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_16dp"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:layout_marginBottom="@dimen/margin_8dp"
                         android:padding="@dimen/dimen_7"
                         android:orientation="vertical">
@@ -454,7 +442,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="@dimen/font_14sp"
+                                    android:textSize="@dimen/font_12sp"
                                     android:text="@string/personal_trainer"
                                     android:textColor="@color/colorTextLightDark"
                                     android:fontFamily="@font/avenir_black" />
@@ -465,7 +453,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text=""
-                                    android:textSize="@dimen/font_14sp"
+                                    android:textSize="@dimen/font_12sp"
                                     android:textColor="@color/colorPrimary"
                                     android:fontFamily="@font/avenir_black" />
 
@@ -896,6 +884,7 @@
             android:layout_height="wrap_content">
 
         <TextView
+                android:id="@+id/tvDownloadInvoice"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"

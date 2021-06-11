@@ -379,7 +379,7 @@
             android:paddingStart="@dimen/margin_4dp"
             android:paddingTop="@dimen/margin_12dp"
             android:paddingEnd="@dimen/margin_4dp"
-            android:text="@string/continue_"
+            android:text="@string/save"
             android:paddingBottom="@dimen/margin_12dp"
             android:layout_marginStart="@dimen/dimen_50"
             android:layout_marginEnd="@dimen/dimen_50"

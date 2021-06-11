@@ -288,9 +288,16 @@ class WorkoutFragment : BaseFragment<WorkoutPlanViewModel>(WorkoutPlanViewModel:
 
     /* when user click on workout completed button*/
       fun updateCompletedWorkout(model: UserWorkout, adapterPosition: Int) {
-          userWorkout=model
-          viewModel.updateCompletedWorkout(AppSession.locale, AppSession.deviceId, AppSession.deviceType,
-                  BuildConfig.VERSION_NAME, model.workoutId.toString())
+         userWorkout=model
+        arrWorkout.filter { it.workoutId==model.workoutId }.map { it.workoutCompleted==1}
+        val workoutId = HashMap<String, String?>()
+        for (i in 0.until(arrWorkout.size)) {
+            if (arrWorkout[i].workoutCompleted==1){
+                workoutId["workout_id[$adapterPosition]"] =  arrWorkout[i].workoutId.toString()
+            }
+        }
+        viewModel.updateCompletedWorkout(AppSession.locale, AppSession.deviceId, AppSession.deviceType,
+            BuildConfig.VERSION_NAME, workoutId)
       }
 
 

@@ -204,11 +204,13 @@
     <string name="you_havenot_schedule_any_session">You haven\'t schedule any session</string>
     <string name="schedule_session">Schedule Session</string>
     <string name="review">Review</string>
-    <string name="feets">Feets</string>
+    <string name="feets">Feet</string>
     <string name="you_already_have_membership">You already have a membership</string>
     <string name="number_picker_formatter">%02d</string>
     <string name="select_repetition">Select Repetition</string>
     <string name="select_sets">Select Sets</string>
+    <string name="downloading">Downloading…</string>
+    <string name="do_you_want_to_open_file">Do you want to open file.</string>
 
 
 </resources>

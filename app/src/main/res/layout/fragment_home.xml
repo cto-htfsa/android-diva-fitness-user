@@ -90,6 +90,26 @@
         </RelativeLayout>
 
 
+
+     <!--   <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerFrameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/home_banner_shimmer" />
+            </LinearLayout>
+
+
+        </com.facebook.shimmer.ShimmerFrameLayout>-->
+
+
     <androidx.core.widget.NestedScrollView
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
@@ -98,7 +118,10 @@
             android:id="@+id/nested"
             android:layout_height="wrap_content">
 
-            <LinearLayout
+
+
+
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -106,6 +129,7 @@
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/vpBanner"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_150" />
 
@@ -606,60 +630,60 @@
                     </LinearLayout>
 
 
-                     <LinearLayout
-                         android:id="@+id/llCheckWork_today_dietPlan"
-                         android:orientation="horizontal"
-                         android:visibility="gone"
-                         android:layout_width="match_parent"
-                         android:layout_marginTop="@dimen/margin_8dp"
-                         android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/llCheckWork_today_dietPlan"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_height="wrap_content">
 
-                         <TextView
-                             android:id="@+id/tvTodaysDiet"
-                             android:layout_width="0dp"
-                             android:layout_weight="1"
-                             android:layout_height="wrap_content"
-                             android:background="@drawable/btn_bg"
-                             android:layout_gravity="center"
-                             android:gravity="center"
-                             android:layout_marginStart="@dimen/dimen_24"
-                             android:layout_marginEnd="@dimen/dimen_12"
-                             android:layout_marginTop="@dimen/margin_8dp"
-                             android:backgroundTint="@color/colorBranchBg3"
-                             android:layout_marginBottom="@dimen/margin_8dp"
-                             android:fontFamily="@font/avenir_black"
-                             android:paddingStart="@dimen/margin_4dp"
-                             android:paddingTop="@dimen/margin_12dp"
-                             android:paddingEnd="@dimen/margin_4dp"
-                             android:paddingBottom="@dimen/margin_12dp"
-                             android:text="@string/today_diet_plan"
-                             android:textColor="@color/colorRatingBg"
-                             android:textSize="12sp"
-                             android:textAllCaps="false"/>
+                        <TextView
+                            android:id="@+id/tvTodaysDiet"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_bg"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_marginStart="@dimen/dimen_24"
+                            android:layout_marginEnd="@dimen/dimen_12"
+                            android:layout_marginTop="@dimen/margin_8dp"
+                            android:backgroundTint="@color/colorBranchBg3"
+                            android:layout_marginBottom="@dimen/margin_8dp"
+                            android:fontFamily="@font/avenir_black"
+                            android:paddingStart="@dimen/margin_4dp"
+                            android:paddingTop="@dimen/margin_12dp"
+                            android:paddingEnd="@dimen/margin_4dp"
+                            android:paddingBottom="@dimen/margin_12dp"
+                            android:text="@string/today_diet_plan"
+                            android:textColor="@color/colorRatingBg"
+                            android:textSize="12sp"
+                            android:textAllCaps="false"/>
 
 
-                         <TextView
-                             android:id="@+id/tvTodaysWorkout"
-                             android:layout_width="0dp"
-                             android:layout_weight="1"
-                             android:layout_height="wrap_content"
-                             android:layout_marginTop="@dimen/margin_8dp"
-                             android:background="@drawable/btn_bg"
-                             android:layout_gravity="center"
-                             android:gravity="center"
-                             android:backgroundTint="@color/colorBranchBg4"
-                             android:layout_marginEnd="@dimen/dimen_24"
-                             android:layout_marginBottom="@dimen/margin_8dp"
-                             android:fontFamily="@font/avenir_roman"
-                             android:paddingStart="@dimen/margin_4dp"
-                             android:paddingTop="@dimen/margin_12dp"
-                             android:paddingEnd="@dimen/margin_4dp"
-                             android:paddingBottom="@dimen/margin_12dp"
-                             android:text="@string/today_workout"
-                             android:textColor="@color/colorPrimary"
-                             android:textSize="12sp"
-                             android:textAllCaps="false"/>
-                     </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvTodaysWorkout"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_8dp"
+                            android:background="@drawable/btn_bg"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:backgroundTint="@color/colorBranchBg4"
+                            android:layout_marginEnd="@dimen/dimen_24"
+                            android:layout_marginBottom="@dimen/margin_8dp"
+                            android:fontFamily="@font/avenir_roman"
+                            android:paddingStart="@dimen/margin_4dp"
+                            android:paddingTop="@dimen/margin_12dp"
+                            android:paddingEnd="@dimen/margin_4dp"
+                            android:paddingBottom="@dimen/margin_12dp"
+                            android:text="@string/today_workout"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp"
+                            android:textAllCaps="false"/>
+                    </LinearLayout>
 
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -739,12 +763,12 @@
                             android:gravity="center"
                             android:visibility="gone">
 
-                        <ImageView
-                            android:layout_width="@dimen/dimen_20"
-                            android:layout_height="@dimen/dimen_20"
-                            android:src="@drawable/membership"
-                            app:tint="@color/colorPrimary"
-                            android:layout_gravity="center_vertical"/>
+                            <ImageView
+                                android:layout_width="@dimen/dimen_20"
+                                android:layout_height="@dimen/dimen_20"
+                                android:src="@drawable/membership"
+                                app:tint="@color/colorPrimary"
+                                android:layout_gravity="center_vertical"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -767,22 +791,22 @@
                             android:orientation="vertical"
                             android:layout_margin="@dimen/dimen_7">
 
-                        <RelativeLayout
-                            android:id="@+id/rlTitleOurCenter"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/dimen_10"
-                            android:padding="@dimen/dimen_10">
-
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <RelativeLayout
+                                android:id="@+id/rlTitleOurCenter"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:text="@string/our_fitness_center"
-                                android:fontFamily="@font/avenir_black"
-                                android:textColor="@color/colorPrimaryDark"
-                                android:textSize="@dimen/font_12sp" />
+                                android:layout_marginEnd="@dimen/dimen_10"
+                                android:padding="@dimen/dimen_10">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="@string/our_fitness_center"
+                                    android:fontFamily="@font/avenir_black"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="@dimen/font_12sp" />
 
 
                             </RelativeLayout>
@@ -813,6 +837,7 @@
 
 
             </LinearLayout>
+
 
 
         </androidx.core.widget.NestedScrollView>

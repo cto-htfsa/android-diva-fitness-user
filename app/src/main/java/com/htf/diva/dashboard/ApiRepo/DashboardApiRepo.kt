@@ -312,7 +312,7 @@ object DashboardApiRepo : BaseRepository() {
                                      deviceId: String?,
                                      deviceType: String?,
                                      versionName: String?,
-                                     weekDayId: String?): Any? {
+                                    weekDayId: HashMap<String, String?>): Any? {
         return safeApiCall(
                 call ={ retrofitAuthClient.updateCompletedWorkoutAsync(locale, deviceId, deviceType,
                         versionName, weekDayId).await()}

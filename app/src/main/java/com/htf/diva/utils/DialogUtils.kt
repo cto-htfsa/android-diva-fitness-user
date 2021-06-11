@@ -45,7 +45,7 @@ object DialogUtils {
         val dialogView = activity.layoutInflater.inflate(R.layout.dialog_progress, null)
         overlayDialog.setContentView(dialogView)
         overlayDialog.setCanceledOnTouchOutside(false)
-        Glide.with(activity).asGif().load(R.drawable.hr_loader_2).into(overlayDialog.iv_loader)
+     //   Glide.with(activity).asGif().load(R.drawable.hr_loader_2).into(overlayDialog.iv_loader)
         if (!activity.isFinishing) {
             overlayDialog.show()
         }

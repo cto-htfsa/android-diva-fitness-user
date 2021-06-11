@@ -29,9 +29,7 @@ import com.htf.diva.databinding.ActivityBookingDetailsBinding
 import com.htf.diva.models.BookingDetailModel
 import com.htf.diva.models.UpComingBookingModel
 import com.htf.diva.netUtils.Constants
-import com.htf.diva.utils.AppSession
-import com.htf.diva.utils.observerViewModel
-import com.htf.diva.utils.showToast
+import com.htf.diva.utils.*
 import kotlinx.android.synthetic.main.activity_booking_details.*
 import kotlinx.android.synthetic.main.layout_booking_review.view.*
 import kotlinx.android.synthetic.main.layout_booking_review.view.ivTrainerImage
@@ -108,6 +106,7 @@ class CenterBookingDetailsActivity : BaseDarkActivity<ActivityBookingDetailsBind
         btnBookingReview.setOnClickListener(this)
         tvCenterDirection.setOnClickListener(this)
         btnManageSession.setOnClickListener(this)
+        tvDownloadInvoice.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
@@ -125,6 +124,11 @@ class CenterBookingDetailsActivity : BaseDarkActivity<ActivityBookingDetailsBind
             R.id.btnManageSession->{
                 ManageSessionActivity.open(currActivity,bookingDetailModel)
             }
+
+            R.id.tvDownloadInvoice->{
+                DownloaderMangerUtils(currActivity,Constants.Urls.BASE_URL+bookingDetailModel.invoice!!.pdfFile)
+            }
+
         }
     }
 
@@ -141,6 +145,7 @@ class CenterBookingDetailsActivity : BaseDarkActivity<ActivityBookingDetailsBind
         tvJoining_from.text=bookingDetail.joinDate
         tvPackages.text=bookingDetail.packageName
         tvNo_ofPeople.text=bookingDetail.numberOfPeople.toString()
+        tvPayable_amt.text=bookingDetail.payableAmount.toString()
 
         if (bookingDetail.reviews!=null){
             btnBookingReview.visibility=View.GONE
@@ -242,7 +247,7 @@ class CenterBookingDetailsActivity : BaseDarkActivity<ActivityBookingDetailsBind
                 }
         }
 
-        Glide.with(currActivity).load(Constants.Urls.TRAINER_IMAGE_URL + bookingDetailModel.trainerName)
+        Glide.with(currActivity).load(Constants.Urls.TRAINER_IMAGE_URL + bookingDetailModel.trainerImage)
             .placeholder(R.drawable.user).into(dialogView.ivTrainerImage)
 
         dialogView.tvTrainerName.text=bookingDetailModel.trainerName
