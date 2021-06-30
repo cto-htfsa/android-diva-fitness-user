@@ -172,6 +172,10 @@ class TrainerDetailsModel :Serializable {
     @Expose
     var tenureName: String? = null
 
+    @SerializedName("description")
+    @Expose
+    var description : String? = null
+
     @SerializedName("days")
     @Expose
     var days: Int? = null
