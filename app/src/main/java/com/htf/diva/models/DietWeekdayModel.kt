@@ -72,6 +72,10 @@ class DietPlan :Serializable{
     @Expose
     var fats: String? = null
 
+    @SerializedName("unit")
+    @Expose
+    var unit: String? = null
+
     @SerializedName("calories")
     @Expose
     var calories: String? = null
@@ -109,4 +113,10 @@ class UserDietPlans: Serializable{
     @SerializedName("calories")
     @Expose
     var calories: String? = "0.0"
+
+    @SerializedName("unit")
+    @Expose
+    var unit: String? = null
+
+
 }

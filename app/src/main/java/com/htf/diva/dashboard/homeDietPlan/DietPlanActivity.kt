@@ -1,5 +1,6 @@
 package com.htf.diva.dashboard.homeDietPlan
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -32,7 +33,6 @@ class DietPlanActivity: BaseDarkActivity<ActivityDietPlanBinding,
     private var weekDayName:String?=null
     private var weekDayId:String?=null
     private lateinit var dietPlanAdapter: DietPlanAdapter
-    private var dietPlan : DietPlan?=null
     private var mealDietTypeNew = MealDietType()
     var arrDietPlanList: ArrayList<DietPlan>? = null
     private var mealTypeId :Int?=null
@@ -57,6 +57,7 @@ class DietPlanActivity: BaseDarkActivity<ActivityDietPlanBinding,
         getExtra()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun getExtra() {
         val dietWeekDay = intent.getSerializableExtra("mealDietType") as MealDietType?
         mealDietTypeNew=dietWeekDay!!
@@ -90,8 +91,9 @@ class DietPlanActivity: BaseDarkActivity<ActivityDietPlanBinding,
     override fun onItemClickListener(data: Any) {
         if (data is DietPlan){
 
-        }
+         }
     }
+
     private fun setListener() {
         btnSaveDietPlan.setOnClickListener(this)
     }
@@ -101,20 +103,15 @@ class DietPlanActivity: BaseDarkActivity<ActivityDietPlanBinding,
     }
 
     fun dietPlanSelect(model: DietPlan, adapterPosition: Int) {
-        arrDietPlanList!![adapterPosition].userDietPlans!!.quantity=1
-        dietPlanAdapter.notifyDataSetChanged()
+        arrDietPlanList!!.filter { it.id==model.id }.map {it.userDietPlans!!.quantity =1 }
     }
 
-    fun dietPlanAddQty(model: DietPlan, adapterPosition: Int) {
-        arrDietPlanList!![adapterPosition].userDietPlans!!.quantity= model.userDietPlans!!.quantity!!+1
-        dietPlanAdapter.notifyDataSetChanged()
-    }
 
-    fun dietPlanRemoveQty(model: DietPlan, adapterPosition: Int) {
-        dietPlan=model
-        arrDietPlanList!![adapterPosition].userDietPlans!!.quantity=model.userDietPlans!!.quantity!!-1
-        dietPlanAdapter.notifyDataSetChanged()
-    }
+     fun dietPlanUnit(model: DietPlan, adapterPosition: Int){
+         arrDietPlanList!!.filter { it.id==model.id }.map {it.userDietPlans!!.quantity =model.userDietPlans!!.quantity }
+         dietPlanAdapter.notifyItemChanged(adapterPosition)
+
+     }
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {

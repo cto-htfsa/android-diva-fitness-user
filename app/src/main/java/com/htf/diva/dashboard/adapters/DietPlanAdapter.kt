@@ -2,6 +2,8 @@ package com.htf.diva.dashboard.adapters
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,16 +15,19 @@ import com.htf.diva.callBack.IListItemClickListener
 import com.htf.diva.dashboard.homeDietPlan.DietPlanActivity
 import com.htf.diva.models.UserDietPlans
 import com.htf.diva.netUtils.Constants
+import com.htf.diva.utils.AppUtils
 import kotlinx.android.synthetic.main.row_diet_plan.view.*
 import kotlinx.android.synthetic.main.row_workout_days.view.*
 import kotlinx.android.synthetic.main.row_workout_weekdays.view.*
 import okhttp3.internal.userAgent
+import java.util.*
+import kotlin.collections.ArrayList
 
 class DietPlanAdapter(private var currActivity: Activity,
                       private var arrDietWeekDays:ArrayList<DietPlan>,
                       private var iListItemClickListener: IListItemClickListener<Any>):
           RecyclerView.Adapter<DietPlanAdapter.MyViewHolder>(){
-
+    private var timer:Timer?=null
     inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         init {
             itemView.setOnClickListener {
@@ -44,10 +49,6 @@ class DietPlanAdapter(private var currActivity: Activity,
     override fun onBindViewHolder(holder: DietPlanAdapter.MyViewHolder, position: Int) {
         val model=arrDietWeekDays[position]
 
-        holder.itemView.tvUserDiet.text=model.carbs+" "+currActivity.getString(R.string.carbs)+
-                ", "+model.proteins+" "+currActivity.getString(R.string.proteins)+", "+
-                model.fats+" "+currActivity.getString(R.string.fats)+", "+model.calories+
-                " "+currActivity.getString(R.string.calories)
 
        holder.itemView.tvDietName.text=model.name
 
@@ -59,13 +60,15 @@ class DietPlanAdapter(private var currActivity: Activity,
         if (model.userDietPlans!=null){
             holder.itemView.llAdd_diet_plan.visibility=View.GONE
             holder.itemView.llQuantity.visibility=View.VISIBLE
-            holder.itemView.tvNumberOfItems.text=model.userDietPlans!!.quantity.toString()
-         }else{
-            if (model.quantity!=0){
-                holder.itemView.llAdd_diet_plan.visibility=View.GONE
-                holder.itemView.llQuantity.visibility=View.VISIBLE
-                holder.itemView.tvNumberOfItems.text=model.userDietPlans!!.quantity.toString()
+            holder.itemView.tvUnits.text=model.unit.toString()
+            AppUtils.setText(holder.itemView.etValue,model.userDietPlans!!.quantity.toString(),"")
 
+         }else{
+            if (model.unit!=null){
+                holder.itemView.llAdd_diet_plan.visibility=View.VISIBLE
+                holder.itemView.llQuantity.visibility=View.GONE
+                holder.itemView.tvUnits.text=model.unit.toString()
+                /*AppUtils.setText(  holder.itemView.etValue,model.userDietPlans!!.quantity.toString(),"")*/
             }else{
                 holder.itemView.llQuantity.visibility=View.GONE
                 holder.itemView.llAdd_diet_plan.visibility=View.VISIBLE
@@ -74,23 +77,68 @@ class DietPlanAdapter(private var currActivity: Activity,
 
 
         holder.itemView.llAdd_diet_plan.setOnClickListener {
-            when (currActivity) {
-                is DietPlanActivity -> {
-                    if (model.userDietPlans==null){
-                        val userModel= UserDietPlans()
-                          userModel.quantity=1
-                          userModel.calories="0.0"
-                          userModel.carbs="0.0"
-                          userModel.fats="0.0"
-                          model.userDietPlans=userModel
-                        (currActivity as DietPlanActivity).dietPlanSelect(model,position)
-                    }
+            if (model.userDietPlans==null){
+                val userModel= UserDietPlans()
+                userModel.quantity=1
+                userModel.calories="0.0"
+                userModel.carbs="0.0"
+                userModel.fats="0.0"
+                userModel.unit=model.unit
+                model.userDietPlans=userModel
+               /* (currActivity as DietPlanActivity).dietPlanSelect(model,position)*/
 
-                }
-            }
+                holder.itemView.llAdd_diet_plan.visibility=View.GONE
+                holder.itemView.llQuantity.visibility=View.VISIBLE
+                holder.itemView.tvUserDiet.visibility=View.VISIBLE
+                holder.itemView.tvUserDiet.text=model.carbs+" "+currActivity.getString(R.string.carbs)+
+                        ", "+model.proteins+" "+currActivity.getString(R.string.proteins)+", "+
+                        model.fats+" "+currActivity.getString(R.string.fats)+", "+model.calories+
+                        " "+currActivity.getString(R.string.calories)
+
+             }
         }
 
-        holder.itemView.ivSubtract.setOnClickListener {
+        holder.itemView.etValue.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+               val units=s.toString()
+             /*   if(units!="") {
+                    timer = Timer()
+                    timer?.schedule(object : TimerTask() {
+                        override fun run() {
+                            currActivity.runOnUiThread {
+                                if (model.userDietPlans!!.quantity!! >= 1) {
+                                    model.userDietPlans!!.quantity = units.toInt()
+                              *//*      model.quantity= units.toInt()*//*
+                                  *//*  arrDietWeekDays[position].quantity=units
+                                    (currActivity as DietPlanActivity).dietPlanUnit(model, position)*//*
+                                }
+                            }
+                        }
+
+                    }, 3000)
+
+                }*/
+                if (model.userDietPlans!!.quantity!! >= 1) {
+                    model.userDietPlans!!.quantity = units.toInt()
+                    /*      model.quantity= units.toInt()*/
+                    /*  arrDietWeekDays[position].quantity=units
+                      (currActivity as DietPlanActivity).dietPlanUnit(model, position)*/
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+
+            }
+
+        })
+
+     /*   holder.itemView.ivSubtract.setOnClickListener {
             when (currActivity) {
                 is DietPlanActivity -> {
                     if (model.userDietPlans!!.quantity!!>1){
@@ -100,6 +148,8 @@ class DietPlanAdapter(private var currActivity: Activity,
             }
         }
 
+
+
         holder.itemView.ivAdd.setOnClickListener {
             when (currActivity) {
                 is DietPlanActivity -> {
@@ -108,7 +158,7 @@ class DietPlanAdapter(private var currActivity: Activity,
                     }
                 }
             }
-        }
+        }*/
 
     }
 
