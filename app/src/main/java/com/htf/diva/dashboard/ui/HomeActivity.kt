@@ -240,6 +240,7 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
 
         dialogView.llMySubscription.setOnClickListener{
             MySubscriptionActivity.open(currActivity)
+            builder.dismiss()
         }
 
         dialogView.llChangeDietPlan.setOnClickListener {

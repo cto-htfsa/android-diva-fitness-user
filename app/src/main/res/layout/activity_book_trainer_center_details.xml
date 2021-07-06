@@ -278,6 +278,7 @@
                                 android:text="@string/read_policy"
                                 android:gravity="center_vertical"
                                 android:textSize="@dimen/font_10sp"
+                                android:visibility="gone"
                                 android:linksClickable="true"
                                 android:textColor="@color/colorMembershipExpiredBg"
                                 android:autoLink="all"

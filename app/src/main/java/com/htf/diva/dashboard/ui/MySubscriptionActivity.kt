@@ -26,7 +26,7 @@ class MySubscriptionActivity : BaseDarkActivity<ActivityMySubscriptionBinding, M
     override var layout = R.layout.activity_my_subscription
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        tvTitle.text=currActivity.getString(R.string.my_profile)
+        tvTitle.text=currActivity.getString(R.string.my_subscription)
         binding.mySubscriptionViewModel = viewModel
         setListener()
        // viewModelInitialize()

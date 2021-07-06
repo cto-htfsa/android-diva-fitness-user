@@ -87,6 +87,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:layout_above="@+id/ll_powered"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -569,6 +570,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_powered"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

@@ -138,7 +138,7 @@ class FitnessCenterSummaryActivity : BaseDarkActivity<ActivityFitnessCenterBooki
 
         tvPackage_price.text=currActivity.getString(R.string.sar)+" "+AppUtils.roundMathValueFromDouble(amount_after_discount!!.toInt())
 
-        if (offers!=null){
+        if (offers.id!=null){
             rltOfferDiscount.visibility=View.VISIBLE
             discount_amount=offers.discountValue!!.toDouble()
             calculatedAmtAfterDiscount=(amount_after_discount!!*discount_amount!!/100)
