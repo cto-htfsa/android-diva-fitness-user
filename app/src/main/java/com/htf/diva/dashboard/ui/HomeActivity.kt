@@ -238,6 +238,10 @@ class HomeActivity : BaseDarkActivity<ActivityHomeBinding,HomeViewModel>(HomeVie
             dialogView.btnLogout.visibility=View.VISIBLE
         }
 
+        dialogView.llMySubscription.setOnClickListener{
+            MySubscriptionActivity.open(currActivity)
+        }
+
         dialogView.llChangeDietPlan.setOnClickListener {
             DietWeekDaysActivity.open(currActivity,"editDietPlan")
             builder.dismiss()

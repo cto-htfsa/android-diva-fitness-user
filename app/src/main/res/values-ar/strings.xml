@@ -211,6 +211,9 @@
     <string name="select_sets">Select Sets</string>
     <string name="downloading">Downloading…</string>
     <string name="do_you_want_to_open_file">Do you want to open file.</string>
+    <string name="freeze_my_subscription">Freeze My Subscription</string>
+    <string name="my_subscription">My Subcription</string>
+    <string name="joining_date_history">Joining Date History</string>
 
 
 </resources>
