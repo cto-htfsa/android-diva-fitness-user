@@ -214,5 +214,6 @@
     <string name="freeze_my_subscription">Freeze My Subscription</string>
     <string name="my_subscription">My Subcription</string>
     <string name="joining_date_history">Joining Date History</string>
+    <string name="change_joining_date">Change Joining Date</string>
 
 </resources>

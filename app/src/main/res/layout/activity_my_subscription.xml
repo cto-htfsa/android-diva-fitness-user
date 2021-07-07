@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -14,26 +15,288 @@
         android:orientation="vertical"
         android:background="@color/white">
 
-        <include
-            android:id="@+id/llTop"
-            layout="@layout/toolbar" />
+        <RelativeLayout
+            android:id="@+id/rltToolbar"
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dimen_20">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_10">
+
+                <ImageView
+                    android:id="@+id/btnBack"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/dimen_40"
+                    android:padding="@dimen/dimen_10"
+                    android:src="@drawable/ic_back"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    app:tint="@color/white" />
+
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_subscription"
+                    android:fontFamily="@font/avenir_black"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_18sp"
+                    android:layout_centerInParent="true"/>
+
+
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/dimen_10"
-            android:layout_below="@id/llTop">
+            android:background="@color/colorPrimary"
+            android:layout_below="@id/rltToolbar">
 
-       <RelativeLayout
-                android:layout_width="@dimen/dimen_130"
-                android:layout_height="@dimen/dimen_130"
+          <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_300"
                 android:layout_gravity="center">
 
 
+              <ImageView
+                  android:layout_gravity="center"
+                  android:src="@drawable/buy_membership"
+                  android:layout_width="@dimen/dimen_50"
+                  android:layout_height="@dimen/dimen_50">
+              </ImageView>
 
 
-            </RelativeLayout>
+              <TextView
+                  android:layout_marginTop="@dimen/margin_8dp"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center"
+                  android:text="plus one month membership"
+                  android:fontFamily="@font/avenir_black"
+                  android:textColor="@color/white"
+                  android:textSize="@dimen/font_14sp" />
+
+             <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center"
+                  android:text="1 people"
+                 android:layout_marginTop="@dimen/margin_4dp"
+                  android:fontFamily="@font/avenir_black"
+                  android:textColor="@color/colorDiscountStrokeBg"
+                  android:textSize="@dimen/font_14sp" />
+
+
+              <LinearLayout
+                  android:layout_marginEnd="@dimen/margin_16dp"
+                  android:layout_marginStart="@dimen/margin_16dp"
+                  android:layout_marginTop="@dimen/margin_16dp"
+                  android:background="@drawable/rect_my_membership"
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+
+                  <LinearLayout
+                      android:layout_weight="1"
+                      android:layout_marginStart="@dimen/margin_16dp"
+                      android:orientation="vertical"
+                      android:padding="@dimen/dimen_10"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content">
+
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center"
+                          android:text="Starts on"
+                          android:fontFamily="@font/avenir_light"
+                          android:textColor="@color/white"
+                          android:textSize="@dimen/font_12sp" />
+
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center"
+                          android:text="1 people"
+                          android:fontFamily="@font/avenir_black"
+                          android:textColor="@color/white"
+                          android:textSize="@dimen/font_14sp" />
+
+
+                  </LinearLayout>
+
+                  <View
+                      android:layout_width="0.5dp"
+                      android:layout_gravity="center"
+                      android:background="@color/colorAccent"
+                      android:layout_height="@dimen/dimen_50"/>
+
+                   <LinearLayout
+                       android:layout_weight="1"
+                      android:layout_marginStart="@dimen/margin_16dp"
+                      android:orientation="vertical"
+                      android:padding="@dimen/dimen_10"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content">
+
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center"
+                          android:text="End on"
+                          android:fontFamily="@font/avenir_light"
+                          android:textColor="@color/white"
+                          android:textSize="@dimen/font_12sp" />
+
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center"
+                          android:text="1 people"
+                          android:fontFamily="@font/avenir_black"
+                          android:textColor="@color/white"
+                          android:textSize="@dimen/font_14sp" />
+
+
+                  </LinearLayout>
+
+                  <View
+                      android:layout_width="0.5dp"
+                      android:layout_gravity="center"
+                      android:background="@color/colorAccent"
+                      android:layout_height="@dimen/dimen_50"/>
+
+                  <LinearLayout
+                      android:layout_weight="1"
+                      android:layout_marginStart="@dimen/margin_16dp"
+                      android:orientation="vertical"
+                      android:padding="@dimen/dimen_10"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content">
+
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center"
+                          android:text="Tenure"
+                          android:fontFamily="@font/avenir_light"
+                          android:textColor="@color/white"
+                          android:textSize="@dimen/font_12sp" />
+
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center"
+                          android:text="1 people"
+                          android:fontFamily="@font/avenir_black"
+                          android:textColor="@color/white"
+                          android:textSize="@dimen/font_14sp" />
+
+
+                  </LinearLayout>
+
+
+
+              </LinearLayout>
+
+
+                <LinearLayout
+                  android:layout_marginEnd="@dimen/margin_16dp"
+                  android:layout_marginStart="@dimen/margin_16dp"
+                  android:layout_marginTop="@dimen/margin_16dp"
+                  android:background="@drawable/rect_splid_my_membership"
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="@dimen/margin_16dp"
+                            android:paddingBottom="@dimen/margin_16dp"
+                            android:paddingTop="@dimen/margin_16dp"
+                            android:text="Pain Amount SAR 250"
+                            android:fontFamily="@font/avenir_black"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/font_14sp" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:text="@string/download_invoice"
+                            android:textSize="@dimen/font_10sp"
+                            android:layout_marginEnd="@dimen/margin_16dp"
+                            android:drawablePadding="@dimen/dimen_5"
+                            android:textColor="@color/colorPrimary"
+                            android:paddingTop="@dimen/dimen_5"
+                            android:paddingBottom="@dimen/dimen_5"
+                            android:paddingStart="@dimen/dimen_15"
+                            android:paddingEnd="@dimen/dimen_15"
+                            android:background="@drawable/rect_payment_white_solid"/>
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+              <RelativeLayout
+                  android:layout_marginEnd="@dimen/margin_16dp"
+                  android:layout_marginStart="@dimen/margin_16dp"
+                  android:layout_marginTop="@dimen/margin_16dp"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center"
+                      android:text="Freeze My Subscription"
+                      android:layout_alignParentStart="true"
+                      android:layout_marginTop="@dimen/margin_4dp"
+                      android:fontFamily="@font/avenir_black"
+                      android:textColor="@color/colorDiscountStrokeBg"
+                      android:textSize="@dimen/font_14sp" />
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center"
+                      android:layout_alignParentEnd="true"
+                      android:layout_marginTop="@dimen/margin_4dp"
+                      android:layout_marginStart="@dimen/margin_16dp"
+                      android:text="@string/change_joining_date"
+                      android:fontFamily="@font/avenir_black"
+                      android:textColor="@color/white"
+                      android:textSize="@dimen/font_14sp" />
+
+
+
+              </RelativeLayout>
+
+          </LinearLayout>
 
 
         </LinearLayout>
