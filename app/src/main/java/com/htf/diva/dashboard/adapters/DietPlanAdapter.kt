@@ -52,9 +52,7 @@ class DietPlanAdapter(private var currActivity: Activity,
 
        holder.itemView.tvDietName.text=model.name
 
-        Glide.with(currActivity).load(
-                Constants.Urls.MEAL_IMAGE_URL +
-                        model.image)
+        Glide.with(currActivity).load(Constants.Urls.MEAL_IMAGE_URL+model.image)
                 .placeholder(R.drawable.user).into(holder.itemView.ivDiet)
 
         if (model.userDietPlans!=null){
@@ -68,7 +66,6 @@ class DietPlanAdapter(private var currActivity: Activity,
                 holder.itemView.llAdd_diet_plan.visibility=View.VISIBLE
                 holder.itemView.llQuantity.visibility=View.GONE
                 holder.itemView.tvUnits.text=model.unit.toString()
-                /*AppUtils.setText(  holder.itemView.etValue,model.userDietPlans!!.quantity.toString(),"")*/
             }else{
                 holder.itemView.llQuantity.visibility=View.GONE
                 holder.itemView.llAdd_diet_plan.visibility=View.VISIBLE
